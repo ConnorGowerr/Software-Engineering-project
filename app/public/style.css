@@ -1,3 +1,5 @@
+/* Generics */
+
 body {
     background-color: #1C1F21;
     text-align: center;
@@ -24,46 +26,57 @@ input {
     backdrop-filter: blur(10px);
 }
 
+/* Classes */
+
 .box {
     background-color: #383F42;
-    border-width: 1px;
+    border-width: 2px;
     border-color: #EFEDE7;
     border-style: solid;
-    box-shadow: 3px 3px;
+    box-shadow: 5px 5px;
     backdrop-filter: blur(10px);
 }
 
+/* Log In Page Id's */
 
 #hellthTitle {
     font-size: 40px;
     font-weight: bold;
-    
-   
 }
 
-#logInPageSection 
-{
-    display: inline-flex;
+#logInPageSection {
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: row;
 }
 
 #logInBox {
-
     width: 35%;
     height: 35%;
-    padding-bottom: 30%;
-    margin-right: 7.5%;
+    padding-bottom: 20%;
+    margin-left: 6%;
     margin-top: 0%;
     justify-content: center;
     align-items: center;
-    display: inline-flex;
+    display: flex;
+    flex-flow: column;
 }
 
 #logInUsername {
-    width: 45%;
-    height: 10%;
-    display: inline-block;
-    margin-top: 10%;
+    width: 55%;
+    display: block;
+    margin-top: 15%;
     padding: 5px;
+    font-family: 'Poppins';
+    
+}
+
+#logInPassword {
+    width: 55%;
+    display: block;
+    margin-top: 15%;
+    padding: 5px;
+    font-family: 'Poppins';
 }
 
 #OR {
@@ -76,12 +89,9 @@ input {
     top: 50%;
     left: 48%;
     position: absolute;
-    
 }
 
-
 #signUpBox {
-    
     width: 35%;
     height: 35%;
     padding-bottom: 30%;
@@ -89,5 +99,5 @@ input {
     margin-top: 4%;
     justify-content: center;
     align-items: center;
-    display: inline-flex;
+    display: inline-block;
 }
