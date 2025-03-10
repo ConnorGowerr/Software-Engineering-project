@@ -1,0 +1,127 @@
+/* Generics */
+
+body {
+    background-color: #1C1F21;
+    text-align: center;
+}
+  
+h1 {
+    color: #EFEDE7;
+    font-family: 'Oswald';
+    text-shadow: 2px 2px 4px #000000;
+}
+  
+h2 {
+    color: #EFEDE7;
+    font-family: 'Oswald';
+    text-shadow: 2px 2px 4px #000000;
+}
+  
+input {
+    background-color: #EFEDE7;
+    border-width: 3px;
+    border-color: #B0B0B0;
+    border-style: solid;
+    box-shadow: 5px 5px;
+    backdrop-filter: blur(10px);
+}
+  
+/* Classes */
+
+.box {
+    background-color: #383F42;
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    box-shadow: 5px 5px;
+    backdrop-filter: blur(10px);
+}
+
+.iconBox {
+    background-color: #B0B0B0;
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    box-shadow: 5px 5px;
+    backdrop-filter: blur(10px);
+}
+  
+/* Log In Page Id's */
+
+#hellthTitle {
+    font-size: 40px;
+    font-weight: bold;
+}
+  
+#loginPageSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+#logInBox {
+    width: 35%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 17%;
+    margin-right: 2%;
+}
+
+#signUpBox {
+    width: 35%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 35%;
+    margin-left: 2%;
+}
+  
+#logInUsername {
+    width: 55%;
+    margin-top: 15%;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-size: large;
+}
+
+#logInPassword {
+    width: 55%;
+    margin-top: 15%;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-size: large;
+}
+  
+  #OR {
+    font-size: xx-large;
+    margin: 0 2%;
+  }
+
+  #usernameIconBox {
+    display: inline-block;
+    /* padding-top: 4%;
+    padding-bottom: 4%;
+    padding-left: 6%;
+    padding-right: 6%; */
+    padding: 6%;
+
+  }
+
+  #passwordIconBox {
+    display: inline-block;
+    /* padding-top: 4%;
+    padding-bottom: 4%;
+    padding-left: 6%;
+    padding-right: 6%; */
+    padding: 6%;
+
+  }
