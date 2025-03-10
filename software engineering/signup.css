@@ -1,0 +1,103 @@
+body {
+    background-color: #1C1F21;
+    text-align: center;
+    font-family: 'Poppins';
+}
+
+h1 {
+    color: #EFEDE7;
+    font-family: 'Oswald';
+    text-shadow: 2px 2px 4px #000000;
+}
+
+h2 {
+    color: #EFEDE7;
+    font-family: 'Oswald';
+    text-shadow: 2px 2px 4px #000000;
+}
+
+input {
+    background-color: #EFEDE7;
+    border-width: 3px;
+    border-color: #B0B0B0;
+    border-style: solid;
+    box-shadow: 5px 5px;
+    /* backdrop-filter: blur(10px);
+    display:flex;
+    flex-direction: column;
+    padding: 2%;
+    width: 60%;
+    margin-top: 10%; */
+}
+
+
+.inputdiv{
+    /* background-color: #EFEDE7;
+    border-width: 3px;
+    border-color: #B0B0B0; */
+    /* border-style: solid;
+    box-shadow: 5px 5px; */
+    backdrop-filter: blur(10px);
+    display:flex;
+    flex-direction: column;
+    padding: 2%;
+    width: 60%;
+    margin-top: 10%;
+}
+
+#signUpBtn{
+
+}
+
+/* .box {
+    background-color: #383F42;
+    border-width: 1px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    box-shadow: 3px 3px;
+    backdrop-filter: blur(10px);
+} */
+
+
+.hellthTitle {
+    font-size: 40px;
+    font-weight: bold;
+    
+   
+}
+
+.signUpPageSection 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.greyContainer {
+    
+    width: 35%;
+    height: 35%;
+    padding-bottom: 5%;
+    /* margin-left: 7.5%; */
+    margin-top: 2%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction:column;
+    background-color: #383F42;
+    border-width: 1px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    box-shadow: 3px 3px;
+    backdrop-filter: blur(10px);
+}
+
+.logo{
+    height: auto;
+    width: 10%;
+}
+
+#loginLink{
+    color: #EFEDE7;
+}
