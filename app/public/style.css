@@ -9,14 +9,30 @@ h1 {
     text-shadow: 2px 2px 4px #000000;
 }
 
+h2 {
+    color: #EFEDE7;
+    font-family: 'Oswald';
+    text-shadow: 2px 2px 4px #000000;
+}
+
+input {
+    background-color: #EFEDE7;
+    border-width: 3px;
+    border-color: #B0B0B0;
+    border-style: solid;
+    box-shadow: 5px 5px;
+    backdrop-filter: blur(10px);
+}
+
 .box {
     background-color: #383F42;
     border-width: 1px;
     border-color: #EFEDE7;
     border-style: solid;
-    box-shadow: 5px 5px;
+    box-shadow: 3px 3px;
     backdrop-filter: blur(10px);
 }
+
 
 #hellthTitle {
     font-size: 40px;
@@ -25,22 +41,53 @@ h1 {
    
 }
 
+#logInPageSection 
+{
+    display: inline-flex;
+}
+
 #logInBox {
-    width: 50%;
+
+    width: 35%;
     height: 35%;
-    padding-bottom: 20%;
-    margin-left: 25%;
+    padding-bottom: 30%;
+    margin-right: 7.5%;
+    margin-top: 0%;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+}
+
+#logInUsername {
+    width: 45%;
+    height: 10%;
+    display: inline-block;
+    margin-top: 10%;
+    padding: 5px;
+}
+
+#OR {
+    font-size: xx-large;
+    /*display: inline-flex;*/
+    justify-content: center;
+    align-items: center;
+    padding-top: 0%;
+    margin-top: 0%;
+    top: 50%;
+    left: 48%;
+    position: absolute;
+    
+}
+
+
+#signUpBox {
+    
+    width: 35%;
+    height: 35%;
+    padding-bottom: 30%;
+    margin-left: 7.5%;
     margin-top: 4%;
     justify-content: center;
     align-items: center;
-}
-
-#signUpBox {
-    width: 50%;
-    height: 35%;
-    padding-bottom: 10%;
-    margin-left: 25%;
-    margin-top: 7%;
-    justify-content: center;
-    align-items: center;
+    display: inline-flex;
 }
