@@ -13,7 +13,7 @@ h1 {
   
 h2 {
     color: #EFEDE7;
-    font-family: 'Oswald';
+    font-family: 'Poppins';
     text-shadow: 2px 2px 4px #000000;
 }
   
@@ -22,6 +22,7 @@ input {
     border-width: 3px;
     border-color: #B0B0B0;
     border-style: solid;
+    font-family: 'Poppins';
     box-shadow: 5px 5px;
     backdrop-filter: blur(10px);
 }
@@ -51,6 +52,10 @@ input {
 #hellthTitle {
     font-size: 40px;
     font-weight: bold;
+}
+
+#returningUser {
+    font-size: xx-large;
 }
   
 #loginPageSection {
@@ -82,46 +87,61 @@ input {
 }
   
 #logInUsername {
-    width: 55%;
+    width: 100%;
     margin-top: 15%;
     padding-top: 4%;
     padding-bottom: 4%;
     padding-left: 8%;
     padding-right: 8%;
+    margin-right: 5%;
     font-size: large;
 }
 
 #logInPassword {
     width: 55%;
-    margin-top: 15%;
+    margin-top: 20%;
     padding-top: 4%;
     padding-bottom: 4%;
     padding-left: 8%;
     padding-right: 8%;
     font-size: large;
 }
+
+#usernameContainer {
+    display: flex;
+    height: 10%;
+    margin-bottom: 10%;
+    align-items: center;
+}
+
+#passwordContainer {
+    display: flex;
+    height: 10%;
+    align-items: center;
+}
   
   #OR {
     font-size: xx-large;
+    font-family: 'Oswald';
     margin: 0 2%;
   }
 
   #usernameIconBox {
     display: inline-block;
-    /* padding-top: 4%;
-    padding-bottom: 4%;
-    padding-left: 6%;
-    padding-right: 6%; */
-    padding: 6%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 3%;
+    padding-right: 3%; 
+    
 
   }
 
   #passwordIconBox {
     display: inline-block;
-    /* padding-top: 4%;
+    padding-top: 2%;
     padding-bottom: 4%;
     padding-left: 6%;
-    padding-right: 6%; */
-    padding: 6%;
+    padding-right: 6%; 
+    
 
   }
