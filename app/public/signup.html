@@ -2,24 +2,39 @@
 <head>
     <title>Sign Up</title>
     <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 <body>
+    <!-- <nav class="navbar">
+        <button class="nav-btn">Home</button>
+        <button class="nav-btn">Progress</button>
+        <div class="center-btn-container">
+            <button class="center-btn">+</button>
+        </div>
+        <button class="nav-btn">Groups</button>
+        <button class="nav-btn">Help</button>
+    </nav> -->
     <header>
         <h1 class="hellthTitle">Welcome</h1>
     </header>
     <section class="signUpPageSection">
         <div class="greyContainer">
-            <div class="inputdiv">
+            <div class="inputdiv" id="firstdiv">
                 <label for="username">Username</label>
-                <input type="text" id="username" placeholder="Username">
+                <input class="inputClass" type="text" id="username" placeholder="Username*" aria-required="true" required="true">
             </div>
-
-            <input type="password" placeholder="Password">
-            <input type="password" placeholder="Confirm Password">
-            <input type="email" placeholder="Email Address">
-            <button id="signUpBtn">Sign Up</button>
+            <div class="inputdiv">
+                <input class="inputClass" type="password" placeholder="Password*" aria-required="true" required="true">
+            </div>
+            <div class="inputdiv">
+                <input class="inputClass" type="password" placeholder="Confirm Password*" aria-required="true" required="true">
+            </div>
+            <div class="inputdiv">
+                <input class="inputClass"type="email" placeholder="Email Address*" aria-required="true" required="true">
+            </div>
+            <button id="signUpBtn" class="mainBtn">Sign Up</button>
             <a href="login.html" id="loginLink">Return to login page</a>
         </div>
     </section>    
