@@ -11,15 +11,18 @@
     <h1 id = "hellthTitle">Hellth</h1>
     <section id = "loginPageSection">
         <div class = "box" id = "logInBox">
-            <h2>Returning user? Sign in Here!</h2>
+            <h2 id = "returningUser">Returning user? Sign in Here!</h2>
             <form>
-                <input type = "text" id = "logInUsername" placeholder = "Username">
-                    <div class = "iconBox" id = "usernameIconBox">
-
-                    </div>
-                <input type = "password" id = "logInPassword" placeholder = "Password">
-                <div class = "iconBox" id = "passwordIconBox">
-
+                <div id = "usernameContainer">
+                    <input type = "text" id = "logInUsername" placeholder = "Username">
+                        <div class = "iconBox" id = "usernameIconBox">
+                            <img id = "usernameIcon" src = "User.png">
+                        </div>            
+                </div>
+                <div id = "passwordContainer">
+                    <input type = "password" id = "logInPassword" placeholder = "Password">
+                        <div class = "iconBox" id = "passwordIconBox">
+                        </div>
                 </div> 
             </form>
         </div>
