@@ -19,7 +19,8 @@ h2 {
   
 input {
     background-color: #EFEDE7;
-    border-width: 3px;
+    border-width: 4px;
+    border-radius: 15px;
     border-color: #B0B0B0;
     border-style: solid;
     font-family: 'Poppins';
@@ -43,6 +44,8 @@ input {
     border-width: 2px;
     border-color: #EFEDE7;
     border-style: solid;
+    border-radius: 8px;
+    border-width: 3.5px;
     box-shadow: 5px 5px;
     backdrop-filter: blur(10px);
 }
@@ -71,7 +74,7 @@ input {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 17%;
+    padding-bottom: 13.5%;
     margin-right: 2%;
 }
 
@@ -86,62 +89,41 @@ input {
     margin-left: 2%;
 }
   
-#logInUsername {
-    width: 100%;
-    margin-top: 15%;
-    padding-top: 4%;
-    padding-bottom: 4%;
-    padding-left: 8%;
-    padding-right: 8%;
-    margin-right: 5%;
-    font-size: large;
-}
-
-#logInPassword {
-    width: 100%;
-    margin-top: 15%;
-    padding-top: 4%;
-    padding-bottom: 4%;
-    padding-left: 8%;
-    padding-right: 8%;
-    margin-right: 5%;
-    font-size: large;
-}
-
-#usernameContainer {
+#usernameContainer, #passwordContainer {
     display: flex;
     height: 10%;
-    margin-bottom: 10%;
+    margin-bottom: 17.5%;
     align-items: center;
+    justify-content: space-between;
 }
 
-#passwordContainer {
-    display: flex;
-    height: 10%;
-    align-items: center;
+#logInUsername, #logInPassword {
+    margin-top: 15%;
+    margin-right: 5%;
+    font-size: large;
+    padding: 4.5%;
+    flex: 1; 
+    margin: 0;
+    box-sizing: border-box; 
 }
-  
-  #OR {
+
+#usernameIconBox, #passwordIconBox {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    flex-shrink: 0; 
+    width: 50px; 
+    height: 50px; 
+    margin-left: 10px; 
+    box-sizing: border-box;
+}
+
+#OR {
     font-size: xx-large;
     font-family: 'Oswald';
     margin: 0 2%;
   }
 
-  #usernameIconBox {
-    display: inline-block;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-left: 3%;
-    padding-right: 3%; 
-    
-
-  }
-
-  #passwordIconBox {
-    display: inline-block;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-left: 3%;
-    padding-right: 3%; 
-
+  #eyeIcon {
+    margin-top: 1%;
   }
