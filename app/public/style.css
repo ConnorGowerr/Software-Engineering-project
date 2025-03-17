@@ -35,7 +35,7 @@ input {
     border-width: 2px;
     border-color: #EFEDE7;
     border-style: solid;
-    box-shadow: 5px 5px;
+    box-shadow: 5px 5px #000000;
     backdrop-filter: blur(10px);
 }
 
@@ -46,7 +46,7 @@ input {
     border-style: solid;
     border-radius: 8px;
     border-width: 3.5px;
-    box-shadow: 5px 5px;
+    box-shadow: 5px 5px #000000;
     backdrop-filter: blur(10px);
 }
 
@@ -86,6 +86,7 @@ input {
     align-items: center;
     padding-bottom: 13.5%;
     margin-right: 2%;
+    color: #EFEDE7;
 }
 
 #signUpBox {
@@ -124,7 +125,6 @@ input {
     text-shadow: 2px 2px 4px #000000;
     font-style: italic;
     font-size: small;
-    color: #EFEDE7;
 }
 
 #OR {
