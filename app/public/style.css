@@ -61,7 +61,7 @@ input {
 }
 
 .button {
-    background-image: linear-gradient(#95180F, 50%, #EA7B3A);
+    background-image: linear-gradient(#95180F, 50%, #EA7B3A);   
     border-width: 2px;
     border-color: #EFEDE7;
     border-style: solid;
