@@ -21,6 +21,10 @@ h3 {
     font-family: 'Poppins';
     text-shadow: 2px 2px 4px #000000;
 }
+a {
+    color: #D9D9D9;
+    font-family: 'Poppins';
+}
   
 input {
     background-color: #EFEDE7;
@@ -28,6 +32,16 @@ input {
     border-color: #B0B0B0;
     border-style: solid;
     font-family: 'Poppins';
+    box-shadow: 5px 5px;
+    backdrop-filter: blur(10px);
+}
+select {
+    background-color: #EFEDE7;
+    border-width: 3px;
+    border-color: #B0B0B0;
+    border-style: solid;
+    font-family: 'Poppins';
+    font-size: 'medium';
     box-shadow: 5px 5px;
     backdrop-filter: blur(10px);
 }
@@ -91,7 +105,7 @@ input {
     padding-left: 8%;
     padding-right: 8%;
     margin-right: 5%;
-    font-size: large;
+    font-size: x-large;
 }
 
 #helpMessage {
@@ -116,12 +130,6 @@ input {
     height: 10%;
     align-items: center;
 }
-  
-  #OR {
-    font-size: xx-large;
-    font-family: 'Oswald';
-    margin: 0 2%;
-  }
 
   #reasonIconBox {
     display: inline-block;

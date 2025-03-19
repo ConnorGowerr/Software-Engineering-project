@@ -13,17 +13,19 @@
         <div class = "box" id = "helpBox">
             <h2 id = "titleh2">Got a burning question?</h2>
             <h3 id = "titleh3">One of our admins will be happy to help you!</h3>
+            <a href="faq.html">Before sending a query please make sure to check our FAQ page here</a>
             <form>
                 <div id = "reasonContainer">
-                    <input type = "text" id = "helpReason" placeholder = "Reason for Contact">
-                        <div class = "iconBox" id = "reasonIconBox">
-                            <img id = "usernameIcon" src = "User.png">
-                        </div>            
+                    <select id="helpReason" name="Reason for contact">
+                        <option value="" disabled selected hidden>Reason for Contact</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                      </select>         
                 </div>
                 <div id = "messageContainer">
                     <input type = "text" id = "helpMessage" placeholder = "Type your query here">
-                        <div class = "iconBox" id = "messageIconBox">
-                        </div>
                 </div> 
             </form>
         </div>
