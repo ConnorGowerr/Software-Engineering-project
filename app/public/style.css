@@ -79,6 +79,11 @@ input {
     background-image: linear-gradient(#be1f13, 50%, #ee7736);
 }
 
+.button:active {
+
+    background-image: linear-gradient(#7a130c, 50%, #b95b29);
+}
+
 .form {
     justify-content: center;
 }
