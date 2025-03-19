@@ -50,24 +50,26 @@ h2 {
 }
 
 .mainBtn{
-    background: linear-gradient(#95180F, 60%, #CE6831);
     padding:2% 8%;
     border:#D9D9D9;
     border-style: solid;
-    border-radius: 10px;
-    font-size: xx-large;
+    border-radius: 8px;
+    font-size: 36px;
     font-family: 'Oswald';
     color:#EFEDE7;
     font-weight: 1000;
+    background-image: linear-gradient(#95180F, 50%, #EA7B3A);   
+    border-width: 2px;
     box-shadow: 5px 5px #000000;
+    backdrop-filter: blur(10px);
 }
 
 .mainBtn:hover{
-    background: linear-gradient(#be1f13, 60%, #ee7736);
+    background: linear-gradient(#be1f13, 50%, #ee7736);
 }
 
 .mainBtn:active{
-    background: linear-gradient(#7a130c, 60%, #b95b29);
+    background: linear-gradient(#7a130c, 50%, #b95b29);
 }
 
 /* .box {
