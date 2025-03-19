@@ -6,7 +6,7 @@ app.use(express.static('public'));
 
 app.get('/', (req, res) =>  {
     //sends the static file (login page) once server is run to port 8008
-    res.sendFile('contact.html', {root: 'public'}, (err) => {
+    res.sendFile('help.html', {root: 'public'}, (err) => {
         if(err) {
             console.log(err);
         }
