@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>Sign Up</title>
+    <link rel="icon" href="Logo.png">
     <link rel="stylesheet" href="signup.css">
     <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
@@ -19,25 +20,61 @@
     <header>
         <h1 class="hellthTitle">Welcome</h1>
     </header>
-    <section class="signUpPageSection">
-        <div class="greyContainer">
-            <div class="inputdiv" id="firstdiv">
-                <label for="username">Username</label>
-                <input class="inputClass" type="text" id="username" placeholder="Username*" aria-required="true" required="true">
+    <form>
+        <section class="signUpPageSection">
+            <div id="greyContainer1">
+                <div class="inputdiv" id="firstdiv">
+                    <label for="username" class="signupLabels">Username</label>
+                    <input class="inputClass" type="text" id="username" placeholder="Username*" aria-required="true" required="true">
+                </div>
+                <div class="inputdiv">
+                    <input class="inputClass" type="password" placeholder="Password*" aria-required="true" required="true">
+                </div>
+                <div class="inputdiv">
+                    <input class="inputClass" type="password" placeholder="Confirm Password*" aria-required="true" required="true">
+                </div>
+                <div class="inputdiv">
+                    <input class="inputClass"type="email" placeholder="Email Address*" aria-required="true" required="true">
+                </div>
+                <a href="login.html" id="loginLink">Return to login page</a>
             </div>
-            <div class="inputdiv">
-                <input class="inputClass" type="password" placeholder="Password*" aria-required="true" required="true">
+            <div id="greyContainer2">
+                <div class="inputdiv" id="secondDiv">
+                    <label for="username" class="signupLabels">Full Name</label>
+                    <input class="inputClass" type="text" id="fullName" placeholder="Full Name*" aria-required="true" required="true">
+                </div>
+                <div class="multipleInput">
+                    <div class="inputdiv">
+                        <input class="inputClass" type="number" placeholder="dd*" aria-required="true" required="true">
+                    </div>
+                    <div class="inputdiv">
+                        <input class="inputClass" type="number" placeholder="mm*" aria-required="true" required="true">
+                    </div>
+                    <div class="inputdiv">
+                        <input class="inputClass"type="number" placeholder="yyyy*" aria-required="true" required="true">
+                    </div>
+                </div>
+                <div class="multipleInput">
+                    <div class="inputdiv">
+                        <input class="inputClass" type="number" placeholder="Weight*" aria-required="true" required="true">
+                    </div>
+                    <div class="selectBtn">Kg</div>
+                    <p class="slash">/</p>
+                    <div class="selectBtn">lbs</div>
+                </div>
+                <div class="multipleInput">
+                    <div class="inputdiv">
+                        <input class="inputClass" type="number" placeholder="Height*" aria-required="true" required="true">
+                    </div>
+                    <div class="selectBtn">Cm</div>
+                    <p class="slash">/</p>
+                    <div class="selectBtn">in</div>
+                </div>
+                <button id="signUpBtn" class="mainBtn">Sign Up</button>
+                <a href="login.html" id="loginLink">Return to login page</a>
             </div>
-            <div class="inputdiv">
-                <input class="inputClass" type="password" placeholder="Confirm Password*" aria-required="true" required="true">
-            </div>
-            <div class="inputdiv">
-                <input class="inputClass"type="email" placeholder="Email Address*" aria-required="true" required="true">
-            </div>
-            <button id="signUpBtn" class="mainBtn">Sign Up</button>
-            <a href="login.html" id="loginLink">Return to login page</a>
-        </div>
-    </section>    
+        </section>
+    </form>
     <img class="logo" src="logo.png">
 
 </body>

@@ -39,10 +39,16 @@ h2 {
     padding: 2%;
     width: 60%;
     margin-top: 2%;
+    /* margin-bottom: 17.5%; */
+    justify-content: space-between;
 }
 
 #firstdiv{
     margin-top: 10%;
+}
+
+#secondDiv{
+    margin-top:10%;
 }
 
 #signUpBtn{
@@ -89,18 +95,31 @@ h2 {
    
 }
 
-.signUpPageSection 
+.signUpPageSection
 {
     display: flex;
-    justify-content: center;
+    margin-left: 10%;
     align-items: center;
 }
 
+.selectBtn{
+    border: #B0B0B0 solid 3px;
+    background-color: #FEEEBC;
+    padding: 2%;
+    border-radius: 10px;
+    box-shadow: 5px 5px #000000;
+    backdrop-filter: blur(10px);
+    margin-left: 2%;
+}
 
-.greyContainer {
+.slash{
+    color:#EFEDE7;
+}
+
+#greyContainer1 {
     
-    width: 35%;
-    height: 35%;
+    width: 40%;
+    height: 40%;
     padding-bottom: 5%;
     /* margin-left: 7.5%; */
     margin-top: 2%;
@@ -114,6 +133,38 @@ h2 {
     border-style: solid;
     box-shadow: 3px 3px;
     backdrop-filter: blur(10px);
+}
+
+#greyContainer2{
+    width: 40%;
+    height: 40%;
+    padding-bottom: 5%;
+    margin-top: 2%;
+    margin-left: 8.5%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction:column;
+    background-color: #383F42;
+    border-width: 1px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    box-shadow: 3px 3px;
+    backdrop-filter: blur(10px);
+}
+
+.multipleInput{
+    display:flex;
+    flex-direction:row;
+    width: 32%;
+    margin-bottom: 2%;
+    align-items:center;
+    justify-content: center;
+}
+
+
+.signupLabels{
+    color:#EFEDE7;
 }
 
 .logo{
