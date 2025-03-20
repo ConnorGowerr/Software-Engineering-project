@@ -8,6 +8,9 @@ html, body {
     margin: 0; 
 }
 
+p{
+    color: white;
+}
 h1 {
     color: #EFEDE7;
     font-family: 'Oswald';
@@ -20,6 +23,11 @@ h2 {
     text-shadow: 2px 2px 4px #000000;
 }
   
+h5 {
+    color: #EFEDE7;
+    font-family: 'Oswald';
+    text-shadow: 2px 2px 4px #000000;
+}
 input {
     background-color: #EFEDE7;
     border-width: 3px;
@@ -42,13 +50,7 @@ input {
     backdrop-filter: blur(10px);
 }
 
-.container {
-    background-color: #1C1F21;
-    margin: 0 auto;
-    text-align: center;
-    width: 90%; 
-    min-height: 100%; 
-}
+
 
 .iconBox {
     background-color: #B0B0B0;
@@ -86,7 +88,7 @@ input {
     border: none;
     width: 12%;
     height: 70%;
-    font-size: 2.5vw;  
+    font-size: 3rem;  
     font-weight: bold;
     max-width: fit-content;
     max-height: fit-content;
@@ -107,16 +109,19 @@ input {
 
 .nav-btn:hover {
     opacity: 0.7; 
+    transform: scale(1.1);
+
 }
 .nav-btn i {
     color: white;
+    
 }
 
 
 .center-btn-container {
     position: relative;
-    width: 10%; 
-    height: 8vw; 
+    width: 9vw; 
+    height: 12vh; 
     top: -30%;
     display: flex;
     justify-content: center;
@@ -126,7 +131,7 @@ input {
 .center-btn {
     background: #fff;
     border-radius: 50%; 
-    font-size: 5vw; 
+    font-size: 5rem; 
     color: #CE6B31;
     cursor: pointer;
     transition: 0.3s;
@@ -140,9 +145,13 @@ input {
 
 .center-btn:hover {
     background: #ffcccb;
+    transform: scale(1.1);
+
 }
 .center-btn i {
     color: darkorange;
+    /* transform: scale(1.1); */
+
 }
 
 
@@ -153,6 +162,21 @@ input {
 }
 
 
+/* Achievement stuff */
+
+.AchievementContainer {
+    background-color: #1C1F21;
+    margin: 0 auto;
+    text-align: center;
+    width: 95%; 
+    min-height: 100%; 
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    /* gap: 2%; */
+}
+
+
 #achievementsSection {
     width: 100%;
     height: 65vh; 
@@ -160,47 +184,147 @@ input {
     overflow-y: scroll; 
     overflow-x: hidden; 
     margin-top: 10vh; 
+    
 }
-
 
 
 .achievement {
+    width: 47.5%; 
+    height: 30vh; 
     background-color: #383F42;
     border-width: 2px;
     border-style: solid;
-    height: 50%;
-    /* backdrop-filter: blur(10px); */
     border-radius: 20px;
-    margin-top: 7%;
-    margin-bottom: 3%;
+    margin-top: 1%;
+    margin-bottom: 5%;
+    /* padding-right: 3%; */
     text-align: center;
-    /* padding-right:; */
+    /* box-shadow: 5px 5px 15px rgba(225, 104, 4, 0.842); */
     color: white;
+    transition: transform 0.3s ease-in-out;
+    /* box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1); */
+}
+
+.achievement:hover {
+    transform: scale(1.05);
 }
 
 
+
+
+#achievementsSection{
+    width: 100%;
+    margin: 0 auto;
+    /* border-color: #CE6B31; */
+    /* border-radius: 30px; */
+    /* border-width: 2px; */
+    /* margin-bottom: 20%; */
+    /* border-style: solid; */
+}
+  
+
+#achievementTitle {
+    font-size: 1rem ;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    /* margin-bottom: 1%; */
+    /* margin-top: 5%; */
+    padding-bottom: 2%;
+    /* margin-left: 10%; */
+    /* padding-left: 11px; */
+}
+
+
+#medals {
+    font-size: 2em;
+    /* font-weight: normal; */
+    /* padding: 10, 0%; */
+    color: #CE6B31;
+    text-align: center;
+    /* margin-bottom: 10px; */
+    /* /* padding-top: 7.5%; */
+    padding-bottom: 12.5%;
+    margin-top: 2.5%; 
+
+}
+
+#achievementProgressBar {
+    height: 1.5rem;
+    width: 80%;
+    display: flex;
+    justify-content: flex-start; 
+    background: #ddd;
+    margin-top: auto;
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+    /* margin-left: 7.5%; */
+    /* margin-bottom: 1.75%; */
+    margin: 0 auto; 
+    /* margin-top: 5%; */
+    /* margin-top: 5%; */
+}
+
+.progress-fill {
+    height: 100%;
+    width: 90%;
+    border-radius: 25px;
+    transition: width 1s ease-in-out;
+}
+
+.type1 { 
+    background: linear-gradient(to right, #FF5733, #CE6B31); 
+    box-shadow: 0 0 10px rgba(255, 87, 51, 0.7), 0 0 15px rgba(206, 107, 49, 0.5);
+}
+
+.type2 { 
+    background: linear-gradient(to right, #FF9A1F, white); 
+    box-shadow: 0 0 10px #FF9A1F, 0 0 15px white;
+}
+
+.type3 { 
+    background: linear-gradient(to right, #0059B8, #5CABFF); 
+    box-shadow: 0 0 10px #0059B8, 0 0 15px #5CABFF;
+}
+
+.type4 { 
+    background: linear-gradient(to right, #FFC300, #FF5733); 
+    box-shadow: 0 0 10px rgba(255, 195, 0, 0.7), 0 0 15px rgba(255, 87, 51, 0.5);
+}
 
 
 .top-left-btn {
     position: absolute;
-    top: 20px; 
-    left: 20px; 
-    background-color: white; 
-    border: 3px solid orange; 
-    border-radius: 50%; 
-    width: 9vw; 
+    top: 20px;
+    left: 20px;
+    background-color: white;
+    border: 3px solid orange;
+    border-radius: 50%;
+    width: 7vw;
     height: 9vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3.5rem; 
+    font-size: 5rem; 
     cursor: pointer;
-    color: orange; 
+    color: orange;
     transition: 0.3s;
+     transform: scale(1.02);
+}
+
+.top-left-btn i { 
+    width: 100%;
+    height: 100%;
+    font-size: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .top-left-btn:hover {
     opacity: 0.7; 
+    transform: scale(1.1);
 }
 
 .top-right-btn {
@@ -210,12 +334,12 @@ input {
     background-color: darkorange; 
     border: 3px solid darkorange;
     border-radius: 50%; 
-    width: 9vw;
+    width: 7vw;
     height: 9vh; 
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3.5rem;
+    font-size: 5rem;
     cursor: pointer;
     color: white; 
     transition: 0.3s;
@@ -223,6 +347,16 @@ input {
 
 .top-right-btn:hover {
     opacity: 0.7; 
+    transform: scale(1.1);
+}
+.top-right-btn i { 
+    width: 100%;
+    height: 100%;
+    font-size: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 
@@ -233,6 +367,11 @@ input {
     font-weight: bold;
 }
   
+#achievementPageTitle {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
 #loginPageSection {
     display: flex;
     justify-content: center;
@@ -309,64 +448,6 @@ input {
     
 /* achievement Page Id's */
 
-
-#achievementsSection{
-    width: 90%;
-    margin: 0 auto;
-    /* margin-bottom: 20%; */
-}
-  
-
-#achievementTitle {
-    font-size: 2rem ;
-    font-weight: bold;
-    text-align: center;
-    color: #333;
-    text-align: center;
-    margin-bottom: 1%;
-    /* margin-top: 5%; */
-    padding-bottom: 2%;
-    /* margin-left: 10%; */
-    /* padding-left: 11px; */
-}
-
-
-#medals {
-    font-size: 2em;
-    font-weight: normal;
-    /* padding: 10, 0%; */
-    color: #CE6B31;
-    text-align: center;
-    /* margin-bottom: 10px; */
-    /* padding-top: 7.5%;
-    padding-bottom: 7.5%;
-    margin-bottom: 2.5%;
-    margin-top: 2.5%; */
-
-}
-
-#achievementProgressBar {
-    height: 3.5rem;
-    width: 80%;
-    display: flex;
-    justify-content: flex-start; 
-    background: #ddd;
-    margin-top: auto;
-    border-radius: 25px;
-    overflow: hidden;
-    position: relative;
-    margin-left: 7.5%;
-    margin-bottom: 1.75%;
-    margin-top: 5%;
-}
-
-#achievementProgressBar .progress-fill {
-    height: 100%;
-    background: linear-gradient(to right, #FF5733, #CE6B31, #FFC300);
-    width: 90%; 
-    border-radius: 25px;
-    box-shadow: 0 0 10px rgba(255, 87, 51, 0.7), 0 0 15px rgba(206, 107, 49, 0.5); 
-}
 
 
 
@@ -496,6 +577,7 @@ input {
     display: flex;
     align-items: center; 
     justify-content: center; 
+     transform: scale(1.1);
 }
 
 
@@ -543,7 +625,6 @@ input {
     font-size: 40px;
     font-weight: bold;
     
-   
 }
 
 /* .PageSection 
@@ -569,7 +650,7 @@ input {
     margin: 0 auto; 
 }
 
-.bottomSection{
+.mealBottomSection{
     /* display: flex;
     flex-direction: column;
     justify-content: center;
@@ -609,53 +690,109 @@ input {
 }
 
 
+@media (max-width: 1400px) {
+    .nav-btn {
+        width: 20%; 
+        height: 80%;  
+        font-size: 2.5rem;
+    }
+
+    .nav-btn i {
+        font-size: 2.5rem;
+    }
+
+    .top-left-btn{
+        width:9vw;
+        height: 10vh;
+        /* /* color: #000000;  */
+        font-size: 3rem;
+    }
+
+    .top-right-btn{
+        width:9vw;
+        height: 10vh;
+        /* /* color: #000000;  */
+        font-size: 3rem;
+    }
+
+    .center-btn {
+        font-size: 2rem;
+    }
+    .center-btn-container{
+        width: 10vw; 
+        height: 11vh; 
+        top: -35%;
+
+    }
+}
+
 @media (max-width: 768px) {
     .nav-btn {
         width: 20%; 
         height: 80%;  
-        font-size: 2em;
-        /* background-color: #000000; */
+        font-size: 2.5rem;
+        /* /* background-color: #000000;  */
     }
+
+    .nav-btn i {
+        font-size: 2.5rem;
+    }
+    
+
     .center-btn {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
     .center-btn-container{
 
-        width: 4em; 
-        height: 3em; 
+        width: 10vw; 
+        height: 12vh; 
         top: -35%;
 
     }
 
     .top-left-btn{
-        width:10vw;
-        height: 8vh;
-        /* color: #000000; */
-        font-size: 2rem;
+        width:11vw;
+        height: 10vh;
+        /* /* color: #000000;  */
+        font-size: 2.1rem;
     }
 
     .top-right-btn{
-        width:10vw;
-        height: 8vh;
-        /* color: #000000; */
-        font-size: 2rem;
+        width:11vw;
+        height: 10vh;
+        /* /* color: #000000;  */
+        font-size: 2.1rem;
     }
 
-}
+} 
+
+
+
 
 @media (max-width: 450px) {
     
     .nav-btn {
-        width: 20%; 
-        height: 80%;  
-        font-size: 2rem;
+        width: 24%; 
+        height: 90%;  
+        font-size: 2.3rem;
     }
+    
+    
+
+    .icon-text {
+        display: none;
+    }
+    .nav-btn i {
+        font-size: 2.8rem;
+        
+    }
+
     .center-btn {
         font-size: 2rem;
     }
     .center-btn-container{
-        width: 6em; 
-        height: 5em; 
+        width: 14vw; 
+        height: 10vh; 
         top: -35%;
 
     }
@@ -663,17 +800,17 @@ input {
     .top-left-btn{
         width:13vw;
         height: 8vh;
-        /* color: #000000; */
+        /* /* color: #000000;  */
         font-size: 2rem;
     }
 
     .top-right-btn{
         width:13vw;
         height: 8vh;
-        /* color: #000000; */
+        /* /* color: #000000;  */
         font-size: 2rem;
     }
-}
+} 
 
 
   
