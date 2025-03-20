@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+    <title>Sign Up</title>
+    <link rel="icon" href="images/Logo.png">
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+</head>
+<body>
+    <!-- <nav class="navbar">
+        <button class="nav-btn">Home</button>
+        <button class="nav-btn">Progress</button>
+        <div class="center-btn-container">
+            <button class="center-btn">+</button>
+        </div>
+        <button class="nav-btn">Groups</button>
+        <button class="nav-btn">Help</button>
+    </nav> -->
+    <header>
+        <h1 class="hellthTitle">Welcome</h1>
+    </header>
+    <form>
+        <section class="signUpPageSection">
+            <div id="greyContainer1">
+                <div class="inputdiv" id="firstdiv">
+                    <label for="username" class="signupLabels">Username</label>
+                    <div class="rowInput">
+                        <input class="inputClass" type="text" id="username" placeholder="Username*" aria-required="true" required="true">
+                        <img class="iconBox" src="images/User check.png">
+                    </div>
+                </div>
+                <div class="inputdiv">
+                    <div class="rowInput">
+                        <input class="inputClass" type="password" placeholder="Password*" aria-required="true" required="true">
+                        <img class="iconBox" src="images/Eye off.png">
+                </div>
+                </div>
+                <div class="inputdiv">
+                    <div class="rowInput">
+                       <input class="inputClass" type="password" placeholder="Confirm Password*" aria-required="true" required="true">
+                       <img class="iconBox" src="images/Eye off.png">
+                </div>
+                </div>
+                <div class="inputdiv">
+                    <div class="rowInput">
+                      <input class="inputClass"type="email" placeholder="Email Address*" aria-required="true" required="true">
+                      <img class="iconBox" src="images/Mail.png">
+                </div>
+                </div>
+                <a href="login.html" id="loginLink">Return to login page</a>
+            </div>
+            <div id="greyContainer2">
+                <div class="inputdiv" id="secondDiv">
+                    <label for="fullName" class="signupLabels">Full Name</label>
+                    <input class="inputClass" type="text" id="fullName" placeholder="Full Name*" aria-required="true" required="true">
+                </div>
+                <h2 id="dob">- DOB -</h2>
+                <div class="multipleInput">
+                    <div class="inputdiv">
+                        <input class="inputClass" type="number" placeholder="dd*" aria-required="true" required="true">
+                    </div>
+                    <div class="inputdiv">
+                        <input class="inputClass" type="number" placeholder="mm*" aria-required="true" required="true">
+                    </div>
+                    <div class="inputdiv">
+                        <input class="inputClass"type="number" placeholder="yyyy*" aria-required="true" required="true">
+                    </div>
+                </div>
+                <div class="multipleInput">
+                    <div class="inputdiv">
+                        <input class="inputClass" type="number" placeholder="Weight*" aria-required="true" required="true">
+                    </div>
+                    <div class="selectBtn">Kg</div>
+                    <p class="slash">/</p>
+                    <div class="selectBtn">lbs</div>
+                    <img class="iconBox" src="images/Feather.png">
+                </div>
+                <div class="multipleInput">
+                    <div class="inputdiv">
+                        <input class="inputClass" type="number" placeholder="Height*" aria-required="true" required="true">
+                    </div>
+                    <div class="selectBtn">Cm</div>
+                    <p class="slash">/</p>
+                    <div class="selectBtn">in</div>
+                </div>
+                <div class="multipleInput">
+                    <img class="selectBtnimg" src="images/blueman.png">
+                    <p class="slash">/</p>
+                    <img class="selectBtnimg" src="images/pinkwoman.png">
+                </div>
+                <button id="signUpBtn" class="mainBtn" type="submit">Sign Up</button>
+                <a href="login.html" id="loginLink">Return to login page</a>
+            </div>
+        </section>
+    </form>
+
+</body>
