@@ -28,20 +28,26 @@
                 <div class="search-container">
                     <input type="text" class="search-bar" placeholder="Search For Foods...">
                 </div>
-                <div class="search-results"></div> 
             </div>
-            <div class="foodList"></div> 
+            <div class="search-results"></div> 
         </div>
 
         </div>
         <div class = "centerSection">
-            <div class = "centerSection">
-                <button id="ingredientBtn" class="mainBtn">Submit Ingredient</button>
-            </div>
+            <div class="foodList"></div> 
             <button id="mealBtn" class="mainBtn">Create Meal</button>
         </div>
        
-        <div class = "overviewSection">
+        <div class="overviewSection">
+            <div class = "nutrientSection">
+                <h2 class="calorieTitle">Total Calories: 0</h2>
+                <h2 class="itemTotalTitle">Total Items: 0</h2>
+                <h5 class="protein">Protein: 0g</h5>
+                <h5 class="fiber">Fiber: 0g</h5>
+                <h5 class="carbs">Carbohydrates: 0g</h5>
+                <h5 class="fat">Fat: 0g</h5>
+                <h5 class="sugar">Sugar: 0g</h5>
+            </div>
         </div>
 
     </section>    
@@ -84,5 +90,5 @@
         </button>
         
     </div>
-    <script src="foodAdd.js"></script>
+    <script type = "module" src="FoodController.js"></script>
 </body>

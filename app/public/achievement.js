@@ -62,5 +62,4 @@ async function generateAchievements() {
 
 const achievementsData = makeRandomAchievements();
 
-
 window.onload = generateAchievements;
