@@ -29,12 +29,16 @@
                     <input type="text" class="search-bar" placeholder="Search For Foods...">
                 </div>
             </div>
-            <div class="search-results"></div> 
+            <div class="search-results">
+            </div> 
         </div>
 
         </div>
         <div class = "centerSection">
-            <div class="foodList"></div> 
+            <div class="foodList">
+                <h2 class = "foodTitle">Current Selection</h2>
+            </div> 
+          
             <button id="mealBtn" class="mainBtn">Create Meal</button>
         </div>
        
@@ -90,5 +94,6 @@
         </button>
         
     </div>
+    <div id="quantity-alert">Total quantity cannot exceed 20!</div>
     <script type = "module" src="FoodController.js"></script>
 </body>

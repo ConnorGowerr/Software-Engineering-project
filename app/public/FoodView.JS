@@ -1,15 +1,11 @@
-// FoodView.js
+// UPDATES THE HTML
 class FoodView {
     constructor() {
         this.foodListContainer = document.querySelector('.foodList');
     }
 
     addFoodItemToUI(foodData) {
-        if (!foodData || !foodData.foodName) {
-            console.error("Invalid food data", foodData);
-            return;
-        }
-
+        
         const item = document.createElement('div');
         item.classList.add('item');
         item.innerHTML = `<span class="food-name">${foodData.foodName}</span> - ${foodData.calories} kcal`;
@@ -26,7 +22,7 @@ class FoodView {
 
     updateNutritionUI(totals) {
         const nutritionInfo = document.querySelector('.nutrientSection');
-        
+
         nutritionInfo.querySelector('.calorieTitle').textContent = `Total Calories: ${totals.calories}`;
         nutritionInfo.querySelector('.itemTotalTitle').textContent = `Total Items: ${totals.count}`;
         nutritionInfo.querySelector('.protein').textContent = `Protein: ${totals.protein}g`;

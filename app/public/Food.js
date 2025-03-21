@@ -15,7 +15,6 @@ class Food {
         Food.allFoodData.push(this);
     }
 
-    // Getter methods
     getServingSize() {
         return this.servingSize;
     }
