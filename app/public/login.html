@@ -1,36 +1,52 @@
 <!DOCTYPE html>
-<head>
-<title>Hellth</title>
-<link rel="icon" href="Logo.png">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
-<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hellth</title>
+    <link rel="icon" href="Logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+
 </head>
+
 <body>
+    
+    
 <main>
     <h1 id = "hellthTitle">Hellth</h1>
     <section id = "loginPageSection">
         <div class = "box" id = "logInBox">
             <h2 id = "returningUser">Returning user? Sign in Here!</h2>
-            <form>
+            <form class = "form" id = "logInForm">
                 <div id = "usernameContainer">
-                    <input type = "text" id = "logInUsername" placeholder = "Username">
+                    <input type = "text" class = "inputClass" id = "logInUsername" placeholder = "Username*" aria-required = "true" required = "true">
                         <div class = "iconBox" id = "usernameIconBox">
                             <img id = "usernameIcon" src = "User.png">
                         </div>            
                 </div>
                 <div id = "passwordContainer">
-                    <input type = "password" id = "logInPassword" placeholder = "Password">
+                    <input type = "password" class = "inputClass" id = "logInPassword" placeholder = "Password*" aria-required = "true" required = "true">
                         <div class = "iconBox" id = "passwordIconBox">
+                            <img id = "eyeIcon" src = "Eye off.png">
                         </div>
-                </div> 
+                </div>
+                <u id = "forgotPassword">Forgotten Password?</u>
+                <button class = "button" id = "logInButton">Log In</button>
             </form>
         </div>
         <h2 id = "OR">- OR -</h2>
         <div class = "box" id = "signUpBox">
+            <h2 id = "newUserTitle">Ignite Your Fitness Journey Today</h2>
+            <p class = "welcomeText">Step into the fire and forge a stronger you.</p>
+            <p class = "welcomeText">Hellth isn’t just another fitness app—it's your crucible, where powerful tracking, relentless challenges, and a driven community push you to new heights.</p>
+            <p class = "welcomeText">Ready to take the heat? Join now and claim your place!</p>
+            <button class = "button" id = "signUpButton">Sign Up</button>
         </div>
     </section>
-    </main>
+</main>
+    </div>
 </body>

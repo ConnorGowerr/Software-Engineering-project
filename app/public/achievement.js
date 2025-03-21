@@ -1,13 +1,66 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const progressBars = document.querySelectorAll(".progress-fill");
-    const types = ["type1", "type2", "type3", "type4"];
+//Functions to make an achievement and then fill progress randonmly( this will be replaced with real data)
 
-    progressBars.forEach((bar, index) => {
-        let randomValue = Math.floor(Math.random() * 101); // 0-100% progress
-        let type = types[index % types.length]; // Cycle through 4 types
 
-        bar.classList.remove("type1", "type2", "type3", "type4"); // Ensure no conflicts
-        bar.classList.add(type);  // Assign random color
-        bar.style.width = randomValue + "%"; // Random width
+function makeRandomAchievements() {
+    const achievements = [];
+    for (let i = 1; i <= 20; i++) {
+        const progress = Math.floor(Math.random() * 101);         
+        achievements.push({
+            title: `Achievement ${i}`,
+            medals: `Medals ${i}`,
+            progress: progress
+        });
+    }
+    return achievements;
+}
+
+
+async function fetchAchievementsData() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(achievementsData);
+        }, 100); 
     });
-});
+}
+
+
+async function generateAchievements() {
+    const achievementContainer = document.querySelector('.AchievementContainer');
+    
+    const data = await fetchAchievementsData(); 
+
+    data.forEach(data => {
+        const achievement = document.createElement('div');
+        achievement.classList.add('achievement');
+
+        const progressBar = document.createElement('div');
+        progressBar.classList.add('progress-fill');
+        
+        progressBar.style.width = data.progress+ "%";
+
+        const types = ["mealAchievement", "timeAchievement", "calorieTrackedAchievement", "calorieBurnedAchievement"];
+        const randomType = types[Math.floor(Math.random() * types.length)];
+        progressBar.classList.add(randomType);
+
+        achievement.innerHTML = `
+            <div id="achievementTitle">
+                <p>${data.title}</p>
+            </div>
+            <div id="medals">${data.medals}</div>
+            <div id="achievementProgressBar">
+            </div>
+        `;
+        
+        const progressBarContainer = achievement.querySelector('#achievementProgressBar');
+        progressBarContainer.appendChild(progressBar);
+
+        achievementContainer.appendChild(achievement);
+    });
+}
+
+
+
+const achievementsData = makeRandomAchievements();
+
+
+window.onload = generateAchievements;
