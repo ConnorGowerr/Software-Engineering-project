@@ -428,7 +428,6 @@ input {
 }
 
 /* Log In Page Id's */
-
 #hellthTitle {
     font-size: 40px;
     font-weight: bold;
@@ -524,10 +523,9 @@ input {
     justify-content: center;
     font-size: 36px;
 }
-/* achievement Page Id's */
 
 
-
+/* achievement Page stuff */
 
 .inputdiv{
     backdrop-filter: blur(10px);
