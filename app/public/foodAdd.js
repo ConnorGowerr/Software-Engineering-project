@@ -30,7 +30,7 @@ function removeFood(item){
 }
 function filterFoods() {
     const query = searchBar.value.toLowerCase();
-    const filteredFoods = dummyFoods.filter(food => food.toLowerCase().includes(query));
+    const filteredFoods = Foods.filter(food => food.toLowerCase().includes(query));
 
     searchResultsContainer.innerHTML = '';
 
@@ -49,5 +49,4 @@ function filterFoods() {
 
 searchBar.addEventListener("input", filterFoods);
 
-const dummyFoods = ["apple", "banana", "pizza", "sushi", "burger", "cod", "sausage"];
-// dummyFoods.forEach(food => addItem(food)); 
+const Foods = ["apple", "banana", "pizza", "sushi", "burger", "cod", "sausage"];
