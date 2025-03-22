@@ -39,6 +39,62 @@ input {
     backdrop-filter: blur(10px);
 }
 
+
+@property --fill {
+
+    syntax: '<percentage>';
+    inherits: true;
+    initial-value: 0%;
+}
+
+@keyframes pop {
+    
+    from 
+    {
+        transform: scale(1);
+        box-shadow: 5px 5px #000000;
+    }
+    to 
+    {
+        transform: scale(1.05);
+        box-shadow: 10px 10px #000000;
+    }
+    
+}
+
+.box::before, .box::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    inset: -6px;
+    border-radius: inherit;
+    background:
+        conic-gradient(
+            #EA7B3A var(--fill),
+            transparent var(--fill)
+        );
+    transition: --fill 2s 30ms ease-in-out;
+   
+/* Used to create the masked border effect and ensures that it only applies to the border rather than the whole box*/
+    mask: linear-gradient(#000 0 0) content-box, 
+                   linear-gradient(#000 0 0);
+    mask-composite: xor;
+    mask-composite: exclude;
+
+    padding: 7px;
+}
+
+.box:hover {
+    color: #EA7B3A;
+    outline: 1px solid transparent;
+    --fill: 100%;
+    animation-name: pop;
+    animation-duration: 1s;
+
+    /* to keep box in final state of animation when hovering*/
+    animation-fill-mode: forwards;
+}
+
 .iconBox {
     background-color: #B0B0B0;
     border-width: 2px;
