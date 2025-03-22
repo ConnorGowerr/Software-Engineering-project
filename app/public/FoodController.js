@@ -2,7 +2,7 @@ import Food from './Food.js';
 import FoodView from './FoodView.js';
 
 
-//not fully compleeted however worksas intended with tests//
+//not fully compleeted however works as intended with tests//
 class FoodController {
     constructor() {
         this.view = new FoodView();
@@ -141,7 +141,49 @@ class FoodController {
     
         this.view.updateNutritionUI(totals);
     }
+
+
+
+    createMeal() {
+        var foodItems = document.querySelectorAll('.item');  
+        var totalCals = 0;
+
+        foodItems.forEach(food => {
+            const foodName = food.textContent.split(' - ')[0]?.trim();
+            const quantity = food.querySelector('.quantity-input') ? parseInt(food.querySelector('.quantity-input').value) : 1;  
+            const foodData = this.foodData.find(f => f.foodName.toLowerCase() === foodName.toLowerCase());
+
+            if (foodData) {
+                console.log(foodName); 
+                console.log(quantity);
+                console.log(foodData.calories);
+
+                const foodcals = foodData.calories * quantity;
+                totalCals += foodcals;
+                console.log(foodcals);
+            }
+        });
+
+        document.getElementById("popupMessage").textContent = `Total Calories: ${totalCals}`;
+        document.getElementById("mealPopup").style.display = "block";
+        document.getElementById("popupOverlay").style.display = "block";
+
+        document.getElementById("confirmBtn").onclick = () => {
+            this.foodList.querySelectorAll('.item').forEach(item => item.remove());
+            this.calculateTotalCal();
+            this.closePopup();
+        };
+
+        document.getElementById("cancelBtn").onclick = this.closePopup;
+    }
+
+    closePopup() {
+        document.getElementById("mealPopup").style.display = "none";
+        document.getElementById("popupOverlay").style.display = "none";
+    }
+
     
+
 
     showSearchResults(query) {
         const resultsContainer = document.querySelector('.search-results');
@@ -165,9 +207,16 @@ class FoodController {
     }
 }
 
+
+
 document.addEventListener("DOMContentLoaded", () => {
+
     const foodController = new FoodController();
 
+
+    document.getElementById("mealBtn").addEventListener("click", (event) => {
+        foodController.createMeal();
+    });
     document.querySelector(".search-bar").addEventListener("input", (event) => {
         const itemName = event.target.value.trim();
         if (itemName) {
@@ -177,6 +226,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
 
 
 //own alert 

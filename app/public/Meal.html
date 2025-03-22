@@ -53,8 +53,16 @@
                 <h5 class="sugar">Sugar: 0g</h5>
             </div>
         </div>
-
     </section>    
+    <div class="popup-overlay" id="popupOverlay">
+        <div id="mealPopup" class="popup">
+            <div class="popup-content">
+                <p id="popupMessage"></p>
+                <button id="confirmBtn">Confirm</button>
+                <button id="cancelBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
     
     </main>
     <div class="navbar">
@@ -94,6 +102,7 @@
         </button>
         
     </div>
-    <div id="quantity-alert">Total quantity cannot exceed 20!</div>
+    <div id="quantity-alert">Maximum of 20 items per meal!!!!</div>
     <script type = "module" src="FoodController.js"></script>
+    
 </body>
