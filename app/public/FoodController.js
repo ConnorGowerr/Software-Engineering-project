@@ -1,12 +1,13 @@
 import Food from './Food.js';
 import FoodView from './FoodView.js';
-
+import Meal from './meal.js';
 
 //not fully compleeted however works as intended with tests//
 class FoodController {
     constructor() {
         this.view = new FoodView();
         this.foodList = document.querySelector('.foodList');
+        this.allMealFood = new Array();
 
         new Food(120, "Apple", "Fruit", "1 medium", 0.5, 25, 4.5, 19, 0.3);
         new Food(150, "Banana", "Fruit", "1 medium", 1.3, 27, 3.1, 14, 0.4);
@@ -83,6 +84,7 @@ class FoodController {
         quantityInput.value = 1;  
         quantityInput.min = 1;    
         quantityInput.classList.add('quantity-input');
+        
     
         quantityContainer.appendChild(quantityLabel);
         quantityContainer.appendChild(quantityInput);
@@ -105,6 +107,7 @@ class FoodController {
             let newTotal = 0;
             this.foodList.querySelectorAll('.quantity-input').forEach(input => {
                 newTotal += parseInt(input.value);
+                
             });
     
             if (newTotal > 20) {
@@ -119,6 +122,9 @@ class FoodController {
     
     
     calculateTotalCal() {
+        while (this.allMealFood.length > 0) {
+            this.allMealFood.pop();
+        }    
         const foodItems = this.foodList.querySelectorAll('.item');
         let totals = { calories: 0, protein: 0, fiber: 0, carbs: 0, fat: 0, sugar: 0, count: 0 };
     
@@ -136,6 +142,10 @@ class FoodController {
                 totals.fat += foodData.fatContent * quantity;
                 totals.sugar += foodData.sugarContent * quantity;
                 totals.count += quantity;
+            }
+            for(var i = 0; i < quantity; i++){          
+                this.allMealFood.push(foodData);
+                console.log(quantity)
             }
         });
     
@@ -169,7 +179,21 @@ class FoodController {
         document.getElementById("popupOverlay").style.display = "block";
 
         document.getElementById("confirmBtn").onclick = () => {
-            this.foodList.querySelectorAll('.item').forEach(item => item.remove());
+            this.foodList.querySelectorAll('.item').forEach(item => {
+                item.remove();       
+            });
+
+            var meal = new Meal("breakfast", "firstmeal", this.allMealFood);
+            console.log("meal created");
+
+            meal.getAllFoods().forEach(Food =>{
+                console.log(Food.toString());
+            });
+
+            while (this.allMealFood.length > 0) {
+                this.allMealFood.pop();
+            }            
+
             this.calculateTotalCal();
             this.closePopup();
         };
@@ -183,7 +207,6 @@ class FoodController {
     }
 
     
-
 
     showSearchResults(query) {
         const resultsContainer = document.querySelector('.search-results');

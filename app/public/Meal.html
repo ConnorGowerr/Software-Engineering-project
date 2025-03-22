@@ -23,8 +23,8 @@
     <h1 id = "hellthTitle">Add Meal</h1>
     <section id = "mealPageSection">
         <div class="foodAddSection">
+            <h2 id="foodTitle">Add Food</h2>
             <div class="foodAdd">
-                <h2 id="foodTitle">Add Food</h2>
                 <div class="search-container">
                     <input type="text" class="search-bar" placeholder="Search For Foods...">
                 </div>
@@ -35,14 +35,14 @@
 
         </div>
         <div class = "centerSection">
-            <div class="foodList">
-                <h2 class = "foodTitle">Current Selection</h2>
-            </div> 
+            <!-- <h2 class = "foodTitle">Current Selection</h2> -->
+            <div class="foodList"></div> 
           
             <button id="mealBtn" class="mainBtn">Create Meal</button>
         </div>
        
         <div class="overviewSection">
+            <h2 id="foodTitle">Nutrients</h2>
             <div class = "nutrientSection">
                 <h2 class="calorieTitle">Total Calories: 0</h2>
                 <h2 class="itemTotalTitle">Total Items: 0</h2>
@@ -57,9 +57,23 @@
     <div class="popup-overlay" id="popupOverlay">
         <div id="mealPopup" class="popup">
             <div class="popup-content">
-                <p id="popupMessage"></p>
-                <button id="confirmBtn">Confirm</button>
-                <button id="cancelBtn">Cancel</button>
+                <p id="popupMessage">Enter your meal details:</p>
+                <form id="mealForm">
+                    <input type="text" id="mealName" placeholder="Meal Name" required>
+    
+                    <select id="mealType" required>
+                        <option value="" disabled selected>Select Meal Type</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="snack">Snack</option>
+                    </select>
+                    
+                    <div class="popup-buttons">
+                        <button id="confirmBtn">Confirm</button>
+                        <button id="cancelBtn">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -81,7 +95,7 @@
         </button>
         <div class="center-btn-container">
             <button class="center-btn">
-                <a href="Meal.html">
+                <a href="mealActivtiySelect.html">
                     <i class="fa-solid fa-plus"></i>
                 </a>
             </button>
@@ -102,7 +116,7 @@
         </button>
         
     </div>
-    <div id="quantity-alert">Maximum of 20 items per meal!!!!</div>
+    <div id="quantity-alert"></div>
     <script type = "module" src="FoodController.js"></script>
     
 </body>

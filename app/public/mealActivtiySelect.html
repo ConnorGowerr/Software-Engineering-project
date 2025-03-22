@@ -2,28 +2,58 @@
 <head>
 <title>Hellth</title>
 <link rel="icon" href="Logo.png">
-<link rel="stylesheet" href="styles.css">
-<script src="achievement.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+<link rel="stylesheet" href="styles.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
+
 <body>
     <button class="top-left-btn">
         <i class="fa-solid fa-envelope"></i>
     </button>
+
     <button class="top-right-btn">
         <i class="fa-solid fa-user"></i>
     </button>
 <main>
-    <h1 id = "achievementPageTitle">Achievements</h1>
-    <section id = "achievementsSection">
-        <div class="AchievementContainer">
-               
-        </div>
+    <h1 id = "hellthTitle">Choose Selection</h1>
+    <section id = "mealActivityPageSection">
+        <section id="activitySection">
+            <a href="activity.html" id="activityLink">
+                <div id="activityDiv">
+                    <h2 id = "addTitle">Add Activity</h2>
+                    <img src="Activity.png" alt="Activity Icon" id="activityIcon">
+                    <ul id="recordH3">
+                        <li>Log Activities.</li>
+                        <li>Track Calories.</li>
+                        <li>Find Your Routine</li>
+                    </ul>
+                </div>
+            </a>
+        </section>
+        
+        <section id="mealSection">
+            <a href="meal.html" id="mealLink">
+                <div id="mealDiv">
+                    <h2 id = "addTitle">Add Meal</h2>
+                    <img src="Meal.png" alt="Meal Icon" id="mealIcon">
+                    <ul id="recordH3">
+                        <li>Log Meals.</li>
+                        <li>Track Nutrients.</li>
+                        <li>Add Ingredients.</li>
+                    </ul>
+                </div>
+            </a>
+        </section>
+        
+        
     </section>
+ 
+    
     </main>
     <div class="navbar">
         <button class="nav-btn">
@@ -62,4 +92,6 @@
         </button>
         
     </div>
+    <div id="quantity-alert"></div>
+    <!-- <script type = "module" src="FoodController.js"></script> -->
 </body>

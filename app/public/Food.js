@@ -1,6 +1,5 @@
 // Done (mahybe more validations and stuff)
 class Food {
-
     
     static allFoodData = [];
     constructor(calories, foodName, foodType, servingSize, proteinContent, carbContent, fibreContent, sugarContent, fatContent) {
@@ -54,6 +53,10 @@ class Food {
 
     static getFoodData(foodName) {
         return Food.allFoodData.find(food => food.foodName.toLowerCase() === foodName.toLowerCase());
+    }
+
+    toString(){
+        return `Name: ${this.foodName}. Type: ${this.foodType}. Calories: ${this.calories}`;
     }
 }
 
