@@ -76,7 +76,7 @@ This works by manually forcing a seperate layer to render to.*/
             #EA7B3A var(--fill),
             transparent var(--fill)
         );
-    transition: --fill 2s 30ms ease-in-out;
+    transition: --fill 1s 30ms ease-in-out;
    
 /* Used to create the masked border effect and ensures that it only applies to the border rather than the whole box*/
     mask: linear-gradient(#000 0 0) content-box, 
