@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="style.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<script src = "login.js"></script>
 </head>
 <body>
 <main>
@@ -21,7 +22,7 @@
                 </div>
                 <div id = "passwordContainer">
                     <input type = "password" class = "inputClass" id = "logInPassword" placeholder = "Password*" aria-required = "true" required = "true">
-                        <div class = "iconBox" id = "passwordIconBox">
+                        <div class = "iconBox" id = "passwordIconBox" onclick="showPassword()">
                             <img id = "eyeIcon" src = "Eye off.png">
                         </div>
                 </div>
