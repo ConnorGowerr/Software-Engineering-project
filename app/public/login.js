@@ -1,4 +1,3 @@
-
 function showPassword() {
     var box = document.getElementById("logInPassword");
     var img = document.getElementById("eyeIcon");
