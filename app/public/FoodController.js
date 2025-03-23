@@ -9,6 +9,8 @@ class FoodController {
         this.foodList = document.querySelector('.foodList');
         this.allMealFood = new Array();
 
+        //temp for tests
+
         new Food(120, "Apple", "Fruit", "1 medium", 0.5, 25, 4.5, 19, 0.3);
         new Food(150, "Banana", "Fruit", "1 medium", 1.3, 27, 3.1, 14, 0.4);
         new Food(200, "Chicken Breast", "Protein", "100g", 31, 0, 0, 0, 3.6);
@@ -53,6 +55,10 @@ class FoodController {
         this.foodData = Food.getAllFoodData(); 
     }
 
+
+
+
+//function to add afood item that was selected by the user from the seardh results, and add the selected item to the food list.
     addItem(itemName) {
         console.log(`Searching for food item: '${itemName}'`);
         const foodData = this.foodData.find(food => food.foodName.toLowerCase().includes(itemName.toLowerCase()));
@@ -120,7 +126,7 @@ class FoodController {
     }
     
     
-    
+    //calcualting total nutrients of allitesmin the foodlist  
     calculateTotalCal() {
         while (this.allMealFood.length > 0) {
             this.allMealFood.pop();
@@ -154,52 +160,61 @@ class FoodController {
 
 
 
+//funtion to create a meal objecrs fromall items in the current food list, user can confimor cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
     createMeal() {
         var foodItems = document.querySelectorAll('.item');  
         var totalCals = 0;
-
+    
         foodItems.forEach(food => {
             const foodName = food.textContent.split(' - ')[0]?.trim();
             const quantity = food.querySelector('.quantity-input') ? parseInt(food.querySelector('.quantity-input').value) : 1;  
             const foodData = this.foodData.find(f => f.foodName.toLowerCase() === foodName.toLowerCase());
-
+    
             if (foodData) {
                 console.log(foodName); 
                 console.log(quantity);
                 console.log(foodData.calories);
-
+    
                 const foodcals = foodData.calories * quantity;
                 totalCals += foodcals;
                 console.log(foodcals);
             }
         });
+    
+    const mealForm = document.getElementById("mealForm");
+    const mealPopup = document.getElementById("mealPopup");
+    const popupOverlay = document.getElementById("popupOverlay");
+    document.getElementById("popupMessage").textContent = `Total Calories: ${totalCals}`;
+    const confirmBtn = document.getElementById("confirmBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
 
-        document.getElementById("popupMessage").textContent = `Total Calories: ${totalCals}`;
-        document.getElementById("mealPopup").style.display = "block";
-        document.getElementById("popupOverlay").style.display = "block";
 
-        document.getElementById("confirmBtn").onclick = () => {
-            this.foodList.querySelectorAll('.item').forEach(item => {
-                item.remove();       
-            });
+    mealPopup.style.display = "block";
+    popupOverlay.style.display = "block";
 
-            var meal = new Meal("breakfast", "firstmeal", this.allMealFood);
-            console.log("meal created");
+    
+    mealForm.onsubmit = (event) => {
+        event.preventDefault();  
 
-            meal.getAllFoods().forEach(Food =>{
-                console.log(Food.toString());
-            });
+        this.foodList.querySelectorAll('.item').forEach(item => item.remove());
 
-            while (this.allMealFood.length > 0) {
-                this.allMealFood.pop();
-            }            
+        var meal = new Meal(document.querySelector("#mealName").value, document.querySelector("#mealType").value, this.allMealFood);
+        console.log(meal.toString());
 
-            this.calculateTotalCal();
-            this.closePopup();
-        };
+        meal.getAllFoods().forEach(Food => console.log(Food.toString()));
 
-        document.getElementById("cancelBtn").onclick = this.closePopup;
-    }
+        this.allMealFood.length = 0;  
+
+        this.calculateTotalCal();
+        this.closePopup();
+    };
+
+    cancelBtn.onclick = (event) => {
+        event.preventDefault();
+        this.closePopup();
+    };
+}
+
 
     closePopup() {
         document.getElementById("mealPopup").style.display = "none";
@@ -207,6 +222,8 @@ class FoodController {
     }
 
     
+
+    //function to find all foods that inlcude the users current input
 
     showSearchResults(query) {
         const resultsContainer = document.querySelector('.search-results');
@@ -236,8 +253,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const foodController = new FoodController();
 
-
+   
     document.getElementById("mealBtn").addEventListener("click", (event) => {
+        var foodList = document.querySelector('.foodList');
+        if(!foodList.hasChildNodes()){
+            console.log('NO FOOD')
+            return;
+        }
         foodController.createMeal();
     });
     document.querySelector(".search-bar").addEventListener("input", (event) => {

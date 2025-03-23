@@ -3,6 +3,7 @@
 <title>Hellth</title>
 <link rel="icon" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script type = "module" src="FoodController.js" defer></script>
 
 <link rel="stylesheet" href="styles.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
@@ -35,7 +36,7 @@
 
         </div>
         <div class = "centerSection">
-            <!-- <h2 class = "foodTitle">Current Selection</h2> -->
+            <h2 class = "foodTitle">Current Selection</h2>
             <div class="foodList"></div> 
           
             <button id="mealBtn" class="mainBtn">Create Meal</button>
@@ -57,11 +58,11 @@
     <div class="popup-overlay" id="popupOverlay">
         <div id="mealPopup" class="popup">
             <div class="popup-content">
-                <p id="popupMessage">Enter your meal details:</p>
+                <p id="popupMessage"></p>
                 <form id="mealForm">
-                    <input type="text" id="mealName" placeholder="Meal Name" required>
+                    <input type="text" id="mealName" placeholder="Meal Name" required = "true">
     
-                    <select id="mealType" required>
+                    <select id="mealType" required = "true">
                         <option value="" disabled selected>Select Meal Type</option>
                         <option value="breakfast">Breakfast</option>
                         <option value="lunch">Lunch</option>
@@ -117,6 +118,5 @@
         
     </div>
     <div id="quantity-alert"></div>
-    <script type = "module" src="FoodController.js"></script>
     
 </body>
