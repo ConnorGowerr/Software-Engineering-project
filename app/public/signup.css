@@ -43,6 +43,15 @@ h2 {
     justify-content: space-between;
 }
 
+.inputdiv2{
+    backdrop-filter: blur(10px);
+    display:flex;
+    flex-direction: column;
+    padding: 2%;
+    width: 60%;
+    margin-top: 2%;
+}
+
 #firstdiv{
     margin-top: 10%;
 }
@@ -52,7 +61,7 @@ h2 {
 }
 
 #signUpBtn{
-
+    cursor: pointer;
 }
 
 .mainBtn{
@@ -104,16 +113,88 @@ h2 {
 
 .selectBtn{
     border: #B0B0B0 solid 3px;
-    background-color: #FEEEBC;
-    padding: 2%;
+    background-color: #CFCBC2;
+    padding: 3%;
     border-radius: 10px;
     box-shadow: 5px 5px #000000;
     backdrop-filter: blur(10px);
-    margin-left: 2%;
+    margin-left: 4%;
+    user-select: none;
+    padding-left: 6%;
+    padding-right: 6%;
+    font-size: large;
+}
+
+.selectBtnimg{
+    border: #B0B0B0 solid 3px;
+    background-color: #CFCBC2;
+    padding: 3%;
+    border-radius: 10px;
+    box-shadow: 5px 5px #000000;
+    backdrop-filter: blur(10px);
+    margin-left: 4%;
+    user-select: none;
+    width: 10%;
+}
+
+
+
+.selectBtn:hover, .selectBtnimg:hover{
+    background-color: #e4e1da;
+}
+
+.selectBtn:active, .selectBtnimg:active{
+    background-color: #FEEEBC;
 }
 
 .slash{
     color:#EFEDE7;
+    user-select: none;
+    z-index: 1;
+    margin-left: 4%;
+    font-size: large;
+}
+
+input:hover{
+    background-color: #cfcfcd;
+}
+
+.inputClass::-webkit-inner-spin-button, 
+.inputClass::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.inputClass{
+    -moz-appearance: textfield;
+}
+
+.iconBox {
+    background-color: #B0B0B0;
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    border-radius: 8px;
+    border-width: 3.5px;
+    box-shadow: 5px 5px #000000;
+    backdrop-filter: blur(10px);
+    margin-left: 2%;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    flex-shrink: 0; 
+    width: 60px; 
+    height: 60px; 
+    margin-left: 10px; 
+    box-sizing: border-box;
+    padding: 1.5%;
+}
+
+
+#dob{
+    font-family: Oswald;
+    margin-bottom: -1%;
+    margin-top: -1%;
 }
 
 #greyContainer1 {
@@ -162,6 +243,12 @@ h2 {
     justify-content: center;
 }
 
+.rowInput{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content: center;
+}
 
 .signupLabels{
     color:#EFEDE7;
@@ -174,4 +261,12 @@ h2 {
 
 #loginLink{
     color: #EFEDE7;
+}
+
+#loginLink:hover{
+    color:#fd4538;
+}
+
+#loginLink:active{
+    color:#be1f13;
 }
