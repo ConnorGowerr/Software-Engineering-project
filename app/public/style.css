@@ -36,7 +36,10 @@ input {
     border-color: #EFEDE7;
     border-style: solid;
     box-shadow: 5px 5px #000000;
-    backdrop-filter: blur(10px);
+
+/* Ensures the cliping of the orange border does not apply to the whole site itself instead of just the box
+This works by manually forcing a seperate layer to render to.*/
+    transform: translateZ(0);
 }
 
 
@@ -57,7 +60,7 @@ input {
     to 
     {
         transform: scale(1.05);
-        box-shadow: 10px 10px #000000;
+        box-shadow: 15px 15px #000000;
     }
     
 }
@@ -78,10 +81,10 @@ input {
 /* Used to create the masked border effect and ensures that it only applies to the border rather than the whole box*/
     mask: linear-gradient(#000 0 0) content-box, 
                    linear-gradient(#000 0 0);
-    mask-composite: xor;
     mask-composite: exclude;
 
     padding: 7px;
+    
 }
 
 .box:hover {
