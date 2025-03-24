@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<head>
+<title>Hellth</title>
+<link rel="icon" href="Logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type = "module" src="FoodController.js" defer></script>
+
+<link rel="stylesheet" href="styles.css">
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+    <button class="top-left-btn">
+        <i class="fa-solid fa-envelope"></i>
+    </button>
+
+    <button class="top-right-btn">
+        <i class="fa-solid fa-user"></i>
+    </button>
+<main>
+    <h1 id = "hellthTitle">Add Meal</h1>
+    <section id = "mealPageSection">
+        <div class="foodAddSection">
+            <h2 id="foodTitle">Add Food</h2>
+            <div class="foodAdd">
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search For Foods...">
+                </div>
+            </div>
+            <div class="search-results">
+            </div> 
+        </div>
+
+        </div>
+        <div class = "centerSection">
+            <h2 id = "foodTitle">Current Selection</h2>
+            <div class="foodList"></div> 
+          
+            <button id="mealBtn" class="mainBtn">Create Meal</button>
+        </div>
+       
+        <div class="overviewSection">
+            <h2 id="foodTitle">Nutrients</h2>
+            <div class = "nutrientSection">
+                <h2 class="calorieTitle">Total Calories: 0</h2>
+                <h2 class="itemTotalTitle">Total Items: 0</h2>
+                <h5 class="protein">Protein: 0g</h5>
+                <h5 class="fiber">Fiber: 0g</h5>
+                <h5 class="carbs">Carbohydrates: 0g</h5>
+                <h5 class="fat">Fat: 0g</h5>
+                <h5 class="sugar">Sugar: 0g</h5>
+            </div>
+        </div>
+    </section>    
+    <div class="popup-overlay" id="popupOverlay">
+        <div id="mealPopup" class="popup">
+            <div class="popup-content">
+                <p id="popupMessage"></p>
+                <form id="mealForm">
+                    <input type="text" id="mealName" placeholder="Meal Name" required = "true">
+    
+                    <select id="mealType" required = "true">
+                        <option value="" disabled selected>Select Meal Type</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="snack">Snack</option>
+                    </select>
+                    
+                    <div class="popup-buttons">
+                        <button id="confirmBtn">Confirm</button>
+                        <button id="cancelBtn"><i class="fas fa-times"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    </main>
+    <div class="navbar">
+        <button class="nav-btn">
+            <a href="login.html">
+                <i class="fa fa-home" "></i>
+            </a>
+            <span class="icon-text">Home</span>
+        </button>
+        <button class="nav-btn">
+            <a href="progress.html">
+                <i class="fa fa-chart-line" "></i>
+            </a>
+            <span class="icon-text">Progress</span>
+
+        </button>
+        <div class="center-btn-container">
+            <button class="center-btn">
+                <a href="mealActivtiySelect.html">
+                    <i class="fa-solid fa-plus"></i>
+                </a>
+            </button>
+        </div>
+        <button class="nav-btn">
+            <a href="groups.html">
+                <i class="fa-solid fa-users" ></i>
+            </a>
+            <span class="icon-text">Groups</span>
+
+        </button>
+        <button class="nav-btn">
+            <a href="groups.html">
+                <i class="fa fa-info-circle" "></i>
+            </a>
+            <span class="icon-text">Help</span>
+
+        </button>
+        
+    </div>
+    <div id="quantity-alert"></div>
+    
+</body>
