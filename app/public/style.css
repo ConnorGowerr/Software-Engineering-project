@@ -27,6 +27,10 @@ input {
     box-shadow: 5px 5px;
     backdrop-filter: blur(10px);
 }
+
+a:visited {
+    color: #EFEDE7;
+}
   
 /* Classes */
 
@@ -221,6 +225,7 @@ This works by manually forcing a seperate layer to render to.*/
     text-shadow: 2px 2px 4px #000000;
     font-style: italic;
     font-size: small;
+    color: #EFEDE7;
 }
 
 #logInButton {
