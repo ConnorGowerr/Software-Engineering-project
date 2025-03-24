@@ -310,6 +310,49 @@ input {
 
 }
 
+#changeText {
+    color: #B0B0B0;
+    font-size: 2vh;
+}
+#adjustText {
+    color: #EFEDE7;
+    font-size: 1.5vh;
+}
+
+#changeTargets {
+    color: #EFEDE7;
+    font-size: 3vh;
+}
+
+
+.buttons {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: flex;
+    gap: 20%;
+    justify-content: center;
+}
+
+.btn {
+    padding: 15px 30px;
+    font-size: 20px;
+    background-color: #FF5733;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border: #95180F;
+}
+
+.btn:hover {
+    background-color: #95180F;
+    box-shadow: 0 0 15px 5px rgba(255, 87, 51, 0.7);
+}
+
+.btn:active {
+    background-color: #CE6B31;
+}
+
 #achievementProgressBar {
     height: 3.5vh;
     width: 80%;
