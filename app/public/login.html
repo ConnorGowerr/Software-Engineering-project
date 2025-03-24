@@ -1,31 +1,43 @@
 <!DOCTYPE html>
+
 <head>
 <title>Hellth</title>
 <link rel="icon" href="Logo.png">
 <link rel="stylesheet" href="style.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<script src = "login.js" defer></script>
 </head>
 <body>
 <main>
     <h1 id = "hellthTitle">Hellth</h1>
     <section id = "loginPageSection">
         <div class = "box" id = "logInBox">
-            <h2>Returning user? Sign in Here!</h2>
-            <form>
-                <input type = "text" id = "logInUsername" placeholder = "Username">
-                    <div class = "iconBox" id = "usernameIconBox">
-
-                    </div>
-                <input type = "password" id = "logInPassword" placeholder = "Password">
-                <div class = "iconBox" id = "passwordIconBox">
-
-                </div> 
+            <h2 id = "returningUser">Returning user? Sign in Here!</h2>
+            <form class = "form" id = "logInForm">
+                <div id = "usernameContainer">
+                    <input type = "text" class = "inputClass" id = "logInUsername" placeholder = "Username*" aria-required = "true" required = "true">
+                        <div class = "iconBox" id = "usernameIconBox">
+                            <img id = "usernameIcon" src = "User.png">
+                        </div>            
+                </div>
+                <div id = "passwordContainer">
+                    <input type = "password" class = "inputClass" id = "logInPassword" placeholder = "Password*" aria-required = "true" required = "true">
+                        <div class = "iconBox" id = "passwordIconBox" onclick="showPassword()">
+                            <img id = "eyeIcon" src = "Eye off.png">
+                        </div>
+                </div>
+              <a href = "login.html"><u id = "forgotPassword">Forgotten Password?</u></a>
+                <button class = "button" id = "logInButton">Log In</button>
             </form>
         </div>
         <h2 id = "OR">- OR -</h2>
         <div class = "box" id = "signUpBox">
-            <a href="signup.html"> Yes </button>
+            <h2 id = "newUserTitle">Ignite Your Fitness Journey Today</h2>
+            <p class = "welcomeText">Step into the fire and forge a stronger you.</p>
+            <p class = "welcomeText">Hellth isn’t just another fitness app—it's your crucible, where powerful tracking, relentless challenges, and a driven community push you to new heights.</p>
+            <p class = "welcomeText">Ready to take the heat? Join now and claim your place!</p>
+            <button class = "button" id = "signUpButton">Sign Up</button>
         </div>
     </section>
     </main>

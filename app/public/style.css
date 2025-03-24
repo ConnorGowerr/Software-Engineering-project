@@ -27,6 +27,10 @@ input {
     box-shadow: 5px 5px;
     backdrop-filter: blur(10px);
 }
+
+a:visited {
+    color: #EFEDE7;
+}
   
 /* Classes */
 
@@ -35,8 +39,68 @@ input {
     border-width: 2px;
     border-color: #EFEDE7;
     border-style: solid;
-    box-shadow: 5px 5px;
-    backdrop-filter: blur(10px);
+    box-shadow: 5px 5px #000000;
+
+/* Ensures the cliping of the orange border does not apply to the whole site itself instead of just the box
+This works by manually forcing a seperate layer to render to.*/
+    transform: translateZ(0);
+}
+
+
+@property --fill {
+
+    syntax: '<percentage>';
+    inherits: true;
+    initial-value: 0%;
+}
+
+@keyframes pop {
+    
+    from 
+    {
+        transform: scale(1);
+        box-shadow: 5px 5px #000000;
+    }
+    to
+    {
+        transform: scale(1.05);
+        box-shadow: 15px 15px #000000;
+    }
+    
+}
+
+.box::before, .box::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    inset: -6px;
+    border-radius: inherit;
+    background:
+        conic-gradient(
+            #EA7B3A var(--fill),
+            transparent var(--fill)
+        );
+    transition: --fill 1s 30ms ease-in-out;
+    
+   
+/* Used to create the masked border effect and ensures that it only applies to the border rather than the whole box*/
+    mask: linear-gradient(#000 0 0) content-box, 
+                   linear-gradient(#000 0 0);
+    mask-composite: exclude;
+
+    padding: 7px;
+    
+}
+
+.box:hover {
+    color: #EA7B3A;
+    outline: 1px solid transparent;
+    --fill: 100%;
+    animation-name: pop;
+    animation-duration: 1s;
+
+    /* to keep box in final state of animation when hovering*/
+    animation-fill-mode: forwards;
 }
 
 .iconBox {
@@ -46,10 +110,56 @@ input {
     border-style: solid;
     border-radius: 8px;
     border-width: 3.5px;
-    box-shadow: 5px 5px;
+    box-shadow: 5px 5px #000000;
     backdrop-filter: blur(10px);
 }
-  
+
+.inputClass {
+    margin-top: 15%;
+    margin-right: 5%;
+    font-size: large;
+    padding: 4.5%;
+    flex: 1; 
+    margin: 0;
+    box-sizing: border-box; 
+}
+
+.button {
+    background-image: linear-gradient(#95180F, 50%, #EA7B3A);   
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    border-radius: 8px;
+    box-shadow: 5px 5px #000000;
+    backdrop-filter: blur(10px);
+    font-family: 'Oswald';
+    font-weight: bolder;
+    font-size: xx-large;
+    color: #EFEDE7;
+}
+
+.button:hover {
+    background-image: linear-gradient(#be1f13, 50%, #ee7736);
+}
+
+.button:active {
+
+    background-image: linear-gradient(#7a130c, 50%, #b95b29);
+}
+
+.form {
+    justify-content: center;
+}
+
+.welcomeText {
+    color: #EFEDE7;
+    font-family: 'Poppins';
+    font-size: larger;
+    margin-right: 5%;
+    margin-left: 5%;
+    text-shadow: 2px 2px 4px #000000
+}
+
 /* Log In Page Id's */
 
 #hellthTitle {
@@ -74,8 +184,9 @@ input {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 13.5%;
+    padding-bottom: 6%;
     margin-right: 2%;
+    color: #EFEDE7;
 }
 
 #signUpBox {
@@ -85,7 +196,7 @@ input {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 35%;
+    padding-bottom: 4%;
     margin-left: 2%;
 }
   
@@ -95,16 +206,6 @@ input {
     margin-bottom: 17.5%;
     align-items: center;
     justify-content: space-between;
-}
-
-.inputClass {
-    margin-top: 15%;
-    margin-right: 5%;
-    font-size: large;
-    padding: 4.5%;
-    flex: 1; 
-    margin: 0;
-    box-sizing: border-box; 
 }
 
 #usernameIconBox, #passwordIconBox {
@@ -118,12 +219,45 @@ input {
     box-sizing: border-box;
 }
 
+
+#forgottenPassword 
+{
+    font-family: 'Poppins';
+    text-shadow: 2px 2px 4px #000000;
+    font-style: italic;
+    font-size: small;
+    color: #EFEDE7;
+}
+
+#logInButton {
+    display: flex;
+    padding: 3% 20%;
+    margin-top: 19%;
+    justify-content: center;
+    margin-left: 14.75%;
+    font-size: 40px;
+}
+
 #OR {
     font-size: xx-large;
     font-family: 'Oswald';
     margin: 0 2%;
   }
 
-  #eyeIcon {
+
+#eyeIcon {
     margin-top: 1%;
   }
+
+#newUserTitle {
+    font-size: 28px;
+}
+
+#signUpButton {
+    display: flex;
+    padding: 2% 10%;
+    margin-top: 5%;
+    justify-content: center;
+    font-size: 36px;
+}
+
