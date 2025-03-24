@@ -1,150 +1,6 @@
-/* Generics */
-html,
-body {
-    background-color: #1C1F21;
-    text-align: center;
-    height: 100%;
-    min-height: 100%;
-    margin: 0;
-}
-
-h1 {
-    color: #EFEDE7;
-    font-family: 'Oswald';
-    text-shadow: 2px 2px 4px #000000;
-}
-
-h2 {
-    color: #EFEDE7;
-    font-family: 'Oswald';
-    text-shadow: 2px 2px 4px #000000;
-}
-
 h3 {
     color: #EFEDE7;
     font-family: 'Oswald';
-}
-
-input {
-    background-color: #EFEDE7;
-    border-width: 3px;
-    border-color: #B0B0B0;
-    border-style: solid;
-    box-shadow: 5px 5px;
-    backdrop-filter: blur(10px);
-}
-
-/* Classes */
-.box {
-    background-color: #000000;
-    border-width: 2px;
-    border-color: #EFEDE7;
-    border-style: solid;
-    box-shadow: 5px 5px;
-    backdrop-filter: blur(10px);
-}
-
-.container {
-    background-color: #1C1F21;
-    margin: 0 auto;
-    text-align: center;
-    width: 90%;
-    min-height: 100%;
-}
-
-.iconBox {
-    background-color: #B0B0B0;
-    border-width: 2px;
-    border-color: #EFEDE7;
-    border-style: solid;
-    backdrop-filter: blur(10px);
-}
-
-.navbar {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 98%;
-    height: 10vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-width: 2px;
-    border-radius: 40px;
-    border-style: solid;
-    background-image: linear-gradient(180deg, #95180F, #CE6B31 90%);
-    padding: 0;
-    text-align: center;
-    color: white;
-    font-size: 4vw;
-    max-width: 100%;
-    min-width: 320px;
-}
-
-.nav-btn {
-    background: transparent;
-    border: none;
-    width: 12%;
-    height: 50%;
-    font-size: 3vw;
-    font-weight: bold;
-    max-width: fit-content;
-    max-height: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px;
-    border-color: #EFEDE7;
-    border-width: 2px;
-    cursor: pointer;
-    transition: 0.3s;
-    color: white;
-    margin-bottom: 1%;
-}
-
-.nav-btn:hover {
-    opacity: 0.7;
-}
-
-.nav-btn i {
-    color: white;
-}
-
-.center-btn-container {
-    position: relative;
-    width: 10%;
-    height: 8vw;
-    top: -35%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.center-btn {
-    background: #fff;
-    border-radius: 50%;
-    font-size: 5vw;
-    color: #CE6B31;
-    cursor: pointer;
-    transition: 0.3s;
-    border: 3px solid darkorange;
-    width: 80%;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.center-btn:hover {
-    background: #ffcccb;
-}
-
-.icon-text {
-    font-size: 1vw;
-    margin-top: 1%;
-    color: white;
 }
 
 .graph {
@@ -158,50 +14,6 @@ input {
     text-align: center;
     /* padding-right:; */
     color: white;
-}
-
-.top-left-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: white;
-    border: 3px solid orange;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    cursor: pointer;
-    color: orange;
-    transition: 0.3s;
-}
-
-.top-left-btn:hover {
-    opacity: 0.7;
-}
-
-.top-right-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: darkorange;
-    border: 3px solid darkorange;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    cursor: pointer;
-    color: white;
-    transition: 0.3s;
-}
-
-.top-right-btn:hover {
-    opacity: 0.7;
 }
 
 .buttons {
@@ -325,95 +137,6 @@ input[type="radio"]{
     font-weight: bold;
 }
 
-#loginPageSection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#logInBox {
-    width: 35%;
-    height: 35%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 17%;
-    margin-right: 2%;
-}
-
-#signUpBox {
-    width: 35%;
-    height: 35%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 35%;
-    margin-left: 2%;
-}
-
-#logInUsername {
-    width: 55%;
-    margin-top: 15%;
-    padding-top: 4%;
-    padding-bottom: 4%;
-    padding-left: 8%;
-    padding-right: 8%;
-    font-size: large;
-}
-
-#logInPassword {
-    width: 55%;
-    margin-top: 15%;
-    padding-top: 4%;
-    padding-bottom: 4%;
-    padding-left: 8%;
-    padding-right: 8%;
-    font-size: large;
-}
-
-#OR {
-    font-size: xx-large;
-    margin: 0 2%;
-}
-
-#usernameIconBox {
-    display: inline-block;
-    /* padding-top: 4%;
-    padding-bottom: 4%;
-    padding-left: 6%;
-    padding-right: 6%; */
-    padding: 6%;
-
-}
-
-#passwordIconBox {
-    display: inline-block;
-    /* padding-top: 4%;
-    padding-bottom: 4%;
-    padding-left: 6%;
-    padding-right: 6%; */
-    padding: 6%;
-}
-
-/* achievement Page Id's */
-
-#achievementsSection {
-    width: 90%;
-    margin: 0 auto;
-}
-
-#achievementTitle {
-    font-size: 2vh;
-    font-weight: bold;
-    text-align: center;
-    color: #333;
-    text-align: center;
-    /* margin-left: 10%; */
-    padding-left: 11px;
-}
-
 #medals {
     font-size: 4vh;
     font-weight: normal;
@@ -443,66 +166,271 @@ input[type="radio"]{
     font-size: 3vh;
 }
 
-#progressSection {
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-#achievementProgressBar {
-    height: 3.5vh;
-    width: 80%;
-    display: flex;
-    justify-content: flex-start;
-    background: #ddd;
-    margin-top: auto;
-    border-radius: 25px;
-    overflow: hidden;
-    position: relative;
-    margin-left: 7.5%;
-    margin-bottom: 1.75%;
-    margin-top: 5%;
-}
-
-#achievementProgressBar .progress-fill {
-    height: 100%;
-    background: linear-gradient(to right, #FF5733, #CE6B31, #FFC300);
-    width: 90%;
-    border-radius: 25px;
-    box-shadow: 0 0 10px rgba(255, 87, 51, 0.7), 0 0 15px rgba(206, 107, 49, 0.5);
-}
-
 #emailImage{
     height: auto;
     width: 25%;
 }
 
-@media (max-width: 600px) {
-    .navbar .nav-btn {
-        width: 15%;
-        height: 50%;
-        font-size: 5vw;
-        /* background-color: #000000; */
-    }
+/* Generics */
+
+body {
+    background-color: #1C1F21;
+    text-align: center;
+}
+  
+h1 {
+    color: #EFEDE7;
+    font-family: 'Oswald';
+    text-shadow: 2px 2px 4px #000000;
+}
+  
+h2 {
+    color: #EFEDE7;
+    font-family: 'Poppins';
+    text-shadow: 2px 2px 4px #000000;
+}
+  
+input {
+    background-color: #EFEDE7;
+    border-width: 4px;
+    border-radius: 15px;
+    border-color: #B0B0B0;
+    border-style: solid;
+    font-family: 'Poppins';
+    box-shadow: 5px 5px;
+    backdrop-filter: blur(10px);
 }
 
-@media (max-width: 350px) {
-    .navbar .nav-btn {
-        width: 20%;
-        height: 80%;
-        font-size: 8vw;
-        /* background-color: #000000; */
-    }
-
-    .center-btn {
-        font-size: 10vw;
-    }
-
-    .center-btn-container {
-        width: 15%;
-        height: 10vw;
-        top: -55%;
-
-    }
+a:visited {
+    color: #EFEDE7;
 }
+  
+/* Classes */
+
+.box {
+    background-color: #383F42;
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    box-shadow: 5px 5px #000000;
+
+/* Ensures the cliping of the orange border does not apply to the whole site itself instead of just the box
+This works by manually forcing a seperate layer to render to.*/
+    transform: translateZ(0);
+}
+
+
+@property --fill {
+
+    syntax: '<percentage>';
+    inherits: true;
+    initial-value: 0%;
+}
+
+@keyframes pop {
+    
+    from 
+    {
+        transform: scale(1);
+        box-shadow: 5px 5px #000000;
+    }
+    to
+    {
+        transform: scale(1.05);
+        box-shadow: 15px 15px #000000;
+    }
+    
+}
+
+.box::before, .box::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    inset: -6px;
+    border-radius: inherit;
+    background:
+        conic-gradient(
+            #EA7B3A var(--fill),
+            transparent var(--fill)
+        );
+    transition: --fill 1s 30ms ease-in-out;
+    
+   
+/* Used to create the masked border effect and ensures that it only applies to the border rather than the whole box*/
+    mask: linear-gradient(#000 0 0) content-box, 
+                   linear-gradient(#000 0 0);
+    mask-composite: exclude;
+
+    padding: 7px;
+    
+}
+
+.box:hover {
+    color: #EA7B3A;
+    outline: 1px solid transparent;
+    --fill: 100%;
+    animation-name: pop;
+    animation-duration: 1s;
+
+    /* to keep box in final state of animation when hovering*/
+    animation-fill-mode: forwards;
+}
+
+.iconBox {
+    background-color: #B0B0B0;
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    border-radius: 8px;
+    border-width: 3.5px;
+    box-shadow: 5px 5px #000000;
+    backdrop-filter: blur(10px);
+}
+
+.inputClass {
+    margin-top: 15%;
+    margin-right: 5%;
+    font-size: large;
+    padding: 4.5%;
+    flex: 1; 
+    margin: 0;
+    box-sizing: border-box; 
+}
+
+.button {
+    background-image: linear-gradient(#95180F, 50%, #EA7B3A);   
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    border-radius: 8px;
+    box-shadow: 5px 5px #000000;
+    backdrop-filter: blur(10px);
+    font-family: 'Oswald';
+    font-weight: bolder;
+    font-size: xx-large;
+    color: #EFEDE7;
+}
+
+.button:hover {
+    background-image: linear-gradient(#be1f13, 50%, #ee7736);
+}
+
+.button:active {
+
+    background-image: linear-gradient(#7a130c, 50%, #b95b29);
+}
+
+.form {
+    justify-content: center;
+}
+
+.welcomeText {
+    color: #EFEDE7;
+    font-family: 'Poppins';
+    font-size: larger;
+    margin-right: 5%;
+    margin-left: 5%;
+    text-shadow: 2px 2px 4px #000000
+}
+
+/* Log In Page Id's */
+
+#hellthTitle {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#returningUser {
+    font-size: xx-large;
+}
+  
+#loginPageSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+#logInBox {
+    width: 35%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 6%;
+    margin-right: 2%;
+    color: #EFEDE7;
+}
+
+#signUpBox {
+    width: 35%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 4%;
+    margin-left: 2%;
+}
+  
+#usernameContainer, #passwordContainer {
+    display: flex;
+    height: 10%;
+    margin-bottom: 17.5%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#usernameIconBox, #passwordIconBox {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    flex-shrink: 0; 
+    width: 50px; 
+    height: 50px; 
+    margin-left: 10px; 
+    box-sizing: border-box;
+}
+
+
+#forgottenPassword 
+{
+    font-family: 'Poppins';
+    text-shadow: 2px 2px 4px #000000;
+    font-style: italic;
+    font-size: small;
+    color: #EFEDE7;
+}
+
+#logInButton {
+    display: flex;
+    padding: 3% 20%;
+    margin-top: 19%;
+    justify-content: center;
+    margin-left: 14.75%;
+    font-size: 40px;
+}
+
+#OR {
+    font-size: xx-large;
+    font-family: 'Oswald';
+    margin: 0 2%;
+  }
+
+
+#eyeIcon {
+    margin-top: 1%;
+  }
+
+#newUserTitle {
+    font-size: 28px;
+}
+
+#signUpButton {
+    display: flex;
+    padding: 2% 10%;
+    margin-top: 5%;
+    justify-content: center;
+    font-size: 36px;
+}
+
