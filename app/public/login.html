@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="style.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<script src = "login.js"></script>
 </head>
 <body>
 <main>
@@ -12,22 +13,30 @@
     <section id = "loginPageSection">
         <div class = "box" id = "logInBox">
             <h2 id = "returningUser">Returning user? Sign in Here!</h2>
-            <form>
+            <form class = "form" id = "logInForm">
                 <div id = "usernameContainer">
-                    <input type = "text" id = "logInUsername" placeholder = "Username">
+                    <input type = "text" class = "inputClass" id = "logInUsername" placeholder = "Username*" aria-required = "true" required = "true">
                         <div class = "iconBox" id = "usernameIconBox">
                             <img id = "usernameIcon" src = "User.png">
                         </div>            
                 </div>
                 <div id = "passwordContainer">
-                    <input type = "password" id = "logInPassword" placeholder = "Password">
-                        <div class = "iconBox" id = "passwordIconBox">
+                    <input type = "password" class = "inputClass" id = "logInPassword" placeholder = "Password*" aria-required = "true" required = "true">
+                        <div class = "iconBox" id = "passwordIconBox" onclick="showPassword()">
+                            <img id = "eyeIcon" src = "Eye off.png">
                         </div>
-                </div> 
+                </div>
+                <a href = "login.html"><u id = "forgotPassword">Forgotten Password?</u></a>
+                <button class = "button" id = "logInButton">Log In</button>
             </form>
         </div>
         <h2 id = "OR">- OR -</h2>
         <div class = "box" id = "signUpBox">
+            <h2 id = "newUserTitle">Ignite Your Fitness Journey Today</h2>
+            <p class = "welcomeText">Step into the fire and forge a stronger you.</p>
+            <p class = "welcomeText">Hellth isn’t just another fitness app—it's your crucible, where powerful tracking, relentless challenges, and a driven community push you to new heights.</p>
+            <p class = "welcomeText">Ready to take the heat? Join now and claim your place!</p>
+            <button class = "button" id = "signUpButton">Sign Up</button>
         </div>
     </section>
     </main>
