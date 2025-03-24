@@ -20,6 +20,11 @@ h2 {
     text-shadow: 2px 2px 4px #000000;
 }
 
+h3 {
+    color: #EFEDE7;
+    font-family: 'Oswald';
+}
+
 input {
     background-color: #EFEDE7;
     border-width: 3px;
@@ -142,13 +147,6 @@ input {
     color: white;
 }
 
-#progressSection {
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
 .graph {
     background-color: #383F42;
     border-width: 2px;
@@ -206,7 +204,103 @@ input {
     opacity: 0.7;
 }
 
-/* Log In Page Id's */
+.buttons {
+    margin-top: 1%;
+    display: flex;
+    gap: 20%;
+    justify-content: center;
+}
+
+.btn {
+    margin-bottom: 1%;
+    padding: 15px 30px;
+    font-size: 20px;
+    background-color: #FF5733;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border: #95180F;
+}
+
+.btn:hover {
+    background-color: #95180F;
+    box-shadow: 0 0 15px 5px rgba(255, 87, 51, 0.7);
+}
+
+.btn:active {
+    background-color: #CE6B31;
+}
+
+.feedbackContainer{
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.contact-box{
+    background-color: #B0B0B0;
+    border: 1px solid #95180F;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 87, 51, 0.7);
+    padding: 20px;
+    width: 100%;
+}
+
+.header{
+    background-color: #CE6B31;
+    padding: 10px;
+    cursor: pointer;
+    color: whitesmoke;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: 20px;
+}
+
+.header:hover{
+    background-color: #FF5733;
+}
+
+.dropdown{
+    display: none;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.dropdown.active{
+    display: block;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+li{
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #CE6B31;
+    border-radius: 5px;
+    border: #000000;
+    border-width: 2px;
+    border-style: solid;
+}
+
+input[type="radio"]{
+    margin-right: 10px;
+}
+
+.input{
+    margin: 5%;
+    width: 90%;
+    height: 15vw;
+    text-align: left;
+}
+
+/* Page Id's */
 #hellthTitle {
     font-size: 7vh;
     font-weight: bold;
@@ -324,33 +418,11 @@ input {
     font-size: 3vh;
 }
 
-
-.buttons {
-    margin-top: 1%;
-    margin-bottom: 1%;
-    display: flex;
-    gap: 20%;
-    justify-content: center;
-}
-
-.btn {
-    padding: 15px 30px;
-    font-size: 20px;
-    background-color: #FF5733;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    border: #95180F;
-}
-
-.btn:hover {
-    background-color: #95180F;
-    box-shadow: 0 0 15px 5px rgba(255, 87, 51, 0.7);
-}
-
-.btn:active {
-    background-color: #CE6B31;
+#progressSection {
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #achievementProgressBar {
