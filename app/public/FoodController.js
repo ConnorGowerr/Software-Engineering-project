@@ -2,7 +2,8 @@ import Food from './Food.js';
 import FoodView from './FoodView.js';
 import Meal from './meal.js';
 
-//not fully compleeted however works as intended with tests//
+//Gonna need to modularise this file more into the view 
+
 class FoodController {
     constructor() {
         this.view = new FoodView();
@@ -126,13 +127,19 @@ class FoodController {
     }
     
     
-    //calcualting total nutrients of allitesmin the foodlist  
+    //calcualting total nutrients of all items in the foodlist  
+    //allmealfood is a structure used to list all foods * by their quantity.
     calculateTotalCal() {
-        while (this.allMealFood.length > 0) {
+
+        let totals = { calories: 0, protein: 0, fiber: 0, carbs: 0, fat: 0, sugar: 0, count: 0 };
+        if(!this.foodList.hasChildNodes()){this.view.updateNutritionUI(totals);}
+
+         //clear structure for use 
+         while (this.allMealFood.length > 0) {
             this.allMealFood.pop();
         }    
+
         const foodItems = this.foodList.querySelectorAll('.item');
-        let totals = { calories: 0, protein: 0, fiber: 0, carbs: 0, fat: 0, sugar: 0, count: 0 };
     
         foodItems.forEach(food => {
             const foodName = food.textContent.split(' - ')[0]?.trim();
@@ -151,11 +158,14 @@ class FoodController {
             }
             for(var i = 0; i < quantity; i++){          
                 this.allMealFood.push(foodData);
-                console.log(quantity)
+                // console.log(quantity)
             }
         });
     
         this.view.updateNutritionUI(totals);
+
+
+
     }
 
 
@@ -181,39 +191,40 @@ class FoodController {
             }
         });
     
-    const mealForm = document.getElementById("mealForm");
-    const mealPopup = document.getElementById("mealPopup");
-    const popupOverlay = document.getElementById("popupOverlay");
-    document.getElementById("popupMessage").textContent = `Total Calories: ${totalCals}`;
-    const confirmBtn = document.getElementById("confirmBtn");
-    const cancelBtn = document.getElementById("cancelBtn");
+        const mealForm = document.getElementById("mealForm");
+        const mealPopup = document.getElementById("mealPopup");
+        const popupOverlay = document.getElementById("popupOverlay");
+        document.getElementById("popupMessage").textContent = `Total Calories: ${totalCals}`;
+        const confirmBtn = document.getElementById("confirmBtn");
+        const cancelBtn = document.getElementById("cancelBtn");
 
 
-    mealPopup.style.display = "block";
-    popupOverlay.style.display = "block";
+        mealPopup.style.display = "block";
+        popupOverlay.style.display = "block";
 
-    
-    mealForm.onsubmit = (event) => {
-        event.preventDefault();  
+        
+        //form handling, on confirm retreieve the info and close the popup, on cancel just close the popup.
+        mealForm.onsubmit = (event) => {
+            event.preventDefault();  
 
-        this.foodList.querySelectorAll('.item').forEach(item => item.remove());
+            this.foodList.querySelectorAll('.item').forEach(item => item.remove());
 
-        var meal = new Meal(document.querySelector("#mealName").value, document.querySelector("#mealType").value, this.allMealFood);
-        console.log(meal.toString());
+            var meal = new Meal(document.querySelector("#mealName").value, document.querySelector("#mealType").value, this.allMealFood);
+            console.log(meal.toString());
 
-        meal.getAllFoods().forEach(Food => console.log(Food.toString()));
+            meal.getAllFoods().forEach(Food => console.log(Food.toString()));
 
-        this.allMealFood.length = 0;  
+            this.allMealFood.length = 0;  
 
-        this.calculateTotalCal();
-        this.closePopup();
-    };
+            this.calculateTotalCal();
+            this.closePopup();
+        };
 
-    cancelBtn.onclick = (event) => {
-        event.preventDefault();
-        this.closePopup();
-    };
-}
+        cancelBtn.onclick = (event) => {
+            event.preventDefault();
+            this.closePopup();
+        };
+    }
 
 
     closePopup() {
@@ -223,8 +234,7 @@ class FoodController {
 
     
 
-    //function to find all foods that inlcude the users current input
-
+    //function to find all foods that inlcude the users current input (could add some specified funtality if wanted)
     showSearchResults(query) {
         const resultsContainer = document.querySelector('.search-results');
         resultsContainer.innerHTML = ''; 
@@ -248,33 +258,6 @@ class FoodController {
 }
 
 
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const foodController = new FoodController();
-
-   
-    document.getElementById("mealBtn").addEventListener("click", (event) => {
-        var foodList = document.querySelector('.foodList');
-        if(!foodList.hasChildNodes()){
-            console.log('NO FOOD')
-            return;
-        }
-        foodController.createMeal();
-    });
-    document.querySelector(".search-bar").addEventListener("input", (event) => {
-        const itemName = event.target.value.trim();
-        if (itemName) {
-            foodController.showSearchResults(itemName);
-        } else {
-            document.querySelector('.search-results').innerHTML = ''; 
-        }
-    });
-});
-
-
-
-
 //own alert 
 function showAlert(message) {
     const alertBox = document.getElementById('quantity-alert');
@@ -290,3 +273,25 @@ function showAlert(message) {
     }, 2000);
 }
 
+
+
+
+const foodController = new FoodController();
+
+   
+document.getElementById("mealBtn").addEventListener("click", (event) => {
+    var foodList = document.querySelector('.foodList');
+    if(!foodList.hasChildNodes()){
+        console.log('NO FOOD')
+        return;
+    }
+    foodController.createMeal();
+});
+document.querySelector(".search-bar").addEventListener("input", (event) => {
+    const itemName = event.target.value.trim();
+    if (itemName) {
+        foodController.showSearchResults(itemName);
+    } else {
+        document.querySelector('.search-results').innerHTML = ''; 
+    }
+});
