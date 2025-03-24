@@ -1,16 +1,25 @@
-//Selecting h2 elements, specifically the 2 choices between "Monthly" and "Single", with an "on click" function
-//If statement to check if the clicked element is already selected by checking its class
-//remove the class and give it to the clicked element
-$("div").click(function () { 
-    if($(this).hasClass("selectedBtn"))
-        console.log("1")
-         $("div").removeClass("selectedBtn").addClass("selectBtn");               
-    $(this).addClass("selectBtn");
-});
+//When user presses the eye icon, the password will show, and the second function is for the confirm password box.
+function showPassword() {
+    var box = document.getElementById("passwordInput");
+    var img = document.getElementById("eyeImg");
+    if (box.type === "password") {
+        box.type = "text";
+        img.src = "images/Eye.png";
+    } else {
+        box.type = "password";
+        img.src = "images/Eye off.png";
+    }
+}
 
-$("img").click(function () { 
-    if($(this).hasClass("selectBtnimg"))
-        console.log("1")
-         $("img").removeClass("selectBtnimg").addClass("selectedBtnimg");               
-    $(this).addClass("selectedBtnimg");        
-});
+function showPasswordConfirm() {
+    var box2 = document.getElementById("passwordConfirm");
+    var imgConfirm = document.getElementById("eyeImgConfirm");
+    if (box2.type === "password") {
+        box2.type = "text";
+        imgConfirm.src = "images/Eye.png";
+    } else {
+        box2.type = "password";
+        imgConfirm.src = "images/Eye off.png";
+    }
+
+}

@@ -9,15 +9,6 @@
     <script src="signup.js" defer></script>
 </head>
 <body>
-    <!-- <nav class="navbar">
-        <button class="nav-btn">Home</button>
-        <button class="nav-btn">Progress</button>
-        <div class="center-btn-container">
-            <button class="center-btn">+</button>
-        </div>
-        <button class="nav-btn">Groups</button>
-        <button class="nav-btn">Help</button>
-    </nav> -->
     <header>
         <h1 class="hellthTitle">Welcome</h1>
     </header>
@@ -33,20 +24,20 @@
                 </div>
                 <div class="inputdiv">
                     <div class="rowInput">
-                        <input class="inputClass" type="password" placeholder="Password*" aria-required="true" required="true">
-                        <img class="iconBox" src="images/Eye off.png">
+                        <input class="inputClass" id="passwordInput" type="password" placeholder="Password*" aria-required="true" required="true">
+                        <img id="eyeImg" class="iconBox"  src="images/Eye off.png" onclick= showPassword()>
                 </div>
                 </div>
                 <div class="inputdiv">
                     <div class="rowInput">
-                       <input class="inputClass" type="password" placeholder="Confirm Password*" aria-required="true" required="true">
-                       <img class="iconBox" src="images/Eye off.png">
+                       <input class="inputClass" id="passwordConfirm" type="password" placeholder="Confirm Password*" aria-required="true" required="true">
+                       <img id="eyeImgConfirm" class="iconBox"  src="images/Eye off.png" onclick= showPasswordConfirm()>
                 </div>
                 </div>
                 <div class="inputdiv">
                     <div class="rowInput">
                       <input class="inputClass"type="email" placeholder="Email Address*" aria-required="true" required="true">
-                      <img class="iconBox" src="images/Mail.png">
+                      <img class="iconBox" src="images/Mail.png" >
                 </div>
                 </div>
                 <a href="login.html" id="loginLink">Return to login page</a>
