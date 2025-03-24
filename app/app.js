@@ -5,7 +5,7 @@ const port = 8008;
 app.use(express.static('public'));
 
 app.get('/', (req, res) =>  {
-    res.sendFile('Achievements.html', {root: 'public'}, (err) => {
+    res.sendFile('login.html', {root: 'public'}, (err) => {
         if(err) {
             console.log(err);
         }

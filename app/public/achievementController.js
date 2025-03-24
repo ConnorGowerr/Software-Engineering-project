@@ -83,17 +83,17 @@ class AchievementController {
             progressBar.classList.add(typeClassMap[data.type]); 
 
             const achievedImages = {
-                1: "Meal25.png",
-                10: "Meal50.png",
-                50: "Meal75.png",
-                100: "Meal100.png"
+                1: "images/Meal25.png",
+                10: "images/Meal50.png",
+                50: "images/Meal75.png",
+                100: "images/Meal100.png"
             };
             
             const progressThresholds = [1, 10, 50, 100];
             
             let medalsHTML = progressThresholds.map(threshold => {
 
-                let imageSrc = "unachieved.png";
+                let imageSrc = "images/unachieved.png";
                 if(data.progress>=threshold){
                    imageSrc = achievedImages[threshold];
                 }
