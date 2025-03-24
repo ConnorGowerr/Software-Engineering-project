@@ -10,20 +10,17 @@ h1 {
     font-family: 'Oswald';
     text-shadow: 2px 2px 4px #000000;
 }
-  
-h2 {
-    color: #EFEDE7;
-    font-family: 'Poppins';
-    text-shadow: 2px 2px 4px #000000;
-}
 h3 {
+    text-align: left;
     color: #EFEDE7;
     font-family: 'Poppins';
     text-shadow: 2px 2px 4px #000000;
 }
-a {
-    color: #D9D9D9;
+p {
+    text-align: left;
+    color: #EFEDE7;
     font-family: 'Poppins';
+    text-shadow: 2px 2px 4px #000000;
 }
   
 input {
@@ -55,6 +52,10 @@ select {
     border-style: solid;
     box-shadow: 5px 5px;
     backdrop-filter: blur(10px);
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 .iconBox {
@@ -66,87 +67,107 @@ select {
     backdrop-filter: blur(10px);
 }
   
-/* Log In Page Id's */
+/* Navbar stuff */
+.navbar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 98%;  
+    height: 10vh;
+    display: flex;
+    justify-content: space-around;  
+    align-items: center;          
+    border-width: 2px;
+    border-radius: 40px;
+    border-style: solid;
+    background-image: linear-gradient(180deg, #95180F, #CE6B31 90%);
+    padding: 0;
+    text-align: center;
+    color: white;
+    font-size: 4vw;
+    max-width: 100%;
+    min-width: 320px;
+}
 
-#helpTitle {
-    font-size: 40px;
+.nav-btn {
+    background: transparent;
+    border: none;
+    width: 12%;
+    height: 70%;
+    font-size: 3rem;  
     font-weight: bold;
+    max-width: fit-content;
+    max-height: fit-content;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;  
+    align-items: center; 
+    border-radius: 30px;
+    border-color: #EFEDE7;
+    border-width: 2px;
+    cursor: pointer;
+    transition: 0.3s;
+    color: white;
+    /* margin-bottom:; */
 }
 
-#titleh2 {
-    font-size: xx-large;
+
+
+.nav-btn:hover {
+    opacity: 0.7; 
+    transform: scale(1.1);
+
 }
-#titleh3 {
-    font-size: large;
+.nav-btn i {
+    color: white;
+    
 }
-  
-#helpSection {
+
+.center-btn-container {
+    position: relative;
+    width: 8vw; 
+    height: 12vh; 
+    /* top: -30%; */
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 1%;
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+
 }
-  
-#logInBox {
-    width: 35%;
-    height: 35%;
+
+.center-btn {
+    background: #fff;
+    border-radius: 50%; 
+    font-size: 7rem; 
+    color: #CE6B31;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 3px solid darkorange;
+    width: 70%; 
+    height: 70%; 
     display: flex;
-    flex-direction: column;
+    /* margin-right: 5%; */
     justify-content: center;
-    align-items: center;
-    padding-bottom: 17%;
-    margin-right: 2%;
-}
-  
-#helpReason {
-    width: 100%;
-    margin-top: 15%;
-    padding-top: 4%;
-    padding-bottom: 4%;
-    padding-left: 8%;
-    padding-right: 8%;
-    margin-right: 5%;
-    font-size: x-large;
+    align-items: center; 
+
 }
 
-#helpMessage {
-    width: 55%;
-    margin-top: 20%;
-    padding-top: 4%;
-    padding-bottom: 4%;
-    padding-left: 8%;
-    padding-right: 8%;
-    font-size: large;
+.center-btn:hover {
+    background: #ffcccb;
+    transform: scale(1.1);
+
+}
+.center-btn i {
+    color: darkorange;
+
 }
 
-#reasonContainer {
-    display: flex;
-    height: 10%;
-    margin-bottom: 10%;
-    align-items: center;
+
+.icon-text {
+    font-size: 1vw; 
+    margin-top: 1%; 
+    color: white;
 }
-
-#messageContainer {
-    display: flex;
-    height: 10%;
-    align-items: center;
-}
-
-  #reasonIconBox {
-    display: inline-block;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-left: 3%;
-    padding-right: 3%; 
-    
-
-  }
-
-  #messageIconBox {
-    display: inline-block;
-    padding-top: 2%;
-    padding-bottom: 4%;
-    padding-left: 6%;
-    padding-right: 6%; 
-    
-
-  }
