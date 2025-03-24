@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hellth</title>
-    <link rel="icon" href="Logo.png">
-    <link rel="stylesheet" href="styles.css">
-    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
-
+<title>Hellth</title>
+<link rel="icon" href="Logo.png">
+<link rel="stylesheet" href="style.css">
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<script src = "login.js" defer></script>
 </head>
-
 <body>
-    
-    
 <main>
     <h1 id = "hellthTitle">Hellth</h1>
     <section id = "loginPageSection">
@@ -30,11 +23,11 @@
                 </div>
                 <div id = "passwordContainer">
                     <input type = "password" class = "inputClass" id = "logInPassword" placeholder = "Password*" aria-required = "true" required = "true">
-                        <div class = "iconBox" id = "passwordIconBox">
+                        <div class = "iconBox" id = "passwordIconBox" onclick="showPassword()">
                             <img id = "eyeIcon" src = "Eye off.png">
                         </div>
                 </div>
-                <u id = "forgotPassword">Forgotten Password?</u>
+              <a href = "login.html"><u id = "forgotPassword">Forgotten Password?</u></a>
                 <button class = "button" id = "logInButton">Log In</button>
             </form>
         </div>
@@ -47,6 +40,5 @@
             <button class = "button" id = "signUpButton">Sign Up</button>
         </div>
     </section>
-</main>
-    </div>
+    </main>
 </body>
