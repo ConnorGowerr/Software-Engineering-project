@@ -434,3 +434,6 @@ This works by manually forcing a seperate layer to render to.*/
     font-size: 36px;
 }
 
+#signIn {
+    text-decoration: none;
+}
