@@ -13,15 +13,19 @@
 </head>
 
 <body>
-    <button class="top-left-btn">
-        <i class="fa-solid fa-envelope"></i>
-    </button>
+    <header class="top-header">
+        <button class="top-left-btn">
+            <img src="images/envelope-solid.svg" alt="profileIcon" >
+        </button>
 
-    <button class="top-right-btn">
-        <i class="fa-solid fa-user"></i>
-    </button>
-<main>
-    <h1 id = "hellthTitle">Add Meal</h1>
+        <h1 id="hellthTitle">Add Meal</h1>
+
+        <button class="top-right-btn">
+            <img src="images/user-solid.svg" alt="profileIcon">
+        </button>
+    </header>
+
+    <main>
     <section id = "mealPageSection">
         <div class="foodAddSection">
             <h2 id="foodTitle">Add Food</h2>
@@ -78,18 +82,32 @@
             </div>
         </div>
     </div>
-    
+
+    <div class="popup-overlay" id="foodOverlay">
+        <div id="foodPopup" class="popup">
+            <div class="popup-content">
+                <div id="foodMessageContainer">
+                    <p id="foodMessagePopup"></p>
+                </div>
+
+                
+                <button id="confirmBtn2">Confirm</button>
+                <button id="cancelBtn2"><i class="fas fa-times"></i></button>
+                
+            </div>
+        </div>
+    </div>
     </main>
     <div class="navbar">
         <button class="nav-btn">
             <a href="login.html">
-                <i class="fa fa-home" "></i>
+                <img src="images/house-solid.svg" alt="profileIcon">
             </a>
             <span class="icon-text">Home</span>
         </button>
         <button class="nav-btn">
             <a href="progress.html">
-                <i class="fa fa-chart-line" "></i>
+                <img src="images/chart-line-solid.svg" alt="profileIcon">
             </a>
             <span class="icon-text">Progress</span>
 
@@ -97,20 +115,20 @@
         <div class="center-btn-container">
             <button class="center-btn">
                 <a href="mealActivtiySelect.html">
-                    <i class="fa-solid fa-plus"></i>
+                    <img src="images/plus-solid.svg" alt="profileIcon">
                 </a>
             </button>
         </div>
         <button class="nav-btn">
             <a href="groups.html">
-                <i class="fa-solid fa-users" ></i>
+                <img src="images/user-group-solid.svg" alt="profileIcon">
             </a>
             <span class="icon-text">Groups</span>
 
         </button>
         <button class="nav-btn">
-            <a href="groups.html">
-                <i class="fa fa-info-circle" "></i>
+            <a href="help.html">
+                <img src="images/person-circle-question-solid.svg" alt="profileIcon">
             </a>
             <span class="icon-text">Help</span>
 

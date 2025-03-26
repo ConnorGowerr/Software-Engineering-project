@@ -60,7 +60,10 @@ class FoodController {
 
 
 //function to add afood item that was selected by the user from the seardh results, and add the selected item to the food list.
-    addItem(itemName) {
+   //structure {item} -> text container | quantity container| button
+addItem(itemName) {
+
+
         console.log(`Searching for food item: '${itemName}'`);
         const foodData = this.foodData.find(food => food.foodName.toLowerCase().includes(itemName.toLowerCase()));
     
@@ -78,7 +81,10 @@ class FoodController {
     
         const item = document.createElement('div');
         item.classList.add('item');
-        item.textContent = `${foodData.foodName} - ${foodData.calories} kcal `;  
+
+        const textcontainer = document.createElement('div')
+        textcontainer.classList.add('textcontainer');
+        textcontainer.textContent = `${foodData.foodName} - ${foodData.calories} kcal `;  
     
         const quantityContainer = document.createElement('div');
         quantityContainer.classList.add('quantity-container');
@@ -95,6 +101,8 @@ class FoodController {
     
         quantityContainer.appendChild(quantityLabel);
         quantityContainer.appendChild(quantityInput);
+        item.appendChild(textcontainer);  
+
         item.appendChild(quantityContainer);  
     
         const removeButton = document.createElement('button');
@@ -164,17 +172,16 @@ class FoodController {
     
         this.view.updateNutritionUI(totals);
 
-
-
     }
 
 
 
-//funtion to create a meal objecrs fromall items in the current food list, user can confimor cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
+    //funtion to create a meal objecrs from all items in the current food list, user can confirm cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
     createMeal() {
         var foodItems = document.querySelectorAll('.item');  
         var totalCals = 0;
     
+        //get every food item and cacluate all nutrents
         foodItems.forEach(food => {
             const foodName = food.textContent.split(' - ')[0]?.trim();
             const quantity = food.querySelector('.quantity-input') ? parseInt(food.querySelector('.quantity-input').value) : 1;  
@@ -199,11 +206,12 @@ class FoodController {
         const cancelBtn = document.getElementById("cancelBtn");
 
 
+        //make the popup appear
         mealPopup.style.display = "block";
         popupOverlay.style.display = "block";
 
         
-        //form handling, on confirm retreieve the info and close the popup, on cancel just close the popup.
+        //form handling, on confirm retrieve the info and close the popup, on cancel just close the popup.
         mealForm.onsubmit = (event) => {
             event.preventDefault();  
 
@@ -226,36 +234,82 @@ class FoodController {
         };
     }
 
-
-    closePopup() {
-        document.getElementById("mealPopup").style.display = "none";
-        document.getElementById("popupOverlay").style.display = "none";
+    async createMealPopup(item) {
+        const mealPopup = document.getElementById("foodPopup");
+        const popupOverlay = document.getElementById("foodOverlay");
+    
+        const formattedText = `
+            <strong>${item.foodName}</strong> (${item.foodType})<br>
+            Calories: ${item.calories}<br>
+            Protein: ${item.proteinContent}g<br>
+            Fibre: ${item.fibreContent}g<br>
+            Carbs: ${item.carbContent}g<br>
+            Fat: ${item.fatContent}g<br>
+            Sugar: ${item.sugarContent}g<br>
+            Serving Size: ${item.servingSize}
+        `;
+    
+        document.getElementById("foodMessagePopup").innerHTML = formattedText;
+    
+        mealPopup.style.display = "block";
+        popupOverlay.style.display = "block";
+    
+        const confirmBtn = document.getElementById("confirmBtn2");
+        const cancelBtn = document.getElementById("cancelBtn2");
+    
+        // Return a promise for when the user confirms or cancels (just getting used to async again)
+        return new Promise((resolve) => {
+            confirmBtn.onclick = (event) => {
+                event.preventDefault();
+                mealPopup.style.display = "none";
+                popupOverlay.style.display = "none";
+                resolve(true);  
+            };
+    
+            cancelBtn.onclick = (event) => {
+                event.preventDefault();
+                mealPopup.style.display = "none";
+                popupOverlay.style.display = "none";
+                resolve(false);  
+            };
+        });
     }
 
-    
 
-    //function to find all foods that inlcude the users current input (could add some specified funtality if wanted)
-    showSearchResults(query) {
+    //looks for all foods that contain the current input of the search bar, then creates a popup with this food item if clicked where a user can confirm or deny the addition of the food
+    async showSearchResults(query) {
         const resultsContainer = document.querySelector('.search-results');
         resultsContainer.innerHTML = ''; 
-
+    
         const filteredFoodData = this.foodData.filter(food => 
             food.foodName.toLowerCase().includes(query.toLowerCase())
         );
-
-        filteredFoodData.forEach(food => {
+    
+        for (const food of filteredFoodData) {
             const resultItem = document.createElement('div');
             resultItem.classList.add('search-item');
-            resultItem.innerHTML = `${food.foodName}  -  ${food.calories} kcals`;
-            resultItem.onclick = () => {
-                this.addItem(food.foodName); 
-                document.querySelector('.search-bar').value = ''; 
-                resultsContainer.innerHTML = ''; 
+            resultItem.innerHTML = `${food.foodName} - ${food.calories} kcals`;
+    
+            resultItem.onclick = async () => {
+                const isConfirmed = await this.createMealPopup(food);
+    
+                if (isConfirmed) {
+                    this.addItem(food.foodName); 
+                    document.querySelector('.search-bar').value = ''; 
+                    resultsContainer.innerHTML = ''; 
+                }
             };
+    
             resultsContainer.appendChild(resultItem);
-        });
+        }
     }
-}
+    
+
+    closePopup() {
+        document.querySelector(".popup").style.display = "none";
+        document.querySelector(".popup-overlay").style.display = "none";
+    }
+}    
 
 
 //own alert 
@@ -272,7 +326,6 @@ function showAlert(message) {
         }, 300);
     }, 2000);
 }
-
 
 
 

@@ -21,7 +21,7 @@ class AchievementController {
             new Achievement("1-Hour Run", "time", 60),  
             new Achievement("Goals Completed", "goals", 10),  
             new Achievement("Burn Master", "caloriesBurned", 6000),  
-            new Achievement("Long Distance runner", "activity", ),  
+            new Achievement("Long Distance runner", "activity", 1000),  
             new Achievement("5-Minute Plank", "time", 5),  
             new Achievement("Weight Cut", "weight", 12),  
             new Achievement("Daily Burn", "caloriesBurned", 2000),  
@@ -71,6 +71,8 @@ class AchievementController {
             progressBar.classList.add('progress-fill');
             progressBar.style.width = data.progress + "%";
 
+
+            //unit->type
             const typeClassMap = {
                 "time": "timeAchievement",
                 "goals": "timeAchievement",
@@ -83,17 +85,17 @@ class AchievementController {
             progressBar.classList.add(typeClassMap[data.type]); 
 
             const achievedImages = {
-                1: "Meal25.png",
-                10: "Meal50.png",
-                50: "Meal75.png",
-                100: "Meal100.png"
+                1: "images/Meal25.png",
+                10: "images/Meal50.png",
+                50: "images/Meal75.png",
+                100: "images/Meal100.png"
             };
             
             const progressThresholds = [1, 10, 50, 100];
             
             let medalsHTML = progressThresholds.map(threshold => {
 
-                let imageSrc = "unachieved.png";
+                let imageSrc = "images/unachieved.png";
                 if(data.progress>=threshold){
                    imageSrc = achievedImages[threshold];
                 }

@@ -10,6 +10,10 @@ html, body {
     
 }
 
+main{
+    height:80%;
+}
+
 p{
     color: white;
 }
@@ -43,6 +47,15 @@ input {
 }
 
 
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:10%;
+    width: 100%;
+}
+
+
 
 
 /* nav bar stuff */
@@ -51,104 +64,81 @@ input {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 98%;  
-    height: 10vh;
+    width: 98%;
+    height: 10%; 
     display: flex;
-    justify-content: space-around;  
-    align-items: center;          
-    border-width: 2px;
+    justify-content: space-evenly;  
+    align-items: center;
+    /* border-width: 2px; */
     border-radius: 40px;
     border-style: solid;
     background-image: linear-gradient(180deg, #95180F, #CE6B31 90%);
-    padding: 0;
     text-align: center;
     color: white;
-    font-size: 4vw;
-    max-width: 100%;
-    min-width: 320px;
+    /* min-width: 320px; */
 }
 
 .nav-btn {
     background: transparent;
     border: none;
     width: 12%;
-    height: 70%;
-    font-size: 3rem;  
-    font-weight: bold;
-    max-width: fit-content;
-    max-height: fit-content;
+    height: 100%; 
     display: flex;
-    flex-direction: column; 
-    justify-content: center;  
-    align-items: center; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border-radius: 30px;
-    border-color: #EFEDE7;
-    border-width: 2px;
+    margin: 0 2.5%;
     cursor: pointer;
     transition: 0.3s;
     color: white;
-    /* margin-bottom:; */
 }
 
-
-
-.nav-btn:hover {
-    opacity: 0.7; 
-    transform: scale(1.1);
-
+.nav-btn img {
+    width: 35%; 
+    height: auto; 
+    /* object-fit: contain;  */
 }
-.nav-btn i {
-    color: white;
-    
-}
+
 
 
 .center-btn-container {
     position: relative;
-    width: 8vw; 
-    height: 12vh; 
-    /* top: -30%; */
+    width:7%; 
+    height: 95%; 
+    margin: 0 2.5%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 1%;
-    /* left: 50%; */
-    /* transform: translateX(-50%); */
-
 }
 
 .center-btn {
-    background: #fff;
     border-radius: 50%; 
-    font-size: 7rem; 
-    color: #CE6B31;
     cursor: pointer;
     transition: 0.3s;
     border: 3px solid darkorange;
-    width: 70%; 
-    height: 70%; 
+    width: 100%; 
+    height: 100%; 
     display: flex;
-    /* margin-right: 5%; */
     justify-content: center;
     align-items: center; 
 
 }
 
 .center-btn:hover {
-    background: #ffcccb;
-    transform: scale(1.1);
+    transform: scale(1.05);
 
 }
-.center-btn i {
-    color: darkorange;
-
+.center-btn img {
+    width: 80%; 
+    height: auto; 
 }
-
 
 .icon-text {
-    font-size: 1vw; 
-    margin-top: 1%; 
+    font-size: 1rem; 
+    /* margin-top: 3%;  */
     color: white;
+    bottom:0;
 }
 
 
@@ -168,11 +158,11 @@ input {
 
 #achievementsSection {
     width: 100%;
-    height: 75vh; 
+    height: 100%; 
     margin: 0 auto;
     overflow-y: scroll; 
     overflow-x: hidden; 
-    margin-top: 15vh; 
+    margin-top: 15%; 
     position: relative; 
     
 }
@@ -184,26 +174,19 @@ input {
     justify-content: space-between; 
     align-items: center;
     width: 47.5%;
-    height: 35vh;
+    height: 35%;
     background-color: #383F42;
     border-width: 2px;
     border-style: solid;
     border-radius: 20px;
     margin-top: 1%;
     margin-bottom: 5%;
-    
+
     text-align: center;
     box-shadow: 5px 5px 15px rgba(225, 104, 4, 0.842);
     color: white;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
-}
-
-
-
-.achievement:active {
-    transform: scale(1.4);
-
 }
 
 
@@ -290,33 +273,23 @@ input {
 
 
 /* /top buttons */
-.top-left-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+.top-left-btn{
+    width: 7%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     border: 3px solid orange;
     border-radius: 50%;
-    width: 7vw;
-    height: 9vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 5rem; 
-    cursor: pointer;
     color: orange;
+    cursor: pointer;
     transition: 0.3s;
-     transform: scale(1.02);
+    margin-left:1%;
 }
 
-.top-left-btn i { 
-    width: 100%;
-    height: 100%;
-    font-size: 100%; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
+
 
 .top-left-btn:hover {
     opacity: 0.7; 
@@ -324,36 +297,31 @@ input {
 }
 
 .top-right-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px; 
-    background-color: darkorange; 
-    border: 3px solid white;
-    border-radius: 100%; 
-    width: 7vw;
-    height: 9vh; 
+    width: 7%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4rem;
+    background-color: orange;
+    border: 3px solid white;
+    border-radius: 50%;
+    color: white;
     cursor: pointer;
-    color: white; 
     transition: 0.3s;
+    margin-right: 1%;
 }
 
 .top-right-btn:hover {
     opacity: 0.7; 
     transform: scale(1.1);
 }
-.top-right-btn i { 
-    width: 100%;
-    height: 100%;
-    font-size: 100%; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
+.top-right-btn img, .top-left-btn img { 
+    width: 40%;
+    height: auto;
+    object-fit: contain;
 }
+
 
 
   
@@ -547,8 +515,10 @@ input {
     flex-direction: row; 
     justify-content: space-between;
     width: 90%;
-    height: 85vh;
-    margin: 0vh auto;
+    height: 100%;
+    margin: 0 auto;
+
+
 }
 
 
@@ -605,8 +575,8 @@ input {
 }
 
 #mealBtn {
-    width: 30vw;
-    height: 12.5vh;
+    width: 100%;
+    height: 12.5%;
     font-size: 2rem;
     position: absolute;
     bottom: 0; 
@@ -631,33 +601,33 @@ input {
     background-color: #383F42;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
-    /* padding: 2%; */
-    /* margin-bottom: 0; */
+
     justify-content: space-between;
 }
 
 .calorieTitle {
-    font-size: clamp(1.5rem, 2vw, 1.2rem); 
-    font-weight: bold;
+    font-size: 1.2rem;
+    /* font-weight: bold; */
     text-align: center;
-    margin-top: 3vh;
+    margin-top: 2%;
+    margin-bottom: 2%;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .itemTotalTitle {
-    font-size: clamp(1.5rem, 2vw, 1.2rem); 
-    font-weight: bold;
+    font-size: 1.2rem;
+
+    /* font-weight: bold; */
     text-align: center;
-    margin-top: 1vh;
+    margin-top: 4%;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 .protein, .fiber, .carbs, .fat, .sugar {
-    font-size: clamp(0.5rem, 1.5vw, 0.9rem);
+    font-size: 1rem;
     text-align: center;
-    margin: 2vh 0;
-    padding-bottom: 1vh;
+    margin-top:1%;
+    /* padding-bottom: 1%; */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    /* pointer-events: none; */
 }
 
 
@@ -672,13 +642,13 @@ input {
 
 #foodTitle{
     position: relative;
-    top:3%  !important;
+    /* top:4%; */
     font-size: 1.5rem;
 }
 
 #mealTypeTitle{
     position: relative;
-    top:5%;
+    /* top:5%; */
     font-size: 1.5rem;
 }
 
@@ -686,7 +656,7 @@ input {
 
 .foodAdd {
     width: 100%;
-    height: 20%;
+    height: 25%;
     display: flex;
     background-color: #383F42;
     flex-direction: column;
@@ -703,39 +673,38 @@ input {
     display: flex;
     align-items: center;
     position: relative;
-    width: 20vw;
-    height: 7.5vh;
+    width: 80%;
+    height: 50%;
     border-radius: 15px;
 
 }
 
 .search-bar {
-    flex-grow: 1; 
     border-radius: 5px 5px;
     outline: none;
-    padding: 2vh 1vw;
+    padding: 5% 3%;
     font-size: 1rem;
+    width:80%;
     position: relative;
-    width:1.5vw; 
-    height: 1.5vh;
+
     transition: all 0.3s ease-in-out;
     margin: 0 auto;
 }
 
 .search-bar:focus {
-    width: 90%;
+    /* width: 90%; */
     box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
+
 }
 
 .search-results {
     width: 100%;
-    height: 75%; 
+    height: 80%; 
     overflow-y: auto;
     background-color: #383F42;
     border-radius: 15px;
     transition: all 0.3s ease-in-out;
-    /* margin: 2vh auto; */
-    padding: 3vh 0;
+    padding: 3% 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -743,12 +712,12 @@ input {
 }
 
 .search-item {
-    padding: 2vw 2vh;
+    padding: 5%;
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 75%;
-    margin-bottom: 2.5vh;
+    margin-bottom: 4%;
     text-align: center;
     color: #fff;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
@@ -768,7 +737,7 @@ input {
 
 .foodList {
     width: 100%;
-    height: 47.5vh; 
+    height: 66.6%; 
     overflow-y: auto;
     background-color: #383F42;
     border-radius: 10px;
@@ -790,7 +759,7 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1.5vh;
+    margin-top: 5%;
     transition: transform 0.4s ease, background 0.4s ease;  
 }
 
@@ -831,29 +800,32 @@ input {
     align-items: center;
     width: 100%;
     padding: 15px;
+    overflow-wrap: break-word;
     
     border-radius: 5px;
     background-color: #f9f9f9;
     position: relative;
 }
 
+.item .textcontainer{
+    width:50%;
+}
+
 .quantity-container {
     position: absolute;
-    right: 1vw;
+    left: 30%;
+
     display: flex;
     align-items: center;
 
 }
 
 .quantity-input {
-    width: 4vw;
+    width: 20%;
     padding: 1% ;
-    /* font-size: 2rem; */
-    text-align: center;
+    text-align: right;
     border-radius: 5px;
-    /* border: 1px solid #ccc; */
     background-color: white;
-    margin-right: 3vw;
 }
 
 
@@ -972,15 +944,12 @@ label {
     transform: translate(-50%, -50%);
     background-color: #383F42;
     padding-bottom: 2%;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
-
     text-align: center;
-    border-radius: 30px;
-    width: 60vw;
-    height: 60vh;
+    border-radius: 30px 60px;
+    width: 50%;
+    height: 50%;
     color: white;
-    font-size: 4rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -996,16 +965,33 @@ label {
     height: 100%;
 }
 
-#popupMessage {
-    margin:  auto;
-    font-size: 2rem;
+#foodMessagePopup {
+    margin: auto;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 75%;
+    height: 75%;
 }
+
+#foodMessageContainer{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width:40vw;
+    height:75%;
+}
+
+
+
+
 
 .popup-buttons {
     display: flex;
-    gap: 2vw;
     justify-content: center;
-    margin-top: 2vh;
     display: flex;  
     align-items: center; 
     justify-content: center; 
@@ -1052,35 +1038,37 @@ label {
 }
 
 
-#confirmBtn {
+#confirmBtn, #confirmBtn2 {
+    position: fixed;
     background: none;
     color: white;
     background-color: darkorange;
     border: none;
     cursor: pointer;
     font-size: 1.5rem;
-    width: 40%;  
-    padding: 1vh 2vw;
+    width: 30%;  
+    bottom:5%;
+    padding: 1% 5%;
     border-radius: 10px;
     display: flex;  
     align-items: center; 
-    justify-content: center; 
+    /* justify-content: center;  */
     text-align: center;  
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-#cancelBtn {
+#cancelBtn,#cancelBtn2  {
     position: fixed;
     top: 8%;
-    left: 90%;
-    width: 7%;
-    height: 7%;
+    left: 85%;
+    width: 10%;
+    height: 10%;
     border-radius: 10px;
     background: red;
     border: #000000;
     color: white;
     border: none;
-    font-size: 18px;
+    font-size: 2rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -1113,6 +1101,8 @@ label {
     background: rgba(0, 0, 0, 0.6); 
     z-index: 999;
 }
+
+
 
 .overlay {
     /* display: none; */
@@ -1274,119 +1264,67 @@ label {
 
 
 
-@media (max-width: 1400px) {
-    .nav-btn {
-        width: 20%; 
-        height: 80%;  
-        font-size: 2.5rem;
+
+
+ @media (max-width: 700px) { 
+
+    .nav-btn{
+        width:100%;
+        /* height: 180%; */
+        margin: 0;
     }
 
-    .nav-btn i {
-        font-size: 2.rem;
-    }
-
-    #mealPageSection{
-        margin-top: -2%;
-    }
-
-    .top-left-btn{
-        width:8vw;
-        height: 9vh;
-        /* /* color: #000000;  */
-        font-size: 3.1rem;
-    }
-
-    .top-right-btn{
-        width:8vw;
-        height: 9vh;
-        /* /* color: #000000;  */
-        font-size: 2.6rem;
-    }
-
-    .center-btn {
-        font-size: 3rem;
-    }
     .center-btn-container{
-        width: 10vw; 
-        height: 12vh;
+        width:100%;
+        height:75%;
     }
 
-}
-
-@media (max-width: 900px) {
-    .nav-btn {
-        width: 20%; 
-        height: 80%;  
-        font-size: 2.2rem;
-    }
-
-    .achievement {
-        width: 90%; 
-        margin: 0 auto;
-        margin-bottom: 7.5%;
-    }
-
-    #medals {
-        padding: 0 0;
-    }
-
-    .nav-btn i {
-        font-size: 2.3rem;
-    }
-    
-
-    .center-btn {
-        font-size: 1.3rem;
-    }
-    .center-btn-container{
-
-        width: 10vw; 
-        height: 12vh; 
-        top: -15%;
-
-    }
-
-    .top-left-btn{
-        width:11vw;
-        height: 10vh;
-        font-size: 2.1rem;
-    }
-
-    .top-right-btn{
-        width:11vw;
-        height: 10vh;
-        font-size: 2.1rem;
+    .top-left-btn, .top-right-btn{
+        width: 15%;
+        height: 70%;
     }
 
 
-    #mealPageSection {
-        flex-direction: column;
-        height: auto; 
-        align-items: center;
-        margin-top: -8%;
+    .center-btn{
+        width: 55%;
     }
-
     .foodAddSection, .centerSection {
-        width: 90%;
-        height:40vh;
-        margin-right:0vw ;
+        width: 95%;
+        flex-grow: 1; 
+        display: flex;
+        margin: 0 auto;
+        height: 60vh;
+        align-items: center; 
+        justify-content: center;
     }
+
 
     .search-container {
         display: flex;
         align-items: center;
         position: relative;
-        width: 50vw;
-        height:3vh;
+        width: 90%;
+        height:10vh;
         border-radius: 15px;
 
     }
 
+    .search-bar{
+        padding:2%;
+        margin: 2% auto;
+    }
+
+    #foodTitle{
+        top:4%;
+        
+    }
+
+
     .search-results {
-        width: 90%;
-        height: 25vh; 
+        width: 100%;
+        height: 20vh; 
         overflow-y: auto;
-        margin: 0vh auto;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -1394,9 +1332,9 @@ label {
     }
 
     #mealBtn {
-        width: 72.5vw;
+        width: 72.5%;
         font-size: 1rem;
-        height: 4vh;
+        height: 10%;
         position: absolute;
         bottom: 1%; 
         left: 50%;
@@ -1411,78 +1349,50 @@ label {
         display: none;
     }
 
-    .foodAdd {
-        width: 90%;
-        height: 20vh;
-        display: flex;
-        background-color: #383F42;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border-radius: 15px;
-    }
     
 
     .foodList {
-        width: 90%;
-        height: 25vh; 
+        width: 100%;
+        height: 30vh; 
         font-size: 0.8rem;
         overflow-y: auto;
         background-color: #383F42;
         border-radius: 10px;
+        margin-bottom: 30%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* gap: 5px;  */
-        margin-top:-5%;
-    }
+       }
+
+
 
     .quantity-container {
         position: absolute;
-        right: 7vw;
+        margin-right: 15%;
         font-size: 0.8rem;
+        text-align: right;
         display: flex;
-        align-items: center;
+        align-items: right;
+        justify-content: right;
     }
     
     .quantity-input {
-        width: 6vw;
+        width: 20%;
         padding: 2%;
         font-size: 0.8rem;
         text-align: center;
         border-radius: 5px;
         background-color: #fff;
-        margin-left: 1vw;
-    }
-
-
-    .popup {
-  
-        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-        text-align: center;
-        border-radius: 30px;
-        width: 80vw;
-        height: 50vh;
-        color: white;
-        font-size: 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
     }
 
     .popupMessage{
         width:70%
 
     }
-
-
-
     .popup-buttons {
         display: flex;
-        gap: 2vw;
         justify-content: center;
-        margin-top: 2vh;
+        margin-top: 10%;
         display: flex;  
         align-items: center; 
         justify-content: center; 
@@ -1493,44 +1403,51 @@ label {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 2vh;
+        gap: 5%;
     }
 
     #mealName, #mealType {
         font-size: 1rem;
-    
         margin: 0 auto;
     }
 
     #mealType{
-        width:78%;
+        width:76%;
         margin: 5% auto;
     }
 
-
-
-} 
-
-
-
-
-@media (max-width: 450px) {
     
     #achievementPageTitle{
         font-size: 2.5rem;
     }
 
-    .nav-btn {
-        width: 24%; 
-        height: 90%;  
-        font-size: 2.3rem;
+    .popup {
+        width: 80vw;
+        height: 50vh;
+        color: white;
+        font-size: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
-    
-    .achievement {
-        width: 90%; 
-        margin: 0 auto;
+
+    #mealPageSection {
+        flex-direction: column;
+        height: 75vh; 
+        width:80vw;
+        scroll-behavior: smooth; 
+        overflow-y: auto;
+        align-items: center;
+    }
+
+     .achievement {
+        width: 100%; 
+        margin: 0 auto; 
         margin-bottom: 10%;
-    }
+        height: 80%;
+    } 
+
 
     #medals {
         padding: 0 0;
@@ -1540,35 +1457,7 @@ label {
     .icon-text {
         display: none;
     }
-    .nav-btn i {
-        font-size: 2.8rem;
-        
-    }
 
-    .center-btn {
-        font-size: 2rem;
-    }
-    .center-btn-container{
-        width: 16vw; 
-        height: 10vh; 
-        top: -10%;
+ }
 
-    }
-
-    .top-left-btn{
-        width:13vw;
-        height: 8vh;
-        /* /* color: #000000;  */
-        font-size: 2rem;
-    }
-
-    .top-right-btn{
-        width:13vw;
-        height: 8vh;
-        /* /* color: #000000;  */
-        font-size: 2rem;
-    }
-} 
-
-
-  
+   

@@ -56,7 +56,7 @@ class Food {
     }
 
     toString(){
-        return `Name: ${this.foodName}. Type: ${this.foodType}. Calories: ${this.calories}`;
+        return `Name: ${this.foodName}. Type: ${this.foodType}. Calories: ${this.calories} ServingSize: ${this.servingSize}. Protein: ${this.proteinContent}. Carbs: ${this.carbContent} Fibre: ${this.fibreContent}. Sugar: ${this.sugarContent}. Fat: ${this.fatContent}`;
     }
 }
 
