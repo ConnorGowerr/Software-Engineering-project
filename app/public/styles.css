@@ -262,6 +262,36 @@ input {
 }
 
 
+.medal-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+    width: 90%;
+    height: 70%;
+    margin-bottom: 2%;
+}
+
+.medal-container img {
+    width: 50%;
+    /* height: auto; */
+    /* height:1000%; */
+    margin: 0 1.25%;  
+}
+
+.medal{
+    width:25%
+}
+
+
+.medal p {
+    text-align: center;
+    margin-top: 7.5%;
+    /* margin-bottom: 2.5%; */
+    font-size: 0.9rem;
+    color: white;
+}
+
+
 #achievementPageTitle {
     font-size: 3rem;
     font-weight: bold;
@@ -1115,116 +1145,82 @@ label {
 /* #mealsecltion paage ids */
 #mealActivityPageSection {
     display: flex;
-    align-items: stretch;
-    flex-direction: row; 
-    justify-content: space-between;
-    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    width: 94%;
     height: 77.5vh;
     margin: 7.5% auto;
 }
 
-#mealSection, #activitySection{
-    width: 47.5%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; 
-    position: relative; 
-}
-
-
-#mealDiv, #activityDiv {
-    width: 40vw;
-    overflow: auto;
-    position: relative; 
-    height: 50vh;
-    display: flex;
-    flex-direction: row;  
-    align-items: center; 
-    background-color: #383F42;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 20px;
-    margin-top: 1%;
+.recordPageTitleContainers {
     text-align: center;
-    /* -right: 12%; */
-    color: #383F42;
-    transition: transform 0.3s ease-in-out, background 0.3s ease; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-    border-radius: 15px;
-    justify-content: flex-start;  
-    /* padding: 2%;   */
 }
+.recordPageImageContainer{
+    width:50%;
+    height: 50%;
+    justify-content: center;
+}
+.recordPageTextContainer{
+    width:50%;
+    height: 55%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+#activityDiv, #mealDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #383F42;
+    border: 2px solid;
+    border-radius: 15px;
+    color: #383F42;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    justify-content: flex-start;
+    overflow: auto;
+    width: 90%;
+    height: 70%;
+    position: relative;
+}
+
+#mealDiv { grid-column: 1; }
+#activityDiv { grid-column: 2; }
 
 #mealDiv:hover, #activityDiv:hover {
     transform: scale(1.05);
     cursor: pointer;
     box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
-
 }
 
 #mealDiv:active, #activityDiv:active {
     transform: scale(1.2);
     color: #fff;
-    cursor: pointer;
     transition: transform 0.9s ease, color 0.9s ease;
 }
 
-#mealDiv, #activityDiv {
-    transition: transform 0.2s ease, color 0.2s ease;
-}
-
 #activityIcon, #mealIcon {
-    width: 40%;
-    height: 55%;
-    margin-top: 5vh;
-    margin-left: 2vw;
-    transition: transform 0.3s ease; 
-   
-}
-
-.medal-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;  
     width: 90%;
-    height: 70%;
-    margin-bottom: 2%;
-}
-
-.medal-container img {
-    width: 50%;
-    /* height: auto; */
-    /* height:1000%; */
-    margin: 0 1.25%;  
-}
-
-.medal{
-    width:25%
-}
-
-
-.medal p {
-    text-align: center;
-    margin-top: 7.5%;
-    /* margin-bottom: 2.5%; */
-    font-size: 0.9rem;
-    color: white;
+    height: auto;
+    margin: auto;
+    transition: transform 0.3s ease;
 }
 
 #mealDiv:hover #mealIcon, #activityDiv:hover #activityIcon {
-    transform: scale(1.05); 
-
+    transform: scale(1.05);
 }
 
 #addTitle {
     position: absolute;
-    font-size: 2rem;
-    top: -5%;
+    font-size: 1.5rem;
     left: 50%;
+    top: -5%;
     transform: translateX(-50%);
     color: #fff;
-    transition: color 0.3s ease; 
+    transition: color 0.3s ease;
 }
 
 #mealLink, #activityLink {
@@ -1234,36 +1230,25 @@ label {
 }
 
 #recordH3 {
-    padding: 0 5vh;
-    font-size: 1.3rem;
+    padding: 0 5%;
+    font-size: 1rem;
     color: #fff;
     text-align: left;
     margin: 0;
-    transition: color 0.3s ease, transform 0.3s ease; 
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 #mealDiv:hover #recordH3, #activityDiv:hover #recordH3 {
-    transform: translateY(-4%); 
-
+    transform: translateY(-4%);
 }
 
 #recordH3 li {
-    margin-top: 6vh;
-    margin-left: 2vw;
+    margin-top: 15%;
+    /* margin-left: 2%; */
 }
 
+
 /* profile page stuff */
-/* .profileSection {
-    width: 90%;
-    height: 100%;
-    display: flex;
-    margin: 5% auto;
-    flex-direction: row; 
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 5%;
-    flex-wrap: wrap; 
-} */
 
 .profileSection {
     width: 90%;

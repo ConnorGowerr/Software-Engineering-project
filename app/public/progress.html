@@ -5,19 +5,24 @@
     <link rel="icon" href="images/Logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 <body>
-    <button class="top-left-btn">
-        <i class="fa-solid fa-envelope"></i>
-    </button>
-    <button class="top-right-btn">
-        <i class="fa-solid fa-user"></i>
-    </button>
-    <main>
+    <header class="top-header">
+        <a href="profile.html" class="top-left-btn">
+            <img src="images/envelope-solid.svg" alt="profileIcon">
+        </a>
         <h1 id="hellthTitle">Progress</h1>
+        
+        <a href="profile.html" class="top-right-btn">
+            <img src="images/user-solid.svg" alt="profileIcon">
+        </a>
+    </header>
+    <main>
             <div class="container">
                 <div class="graph">
                     <div id="medals">Calories</div>
@@ -52,38 +57,30 @@
         </section>
     </main>
     <div class="navbar">
-        <button class="nav-btn">
-            <a href="login.html">
-                <i class="fa fa-home" "></i>
-            </a>
-            <span class=" icon-text">Home</span>
-        </button>
-        <button class="nav-btn">
-            <a href="progress.html">
-                <i class="fa fa-chart-line" "></i>
-            </a>
-            <span class=" icon-text">Progress</span>
-
-        </button>
+        <a href="login.html" class="nav-btn">
+            <img src="images/house-solid.svg" alt="Home">
+            <span class="icon-text">Home</span>
+        </a>
+        
+        <a href="progress.html" class="nav-btn">
+            <img src="images/chart-line-solid.svg" alt="Progress">
+            <span class="icon-text">Progress</span>
+        </a>
+    
         <div class="center-btn-container">
-            <button class="center-btn">
-                <i class="fa-solid fa-plus"></i>
-            </button>
+            <a href="mealActivtiySelect.html" class="center-btn">
+                <img src="images/plus-solid.svg" alt="Add">
+            </a>
         </div>
-        <button class="nav-btn">
-            <a href="groups.html">
-                <i class="fa-solid fa-users"></i>
-            </a>
+    
+        <a href="groups.html" class="nav-btn">
+            <img src="images/user-group-solid.svg" alt="Groups">
             <span class="icon-text">Groups</span>
-
-        </button>
-        <button class="nav-btn">
-            <a href="groups.html">
-                <i class="fa fa-info-circle" "></i>
-            </a>
-            <span class=" icon-text">Help</span>
-
-        </button>
-
+        </a>
+    
+        <a href="help.html" class="nav-btn">
+            <img src="images/person-circle-question-solid.svg" alt="Help">
+            <span class="icon-text">Help</span>
+        </a>
     </div>
 </body>
