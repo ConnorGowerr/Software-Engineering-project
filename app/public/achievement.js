@@ -21,6 +21,7 @@ class Achievement {
     }
 
 
+
     toString(){
         return `Name: ${this.achievementName}. Type: ${this.achievementType}. Value: ${this.value}`;
     }

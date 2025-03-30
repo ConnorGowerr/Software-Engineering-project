@@ -26,12 +26,10 @@ h1 {
 h2 {
     color: #EFEDE7;
     font-family: 'Oswald';
-    text-shadow: 2px 2px 4px #000000;
 }
   
 h5 {
     font-size: 1rem; 
-    /* margin: 1vh 1vw;  */
     display: block;
     color: #fff;
     text-shadow: 2px 2px 4px #000000;
@@ -42,7 +40,6 @@ input {
     border-width: 3px;
     border-color: #B0B0B0;
     border-style: solid;
-    /* box-shadow: 5px 5px; */
     backdrop-filter: blur(10px);
 }
 
@@ -68,36 +65,37 @@ input {
     height: 10%; 
     display: flex;
     justify-content: space-evenly;  
-    align-items: center;
-    /* border-width: 2px; */
-    border-radius: 40px;
+    border-radius: 10px;
     border-style: solid;
     background-image: linear-gradient(180deg, #95180F, #CE6B31 90%);
     text-align: center;
     color: white;
-    /* min-width: 320px; */
+    min-height: 64px;
 }
 
 .nav-btn {
     background: transparent;
-    border: none;
-    width: 12%;
+    width: 10%;
     height: 100%; 
     display: flex;
+    text-decoration: none; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 30px;
-    margin: 0 2.5%;
+    /* border-radius: 15px; */
+    /* border: 2px solid white; */
+
+    margin: auto;
     cursor: pointer;
     transition: 0.3s;
     color: white;
 }
 
 .nav-btn img {
-    width: 35%; 
+    width: 40%;
     height: auto; 
-    /* object-fit: contain;  */
+    /* max-height: 80%;  */
+    object-fit: contain; 
 }
 
 
@@ -116,9 +114,10 @@ input {
     border-radius: 50%; 
     cursor: pointer;
     transition: 0.3s;
+    background-color: white;
     border: 3px solid darkorange;
-    width: 100%; 
-    height: 100%; 
+    width: 90%; 
+    height: 90%; 
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -130,16 +129,17 @@ input {
 
 }
 .center-btn img {
-    width: 80%; 
+    width: 55%;
     height: auto; 
 }
 
+
 .icon-text {
-    font-size: 1rem; 
-    /* margin-top: 3%;  */
-    color: white;
-    bottom:0;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top:4%;
 }
+    
 
 
 /* Achievement stuff */
@@ -219,11 +219,8 @@ input {
     font-size: 2em;
     color: #CE6B31;
     text-align: center;
-  
-    /* padding:5% 0%; */
-    margin-top: auto;
+      margin-top: auto;
     margin-bottom: 5%;
-    /* margin-top: 2.5%;  */
 
 }
 
@@ -234,7 +231,6 @@ input {
     border-radius: 25px;
     overflow: hidden;
     position: relative;
-    /* margin-top: auto; */
     margin-bottom: 3%; 
 }
 
@@ -245,7 +241,7 @@ input {
     transition: width 0.3s ease-in-out;
 }
 
-.mealAchievement { 
+.weightAchievement { 
     background: linear-gradient(to right, #FF5733, #CE6B31); 
     box-shadow: 0 0 10px rgba(255, 87, 51, 0.7), 0 0 15px rgba(206, 107, 49, 0.5);
 }
@@ -255,12 +251,12 @@ input {
     box-shadow: 0 0 10px #FF9A1F, 0 0 15px white;
 }
 
-.calorieBurnedAchievement { 
+.calorieAchievement { 
     background: linear-gradient(to right, #0059B8, #5CABFF); 
     box-shadow: 0 0 10px #0059B8, 0 0 15px #5CABFF;
 }
 
-.calorieTrackedAchievement { 
+.unitAchievement { 
     background: linear-gradient(to right, #FFC300, #FF5733); 
     box-shadow: 0 0 10px rgba(255, 195, 0, 0.7), 0 0 15px rgba(255, 87, 51, 0.5);
 }
@@ -317,9 +313,9 @@ input {
 }
 
 .top-right-btn img, .top-left-btn img { 
-    width: 40%;
-    height: auto;
-    object-fit: contain;
+    height: auto; 
+    width: 55%;
+    aspect-ratio: 1 / 1;
 }
 
 
@@ -517,8 +513,6 @@ input {
     width: 90%;
     height: 100%;
     margin: 0 auto;
-
-
 }
 
 
@@ -683,10 +677,9 @@ input {
     border-radius: 5px 5px;
     outline: none;
     padding: 5% 3%;
-    font-size: 1rem;
+    font-size: 0.9rem;
     width:80%;
     position: relative;
-
     transition: all 0.3s ease-in-out;
     margin: 0 auto;
 }
@@ -1259,35 +1252,345 @@ label {
     margin-left: 2vw;
 }
 
+/* profile page stuff */
+/* .profileSection {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    margin: 5% auto;
+    flex-direction: row; 
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 5%;
+    flex-wrap: wrap; 
+} */
+
+.profileSection {
+    width: 90%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto auto; 
+    gap: 10%; 
+    margin: 5% auto;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.mainDiv{
+    display: flex;
+
+    grid-column: 1; 
+    grid-row: 1;    
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #383F42;
+    border-radius: 25px;
+    display: flex;
+    border-width: 1px 1px 1px 1px; 
+    border-style: solid;
+    border-color: white;
+
+}
+
+.statsdiv {
+    display: flex;
+    grid-column: 1; 
+    grid-row: 2;    
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #383F42;
+    border-radius: 25px;
+    display: flex;
+    border-width: 1px 1px 1px 1px; 
+    border-style: solid;
+    border-color: white;
+}
+
+.settingsDiv{
+    display: flex;
+
+    grid-column: 2; 
+    grid-row: 1;    
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #383F42;
+    border-radius: 25px;
+    display: flex;
+    border-width: 1px 1px 1px 1px; 
+    border-style: solid;
+    border-color: white;
+    height: 100%;
+
+}
+
+.achievementsDiv{
+    grid-column: 2; 
+    grid-row: 2; 
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #383F42;
+    border-radius: 25px;
+    display: flex;
+    border-width: 1px 1px 1px 1px; 
+    border-style: solid;
+    border-color: white;
+}
+
+
+.mainArticle {
+    width: 100%; 
+    height: 100%;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-bottom: 5%;
+}
+
+.mainTitleContainer {
+    width: 100%; 
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10%; 
+    left: 0;
+}
+
+.mainTitle {
+    text-align: center;
+    font-size: 1rem;
+}
+
+
+.statsArticle {
+    width: 100%;
+    height: 50%; 
+    font-size: 0.9rem;
+    background-color: #383F42;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; 
+}
+
+
+.statsArticle2{
+    width: 100%;
+    height: 50%; 
+    font-size: 0.9rem;
+    background-color: #383F42;
+    border-radius: 0 0 25px 25px; 
+}
+
+.mainstatsSection {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    height: 100%;
+    position: relative;
+    margin: auto;
+    gap:5%;
+    border-width: 0px 0px 1px 0px; 
+    border-style: solid;
+    border-color: white;
+    align-items: center;
+    flex-direction: row;
+    border-color: white;
+    overflow: hidden;
+    box-sizing: border-box; 
+}
+
+.mainArticleTitle{
+    position: relative;
+    top:0;
+    align-items: center;
+    text-align: center;
+}
+
+.mainArticleStats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: auto;
+    gap:5%;
+    top: 10%;
+    align-items: center;
+    flex-direction: row;
+    overflow: hidden;
+    box-sizing: border-box; 
+}
+
+.mainArticleStat1,.mainArticleStat2,.mainArticleStat3 {
+    height: 100%;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;  
+    align-items: center; 
+    width: 30%;
+    text-align: center;  
+}
 
 
 
+.secondarystatsSection{
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    height: 100%;
+    position: relative;
+    margin: auto;
+    gap:0;
+    align-items: center;
+    flex-direction: row;
+    overflow: hidden;
+    box-sizing: border-box; 
+
+}
+
+.settingsArticle {
+    width: 100%;
+    height: 100%; 
+    font-size: 0.9rem;
+    background-color: #383F42;
+    border-radius: 25px ;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative; 
+    justify-content: center;
+}
+
+.metricButton {
+    background-color: #DC946A;
+    border: 1px solid white;
+    width:35%;
+    height: 55%;
+    color: white;
+    margin:auto;
+    cursor: pointer;
+    border-radius: 15px; 
+    transition: background-color 0.3s ease;
+}
 
 
+span {
+    font-size: 2rem;
+    align-items: center;
+    color: white;
+}
 
 
+.achievementSection{
+    width: 100%;
+    height: 100%; 
+    font-size: 0.8rem;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    background-color: #383F42;
+    align-items: center;
+
+}
+
+
+.mainArticleTitleContainer {
+    height: 20%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.achievementSection a{
+    width: 100%;
+    height: 100%;
+ 
+}
+
+.achievementsMainImgs {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 3.5%;
+    flex-wrap: wrap; 
+}
+
+.achievementItem {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.achievementItem img {
+    width: 70%;
+    height: auto;
+    display: block;
+    margin:auto
+
+}
+
+.achievementItem p {
+    position: relative;
+    text-align: center;
+    margin:0 auto;
+    color: white;
+    margin-top: 5%;
+    font-size: 1rem; 
+}
+
+
+.profileTitles{
+    margin-bottom: 2%;
+    font-size: 1rem;
+} 
+
+
+ /* mobile view */
  @media (max-width: 700px) { 
-
-    .nav-btn{
-        width:100%;
-        /* height: 180%; */
-        margin: 0;
+    
+    .nav-btn img {
+        width: 80%;
+        aspect-ratio: 1 / 1;
     }
 
     .center-btn-container{
-        width:100%;
-        height:75%;
+        width:20vw;
+        height:100%;
+        margin: auto 0 ;
     }
 
     .top-left-btn, .top-right-btn{
-        width: 15%;
-        height: 70%;
+        width: 12%;
+        height: 85%;
     }
 
+    .top-left-btn img, .top-right-btn img{
+        height: 70%; 
+        width: 70%;
+        aspect-ratio: 1 / 1;
+    }
 
     .center-btn{
-        width: 55%;
+        width: 12vw;
     }
+
+
     .foodAddSection, .centerSection {
         width: 95%;
         flex-grow: 1; 
@@ -1303,6 +1606,8 @@ label {
         display: flex;
         align-items: center;
         position: relative;
+        font-size: 0.5rem;
+
         width: 90%;
         height:10vh;
         border-radius: 15px;
@@ -1311,6 +1616,7 @@ label {
 
     .search-bar{
         padding:2%;
+        font-size: 0.5rem;
         margin: 2% auto;
     }
 
@@ -1458,6 +1764,260 @@ label {
         display: none;
     }
 
- }
+    /* .profileSection{
+        width: 90%;
+        height: 100%;
+        display: flex;
+        margin: 5% auto;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    
+    .mainArticle{
+        width: 90%;
+        height: 20%; 
+        font-size: 0.8rem;
+        background-color: #383F42;
+        border-radius: 25px;
+        display: flex;
+        border-width: 1px 1px 1px 1px; 
+        border-style: solid;
+        border-color: white;
+        border-color: white;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+    
+    .mainTitleContainer {
+        width: 100%; 
+        height: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 10%; 
+        left: 0;
+    }
+    
+    .mainTitle {
+        text-align: center;
+        font-size: 1rem;
+    }
+    
+    .statsdiv {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        height: 22.5%;
+    }
+    
+    .statsArticle {
+        width: 100%;
+        height: 50%; 
+        font-size: 0.9rem;
+        background-color: #383F42;
+        border-radius: 25px 25px 0 0; 
+        border-width: 1px 1px 0 1px; 
+        border-style: solid;
+        border-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative; 
+        /* margin-top:1.5%; 
+    }
+/*     
+    
+    .statsArticle2{
+        width: 100%;
+        height: 50%; 
+        border-width: 0px 1px 1px 1px; 
+        border-style: solid;
+        border-color: white;
+        font-size: 0.9rem;
+        background-color: #383F42;
+        border-radius: 0 0 25px 25px; 
+    }
+    
+    .mainstatsSection {
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+        height: 100%;
+        position: relative;
+        margin: auto;
+        gap:5%;
+        
+        border-width: 0px 0px 1px 0px; 
+        border-style: solid;
+        border-color: white;
+        align-items: center;
+        flex-direction: row;
+        border-color: white;
+    
+        overflow: hidden;
+        box-sizing: border-box; 
+    }
+    
+    .mainArticleTitle{
+        position: relative;
+        top:0;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .mainArticleStats {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        margin: auto;
+        gap:5%;
+        top: 10%;
+        align-items: center;
+        flex-direction: row;
+        overflow: hidden;
+        box-sizing: border-box; 
+    }
+    
+    .mainArticleStat1,.mainArticleStat2,.mainArticleStat3 {
+        height: 100%;
+        display: flex;
+        flex-direction: column; 
+        justify-content: center;  
+        align-items: center; 
+        width: 30%;
+        text-align: center;  
+    }
+    
+    
+    
+    .secondarystatsSection{
+        display: flex;
+        justify-content: space-between;
+        width: 75%;
+        height: 100%;
+        position: relative;
+        margin: auto;
+        gap:0;
+        align-items: center;
+        flex-direction: row;
+        overflow: hidden;
+        box-sizing: border-box; 
+    
+    }
+    
+    .settingsArticle {
+        width: 90%;
+        height: 10%; 
+        font-size: 0.9rem;
+        background-color: #383F42;
+        border-radius: 25px ;
+        border-width: 1px 1px 1px 1px; 
+        border-style: solid;
+        border-color: white;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: relative; 
+        justify-content: center;
+        margin-top: 
+        margin-bottom: 2%;
+    }
+    
+    .metricButton {
+        background-color: #DC946A;
+        border: 1px solid white;
+        width:35%;
+        height: 55%;
+        color: white;
+        margin:auto;
+        cursor: pointer;
+        border-radius: 15px; 
+        transition: background-color 0.3s ease;
+    }
+    
+    
+    span {
+        font-size: 2rem;
+        align-items: center;
+        color: white;
+    }
+    
+    
+    .achievementSection{
+        width: 90%;
+        height: 17.5%; 
+        font-size: 0.8rem;
+        background-color: #383F42;
+        border-radius: 25px;
+        display: flex;
+        border-width: 1px 1px 1px 1px; 
+        border-style: solid;
+        border-color: white;
+        border-color: white;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5%;
+    }
+    
+    
+    .mainArticleTitleContainer {
+        height: 20%;
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .achievementSection a{
+        width: 100%;
+        height: 100%;
+     
+    }
+    
+    .achievementsMainImgs {
+        height: 60%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 3.5%;
+        flex-wrap: wrap; 
+    }
+    
+    .achievementItem {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+    }
+    
+    .achievementItem img {
+        width: 80%;
+        height: auto;
+        display: block;
+        margin:auto
+    
+    }
+    
+    .achievementItem p {
+        position: relative;
+        text-align: center;
+        margin:0 auto;
+        color: white;
+        margin-top: 5%;
+        font-size: 1rem; 
+    }
+    
+    
+    .profileTitles{
+        margin-bottom: 2%;
+    } */
+
+} 
 
    
