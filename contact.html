@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Hellth</title>
+    <link rel="icon" href="Logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+</head>
+
+<body>
+    <button class="top-left-btn">
+        <i class="fa-solid fa-envelope"></i>
+    </button>
+    <button class="top-right-btn">
+        <i class="fa-solid fa-user"></i>
+    </button>
+    <main>
+        <h1 id="hellthTitle">Help</h1>
+        <section id="progressSection">
+            <div class="graph">
+                <div id="changeText">Got a burning question?</div>
+                <div id="adjustText">One of our admins will be happy to help you!</div>
+                <a href="FAQ.html" style="color: #FF5733; text-decoration: underline;">Before sending a query, please check our FAQ page</a>                <form id="contactForm" action="/submitContact" method="post">
+                    <div class="feedbackContainer">
+                        <div class="contact-box">
+                            <div class="header" onclick="toggleDropdown()">
+                                <h3>Reason for Contact</h3>
+                            </div>
+                            <div class="dropdown" id="dropdown">
+                                <ul>
+                                    <li><input type="radio" name="reason" value="Issue with site" id="r1"> Issue with site</li>
+                                    <li><input type="radio" name="reason" value="General inquiry" id="r2"> General Inquiry</li>
+                                    <li><input type="radio" name="reason" value="Feedback" id="r3"> Feedback</li>
+                                    <li><input type="radio" name="reason" value="Technical Support" id="r4"> Technical Support
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" name="feedbackInput" class="input" placeholder="Type your query here"> 
+                    </div>
+                    <button class="btn" type="submit">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <div class="navbar">
+        <button class="nav-btn">
+            <a href="login.html">
+                <i class="fa fa-home" "></i>
+            </a>
+            <span class=" icon-text">Home</span>
+        </button>
+        <button class="nav-btn">
+            <a href="progress.html">
+                <i class="fa fa-chart-line" "></i>
+            </a>
+            <span class=" icon-text">Progress</span>
+
+        </button>
+        <div class="center-btn-container">
+            <button class="center-btn">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+        <button class="nav-btn">
+            <a href="groups.html">
+                <i class="fa-solid fa-users"></i>
+            </a>
+            <span class="icon-text">Groups</span>
+
+        </button>
+        <button class="nav-btn">
+            <a href="groups.html">
+                <i class="fa fa-info-circle" "></i>
+            </a>
+            <span class=" icon-text">Help</span>
+
+        </button>
+
+    </div>
+    <script>
+        function toggleDropdown(){
+            var dropdown = document.getElementById("dropdown");
+            dropdown.classList.toggle("active");
+        }
+    </script>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event){
+            var reason = document.querySelector('input[name="reason"]:checked');
+            if (!reason){
+                alert("Please select a request type");
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>

@@ -1,3 +1,176 @@
+h3 {
+    color: #EFEDE7;
+    font-family: 'Oswald';
+}
+
+.graph {
+    background-color: #383F42;
+    border-width: 2px;
+    border-style: solid;
+    height: 50%;
+    /* backdrop-filter: blur(10px); */
+    border-radius: 20px;
+    margin-bottom: 3%;
+    text-align: center;
+    /* padding-right:; */
+    color: white;
+}
+
+.buttons {
+    margin-top: 1%;
+    display: flex;
+    gap: 20%;
+    justify-content: center;
+}
+
+.btn {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 0.5%;
+    margin-bottom: 1%;
+    padding: 15px 30px;
+    background-color: #FF5733;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border: #EFEDE7;
+    outline: 2px solid #EFEDE7;
+}
+
+.btn:hover {
+    background-color: #95180F;
+    box-shadow: 0 0 15px 5px rgba(255, 87, 51, 0.7);
+}
+
+.btn:active {
+    background-color: #CE6B31;
+}
+
+.feedbackContainer{
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.contact-box{
+    background-color: #B0B0B0;
+    border: 1px solid #95180F;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 87, 51, 0.7);
+    padding: 20px;
+    width: 100%;
+}
+
+.header{
+    background-color: #CE6B31;
+    padding: 10px;
+    cursor: pointer;
+    color: whitesmoke;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: 20px;
+}
+
+.header:hover{
+    background-color: #FF5733;
+}
+
+.dropdown{
+    display: none;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.dropdown.active{
+    display: block;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+li{
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #CE6B31;
+    border-radius: 5px;
+    border: #000000;
+    border-width: 2px;
+    border-style: solid;
+}
+
+input[type="radio"]{
+    margin-right: 10px;
+}
+
+.input{
+    margin: 5%;
+    width: 90%;
+    height: 15vw;
+    text-align: left;
+}
+
+.progress-image {
+    width: 35%;
+    height: auto;
+    margin-bottom: 20px; /* Adds space between the image and the buttons */
+}
+
+.view-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Adds space between buttons */
+}
+
+.view-btn:hover {
+    background-color: #CE6B31;
+}
+
+/* Page Id's */
+#hellthTitle {
+    font-size: 7vh;
+    font-weight: bold;
+}
+
+#medals {
+    font-size: 4vh;
+    font-weight: normal;
+    /* padding: 10, 0%; */
+    color: #CE6B31;
+    text-align: center;
+
+}
+
+#changeText {
+    color: #B0B0B0;
+    font-size: 2vh;
+}
+#adjustText {
+    color: #EFEDE7;
+    font-size: 1.5vh;
+}
+
+#thankYouMSG{
+    color: #EFEDE7;
+    font-size: 5vh;
+
+}
+
+#changeTargets {
+    color: #EFEDE7;
+    font-size: 3vh;
+}
+
+#emailImage{
+    height: auto;
+    width: 25%;
+}
+
 /* Generics */
 
 body {
@@ -219,6 +392,7 @@ This works by manually forcing a seperate layer to render to.*/
     box-sizing: border-box;
 }
 
+
 #forgottenPassword 
 {
     font-family: 'Poppins';
@@ -243,6 +417,7 @@ This works by manually forcing a seperate layer to render to.*/
     margin: 0 2%;
   }
 
+
 #eyeIcon {
     margin-top: 1%;
   }
@@ -259,3 +434,6 @@ This works by manually forcing a seperate layer to render to.*/
     font-size: 36px;
 }
 
+#signIn {
+    text-decoration: none;
+}
