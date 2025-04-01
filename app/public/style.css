@@ -219,6 +219,13 @@ This works by manually forcing a seperate layer to render to.*/
     transform: translateZ(0);
 }
 
+/* 
+
+Orange gradual fill border inspired by youtube tutorial
+
+source: https://www.youtube.com/watch?v=OnOBfoT1zuw
+*/
+
 
 @property --fill {
 
