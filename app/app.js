@@ -86,3 +86,46 @@ app.post("/signup", async (req, res) => {
     }
        
 })
+
+app.get("/signup/:check", async (req, res) => {
+    
+    const {username, email} = req.query;
+    try {
+        if (username) 
+        {
+            const searchUser = await connection.query("SELECT username FROM Users WHERE username = $1", [username]);
+
+            if (searchUser.rows.length === 0) 
+            {
+                res.status(404).json({error: "User not found"});
+            }
+            res.status(200).json(searchUser.rows[0]);
+        }
+        if (email) 
+        {
+            const searchEmail = await connection.query("SELECT email FROM Users WHERE email = $1", [email]);
+
+            if (searchEmail.rows.length === 0) 
+            {
+                res.status(404).json({error: "Email not found"});
+            }
+            res.status(200).json(searchEmail.rows[0]);
+        }
+        
+        
+    } catch (error) {
+        
+        if (username) 
+        {
+            console.error("There was an error searching for users", error);
+            res.status(500).json({ error: "There was an error with the server" });
+        }
+        if (email) 
+        {
+            console.error("There was an error searching for email", error);
+            res.status(500).json({ error: "There was an error with the server" });
+        }
+    }
+       
+})
+

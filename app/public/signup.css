@@ -283,3 +283,8 @@ input:hover{
 #loginLink:active{
     color:#be1f13;
 }
+
+#warning {
+    display: none;
+    color: #be1f13;
+}
