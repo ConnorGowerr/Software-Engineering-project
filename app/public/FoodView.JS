@@ -145,7 +145,7 @@ class FoodView {
                 .catch(error => console.error('Error fetching food data:', error));
         });
     
-        // Wait for all fetches to complete before updating UI
+        // wait for all fetches, if any fail then we have a problem
         Promise.all(fetchPromises).then(() => {
             this.updateNutritionUI(totals);
         });
