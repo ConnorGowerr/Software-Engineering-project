@@ -26,18 +26,18 @@ async function createAccount() {
 add hashing
 hash password and confirm password
 Cry
-repeat for if email is already used for an account
-check if full name only consists of letters and spaces
-ensure day, month and year are valid numbers that make sense
-same with height and weight
-make sure isMetric and isMale work
+repeat for if email is already used for an account - Done
+check if full name only consists of letters and spaces - Done
+ensure day, month and year are valid numbers that make sense - Done
+same with height and weight - Done
+make sure isMetric and isMale work - Done
 calc sensible daily calorie target based on height, weight and gender
 celebrate
 
 */
 
 // checks if username already exists  - PASSED
-fetch(`http://localhost:8008/signup/check?username=${username}`, {
+const usernameResponse = await fetch(`http://localhost:8008/signup/check?username=${username}`, {
     method: "GET",
     headers: {
         "Content-Type": "application/json"
@@ -192,7 +192,7 @@ if (day > 29 && month == 2)
         available = false;
     }
 
-var dob = `${day}-${month}-${year}`;
+var dob = `${year}-${month}-${day}`;
 
 // Checks to see if weight is in a realistic range - PASSED
 
@@ -235,8 +235,25 @@ if (isMale) {
     
 // const hashP = hash(userPassword);
 
+var dobDate = new Date(dob);
+var today = new Date();
 
+let age = today.getFullYear() - dobDate.getFullYear();
+let monthDiff = today.getMonth() - dobDate.getMonth();
+let dayDiff = today.getDate() - dobDate.getDate();
 
+// Will subtract 1 from age if their birthday has not happened yet this year
+if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) 
+{
+    age--;
+}
+
+var calOffset = 5;
+if (isMale == "F") {
+    calOffset = -161;
+}
+
+var calorieTarget = (10 * parseFloat(weight)) + (6.25 * parseFloat(height)) - (5 * (age)) + calOffset + 400;
 
   
     
@@ -259,7 +276,7 @@ fetch("http://localhost:8008/signup", {
         height,
         gender: isMale,          
         imperialMetric: isMetric, 
-        dailyCalorieTarget: 2400
+        dailyCalorieTarget: calorieTarget
     })
 })
 .then(response => response.json())
