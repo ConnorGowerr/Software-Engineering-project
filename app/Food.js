@@ -60,4 +60,4 @@ class Food {
     }
 }
 
-export default Food;
+module.exports = Food;

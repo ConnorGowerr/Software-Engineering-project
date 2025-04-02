@@ -36,4 +36,4 @@ class Meal {
 
     }
 
-export default Meal;
+module.exports = Meal;

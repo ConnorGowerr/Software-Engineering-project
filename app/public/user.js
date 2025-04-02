@@ -17,9 +17,6 @@ class User {
         this.allAchievements = [];
     }
 
-    niceDate(date){
-        return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-    }
 
     getUserName() { return this.userName; }
     getName() { return this.name; }

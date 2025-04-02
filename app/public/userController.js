@@ -20,6 +20,9 @@ class UserController {
 
     updateProfileStats(){
 
+        if(!document.querySelector(".mainArticleStats")) return;
+
+
         var loginInfo = document.querySelector(".mainArticleStats").children
         let login1= loginInfo[0]
         let login2 = loginInfo[1]
@@ -54,12 +57,25 @@ class UserController {
         let br4 = stats4.querySelector('br');
         br4.insertAdjacentHTML('afterend', `<p>${this.calculateDailyCal()}</p>`);
 
-    
+    }
 
+
+    mailboxPopup() {
+        const Popup = document.querySelector("#mailboxContainer");
+        const popupOverlay = document.getElementById("mailboxOverlay");
+
+        
+        Popup.style.display = "block";
+        popupOverlay.style.display = "block";
     }
 }
 
 export default UserController;
 
 const userController = new UserController();
+
 userController.updateProfileStats();
+
+document.querySelector(".top-left-btn").addEventListener("click", event => {
+    userController.mailboxPopup();
+})

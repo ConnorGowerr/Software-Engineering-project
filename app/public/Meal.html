@@ -3,8 +3,7 @@
 <title>Hellth</title>
 <link rel="icon" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type = "module" src="FoodController.js" defer></script>
-
+<script type="module" src="./FoodView.js" defer></script>
 <link rel="stylesheet" href="styles.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
@@ -14,9 +13,9 @@
 
 <body>
     <header class="top-header">
-        <a href="profile.html" class="top-left-btn">
+        <button class="top-left-btn">
             <img src="images/envelope-solid.svg" alt="profileIcon">
-        </a>
+        </button>
 
 
         <h1 id="hellthTitle">Add Meal</h1>
@@ -88,16 +87,29 @@
         <div id="foodPopup" class="popup">
             <div class="popup-content">
                 <div id="foodMessageContainer">
-                    <p id="foodMessagePopup"></p>
-                </div>
-
-                
+                    <ul id="foodMessagePopup"></ul>
+                </div>  
                 <button id="confirmBtn2">Confirm</button>
                 <button id="cancelBtn2"><i class="fas fa-times"></i></button>
                 
             </div>
         </div>
     </div>
+
+    <div class="popup-overlay" id="mailboxOverlay">
+        <div class="mailboxHeader">
+            <h2>Inbox</h2>
+        </div>
+        <div id="mailboxContainer" class = popup>
+            <div class="mailboxList">
+            </div>
+        </div>
+    </div>
+
+
+
+
+
     </main>
     <div class="navbar">
         <a href="login.html" class="nav-btn">
