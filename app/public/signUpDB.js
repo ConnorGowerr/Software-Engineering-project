@@ -1,10 +1,8 @@
-// import {hash, checkHash } from 'hash.js';
-
 
 /* Function to grab all the data from the form and send a post request to the server to add new account to db
 Will also perform checks on the data to sanitise it to see if its correct information
 */
-async function createAccount() {
+export async function createAccount() {
 
     var available = true;
 
@@ -108,7 +106,7 @@ if (!(/^[\p{L}\p{M}\p{Pd} ]+$/u.test(fullName)))
     available = false;
 }
 
-// checks if email is already tied to an account  - FAILED
+// checks if email is already tied to an account  - PASSED
 const emailResponse = await fetch(`http://localhost:8008/signup/check?email=${email}`, {
     method: "GET",
     headers: {
@@ -233,7 +231,8 @@ if (isMale) {
     isMale = "F";
 }
     
-// const hashP = hash(userPassword);
+const hashedPassword = bcrypt.hashSync(userPassword, 10);
+console.log(hashedPassword);
 
 var dobDate = new Date(dob);
 var today = new Date();
@@ -259,7 +258,7 @@ var calorieTarget = (10 * parseFloat(weight)) + (6.25 * parseFloat(height)) - (5
     
 if (available) 
 {
-// Sends the data to the backend using a post request
+// Sends the data to the backend using a post request - PASSED
 fetch("http://localhost:8008/signup", {
     method: "POST",
     headers: {
@@ -268,7 +267,7 @@ fetch("http://localhost:8008/signup", {
 
     body: JSON.stringify({
         username,
-        password: userPassword,
+        password: hashedPassword,
         email,
         realName: fullName,      
         dob,
