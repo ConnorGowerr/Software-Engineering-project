@@ -198,7 +198,7 @@ input {
     border-style: solid;
     font-family: 'Poppins';
     box-shadow: 5px 5px;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
 }
 
 a:visited {
@@ -273,7 +273,6 @@ source: https://www.youtube.com/watch?v=OnOBfoT1zuw
 }
 
 .box:hover {
-    color: #EA7B3A;
     outline: 1px solid transparent;
     --fill: 100%;
     animation-name: pop;
@@ -291,7 +290,7 @@ source: https://www.youtube.com/watch?v=OnOBfoT1zuw
     border-radius: 8px;
     border-width: 3.5px;
     box-shadow: 5px 5px #000000;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
 }
 
 .inputClass {
@@ -311,7 +310,7 @@ source: https://www.youtube.com/watch?v=OnOBfoT1zuw
     border-style: solid;
     border-radius: 8px;
     box-shadow: 5px 5px #000000;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     font-family: 'Oswald';
     font-weight: bolder;
     font-size: xx-large;

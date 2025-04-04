@@ -20,10 +20,11 @@ h2 {
 
 
 .inputdiv{
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     display:flex;
     flex-direction: column;
     padding: 2%;
+    padding-top: 3.2%;
     width: 60%;
     margin-top: 2%;
     /* margin-bottom: 17.5%; */
@@ -31,10 +32,11 @@ h2 {
 }
 
 .inputdiv2{
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     display:flex;
     flex-direction: column;
     padding: 2%;
+    padding-top: 0%;
     width: 60%;
     margin-top: 2%;
 }
@@ -63,7 +65,7 @@ h2 {
     background-image: linear-gradient(#95180F, 50%, #EA7B3A);   
     border-width: 2px;
     box-shadow: 5px 5px #000000;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
 }
 
 .mainBtn:hover{
@@ -104,7 +106,7 @@ h2 {
     padding: 3%;
     border-radius: 10px;
     box-shadow: 5px 5px #000000;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     margin-left: 4%;
     user-select: none;
     padding-left: 6%;
@@ -118,7 +120,7 @@ h2 {
     padding: 3%;
     border-radius: 10px;
     box-shadow: 5px 5px #000000;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     margin-left: 4%;
     user-select: none;
     width: 10%;
@@ -130,7 +132,7 @@ h2 {
     padding: 3%;
     border-radius: 10px;
     box-shadow: 5px 5px #000000;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     margin-left: 4%;
     user-select: none;
     width: 10%;
@@ -150,7 +152,7 @@ h2 {
     padding: 3%;
     border-radius: 10px;
     box-shadow: 5px 5px #000000;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     margin-left: 4%;
     user-select: none;
     padding-left: 6%;
@@ -190,7 +192,7 @@ input:hover{
     border-radius: 8px;
     border-width: 3.5px;
     box-shadow: 5px 5px #000000;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     margin-left: 2%;
     display: flex;
     align-items: center; 
@@ -217,6 +219,7 @@ input:hover{
     padding-bottom: 5%;
     /* margin-left: 7.5%; */
     margin-top: 2%;
+    margin-bottom: 2%;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -226,15 +229,16 @@ input:hover{
     border-color: #EFEDE7;
     border-style: solid;
     box-shadow: 3px 3px;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
 }
 
 #greyContainer2{
     width: 40%;
     height: 40%;
-    padding-bottom: 5%;
+    padding-bottom: 2%;
     margin-top: 2%;
     margin-left: 8.5%;
+    margin-bottom: 2%;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -244,7 +248,7 @@ input:hover{
     border-color: #EFEDE7;
     border-style: solid;
     box-shadow: 3px 3px;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
 }
 
 .multipleInput{
