@@ -1,7 +1,6 @@
 // Done (mahybe more validations and stuff)
 class Food {
     
-    static allFoodData = [];
     constructor(calories, foodName, foodType, servingSize, proteinContent, carbContent, fibreContent, sugarContent, fatContent) {
         this.foodName = foodName;
         this.foodType = foodType;
@@ -12,7 +11,6 @@ class Food {
         this.fibreContent = fibreContent;
         this.sugarContent = sugarContent;
         this.fatContent = fatContent;
-        Food.allFoodData.push(this);
     }
 
     getServingSize() {
