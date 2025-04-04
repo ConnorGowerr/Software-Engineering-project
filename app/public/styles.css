@@ -300,8 +300,8 @@ input {
 
 /* /top buttons */
 .top-left-btn{
-    width: 7%;
-    height: 90%;
+    width:7%;
+    height: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -324,7 +324,7 @@ input {
 
 .top-right-btn {
     width: 7%;
-    height: 90%;
+    height: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -343,9 +343,9 @@ input {
 }
 
 .top-right-btn img, .top-left-btn img { 
-    height: auto; 
-    width: 55%;
-    aspect-ratio: 1 / 1;
+    height: 60%; 
+    width: 65%;
+    /* aspect-ratio: 1 / 1; */
 }
 
 
@@ -734,12 +734,13 @@ input {
 }
 
 .search-item {
-    padding: 5%;
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 75%;
+    width: 80%;
     margin-bottom: 4%;
+    /* height: 35%; */
+    padding: 15% 0;
     text-align: center;
     color: #fff;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
@@ -770,8 +771,8 @@ input {
 }
 
 .foodList .item {
-    width: 85%;
-    min-height: 8vh;
+    width: 90%;
+    height: 25%;
     padding: 3% 1%;
     min-width: 15vw;
     /* margin-top:4%; */

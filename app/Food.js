@@ -45,14 +45,6 @@ class Food {
         return Number.isInteger(this.calories) && this.calories >= 0;
     }
 
-    static getAllFoodData() {
-        return Food.allFoodData;
-    }
-
-    static getFoodData(foodName) {
-        return Food.allFoodData.find(food => food.foodName.toLowerCase() === foodName.toLowerCase());
-    }
-
     toString(){
         return `Name: ${this.foodName}. Type: ${this.foodType}. Calories: ${this.calories} ServingSize: ${this.servingSize}. Protein: ${this.proteinContent}. Carbs: ${this.carbContent} Fibre: ${this.fibreContent}. Sugar: ${this.sugarContent}. Fat: ${this.fatContent}`;
     }

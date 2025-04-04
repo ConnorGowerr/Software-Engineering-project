@@ -5,46 +5,8 @@ const dbClient = require('./db.js')
 
 class FoodController {
     constructor() {
-        this.allMealFood = new Array();
-
-        this.foodData = Food.getAllFoodData(); 
     }  
 
-
-    //funtion to create a meal objecrs from all items in the current food list, user can confirm cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
-    async createMeal() {
-        const foodItems = document.querySelectorAll('.item');
-        let totalCals = 0;
-
-        // Calculate total nutrients
-        foodItems.forEach(food => {
-            const foodName = food.textContent.split(' - ')[0]?.trim();
-            const quantity = food.querySelector('.quantity-input') 
-                ? parseInt(food.querySelector('.quantity-input').value) 
-                : 1;  
-            const foodData = this.foodData.find(f => f.foodName.toLowerCase() === foodName.toLowerCase());
-
-            if (foodData) {
-                totalCals += foodData.calories * quantity;
-            }
-        });
-
-        // Ask the View to show the popup
-        const mealInfo = await this.foodView.showMealPopup(totalCals);
-
-        if (mealInfo) {
-            const { mealName, mealType } = mealInfo;
-            const meal = new Meal(mealName, mealType, this.allMealFood);
-            console.log(meal.toString());
-
-            meal.getAllFoods().forEach(Food => console.log(Food.toString()));
-
-            this.allMealFood.length = 0;  
-            this.calculateTotalCal();
-            this.createNotification();
-        }
-    }
-    
 
     searchFood(query, callback) {
         dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
@@ -65,6 +27,9 @@ class FoodController {
         });
     }
 
+
+
+
     returnFood(query, callback) {
         dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
             if (err) {
@@ -82,6 +47,17 @@ class FoodController {
                 callback(res.rows);  
             });
         });
+    }
+
+    saveMeal(req, res) {
+        const { mealName, mealType, foods } = req.body;
+
+        if (!mealName || !mealType || !foods) {
+            return res.status(400).json({ error: "Missing meal data" });
+        }
+
+        console.log("Received meal:", mealName, mealType, foods);
+        res.status(200).json({ message: "Meal received successfully" });
     }
     
     
