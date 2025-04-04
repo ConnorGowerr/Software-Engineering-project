@@ -10,4 +10,9 @@ function showPassword() {
     }
 }
 
+var signUp = document.getElementById("signUpButton");
 
+signUp.addEventListener("click", function()
+{
+    document.location.href = "http://localhost:8008/signup.html";
+})

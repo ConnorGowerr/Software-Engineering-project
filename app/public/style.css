@@ -35,7 +35,7 @@ h3 {
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
     border: #EFEDE7;
-    outline: 2px solid #EFEDE7;
+    outline: 2px solid #d8c899;
 }
 
 .btn:hover {
@@ -316,6 +316,7 @@ source: https://www.youtube.com/watch?v=OnOBfoT1zuw
     font-weight: bolder;
     font-size: xx-large;
     color: #EFEDE7;
+    cursor: pointer;
 }
 
 .button:hover {
@@ -439,8 +440,4 @@ source: https://www.youtube.com/watch?v=OnOBfoT1zuw
     margin-top: 5%;
     justify-content: center;
     font-size: 36px;
-}
-
-#signIn {
-    text-decoration: none;
 }
