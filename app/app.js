@@ -3,6 +3,7 @@ const dbClient = require('./db.js');
 const FoodController = require('./FoodController.js');
 const Food = require('./Food.js');
 const app = express();
+app.use(express.json()); 
 const port = 8008;
 
 app.use(express.static('public'));
@@ -26,6 +27,9 @@ app.get('/api/return-food', (req, res) => {
     });
 });
 
+app.post('/api/meal', express.json(), (req, res) => {
+    foodController.saveMeal(req, res);
+});
 
 
 app.get('/', (req, res) => {

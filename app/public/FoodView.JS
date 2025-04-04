@@ -27,6 +27,11 @@ class FoodView {
                 })
                 .catch(error => console.error('Error fetching search results:', error));
         });
+
+        document.getElementById("mealBtn").onclick = () => {
+            console.log("meal")
+            this.createMeal();
+        }
     }
 
     addFoodItemToUI(itemName) {
@@ -105,6 +110,105 @@ class FoodView {
     }
     
 
+    //funtion to create a meal objecrs from all items in the current food list, user can confirm cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
+    async createMeal() {
+        const mealForm = document.getElementById("mealForm");
+        const mealPopup = document.getElementById("mealPopup");
+        const popupOverlay = document.getElementById("popupOverlay");
+        const confirmBtn = document.getElementById("confirmBtn");
+        const cancelBtn = document.getElementById("cancelBtn");
+        const popupMessage = document.getElementById("popupMessage");
+    
+        const foodItems = document.querySelectorAll('.item');
+        let totalCals = 0;
+        this.allMealFood = [];
+    
+        for (const food of foodItems) {
+            const foodName = food.textContent.split(' - ')[0]?.trim();
+            const quantityInput = food.querySelector('.quantity-input');
+            const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+    
+            try {
+                const response = await fetch(`/api/return-food?q=${foodName}`);
+                if (!response.ok) throw new Error('Failed to fetch food data');
+    
+                const foodData = await response.json();
+                const foundFood = foodData[0];
+    
+                if (foundFood) {
+                    totalCals += foundFood.calories * quantity;
+                    foundFood.quantity = quantity;
+                    this.allMealFood.push(foundFood);
+                }
+            } catch (err) {
+                console.error(`Error fetching food data for "${foodName}":`, err);
+            }
+        }
+   
+        popupMessage.textContent = `Total Calories: ${totalCals}`;
+        mealPopup.style.display = "block";
+        popupOverlay.style.display = "block";
+    
+    
+        mealForm.onsubmit = async (event) => {
+            event.preventDefault();
+    
+            const mealName = document.getElementById("mealName").value;
+            const mealType = document.getElementById("mealType").value;
+    
+            const mealData = {
+                mealName,
+                mealType,
+                foods: this.allMealFood
+            };
+    
+            try {
+                const response = await fetch('/api/meal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(mealData)
+                });
+
+
+
+                console.table(mealData);
+                console.table(response);
+                console.table(JSON.stringify(mealData))
+
+    
+                if (!response.ok) throw new Error('Failed to send meal to server');
+    
+                const result = await response.json();
+                console.log('Meal saved:', result);
+    
+                this.allMealFood.length = 0;
+                this.foodList.querySelectorAll('.item').forEach(item => item.remove());
+                this.calculateTotalCal();
+                mealPopup.style.display = "none";
+                popupOverlay.style.display = "none";
+
+    
+            } catch (error) {
+                console.error('Error saving meal:', error);
+            }
+
+            
+        };
+    
+        cancelBtn.onclick = (event) => {
+            event.preventDefault();
+            mealPopup.style.display = "none";
+            popupOverlay.style.display = "none";
+        };
+
+        
+    }
+    
+    
+    
+
 
     calculateTotalCal() {
         let totals = { calories: 0, protein: 0, fiber: 0, carbs: 0, fat: 0, sugar: 0, count: 0 };
@@ -117,7 +221,6 @@ class FoodView {
     
         const foodItems = [...this.foodList.querySelectorAll('.item')];
     
-        // Fetch data for all food items
         const fetchPromises = foodItems.map(food => {
             const foodName = food.textContent.split(' - ')[0]?.trim();
             const quantity = food.querySelector('.quantity-input') ? parseInt(food.querySelector('.quantity-input').value) : 1;
@@ -185,15 +288,17 @@ class FoodView {
     }
 
     async createMealPopup(item) {
+        console.table(item)
+       
         const formattedText = `
-            <strong>${item.foodName}</strong> (${item.foodType})<br>
+            <strong>${item.foodname}</strong> (${item.foodtype})<br>
             Calories: ${item.calories}<br>
-            Protein: ${item.proteinContent}g<br>
-            Fibre: ${item.fibreContent}g<br>
-            Carbs: ${item.carbContent}g<br>
-            Fat: ${item.fatContent}g<br>
-            Sugar: ${item.sugarContent}g<br>
-            Serving Size: ${item.servingSize}
+            Protein: ${item.protein}g<br>
+            Fibre: ${item.fibre}g<br>
+            Carbs: ${item.carbs}g<br>
+            Fat: ${item.fat}g<br>
+            Sugar: ${item.sugar}g<br>
+            Serving Size: ${item.servingsize}
         `;
         document.getElementById("foodMessagePopup").innerHTML = formattedText;
 
@@ -218,6 +323,7 @@ class FoodView {
     closePopup() {
         this.mealPopup.style.display = "none";
         this.popupOverlay.style.display = "none";
+        
     }
 
     showAlert(message) {
