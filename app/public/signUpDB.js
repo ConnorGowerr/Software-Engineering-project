@@ -252,7 +252,7 @@ if (isMale == "F") {
     calOffset = -161;
 }
 
-var calorieTarget = (10 * parseFloat(weight)) + (6.25 * parseFloat(height)) - (5 * (age)) + calOffset + 400;
+var calorieTarget = Math.round((10 * parseFloat(weight)) + (6.25 * parseFloat(height)) - (5 * (age)) + calOffset + 400);
 
   
     
