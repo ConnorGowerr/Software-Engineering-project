@@ -19,6 +19,7 @@ app.get('/api/search-food', (req, res) => {
     });
 });
 
+// reutrn single food item 
 app.get('/api/return-food', (req, res) => {
     const query = req.query.q;
     
@@ -27,6 +28,7 @@ app.get('/api/return-food', (req, res) => {
     });
 });
 
+// recievee a post request wiht out new meal info (will add db stuff0
 app.post('/api/meal', express.json(), (req, res) => {
     foodController.saveMeal(req, res);
 });
