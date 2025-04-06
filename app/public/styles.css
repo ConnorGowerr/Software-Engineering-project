@@ -79,8 +79,7 @@ input {
 .nav-btn {
     background: transparent;
     width: 10%;
-    font-size: clamp(1rem, 2cqw, 2rem);
-
+    font-size: clamp(1rem, 1.5cqw, 2rem);
     height: 100%; 
     display: flex;
     text-decoration: none; 
@@ -96,7 +95,7 @@ input {
 }
 
 .nav-btn img {
-    width: 40%;
+    width: 30%;
     height: auto; 
     /* max-height: 80%;  */
     object-fit: contain; 
@@ -140,7 +139,7 @@ input {
 
 .icon-text {
     text-decoration: none;
-    font-size: clamp(1rem, 2cqw, 2.5rem);
+    font-size: clamp(1rem, 1.5cqw, 2.5rem);
     margin-top:4%;
 }
     
@@ -424,7 +423,7 @@ input {
 
 /* Log In Page Id's */
 #hellthTitle {
-    font-size: clamp(1rem, 2vw, 4rem);
+    font-size: clamp(1.5rem, 2vw, 4rem);
     font-weight: bold;
 }
 
@@ -544,8 +543,7 @@ input {
     justify-content: space-between;
     width: 90%;
     height: 100%;
-
-    margin: 0 auto;
+    margin: -1.5% auto;
 }
 
 
@@ -608,7 +606,7 @@ input {
     left: 50%;
     transform: translateX(-50%);
     margin: 0 auto;
-    font-size: clamp(1.5rem, 3cqw, 5rem);
+    font-size: clamp(1rem, 3cqw, 5rem);
 
     display: flex;
     justify-content: center;
@@ -633,7 +631,7 @@ input {
 }
 
 .calorieTitle {
-    font-size: clamp(1.5rem, 3cqw, 5rem);
+    font-size: clamp(rem, 2cqw, 5rem);
     /* font-weight: bold; */
     text-align: center;
     margin-top: 2%;
@@ -642,16 +640,16 @@ input {
 }
 
 .itemTotalTitle {
-    font-size: clamp(1.5rem, 3cqw, 5rem);
+    font-size: clamp(1rem, 2cqw, 5rem);
     /* font-weight: bold; */
     text-align: center;
     margin-top: 4%;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 .protein, .fiber, .carbs, .fat, .sugar {
-    font-size: clamp(1.5rem, 2cqw, 4rem);
+    font-size: clamp(1rem, 1.5cqw, 4rem);
     text-align: center;
-    margin-top:1%;
+    margin-top:2%;
     /* padding-bottom: 1%; */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
@@ -669,13 +667,13 @@ input {
 #foodTitle{
     position: relative;
     /* top:4%; */
-    font-size: clamp(1.5rem, 3cqw, 5rem);
+    font-size: clamp(1rem, 2cqw, 4rem);
 }
 
 #mealTypeTitle{
     position: relative;
     /* top:5%; */
-    font-size: clamp(1.5rem, 3cqw, 5rem);
+    font-size: clamp(1rem, 2cqw, 5rem);
 }
 
 
@@ -700,6 +698,8 @@ input {
     align-items: center;
     position: relative;
     width: 80%;
+    font-size: clamp(0.8rem, 1cqw, 3rem);
+
     height: 60%;
     border-radius: 15px;
 }
@@ -707,9 +707,9 @@ input {
 .search-bar {
     border-radius: 5px 5px;
     outline: none;
-    padding: 10% 3%;
-    font-size: clamp(1.5rem, 3cqw, 3rem);
-    width:80%;
+    padding: 7.5% 5%;
+    font-size: clamp(0.8rem, 1cqw, 3rem);
+    width:85%;
     position: relative;
     transition: all 0.3s ease-in-out;
     margin: 0 auto;
@@ -741,7 +741,7 @@ input {
     border-radius: 5px;
     width: 80%;
     margin-bottom: 4%;
-    font-size: clamp(1.5rem, 2cqw, 4rem);
+    font-size: clamp(0.8rem, 1.5cqw, 3.5rem);
     padding: 5% 0;
     text-align: center;
     color: #fff;
@@ -774,10 +774,10 @@ input {
 
 .foodList .item {
     width: 90%;
-    height: 25%;
+    height: 20%;
     padding: 3% 1%;
     min-width: 15vw;
-    font-size: clamp(1.5rem, 2cqw, 3rem);
+    font-size: clamp(0.8rem, 1.5cqw, 3rem);
     background: #474f53;
     color: white;
     border-radius: 6px;
@@ -813,7 +813,7 @@ input {
 .foodList .item i {
     transition: transform 0.3s ease; 
     transform: scale(1.5); 
-    font-size: clamp(1.5rem, 2cqw, 3rem);
+    font-size: clamp(0.8rem, 1.5cqw, 3rem);
 }
 
 .foodList .item:hover i {
@@ -839,7 +839,7 @@ input {
 .quantity-container {
     position: absolute;
     left: 30%;    
-    font-size: clamp(1.5rem, 2cqw, 3rem);
+    font-size: clamp(0.8rem, 1.5cqw, 3rem);
 
 
     display: flex;
@@ -850,7 +850,7 @@ input {
 .quantity-input {
     width: 20%;
     padding: 1% ;
-    font-size: clamp(1.5rem, 2cqw, 3rem);
+    font-size: clamp(0.8rem, 1.5cqw, 3rem);
 
     text-align: right;
     border-radius: 5px;
@@ -859,7 +859,7 @@ input {
 
 
 label {
-    font-size: clamp(1.5rem, 2cqw, 3rem);
+    font-size: clamp(0.8rem, 1.5cqw, 3rem);
     margin-right: 0.2vw;
     min-width: 10vw; 
     text-align: right; 
@@ -867,8 +867,7 @@ label {
 }
 
 #mealType {
-    padding: 2vh 6vw;
-    font-size: 1.5rem;
+    font-size: clamp(0.8rem, 1.5cqw, 3rem);
     border: 1px solid #aaa;
     border-radius: 4px;
     background-color: #f0f0f0;
@@ -901,12 +900,6 @@ label {
 }
 
 
-
-.hellthTitle {
-    font-size: 40px;
-    font-weight: bold;
-    
-}
 
 
 .PageSection {
@@ -977,14 +970,14 @@ label {
     text-align: center;
     border-radius: 30px 60px;
     width: 70vw;
-    height: 50vh;
+    height: 70vh;
     color: white;
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: clamp(1.5rem, 2cqw, 3rem);
+    font-size: clamp(0.8rem, 2cqw, 3rem);
 
 
 }
@@ -1004,7 +997,7 @@ label {
     align-items: center;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.1);
-    font-size: clamp(1rem, 2cqw, 4rem);
+    font-size: clamp(0.8rem, 2cqw, 4rem);
     text-align: center; 
     border-radius: 10px;
     width: 100%;
@@ -1027,8 +1020,8 @@ label {
     align-items: center;
     justify-content: center;
     width:60%;
-    height:65%;
-    font-size: clamp(1.5rem, 2cqw, 3rem);
+    height:75%;
+    font-size: clamp(0.8rem, 2cqw, 3rem);
 
 }
 
@@ -1050,8 +1043,8 @@ label {
 }
 
 #mealName, #mealType {
-    font-size: clamp(1.5rem, 2cqw, 3rem);
-    padding: 1vh 4vw;
+    font-size: clamp(0.8rem, 2cqw, 3rem);
+    padding: 2%;
     border-radius: 10px;
     border: none;
     margin: 0 auto;
@@ -1063,7 +1056,7 @@ label {
     background-color: #444;
     color: black;
     background-color: #f8f9fa;
-    width: 67%;
+    width: 80%;
     border-radius: 10px;
 }
 
@@ -1089,7 +1082,7 @@ label {
     background-color: darkorange;
     border: none;
     cursor: pointer;
-    font-size: clamp(1.5rem, 2cqw, 3rem);
+    font-size: clamp(0.8rem, 2cqw, 3rem);
     width: 30%;  
     bottom:5%;
     padding: 1% 5%;
@@ -1109,7 +1102,7 @@ label {
     border: #000000;
     color: white;
     border: none;
-    font-size: clamp(1.5rem, 2cqw, 4rem);
+    font-size: clamp(0.8rem, 2cqw, 4rem);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -1167,7 +1160,6 @@ label {
     width: 80%;
     height: 90%;
     margin:2% auto;
-    font-size: clamp(1rem, 2cqw, 2rem);
 
 }
 
@@ -1232,7 +1224,7 @@ label {
     border: 2px solid;
     border-radius: 15px;
     color: #383F42;
-    font-size: clamp(1rem, 2cqw, 2rem);
+    font-size: clamp(0.8rem, 2cqw, 2rem);
 
     text-align: center;
     transition: transform 0.3s ease-in-out, background 0.3s ease;
@@ -1268,12 +1260,14 @@ label {
 #addTitle{
     align-items: flex-start;
     margin-top: 2%;
+    font-size: clamp(0.8rem, 1.75cqw, 2rem);
+
 }
 
 
 #recordH3 {
     padding: 0 5%;
-    font-size: clamp(1rem, 2cqw, 2rem);
+    font-size: clamp(0.8rem, 1.5cqw, 2rem);
     color: #fff;
     text-align: left;
     margin: 0;
@@ -1621,7 +1615,7 @@ span {
     transform: translateX(-50%);  
     text-align: center;
     position: absolute;
-    font-size: clamp(1rem, 1.7vw, 2rem); 
+    font-size: clamp(0.8rem, 1.7vw, 2rem); 
 
 }
 
@@ -1704,7 +1698,7 @@ span {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: clamp(0.6rem, 1.7vw, 1.4rem); 
+    font-size: clamp(0.8rem, 1.7vw, 1.4rem); 
     gap: 7.5%;
     width: 60%;
     overflow: hidden;
@@ -1789,12 +1783,9 @@ span {
     
     .search-bar {
         padding: 0;
-        font-size: 1rem;
         width: 100%; 
         height: 100%; 
-        text-align: center;
-        
-
+        text-align: center;        
     }
     
 
@@ -1817,7 +1808,6 @@ span {
 
     #mealBtn {
         width: 72.5%;
-        font-size: 1rem;
         height: 10%;
         position: absolute;
         bottom: 1%; 
@@ -1838,7 +1828,6 @@ span {
     .foodList {
         width: 100%;
         height: 60vh; 
-        font-size: 0.8rem;
         overflow-y: auto;
         background-color: #383F42;
         border-radius: 10px;
@@ -1853,7 +1842,6 @@ span {
     .quantity-container {
         position: absolute;
         margin-right: 15%;
-        font-size: 0.8rem;
         text-align: right;
         display: flex;
         align-items: right;
@@ -1863,7 +1851,6 @@ span {
     .quantity-input {
         width: 20%;
         padding: 2%;
-        font-size: 0.8rem;
         text-align: center;
         border-radius: 5px;
         background-color: #fff;
@@ -1888,7 +1875,6 @@ span {
     }
 
     #mealName, #mealType {
-        font-size: 1rem;
         margin: 0 auto;
     }
 
@@ -1897,16 +1883,11 @@ span {
         margin: 5% auto;
     }
 
-    
-    #achievementPageTitle{
-        font-size: 2.5rem;
-    }
 
     .popup {
         width: 80vw;
         height: 50vh;
         color: white;
-        font-size: 1rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -1943,6 +1924,37 @@ span {
 
     .icon-text {
         display: none;
+    }
+
+    #mealActivityPageSection {
+        display: grid;
+        grid-template-rows: repeat(2, 1fr); 
+        grid-template-columns: 1fr;
+        gap:5%;
+        width: 80%;
+        height: 90%;
+        margin:2% auto;
+    
+    }
+
+    #mealLink{
+        display: flex;
+        text-decoration: none;
+        color: inherit;
+        grid-row: 1;
+        grid-column:1; 
+        width: 100%;
+        height: 90%;
+    
+    } 
+    #activityLink {
+        display: flex;
+        text-decoration: none;
+        color: inherit;
+        grid-row: 2;
+        grid-column:1; 
+        width: 100%;
+        height: 90%;
     }
 
     /* .profileSection{

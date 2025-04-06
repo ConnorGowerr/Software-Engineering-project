@@ -5,7 +5,6 @@ class FoodView {
         this.nutrientSection = document.querySelector('.nutrientSection');
         this.mealPopup = document.getElementById("foodPopup");
         this.popupOverlay = document.getElementById("foodOverlay");
-        this.allMealFood=[];
 
         this.setupEventListeners();
     }
@@ -162,6 +161,8 @@ class FoodView {
                 foods: this.allMealFood
             };
     
+
+            //send meal data to server
             try {
                 const response = await fetch('/api/meal', {
                     method: 'POST',
@@ -183,6 +184,8 @@ class FoodView {
                 const result = await response.json();
                 console.log('Meal saved:', result);
     
+
+                //reset all page attributes
                 this.allMealFood.length = 0;
                 this.foodList.querySelectorAll('.item').forEach(item => item.remove());
                 this.calculateTotalCal();
@@ -248,10 +251,7 @@ class FoodView {
                 .catch(error => console.error('Error fetching food data:', error));
         });
     
-<<<<<<< HEAD
-=======
-        // wait for all fetches, if any fail then we have a problem
->>>>>>> 58112483e4d18f530d41e59fa56bcec03a8c5f17
+        // wait for all fetches then process.
         Promise.all(fetchPromises).then(() => {
             this.updateNutritionUI(totals);
         });
@@ -342,62 +342,6 @@ class FoodView {
             }, 300);
         }, 2000);
     }
-
-    //funtion to create a meal objecrs from all items in the current food list, user can confirm cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
-    async createMeal() {
-    const foodItems = document.querySelectorAll('.item');
-    let totalCals = 0;
-
-    // Calculate total nutrients
-    foodItems.forEach(food => {
-        const foodName = food.textContent.split(' - ')[0]?.trim();
-        const quantity = food.querySelector('.quantity-input') 
-            ? parseInt(food.querySelector('.quantity-input').value) 
-            : 1;  
-
-            let food =  fetch(`/api/return-food?q=${foodName}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch search results');
-                }
-                return response.json();
-            })
-            .then(foodData => {
-                totals.calories += foodData[0].calories * quantity;
-                totals.protein += foodData[0].protein * quantity;
-                totals.fiber += foodData[0].fibre * quantity;
-                totals.carbs += foodData[0].carb * quantity;
-                totals.fat += foodData[0].fat * quantity;
-                totals.sugar += foodData[0].sugarContent * quantity;
-                totals.count += quantity;
-
-                for (let i = 0; i < quantity; i++) {
-                    this.allMealFood.push(foodData[0]);
-                }
-            });
-
-            if (foodData) {
-            totalCals += foodData.calories * quantity;
-        }
-    });
-
-    // Ask the View to show the popup
-    const mealInfo = await this.foodView.showMealPopup(totalCals);
-
-    if (mealInfo) {
-        const { mealName, mealType } = mealInfo;
-        const meal = new Meal(mealName, mealType, this.allMealFood);
-        console.log(meal.toString());
-
-        meal.getAllFoods().forEach(Food => console.log(Food.toString()));
-
-        this.allMealFood.length = 0;  
-        this.calculateTotalCal();
-        this.createNotification();
-    }
-    }
 }
 
 const foodView = new FoodView();
-
-
