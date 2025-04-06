@@ -1,4 +1,5 @@
 // All the require functions/api
+const { checkHash } = require('./hash.js')
 const express = require('express')
 const app = express();
 const port = 8008;
@@ -6,10 +7,13 @@ const {Client} = require('pg');
 const cors = require("cors");
 require("dotenv").config();
 
+
 app.use(express.static('public'));
 
 // allows passing of data from front end to back
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:8080' 
+}));
 app.use(express.json());
 
 app.get('/', (req, res) =>  {
@@ -125,6 +129,37 @@ app.get("/signup/:check", async (req, res) => {
             console.error("There was an error searching for email", error);
             res.status(500).json({ error: "There was an error with the server" });
         }
+    }
+       
+})
+
+app.post("/", async (req, res) => {
+    
+    const {username, password} = req.body;
+
+    try {
+        const logIn = await connection.query("SELECT username, password FROM Users WHERE username = $1", [username]);
+
+        if (logIn.rows.length === 0) 
+        {
+            res.status(404).json({error: "User not found"});
+            console.log("User does not exist");
+        } else 
+        {
+            console.log(logIn.rows[0]);
+            if (await checkHash(password, logIn.rows[0].password)) 
+            {
+                console.log("Log in successful");
+                res.status(200).json({ message: "Login successful" });;
+            } else 
+            {
+                console.log("Password does not match existing account");
+                res.status(401).json({ message: "Invalid Password" });;
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
     }
        
 })

@@ -16,3 +16,4 @@ signUp.addEventListener("click", function()
 {
     document.location.href = "http://localhost:8008/signup.html";
 })
+
