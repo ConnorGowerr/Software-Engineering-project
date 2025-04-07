@@ -9,7 +9,10 @@ class FoodView {
         this.setupEventListeners();
     }
 
-    setupEventListeners() {
+    setupEventListeners(){
+
+        #search functionality (for every input fetch all foods from database that contain the input)
+
         document.querySelector(".search-bar").addEventListener("input", (event) => {
             console.log("hi");
             const query = event.target.value;
@@ -33,6 +36,7 @@ class FoodView {
         }
     }
 
+    #adds the selected item from search, finds it then appends to our 'basket' and updates all atrributes for the nutrients section
     addFoodItemToUI(itemName) {
         fetch(`/api/return-food?q=${itemName}`)
             .then(response => {
@@ -161,8 +165,6 @@ class FoodView {
                 foods: this.allMealFood
             };
     
-
-            //send meal data to server
             try {
                 const response = await fetch('/api/meal', {
                     method: 'POST',
@@ -180,12 +182,9 @@ class FoodView {
 
     
                 if (!response.ok) throw new Error('Failed to send meal to server');
-    
                 const result = await response.json();
                 console.log('Meal saved:', result);
     
-
-                //reset all page attributes
                 this.allMealFood.length = 0;
                 this.foodList.querySelectorAll('.item').forEach(item => item.remove());
                 this.calculateTotalCal();
@@ -212,6 +211,7 @@ class FoodView {
     
     
 
+    #for every food in basket work out attributes
 
     calculateTotalCal() {
         let totals = { calories: 0, protein: 0, fiber: 0, carbs: 0, fat: 0, sugar: 0, count: 0 };
@@ -290,6 +290,8 @@ class FoodView {
         }
     }
 
+    
+    #display popup with food attributes currently a bit buggy)
     async createMealPopup(item) {
         console.table(item)
        
