@@ -1,11 +1,13 @@
 const { Client } = require('pg');
+require('dotenv').config();
+
 
 const connection = new Client({
-    host: "cmpstudb-01.cmp.uea.ac.uk",
-    user: "xzs23sbu",
-    port: 5432,
-    password: "PressAWatch89_",
-    database: "xzs23sbu",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    port: process.env.DB_PORT,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
 });
 
 connection.connect()

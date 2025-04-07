@@ -4,6 +4,8 @@ const FoodController = require('./FoodController.js');
 const Food = require('./Food.js');
 const app = express();
 app.use(express.json()); 
+require('dotenv').config();
+
 const port = 8008;
 
 app.use(express.static('public'));
@@ -28,7 +30,7 @@ app.get('/api/return-food', (req, res) => {
     });
 });
 
-// recievee a post request wiht out new meal info (will add db stuff0
+// recievee a post request with our new meal info (will add db stuff0
 app.post('/api/meal', express.json(), (req, res) => {
     foodController.saveMeal(req, res);
 });
