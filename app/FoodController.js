@@ -50,16 +50,33 @@ class FoodController {
     }
 
     saveMeal(req, res) {
-        const { mealName, mealType, foods } = req.body;
-
-        if (!mealName || !mealType || !foods) {
-            return res.status(400).json({ error: "Missing meal data" });
-        }
-
-        console.log("Received meal:", mealName, mealType, foods);
-        res.status(200).json({ message: "Meal received successfully" });
-    }
+        const {username, mealtype, mealdate, mealtime } = req.body;
     
+    
+        const insertQuery = `
+        INSERT INTO Meal (username, mealType, mealDate, mealTime)
+        VALUES ($1, $2, $3, $4)
+        `;
+
+        const values = [username, mealtype, mealdate, mealtime];
+    
+        dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+            if (err) {
+                console.error("Search path error:", err);
+                return res.status(500).json({ error: "Failed to set search path" });
+            }
+    
+            dbClient.query(insertQuery, values, (err, result) => {
+                if (err) {
+                    console.error( err);
+                    return res.status(500).json({ error: "Failed to insert meal" });
+                }
+    
+                return res.status(201).json({ message: "Meal inserted", meal: result.rows[0] });
+            });
+        });
+    }
+
     
 }    
 
