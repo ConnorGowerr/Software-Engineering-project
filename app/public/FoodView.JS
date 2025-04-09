@@ -11,7 +11,7 @@ class FoodView {
 
     setupEventListeners(){
 
-        #search functionality (for every input fetch all foods from database that contain the input)
+        //search functionality (for every input fetch all foods from database that contain the input)
 
         document.querySelector(".search-bar").addEventListener("input", (event) => {
             console.log("hi");
@@ -36,7 +36,7 @@ class FoodView {
         }
     }
 
-    #adds the selected item from search, finds it then appends to our 'basket' and updates all atrributes for the nutrients section
+    //adds the selected item from search, finds it then appends to our 'basket' and updates all atrributes for the nutrients section
     addFoodItemToUI(itemName) {
         fetch(`/api/return-food?q=${itemName}`)
             .then(response => {
@@ -211,7 +211,7 @@ class FoodView {
     
     
 
-    #for every food in basket work out attributes
+    //for every food in basket work out attributes
 
     calculateTotalCal() {
         let totals = { calories: 0, protein: 0, fiber: 0, carbs: 0, fat: 0, sugar: 0, count: 0 };
@@ -291,7 +291,7 @@ class FoodView {
     }
 
     
-    #display popup with food attributes currently a bit buggy)
+    //display popup with food attributes currently a bit buggy)
     async createMealPopup(item) {
         console.table(item)
        

@@ -22,7 +22,7 @@ h1 {
     color: #EFEDE7;
     font-family: 'Oswald';
     text-shadow: 2px 2px 4px #000000;
-    font-size: clamp(1rem, 2cqw, 2rem);
+    font-size: clamp(2rem, 4cqw, 3rem);
 
 }
   
@@ -262,6 +262,18 @@ input {
     background: linear-gradient(to right, #FFC300, #FF5733); 
     box-shadow: 0 0 10px rgba(255, 195, 0, 0.7), 0 0 15px rgba(255, 87, 51, 0.5);
 }
+
+.achievement.selected{ 
+    position: fixed;
+    top:50%;
+    z-index: 1000;
+    left:50%;
+    transform :translate(-50%, -50%);
+    width :60vw; 
+    height :45vh;  
+    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
 
 
 .medal-container {
@@ -607,6 +619,7 @@ input {
     transform: translateX(-50%);
     margin: 0 auto;
     font-size: clamp(1rem, 3cqw, 5rem);
+    border-radius: 15px;
 
     display: flex;
     justify-content: center;
@@ -631,11 +644,11 @@ input {
 }
 
 .calorieTitle {
-    font-size: clamp(rem, 2cqw, 5rem);
+    font-size: clamp(1rem, 2cqw, 5rem);
     /* font-weight: bold; */
     text-align: center;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top:2%;
+
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -643,7 +656,7 @@ input {
     font-size: clamp(1rem, 2cqw, 5rem);
     /* font-weight: bold; */
     text-align: center;
-    margin-top: 4%;
+    margin-top:2%;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 .protein, .fiber, .carbs, .fat, .sugar {
@@ -666,7 +679,7 @@ input {
 
 #foodTitle{
     position: relative;
-    /* top:4%; */
+    margin-bottom:10%;
     font-size: clamp(1rem, 2cqw, 4rem);
 }
 
@@ -1306,12 +1319,14 @@ label {
     grid-row: 1;    
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 100%;    
+    font-size: clamp(0.8rem, 1.5cqw, 2rem);
+
     height: 100%;
     background-color: #383F42;
     border-radius: 25px;
     display: flex;
-    border-width: 1px 1px 1px 1px; 
+    border-width: 1.5px; 
     border-style: solid;
     border-color: white;
 
@@ -1325,26 +1340,28 @@ label {
     align-items: center;
     width: 100%;
     height: 100%;
+    font-size: clamp(0.8rem, 1.5cqw, 2rem);
+
     background-color: #383F42;
     border-radius: 25px;
     display: flex;
-    border-width: 1px 1px 1px 1px; 
+    border-width: 1.5px; 
     border-style: solid;
     border-color: white;
 }
 
 .settingsDiv{
     display: flex;
-
+    font-size: clamp(0.8rem, 1.5cqw, 2rem);
     grid-column: 2; 
     grid-row: 1;    
     flex-direction: column;
     align-items: center;
     width: 100%;
     background-color: #383F42;
-    border-radius: 25px;
+    border-radius: 20px;
     display: flex;
-    border-width: 1px 1px 1px 1px; 
+    border-width: 1.5px; 
     border-style: solid;
     border-color: white;
     height: 100%;
@@ -1361,7 +1378,9 @@ label {
     background-color: #383F42;
     border-radius: 25px;
     display: flex;
-    border-width: 1px 1px 1px 1px; 
+    font-size: clamp(0.9rem, 1.5cqw, 2rem);
+
+    border-width: 1.5px; 
     border-style: solid;
     border-color: white;
 }
@@ -1370,7 +1389,6 @@ label {
 .mainArticle {
     width: 100%; 
     height: 100%;
-    font-size: 0.8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1391,16 +1409,18 @@ label {
 
 .mainTitle {
     text-align: center;
-    font-size: 1rem;
+    font-size: clamp(1.2rem, 1.5cqw, 2rem);
+
 }
 
 
 .statsArticle {
     width: 100%;
     height: 50%; 
-    font-size: 0.9rem;
     background-color: #383F42;
     display: flex;
+    font-size: clamp(0.9rem, 1.5cqw, 2rem);
+
     flex-direction: column;
     align-items: center;
     position: relative; 
@@ -1410,7 +1430,8 @@ label {
 .statsArticle2{
     width: 100%;
     height: 50%; 
-    font-size: 0.9rem;
+    font-size: clamp(0.9rem, 1.5cqw, 2rem);
+
     background-color: #383F42;
     border-radius: 0 0 25px 25px; 
 }
@@ -1485,9 +1506,8 @@ label {
 .settingsArticle {
     width: 100%;
     height: 100%; 
-    font-size: 0.9rem;
     background-color: #383F42;
-    border-radius: 25px ;
+    border-radius: 25px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1909,7 +1929,7 @@ span {
     }
 
 
-     .achievement {
+    .achievement {
         width: 100%; 
         margin: 0 auto; 
         margin-bottom: 10%;
@@ -1932,9 +1952,14 @@ span {
         grid-template-columns: 1fr;
         gap:5%;
         width: 80%;
-        height: 90%;
-        margin:2% auto;
+        height: 80%;
+        margin:5% auto;
     
+    }
+
+    .achievement.selected{
+        width: 90vw;
+        height: 30vh;
     }
 
     #mealLink{
@@ -1957,259 +1982,44 @@ span {
         height: 90%;
     }
 
-    /* .profileSection{
-        width: 90%;
-        height: 100%;
-        display: flex;
-        margin: 5% auto;
-        flex-direction: column;
-        align-items: center;
+
+    .profileSection {
+        display: grid;
+        grid-template-rows: repeat(2, 1fr); 
+        grid-template-columns: 1fr;
+        gap:5%;
+        width: 80%;
+        height: 90%;
+        margin:5% auto;
+    
     }
-    
-    
-    .mainArticle{
-        width: 90%;
-        height: 20%; 
-        font-size: 0.8rem;
-        background-color: #383F42;
-        border-radius: 25px;
-        display: flex;
-        border-width: 1px 1px 1px 1px; 
-        border-style: solid;
-        border-color: white;
-        border-color: white;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-    }
-    
-    .mainTitleContainer {
-        width: 100%; 
-        height: 10%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 10%; 
-        left: 0;
-    }
-    
-    .mainTitle {
-        text-align: center;
-        font-size: 1rem;
+
+    .mainDiv{
+
+        grid-column: 1; 
+        grid-row: 1;    
+
     }
     
     .statsdiv {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 90%;
-        height: 22.5%;
+        grid-column: 1; 
+        grid-row: 2;    
     }
     
-    .statsArticle {
-        width: 100%;
-        height: 50%; 
-        font-size: 0.9rem;
-        background-color: #383F42;
-        border-radius: 25px 25px 0 0; 
-        border-width: 1px 1px 0 1px; 
-        border-style: solid;
-        border-color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative; 
-        /* margin-top:1.5%; 
-    }
-/*     
-    
-    .statsArticle2{
-        width: 100%;
-        height: 50%; 
-        border-width: 0px 1px 1px 1px; 
-        border-style: solid;
-        border-color: white;
-        font-size: 0.9rem;
-        background-color: #383F42;
-        border-radius: 0 0 25px 25px; 
+    .settingsDiv{
+        grid-column: 1; 
+        grid-row: 3;    
     }
     
-    .mainstatsSection {
-        display: flex;
-        justify-content: space-between;
-        width: 90%;
-        height: 100%;
-        position: relative;
-        margin: auto;
-        gap:5%;
-        
-        border-width: 0px 0px 1px 0px; 
-        border-style: solid;
-        border-color: white;
-        align-items: center;
-        flex-direction: row;
-        border-color: white;
-    
-        overflow: hidden;
-        box-sizing: border-box; 
-    }
-    
-    .mainArticleTitle{
-        position: relative;
-        top:0;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .mainArticleStats {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        margin: auto;
-        gap:5%;
-        top: 10%;
-        align-items: center;
-        flex-direction: row;
-        overflow: hidden;
-        box-sizing: border-box; 
-    }
-    
-    .mainArticleStat1,.mainArticleStat2,.mainArticleStat3 {
-        height: 100%;
-        display: flex;
-        flex-direction: column; 
-        justify-content: center;  
-        align-items: center; 
-        width: 30%;
-        text-align: center;  
+    .achievementsDiv{
+        grid-column: 1; 
+        grid-row: 4; 
     }
     
     
-    
-    .secondarystatsSection{
-        display: flex;
-        justify-content: space-between;
-        width: 75%;
-        height: 100%;
-        position: relative;
-        margin: auto;
-        gap:0;
-        align-items: center;
-        flex-direction: row;
-        overflow: hidden;
-        box-sizing: border-box; 
-    
-    }
-    
-    .settingsArticle {
-        width: 90%;
-        height: 10%; 
-        font-size: 0.9rem;
-        background-color: #383F42;
-        border-radius: 25px ;
-        border-width: 1px 1px 1px 1px; 
-        border-style: solid;
-        border-color: white;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        position: relative; 
-        justify-content: center;
-        margin-top: 
-        margin-bottom: 2%;
-    }
-    
-    .metricButton {
-        background-color: #DC946A;
-        border: 1px solid white;
-        width:35%;
-        height: 55%;
-        color: white;
-        margin:auto;
-        cursor: pointer;
-        border-radius: 15px; 
-        transition: background-color 0.3s ease;
-    }
-    
-    
-    span {
-        font-size: 2rem;
-        align-items: center;
-        color: white;
-    }
-    
-    
-    .achievementSection{
-        width: 90%;
-        height: 17.5%; 
-        font-size: 0.8rem;
-        background-color: #383F42;
-        border-radius: 25px;
-        display: flex;
-        border-width: 1px 1px 1px 1px; 
-        border-style: solid;
-        border-color: white;
-        border-color: white;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 5%;
-    }
-    
-    
-    .mainArticleTitleContainer {
-        height: 20%;
-        display: flex;
-        position: relative;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .achievementSection a{
-        width: 100%;
-        height: 100%;
-     
-    }
-    
-    .achievementsMainImgs {
-        height: 60%;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        margin-top: 3.5%;
-        flex-wrap: wrap; 
-    }
-    
-    .achievementItem {
-        position: relative;
-        display: inline-block;
-        text-align: center;
-    }
-    
-    .achievementItem img {
-        width: 80%;
-        height: auto;
-        display: block;
-        margin:auto
-    
-    }
-    
-    .achievementItem p {
-        position: relative;
-        text-align: center;
-        margin:0 auto;
-        color: white;
-        margin-top: 5%;
-        font-size: 1rem; 
-    }
-    
-    
-    .profileTitles{
-        margin-bottom: 2%;
-    } */
+
+
+
 
 } 
 

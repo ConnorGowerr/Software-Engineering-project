@@ -191,15 +191,6 @@ class AchievementController {
         overlay.classList.add('overlay'); 
         document.body.appendChild(overlay);
 
-        selectedAchievement.style.position = 'fixed';
-        selectedAchievement.style.top = '50%';
-        selectedAchievement.style.left = '50%';
-        selectedAchievement.style.transform = 'translate(-50%, -50%)';
-        selectedAchievement.style.zIndex = '1000';
-        selectedAchievement.style.width = '60vw'; 
-        selectedAchievement.style.height = '45vh';  
-        selectedAchievement.style.transition = 'transform 0.3s ease, width 0.3s ease, height 0.3s ease';
-
         document.body.appendChild(selectedAchievement);
 
         document.addEventListener("click", (event) =>{
