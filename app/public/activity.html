@@ -4,7 +4,7 @@
 <link rel="icon" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <script type="module" src="./FoodView.js" defer></script> -->
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="activity.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,7 +18,7 @@
         </button>
 
 
-        <h1 id="hellthTitle">Add Meal</h1>
+        <h1 id="activityTitle">Add Actvity</h1>
 
         <a href="profile.html" class="top-right-btn">
             <img src="images/user-solid.svg" alt="profileIcon">
@@ -26,12 +26,12 @@
     </header>
 
     <main>
-    <section id = "mealPageSection">
-        <div class="foodAddSection">
-            <h2 id="foodTitle">Add Food</h2>
-            <div class="foodAdd">
+    <section id = "activityPageSection">
+        <div class="exerciseAddSection">
+            <h2 id="exerciseTitle">Add Exercise</h2>
+            <div class="exerciseAdd">
                 <div class="search-container">
-                    <input type="text" class="search-bar" placeholder="Search For Foods...">
+                    <input type="text" class="search-bar" placeholder="Search For Activities...">
                 </div>
             </div>
             <div class="search-results">
@@ -40,34 +40,34 @@
 
         </div>
         <div class = "centerSection">
-            <h2 id = "foodTitle">Current Selection</h2>
-            <div class="foodList"></div> 
+            <h2 id = "exerciseTitle">Current Selection</h2>
+            <div class="exerciseList"></div> 
           
-            <button id="mealBtn" class="mainBtn">Create Meal</button>
+            <button id="activityBtn" class="mainBtn">Create Activity</button>
         </div>
        
         <div class="overviewSection">
-            <h2 id="foodTitle">Nutrients</h2>
-            <div class = "nutrientSection">
+            <h2 id="exerciseTitle">Calories</h2>
+            <div class = "calorieSection">
                 <h2 class="calorieTitle">Total Calories: 0</h2>
-                <h2 class="itemTotalTitle">Total Items: 0</h2>
-                <h5 class="protein">Protein: 0g</h5>
+                <h2 class="itemTotalTitle">Total Exercises: 0</h2>
+                <!-- <h5 class="protein">Protein: 0g</h5>
                 <h5 class="fiber">Fiber: 0g</h5>
                 <h5 class="carbs">Carbohydrates: 0g</h5>
                 <h5 class="fat">Fat: 0g</h5>
-                <h5 class="sugar">Sugar: 0g</h5>
+                <h5 class="sugar">Sugar: 0g</h5> -->
             </div>
         </div>
     </section>    
     <div class="popup-overlay" id="popupOverlay">
-        <div id="mealPopup" class="popup">
+        <div id="activityPopup" class="popup">
             <div class="popup-content">
                 <p id="popupMessage"></p>
-                <form id="mealForm">
-                    <input type="text" id="mealName" placeholder="Meal Name" required = "true">
+                <form id="activityForm">
+                    <input type="text" id="activityName" placeholder="Activity Name" required = "true">
     
-                    <select id="mealType" required = "true">
-                        <option value="" disabled selected>Select Meal Type</option>
+                    <select id="activityType" required = "true">
+                        <option value="" disabled selected>Select Activity Type</option>
                         <option value="breakfast">Breakfast</option>
                         <option value="lunch">Lunch</option>
                         <option value="dinner">Dinner</option>
@@ -83,11 +83,11 @@
         </div>
     </div>
 
-    <div class="popup-overlay" id="foodOverlay">
-        <div id="foodPopup" class="popup">
+    <div class="popup-overlay" id="exerciseOverlay">
+        <div id="exercisePopup" class="popup">
             <div class="popup-content">
-                <div id="foodMessageContainer">
-                    <ul id="foodMessagePopup"></ul>
+                <div id="exerciseMessageContainer">
+                    <ul id="exerciseMessagePopup"></ul>
                 </div>  
                 <button id="confirmBtn2">Confirm</button>
                 <button id="cancelBtn2"><i class="fas fa-times"></i></button>
