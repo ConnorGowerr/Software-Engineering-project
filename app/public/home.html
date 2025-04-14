@@ -26,22 +26,33 @@
     <section id = "homeSection">
         <section class = "homeColumns">
             <div class = "box homeBox" id = "calorieTargetBox">
-                <div class = "outerCircle">
-                    <div class = "innerCircle">
-                        <p id = "caloriesNumber">2000</p>
-                        <p id = "calories">Calories</p>
+                <h2 id = "dailyCalorieTracker">Daily Calorie Tracker</h2>
+                <div id="calorieRow">
+                    <div id="progressWrapper">
+                        <div class="outerCircle">
+                        <div class="innerCircle">
+                            <p id="caloriesNumber">1465</p>
+                            <p id="calories">Calories</p>
+                        </div>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="220px" height="220px">
+                            <defs>
+                            <linearGradient id="progressBarColour">
+                                <stop offset="0%" stop-color="#EA7B3A"></stop>
+                                <stop offset="45%" stop-color="#B92318"></stop>
+                                <stop offset="100%" stop-color="#95180F"></stop>
+                            </linearGradient>
+                            </defs>
+                            <circle cx="110" cy="110" r="91" stroke-linecap="round" id="circle"></circle>
+                        </svg>
+                        </div>
+                    <div id="calorieRow2">
+                        <h3>Calories Remaining</h3>
+                        <h4>824</h4>
+                        <h3>Target Daily Calories</h3>
+                        <h4>2289</h4>
                     </div>
                 </div>
-                <svg xmlns = "http://www.w3.org/2000/svg" version = "1.1" width = "220px" height = "220px">
-                    <defs>
-                        <LinearGradient id = "progressBarColour">
-                            <stop offset = "0%" stop-color = "#EA7B3A"></stop>
-                            <stop offset = "45%" stop-color = "#B92318"></stop>
-                            <stop offset = "100%" stop-color = "#95180F"></stop>
-                        </LinearGradient>
-                    </defs>
-                    <circle cx = "110" cy = "110" r = "91" stroke-linecap = "round" id = "circle"></circle>
-                </svg>
             </div>
             <div class = "box homeBox" id = "activityTargetBox">
             </div>
@@ -88,7 +99,7 @@
     </button>
     <button class="nav-btn">
         <a href="groups.html">
-            <i class="fa fa-info-circle" "></i>
+            <i class="fa fa-info-circle"></i>
         </a>
         <span class="icon-text">Help</span>
 

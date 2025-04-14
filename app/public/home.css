@@ -4,7 +4,7 @@
     align-items: center;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: 25%;
+    /* gap: 25%; */
     margin-top: 5%;
 }
   
@@ -14,6 +14,7 @@
     justify-content: center;
     align-items: center;
     padding: 10%;
+    padding-top: 3%;
     padding-bottom: 6%;
     margin-bottom: 5%;
     color: #EFEDE7;
@@ -62,52 +63,6 @@ circle
     
 }
 
-svg {
-    position: absolute;
-    top: 15.4%;
-    left: 22%;
-}
-
-.outerCircle 
-{
- height: 180px;
- width: 180px;
- border-width: 2px;
- padding: 20px;
- border-radius: 50%;
- box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.4),
- -8px -8px 16px rgba(255, 255, 255, 0.075);
- border-color: #BABABA;
- border-style: solid;
- border-width: 6px;
- display: flex;
- justify-content: center;
- align-items: center;
-}
-
-.innerCircle
-{
-    height: 140px;
-    width: 140px;
-    border-width: 2px;
-    box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.4),
-    inset -6px -6px 12px rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
-    background-color: #1C1F21;
-    border-color: #BABABA;
-    border-style: solid;
-    border-width: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-#calorieTargetBox {
-    padding-left: 5em;
-    padding-right: 5em;
-}
-
 #calories, #caloriesNumber
 {
     font-family: 'Poppins';
@@ -118,3 +73,100 @@ svg {
     color: #EFEDE7;
 }
 
+#dailyCalorieTracker 
+{
+    font-family: 'Poppins';
+    margin-top: 1%;
+    padding-top: 0;
+}
+
+
+
+#calorieRow2 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Poppins';
+    color: #EFEDE7;
+    margin-left: 10%;
+}
+
+#calorieRow 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 2em auto;
+}
+  
+#progressWrapper 
+{
+    position: relative;
+    width: 220px;
+    height: 220px;
+    flex-shrink: 0;
+    margin-right: 10%;
+}
+  
+#progressWrapper svg 
+{
+    position: absolute;
+    top: 2.7%;
+    left: 2.2%;
+    pointer-events: none;
+}
+  
+#calorieRow2 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Poppins';
+    color: #EFEDE7;
+    text-align: center;
+    text-wrap: none;
+    white-space: nowrap;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: larger;
+}
+  
+#calorieTargetBox 
+{
+    padding-left: 5em;
+    padding-right: 5em;
+    margin-right: 600px;
+    padding-bottom: 0;
+}
+  
+.outerCircle 
+{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    padding: 20px;
+    border: 6px; 
+    border-style: solid; 
+    border-color: #BABABA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.4),
+    -8px -8px 16px rgba(255, 255, 255, 0.075);
+  }
+  
+.innerCircle 
+{
+    width: 140px;
+    height: 140px;
+    background-color: #1C1F21;
+    border: 3px solid #BABABA;
+    border-radius: 50%;
+    box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.4),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
