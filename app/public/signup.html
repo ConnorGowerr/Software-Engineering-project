@@ -31,25 +31,28 @@
         <section class="signUpPageSection">
             <div id="greyContainer1" class = "box">
                 <div class="inputdiv" id="firstdiv">
-                    <label for="username" class="signupLabels">Username</label>
-                        <div class="rowInput">
-                            <input class="inputClass" type="text" id="username" placeholder="Username*" aria-required="true" required="true">
-                            <img class="iconBox" src="images/User check.png" title = "Please enter a username between 5-20 characters">
+                    <label for="username" class="signupLabels">Username*</label>
+                    <div class="rowInput">
+                        <input class="inputClass" type="text" id="username" placeholder="Username*" aria-required="true" required="true">
+                        <img class="iconBox" src="images/User check.png" title = "Please enter a username between 5-20 characters">
                     </div>
                 </div>
                 <div class="inputdiv">
+                    <label for="passwordInput" class="signupLabels">Password*</label>
                     <div class="rowInput">
                         <input class="inputClass" id="passwordInput" type="password" placeholder="Password*" aria-required="true" required="true">
                         <img id="eyeImg" class="iconBox"  src="images/Eye off.png" onclick= showPassword() title = "Show password">
                 </div>
                 </div>
                 <div class="inputdiv">
+                    <label for="passwordConfirm" class="signupLabels">Confirm Password*</label>
                     <div class="rowInput">
                        <input class="inputClass" id="passwordConfirm" type="password" placeholder="Confirm Password*" aria-required="true" required="true">
                        <img id="eyeImgConfirm" class="iconBox"  src="images/Eye off.png" onclick= showPasswordConfirm() title = "Show password"> 
                 </div>
                 </div>
                 <div class="inputdiv">
+                    <label for="email" class="signupLabels">Email Address*</label>
                     <div class="rowInput">
                       <input class="inputClass" id = "email" type="email" placeholder="Email Address*" aria-required="true" required="true">
                       <img class="iconBox" src="images/Mail.png" title = "Email">
@@ -59,41 +62,51 @@
             </div>
             <div id="greyContainer2" class = "box">
                 <div class="inputdiv2" id="secondDiv">
-                    <label for="fullName" class="signupLabels">Full Name</label>
-                    <input class="inputClass" type="text" id="fullName" placeholder="Full Name*" aria-required="true" required="true">
+                    <label for="fullName" class="signupLabels">Full Name*</label>
+                    <div class="rowInput">
+                        <input class="inputClass" type="text" id="fullName" placeholder="Full Name*" aria-required="true" required="true">
+                        <img class="iconBox" src="images/User.png" title = "Please enter your full name">
+                    </div>
                 </div>
                 <h2 id="dob">- DOB -</h2>
                 <div class="multipleInput">
                     <div class="inputdiv2">
+                        <label for="DD" class="signupMultLabels">Day*</label>
                         <input class="inputClass" id = "DD" type="number" placeholder="DD*" aria-required="true" required="true">
                     </div>
                     <div class="inputdiv2">
+                        <label for="MM" class="signupMultLabels">Month*</label>
                         <input class="inputClass" id = "MM" type="number" placeholder="MM*" aria-required="true" required="true">
                     </div>
                     <div class="inputdiv2">
+                        <label for="YYYY" class="signupMultLabels">Year*</label>
                         <input class="inputClass" id = "YYYY" type="number" placeholder="YYYY*" aria-required="true" required="true">
                     </div>
+                    <img class="iconBox2" src="images/Calendar.png" title = "Please enter your date of birth">
                 </div>
                 <div class="multipleInput">
                     <div class="inputdiv2">
+                        <label for="weight" class="signupMultLabels2">Weight*</label>
                         <input class="inputClass" id = "weight" type="number" placeholder="Weight*" aria-required="true" required="true">
                     </div>
                     <div class="yellow selectBtn" id = "kg" onclick="metric()">Kg</div>
                     <p class="slash">/</p>
                     <div class="selectBtn" id = "lbs" onclick="imperial()">lbs</div>
-                    <img class="iconBox" src="images/Feather.png" title = "Please select metric or imperial measurements">
+                    <img class="iconBox3" src="images/Feather.png" title = "Please select metric or imperial measurements">
                 </div>
                 <div class="multipleInput">
                     <div class="inputdiv2">
+                        <label for="height" class="signupMultLabels2">Height*</label>
                         <input class="inputClass" id = "height" type="number" placeholder="Height*" aria-required="true" required="true" >
                     </div>
                     <div class="yellow selectBtn" id = "cm" onclick="metric()">Cm</div>
                     <p class="slash">/</p>
                     <div class="selectBtn" id = "in" onclick="imperial()">in</div>
+                    <img class="iconBox3" src="images/ruler.png" title = "Please select metric or imperial measurements">
                 </div>
                 <div class="multipleInput">
                     <img class="selectBtnimg yellowGender" id = "man" src="images/blueman.png" onclick="male()">
-                    <p class="slash" id = "slash">/</p>
+                    <p class="slash2" id = "slash">/</p>
                     <img class="selectBtnimg" id = "woman" src="images/pinkwoman.png" onclick="female()">
                 </div>
                 <button id="signUpBtn" class="mainBtn" type="submit">Sign Up</button>

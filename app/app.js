@@ -1,6 +1,6 @@
 // All the require functions/api
-const { checkHash } = require('./hash.js')
-const express = require('express')
+const { checkHash } = require('./hash.js');
+const express = require('express');
 const app = express();
 const port = 8008;
 const {Client} = require('pg');
