@@ -28,6 +28,12 @@ class AchievementController {
             new Achievement("Yearly Tracker", "calories", 365)  
         ]
 
+        fetch('/achievements')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        });
+
     }
 
 

@@ -239,9 +239,9 @@ class FoodView {
                     totals.calories += foodData[0].calories * quantity;
                     totals.protein += foodData[0].protein * quantity;
                     totals.fiber += foodData[0].fibre * quantity;
-                    totals.carbs += foodData[0].carb * quantity;
+                    totals.carbs += foodData[0].carbs * quantity;
                     totals.fat += foodData[0].fat * quantity;
-                    totals.sugar += foodData[0].sugarContent * quantity;
+                    totals.sugar += foodData[0].sugar * quantity;
                     totals.count += quantity;
     
                     for (let i = 0; i < quantity; i++) {
