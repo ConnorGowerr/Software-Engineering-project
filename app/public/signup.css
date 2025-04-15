@@ -108,12 +108,12 @@ h2 {
     box-shadow: 5px 5px #000000;
     /* backdrop-filter: blur(10px); */
     user-select: none;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 20%;
+    padding-right: 20%;
     font-size: large;
     margin-top: 12%;
-    margin-right: 11%;
-    margin-left: 11%;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
 }
 
 .selectBtnimg, .selectedBtnimg{
@@ -141,12 +141,12 @@ h2 {
 }
 
 .selectBtn:hover, .selectBtnimg:hover{
-    background-color: #e4e1da;
+    background-color: #fff6db;
 }
 
-/* .selectBtn:active, .selectBtnimg:active{
-    background-color: #FEEEBC;
-} */
+.selectBtn:active, .selectBtnimg:active{
+    background-color: #f0d891;
+}
 
 .yellow {
     background-color: #FEEEBC;
@@ -154,13 +154,12 @@ h2 {
 
 }
 
-
-
 .slash{
     color:#EFEDE7;
     user-select: none;
     z-index: 1;
-    margin-left: 4%;
+    margin-left: 2%;
+    margin-right: 2%;
     font-size: large;
     margin-top: 20%;
 }
@@ -203,7 +202,6 @@ input:hover{
     flex-shrink: 0; 
     width: 60px; 
     height: 60px; 
-    margin-left: 10px; 
     box-sizing: border-box;
     padding: 1.5%;
 }
@@ -224,7 +222,7 @@ input:hover{
     flex-shrink: 0; 
     width: 60px; 
     height: 60px; 
-    margin-left: 10px; 
+    /* margin-left: 10px;  */
     box-sizing: border-box;
     padding: 1.5%;
     margin-top: 12%;
@@ -239,7 +237,7 @@ input:hover{
     border-width: 3.5px;
     box-shadow: 5px 5px #000000;
     /* backdrop-filter: blur(10px); */
-    margin-left: 10%;
+    margin-left: 2%;
     display: flex;
     align-items: center; 
     justify-content: center; 
@@ -300,7 +298,16 @@ input:hover{
 .multipleInput{
     display:flex;
     flex-direction:row;
-    width: 28.6%;
+    width: 29.15%;
+    margin-bottom: 2%;
+    align-items:center;
+    justify-content: center;
+}
+
+.multipleInputGender{
+    display:flex;
+    flex-direction:row;
+    width: 40%;
     margin-bottom: 2%;
     align-items:center;
     justify-content: center;

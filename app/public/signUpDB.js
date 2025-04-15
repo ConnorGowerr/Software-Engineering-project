@@ -239,8 +239,7 @@ if (isMale == "F") {
 
 var calorieTarget = Math.round((10 * parseFloat(weight)) + (6.25 * parseFloat(height)) - (5 * (age)) + calOffset + 400);
 
-  
-    
+
 if (available) 
 {
 // Sends the data to the backend using a post request - PASSED
@@ -264,7 +263,10 @@ fetch("http://localhost:8008/signup", {
     })
 })
 .then(response => response.json())
-.then(data => console.log(data))
+.then(data => {
+    window.location.href='login.html';
+    // showAlert("Account Created Successfully.");
+})
 .catch(error => console.error("Error:", error));
 }
 
@@ -276,3 +278,23 @@ function warning(string)
     warn.innerText = string;
     warn.style.display = "inline-block";
 }
+
+
+function showAlert(message) {
+    const alertBox = document.getElementById('quantity-alert');
+    alertBox.textContent = message;
+    alertBox.style.display = 'block';
+
+    setTimeout(() => {
+        alertBox.style.animation = "fadeOut 0.7s ease-in-out";
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+            alertBox.style.animation = "fadeIn 0.7s ease-in-out";
+        }, 300);
+    }, 2000);
+}
+
+//Testing with the alert
+
+
+document.getElementById("PressTheButton").addEventListener("click", showAlert("This idiot pressed the button lmao"));
