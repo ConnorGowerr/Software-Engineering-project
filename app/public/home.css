@@ -13,7 +13,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10%;
+    /* padding: 10%; */
     padding-top: 3%;
     padding-bottom: 6%;
     margin-bottom: 5%;
@@ -34,6 +34,7 @@
 {
     display: flex;
     flex-direction: column;
+    max-width: 45%;
     
 }
 
@@ -78,18 +79,7 @@ circle
     font-family: 'Poppins';
     margin-top: 1%;
     padding-top: 0;
-}
-
-
-
-#calorieRow2 
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-family: 'Poppins';
-    color: #EFEDE7;
-    margin-left: 10%;
+    white-space: nowrap;
 }
 
 #calorieRow 
@@ -130,12 +120,13 @@ circle
     white-space: nowrap;
     text-shadow: 2px 2px 4px #000000;
     font-size: larger;
+    margin-left: 80px;
 }
   
 #calorieTargetBox 
 {
-    padding-left: 5em;
-    padding-right: 5em;
+    padding-left: 40%;
+    padding-right: 40%;
     margin-right: 600px;
     padding-bottom: 0;
 }
@@ -169,4 +160,46 @@ circle
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+#activityTargetBox, #groupChallengeBox 
+{
+    max-width: 40%;
+    width: 40%;
+}
+
+#progressTitleHome, #groupsTitleHome, #helpTitleHome
+{
+    font-size: 30px;
+}
+
+#progressBox 
+{
+    padding-top: 0;
+    padding-bottom: 2%;
+    justify-content: center;
+    align-items: center;
+}
+
+#trackProgressButton, #groupsButton, #helpButton 
+{
+    padding: 4%;
+    white-space: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#groupsButton 
+{
+    padding: 7%;
+}
+
+#helpButton 
+{
+    padding: 9%;
+}
+
+#helpBox 
+{
+    margin-bottom: 15%;
 }
