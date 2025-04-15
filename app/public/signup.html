@@ -8,7 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/bcryptjs/umd/index.js"></script>
     <script src="signup.js" defer></script>
-    <script type = "module" src="signUpDB.js"></script>
+    <script type = "module" src="signUpDB.js" defer></script>
     <!-- Need to import as its a module and cant be loaded normally like other scripts -->
     <script type="module">
         import { createAccount } from "/signupDB.js";
@@ -115,5 +115,5 @@
     </form>
 
     <button id="PressTheButton" class="mainBtn">Yes, press it</button>
-    <div id="quantity-alerts"></div>
+    <div id="signupAlert"></div>
 </body>

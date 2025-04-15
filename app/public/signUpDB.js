@@ -265,7 +265,7 @@ fetch("http://localhost:8008/signup", {
 .then(response => response.json())
 .then(data => {
     window.location.href='login.html';
-    // showAlert("Account Created Successfully.");
+    showAlert("Your account has been created succesfully.");
 })
 .catch(error => console.error("Error:", error));
 }
@@ -281,7 +281,7 @@ function warning(string)
 
 
 function showAlert(message) {
-    const alertBox = document.getElementById('quantity-alerts');
+    const alertBox = document.getElementById('signupAlert');
     alertBox.textContent = message;
     alertBox.style.display = 'block';
 
@@ -291,10 +291,15 @@ function showAlert(message) {
             alertBox.style.display = 'none';
             alertBox.style.animation = "fadeIn 0.7s ease-in-out";
         }, 300);
-    }, 2000);
+    }, 4000);
 }
 
 //Testing with the alert
 
+// document.getElementById("PressTheButton").addEventListener("click", (event) => {
+//     showAlert("Your account has been created succesfully.");
+// });
 
-document.getElementById("PressTheButton").addEventListener("click", showAlert("This idiot pressed the button lmao"));
+// document.getElementById("PressTheButton").addEventListener("click", showAlert("This idiot pressed the button lmao"));
+
+    
