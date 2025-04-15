@@ -203,3 +203,25 @@ circle
 {
     margin-bottom: 15%;
 }
+
+#activityTargetBox, #groupChallengeBox 
+{
+    width: auto;
+    max-width: 80%;
+    flex-grow: 1;
+}
+
+#goalMainSection, #challengeMainSection 
+{
+    text-shadow: 2px 2px 4px #000000;
+    font-size: larger;
+    font-family: 'Poppins';
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+}
+
+#goalSectioning2, #challengeSectioning2 
+{
+    margin-left: 20%;
+}

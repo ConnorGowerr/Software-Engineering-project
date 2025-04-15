@@ -1,3 +1,22 @@
+const trackB = document.getElementById("trackProgressButton");
+const groupB = document.getElementById("groupsButton");
+const helpB = document.getElementById("helpButton");
+
+trackB.addEventListener("click", function() 
+{
+    window.location.href = "http://localhost:8008/progress.html"
+});
+
+groupB.addEventListener("click", function() 
+{
+    window.location.href = "http://localhost:8008/groups.html"
+});
+
+helpB.addEventListener("click", function() 
+{
+    window.location.href = "http://localhost:8008/FAQ.html"
+});
+
 let number = document.getElementById("caloriesNumber");
 let circle = document.getElementById("circle");
 let count = 0;
