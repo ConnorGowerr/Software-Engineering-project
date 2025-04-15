@@ -281,7 +281,7 @@ function warning(string)
 
 
 function showAlert(message) {
-    const alertBox = document.getElementById('quantity-alert');
+    const alertBox = document.getElementById('quantity-alerts');
     alertBox.textContent = message;
     alertBox.style.display = 'block';
 
