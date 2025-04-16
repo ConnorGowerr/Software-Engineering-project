@@ -264,8 +264,11 @@ fetch("http://localhost:8008/signup", {
 })
 .then(response => response.json())
 .then(data => {
-    window.location.href='login.html';
-    showAlert("Your account has been created succesfully.");
+    showAlert("Your account has been created successfully! Redirecting...");
+    setTimeout(() =>{
+        window.location.href='login.html';       
+    }, 2000)
+
 })
 .catch(error => console.error("Error:", error));
 }
@@ -284,7 +287,6 @@ function showAlert(message) {
     const alertBox = document.getElementById('signupAlert');
     alertBox.textContent = message;
     alertBox.style.display = 'block';
-
     setTimeout(() => {
         alertBox.style.animation = "fadeOut 0.7s ease-in-out";
         setTimeout(() => {
@@ -297,9 +299,11 @@ function showAlert(message) {
 //Testing with the alert
 
 // document.getElementById("PressTheButton").addEventListener("click", (event) => {
-//     showAlert("Your account has been created succesfully.");
-// });
+//     showAlert("Your account has been created successfully! Redirecting...");
+//     setTimeout(() =>{
+//         window.location.href='login.html';       
+//     }, 2000)
 
-// document.getElementById("PressTheButton").addEventListener("click", showAlert("This idiot pressed the button lmao"));
+// })
 
     

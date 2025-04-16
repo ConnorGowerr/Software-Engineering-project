@@ -464,5 +464,5 @@ source: https://www.youtube.com/watch?v=OnOBfoT1zuw
     font-weight: bold;
     display: none;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.7s ease-in-out;
+    animation: fadeIn 0.7s ease-in-out forwards;
 }
