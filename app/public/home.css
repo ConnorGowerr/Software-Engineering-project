@@ -47,7 +47,8 @@ Circular progress bar made with the help from https://www.youtube.com/watch?v=H2
 
 @keyframes progressFill 
 {
-    100% {
+    100% 
+    {
         stroke-dashoffset: 90;
     }
 }
@@ -104,7 +105,7 @@ circle
 {
     position: absolute;
     top: 2.7%;
-    left: 2.2%;
+    left: 2.5%;
     pointer-events: none;
 }
   
@@ -221,7 +222,98 @@ circle
     white-space: nowrap;
 }
 
+#goalSectioning1, #challengeSectioning1
+{
+    margin-left: -8%;
+}
+
 #goalSectioning2, #challengeSectioning2 
 {
     margin-left: 20%;
+}
+
+
+@keyframes linearProgressFill1 
+{
+    100% 
+    {
+        width: 80%;
+    }
+}
+
+@keyframes linearProgressFill2 
+{
+    100% 
+    {
+        width: 80%;
+    }
+}
+
+#goalProgressBar, #groupProgressBar 
+{
+    height: 3vh;
+    width: 80%;
+    background: #ddd;
+    border-radius: 25px;
+    border: 6px solid #BABABA;
+    overflow: hidden;
+    position: relative;
+    /* margin-top: auto; */
+    margin-bottom: 3%; 
+    box-shadow: inset 0 0 10px #222;
+}
+
+
+.progress 
+{
+    height: 100%;
+    border-radius: 25px;
+    transition: width 0.3s ease-in-out;
+    width: 0%;
+    animation: linearProgressFill1 2s forwards;
+    
+}
+
+.groupProgressColor 
+{ 
+    background: linear-gradient(to right, #007AFF, #1DE44F); 
+    box-shadow:
+        0 0 10px white,
+        0 0 20px white,
+        0 0 30px #1DE44F,
+        0 0 40px #1DE44F;
+        background-image: 
+        url("images/noise.png"),
+        linear-gradient(to right, #007AFF, #1DE44F);
+        background-blend-mode: hard-light;
+        background-repeat: repeat;
+        background-size: cover;
+}
+
+.goalProgressColor 
+{ 
+    background: linear-gradient(to right, #FF8C00, #FFD700); 
+    box-shadow:
+        0 0 10px #FF8C00,
+        0 0 20px #FF8C00,
+        0 0 30px #FFD700,
+        0 0 40px #FFD700;
+        background-image: 
+        url("images/noise.png"),
+        linear-gradient(to right, #FF8C00, #FFD700);
+        background-blend-mode: hard-light;
+        background-repeat: repeat;
+        background-size: cover;
+        
+}
+
+.goalProgressColor::before 
+{
+    content: "";
+    position: absolute;
+    border-radius: 25px;
+    background: linear-gradient(to right, #FF8C00, #FFD700);
+    filter: blur(12px);
+    opacity: 0.6;
+    z-index: -1;
 }
