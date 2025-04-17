@@ -6,11 +6,26 @@
 <link rel="stylesheet" href="style.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<script src="https://cdn.jsdelivr.net/npm/bcryptjs/umd/index.js"></script>
 <script src = "login.js" defer></script>
+<script type = "module" src="logInDB.js"></script>
+<script type="module">
+    import { logIn } from "/logInDB.js";
+    document.addEventListener("DOMContentLoaded", function() {
+        const signUpButton = document.getElementById('logInButton');
+        signUpButton.addEventListener('click', function(event) 
+        {
+            // stops default form behaviour once log in button is pressed
+            event.preventDefault();
+            logIn();
+        });
+    });
+</script>
 </head>
 <body>
 <main>
     <h1 id = "hellthTitle">Hellth</h1>
+    <h4 id = "warning">⚠︎ Warning</h4>
     <section id = "loginPageSection">
         <div class = "box" id = "logInBox">
             <h2 id = "returningUser">Returning user? Sign in Here!</h2>
@@ -23,11 +38,11 @@
                 </div>
                 <div id = "passwordContainer">
                     <input type = "password" class = "inputClass" id = "logInPassword" placeholder = "Password*" aria-required = "true" required = "true">
-                        <div class = "iconBox" id = "passwordIconBox" onclick="showPassword()">
+                        <div class = "iconBox" id = "passwordIconBox" title = "Show password" onclick="showPassword()">
                             <img id = "eyeIcon" src = "images/Eye off.png">
                         </div>
                 </div>
-              <a href = "contact.html"><u id = "forgotPassword">Forgotten Password?</u></a>
+              <a href = "home.html"><u id = "forgotPassword">Forgotten Password?</u></a>
                 <button class = "button" id = "logInButton">Log In</button>
             </form>
         </div>

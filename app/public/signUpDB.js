@@ -19,21 +19,6 @@ export async function createAccount() {
     var isMetric = document.getElementById("kg").classList.contains("yellow");
     var isMale = document.getElementById("man").classList.contains("yellowGender");
 
-/*  NEXT STEPS
-
-add hashing
-hash password and confirm password
-Cry
-repeat for if email is already used for an account - Done
-check if full name only consists of letters and spaces - Done
-ensure day, month and year are valid numbers that make sense - Done
-same with height and weight - Done
-make sure isMetric and isMale work - Done
-calc sensible daily calorie target based on height, weight and gender
-celebrate
-
-*/
-
 // checks if username already exists  - PASSED
 const usernameResponse = await fetch(`http://localhost:8008/signup/check?username=${username}`, {
     method: "GET",
@@ -232,7 +217,7 @@ if (isMale) {
 }
     
 const hashedPassword = bcrypt.hashSync(userPassword, 10);
-console.log(hashedPassword);
+
 
 var dobDate = new Date(dob);
 var today = new Date();
