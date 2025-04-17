@@ -45,22 +45,23 @@ Circular progress bar made with the help from https://www.youtube.com/watch?v=H2
 
 */
 
-@keyframes progressFill 
+/* @keyframes progressFill 
 {
     100% 
     {
         stroke-dashoffset: 90;
     }
-}
+} */
 
 
 circle 
 {
+    
     fill: none;
     stroke: url(#progressBarColour);
     stroke-width: 36px;
-    stroke-dasharray: 450;
-    stroke-dashoffset: 450;
+    stroke-dasharray: 571;
+    stroke-dashoffset: 571;
     animation: progressFill 2s forwards;
     
 }
@@ -121,7 +122,7 @@ circle
     white-space: nowrap;
     text-shadow: 2px 2px 4px #000000;
     font-size: larger;
-    margin-left: 80px;
+    margin-left: 40px;
 }
   
 #calorieTargetBox 
@@ -224,12 +225,12 @@ circle
 
 #goalSectioning1, #challengeSectioning1
 {
-    margin-left: -8%;
+    margin-left: -6%;
 }
 
 #goalSectioning2, #challengeSectioning2 
 {
-    margin-left: 20%;
+    margin-left: 12%;
 }
 
 
@@ -316,4 +317,37 @@ circle
     filter: blur(12px);
     opacity: 0.6;
     z-index: -1;
+}
+
+#challengeTitleSectioning 
+{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: -5%;
+}
+
+#challengeTitle, #challengeTitleRemaining 
+{
+    font-family: 'Poppins';
+    white-space: nowrap;
+}
+
+#groupChallengeBox 
+{
+    margin-bottom: 15%;
+}
+
+#challengeTitle 
+{
+    margin-left: -3%;
+}
+
+#challengeTitleRemaining 
+{
+    margin-left: 5%;
+}
+
+h2, h3, h4 
+{
+    font-family: 'Poppins';
 }

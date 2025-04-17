@@ -67,6 +67,14 @@ connection.query('SET SEARCH_PATH to "Hellth", public;', async (err) => {
     }
 })
 
+connection.query(`SET TIME ZONE 'Europe/London';`, async (err) => {
+    if (err) {
+        console.log(err.message);
+    } else {
+        console.log("time zone set");
+    }
+})
+
 /* Receives the data from the post request sent by the signup page and attemps to insert the data into the database into the user table
 
 
@@ -155,6 +163,43 @@ app.post("/", async (req, res) => {
             {
                 console.log("Password does not match existing account");
                 res.status(401).json({ message: "Invalid Password" });;
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+       
+})
+
+app.post("/home.html", async (req, res) => {
+    
+    const {username} = req.body;
+
+    try {
+        const dailyCalorie = await connection.query("SELECT SUM(calories * quantity) FROM Meal INNER JOIN MealContents ON Meal.mealID = mealContents.mealID INNER JOIN Food ON MealContents.foodID = Food.foodID WHERE username = $1 AND mealDate = CURRENT_DATE;", [username]);
+        const dailyCalorieTarget = await connection.query("SELECT dailyCalorieTarget FROM Users WHERE username = $1", [username]);
+
+        if (dailyCalorie.rows.length === 0) 
+        {
+            res.status(404).json({error: "User not found"});
+            console.log("User does not exist");
+        } else 
+        {
+            console.log(dailyCalorie.rows[0]);
+            console.log(dailyCalorieTarget.rows[0]);
+            if (dailyCalorie.rows[0].sum != null) 
+            {
+                console.log("Calorie data retrieved");
+                res.status(200).json({ 
+                    message: "Data retrieved successfully",
+                    calories: dailyCalorie.rows[0].sum,
+                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
+                });
+            } else 
+            {
+                console.log("Calorie data not retrieved");
+                res.status(401).json({ message: "Error: failure to retrieve data" });;
             }
         }
     } catch (error) {
