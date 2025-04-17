@@ -184,7 +184,16 @@ app.post("/home.html", async (req, res) => {
     try {
         const dailyCalorie = await connection.query("SELECT SUM(calories * quantity) FROM Meal INNER JOIN MealContents ON Meal.mealID = mealContents.mealID INNER JOIN Food ON MealContents.foodID = Food.foodID WHERE username = $1 AND mealDate = CURRENT_DATE;", [username]);
         const dailyCalorieTarget = await connection.query("SELECT dailyCalorieTarget FROM Users WHERE username = $1", [username]);
-
+        const weeklyGoals = await connection.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
+        const weeklyCompletedGoals = await connection.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = true AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username]);
+        if (weeklyGoals.rows.length === 0) 
+        {
+            if (weeklyCompletedGoals.rows.length === 0) 
+            {
+                res.status(404).json({error: "Goals not found"});
+                console.log("There are no goals for this user");
+            }
+        }
         if (dailyCalorie.rows.length === 0) 
         {
             res.status(404).json({error: "User not found"});
@@ -193,18 +202,48 @@ app.post("/home.html", async (req, res) => {
         {
             console.log(dailyCalorie.rows[0]);
             console.log(dailyCalorieTarget.rows[0]);
-            if (dailyCalorie.rows[0].sum != null) 
+            if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) 
             {
-                console.log("Calorie data retrieved");
+                console.log("data retrieved");
                 res.status(200).json({ 
                     message: "Data retrieved successfully",
+                    type: "activity",
                     calories: dailyCalorie.rows[0].sum,
-                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
+                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                    userActivity: weeklyGoals.rows[0].weeklyactivity,
+                    activityTarget: weeklyGoals.rows[0].targetactivity
+
+                });
+            } else if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].currentweight != null) 
+            {
+                console.log("data retrieved");
+                res.status(200).json({ 
+                    message: "Data retrieved successfully",
+                    type: "weight",
+                    calories: dailyCalorie.rows[0].sum,
+                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                    currentWeight: weeklyGoals.rows[0].currentweight,
+                    targetWeight: weeklyGoals.rows[0].targetweight
+                });
+            } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) 
+            {
+                console.log("data retrieved");
+                res.status(200).json({ 
+                    message: "Data retrieved successfully",
+                    type: "completed",
+                    calories: dailyCalorie.rows[0].sum,
+                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                    userActivity: weeklyCompletedGoals.rows[0].weeklyactivity,
+                    activityTarget: weeklyCompletedGoals.rows[0].targetactivity
                 });
             } else 
             {
-                console.log("Calorie data not retrieved");
-                res.status(401).json({ message: "Error: failure to retrieve data" });;
+                console.log("data not retrieved");
+                res.status(401).json({ 
+                    message: "Error: failure to retrieve data",
+                    calories: 0,
+                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
+                 });;
             }
         }
     } catch (error) {

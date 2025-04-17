@@ -24,6 +24,7 @@ let targetCalorie = document.getElementById("targetCalorie");
 let count = 0;
 var caloriesLogged = 0;
 var calorieTarget = 0;
+var noData = false;
 var username = window.sessionStorage.getItem("username");
 
 const maxPercent = caloriesLogged / calorieTarget;
@@ -39,16 +40,30 @@ fetch("http://localhost:8008/home.html", {
         username
     })
 })
-.then(response => response.json())
+.then(response => 
+{
+    if (response.status == 401) 
+    {
+        noData = true;
+    }
+    return response.json()
+})
 .then(data => 
 {
-    caloriesLogged = data.calories;
     calorieTarget = data.dailyTarget;
-    animate();
+    if (!noData) 
+    {
+        caloriesLogged = data.calories;
+        circleAnimate();
+    }
+    caloriesRemaining.innerHTML = calorieTarget;
+    targetCalorie.innerHTML = calorieTarget;
+    number.innerHTML = 0;
+
 })
 .catch(error => console.error("Error:", error));
 
-function animate() 
+function circleAnimate() 
 {
 
     targetCalorie.innerHTML = calorieTarget;
