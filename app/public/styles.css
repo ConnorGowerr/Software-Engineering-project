@@ -7,7 +7,12 @@ html, body {
     min-height: 100%;
     scroll-behavior: smooth;
     margin: 0; 
+
     
+}
+
+main{
+    height:80%;
 }
 
 p{
@@ -17,17 +22,17 @@ h1 {
     color: #EFEDE7;
     font-family: 'Oswald';
     text-shadow: 2px 2px 4px #000000;
+    font-size: clamp(2rem, 4cqw, 3rem);
+
 }
   
 h2 {
     color: #EFEDE7;
     font-family: 'Oswald';
-    text-shadow: 2px 2px 4px #000000;
 }
   
 h5 {
     font-size: 1rem; 
-    /* margin: 1vh 1vw;  */
     display: block;
     color: #fff;
     text-shadow: 2px 2px 4px #000000;
@@ -38,8 +43,16 @@ input {
     border-width: 3px;
     border-color: #B0B0B0;
     border-style: solid;
-    /* box-shadow: 5px 5px; */
     backdrop-filter: blur(10px);
+}
+
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:10%;
+    width: 100%;
 }
 
 
@@ -51,105 +64,83 @@ input {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 98%;  
-    height: 10vh;
+    width: 98%;
+    height: 10%; 
     display: flex;
-    justify-content: space-around;  
-    align-items: center;          
-    border-width: 2px;
-    border-radius: 40px;
+    justify-content: space-evenly;  
+    border-radius: 10px;
     border-style: solid;
     background-image: linear-gradient(180deg, #95180F, #CE6B31 90%);
-    padding: 0;
     text-align: center;
     color: white;
-    font-size: 4vw;
-    max-width: 100%;
-    min-width: 320px;
+    min-height: 64px;
 }
 
 .nav-btn {
     background: transparent;
-    border: none;
-    width: 12%;
-    height: 70%;
-    font-size: 3rem;  
-    font-weight: bold;
-    max-width: fit-content;
-    max-height: fit-content;
+    width: 10%;
+    font-size: clamp(1rem, 1.5cqw, 4rem);
+    height: 100%; 
     display: flex;
-    flex-direction: column; 
-    justify-content: center;  
-    align-items: center; 
-    border-radius: 30px;
-    border-color: #EFEDE7;
-    border-width: 2px;
+    text-decoration: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
     cursor: pointer;
     transition: 0.3s;
     color: white;
-    /* margin-bottom:; */
 }
 
-
-
-.nav-btn:hover {
-    opacity: 0.7; 
-    transform: scale(1.1);
-
+.nav-btn img {
+    width: 35%;
+    height: auto; 
+    max-height: 80%; 
+    object-fit: contain; 
 }
-.nav-btn i {
-    color: white;
-    
-}
+
 
 
 .center-btn-container {
     position: relative;
-    width: 8vw; 
-    height: 12vh; 
-    /* top: -30%; */
+    width:7%; 
+    height: 95%; 
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 1%;
-    /* left: 50%; */
-    /* transform: translateX(-50%); */
-
 }
 
 .center-btn {
-    background: #fff;
     border-radius: 50%; 
-    font-size: 7rem; 
-    color: #CE6B31;
     cursor: pointer;
     transition: 0.3s;
+    background-color: white;
     border: 3px solid darkorange;
-    width: 70%; 
-    height: 70%; 
+    width: 90%; 
+    height: 90%; 
     display: flex;
-    /* margin-right: 5%; */
     justify-content: center;
     align-items: center; 
 
 }
 
 .center-btn:hover {
-    background: #ffcccb;
-    transform: scale(1.1);
+    transform: scale(1.05);
 
 }
-.center-btn i {
-    color: darkorange;
-
+.center-btn img {
+    width: 45%;
+    height: auto; 
 }
 
 
 .icon-text {
-    font-size: 1vw; 
-    margin-top: 1%; 
-    color: white;
+    text-decoration: none;
+    font-size: clamp(1rem, 1.5cqw, 4rem);
+    margin-top:4%;
 }
+    
 
 
 /* Achievement stuff */
@@ -168,11 +159,11 @@ input {
 
 #achievementsSection {
     width: 100%;
-    height: 75vh; 
+    height: 100%; 
     margin: 0 auto;
     overflow-y: scroll; 
     overflow-x: hidden; 
-    margin-top: 15vh; 
+    margin-top: 15%; 
     position: relative; 
     
 }
@@ -184,26 +175,18 @@ input {
     justify-content: space-between; 
     align-items: center;
     width: 47.5%;
-    height: 35vh;
+    height: 35%;
     background-color: #383F42;
     border-width: 2px;
     border-style: solid;
-    border-radius: 20px;
+    border-radius: 40px;
     margin-top: 1%;
     margin-bottom: 5%;
-    
     text-align: center;
     box-shadow: 5px 5px 15px rgba(225, 104, 4, 0.842);
     color: white;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
-}
-
-
-
-.achievement:active {
-    transform: scale(1.4);
-
 }
 
 
@@ -222,7 +205,7 @@ input {
   
 
 #achievementTitle {
-    font-size: 1rem ;
+    font-size: clamp(1rem, 2cqw, 3rem);
     font-weight: bold;
     text-align: center;
     color: #333;
@@ -233,14 +216,11 @@ input {
 
 
 #medals {
-    font-size: 2em;
+    font-size: clamp(1rem, 2cqw, 3rem);
     color: #CE6B31;
     text-align: center;
-  
-    /* padding:5% 0%; */
     margin-top: auto;
     margin-bottom: 5%;
-    /* margin-top: 2.5%;  */
 
 }
 
@@ -248,10 +228,9 @@ input {
     height: 3vh;
     width: 80%;
     background: #ddd;
-    border-radius: 25px;
+    border-radius: 35px;
     overflow: hidden;
     position: relative;
-    /* margin-top: auto; */
     margin-bottom: 3%; 
 }
 
@@ -263,7 +242,7 @@ input {
     width: 100px;
 }
 
-.mealAchievement { 
+.weightAchievement { 
     background: linear-gradient(to right, #FF5733, #CE6B31); 
     box-shadow: 0 0 10px rgba(255, 87, 51, 0.7), 0 0 15px rgba(206, 107, 49, 0.5);
 }
@@ -273,14 +252,56 @@ input {
     box-shadow: 0 0 10px #FF9A1F, 0 0 15px white;
 }
 
-.calorieBurnedAchievement { 
+.calorieAchievement { 
     background: linear-gradient(to right, #0059B8, #5CABFF); 
     box-shadow: 0 0 10px #0059B8, 0 0 15px #5CABFF;
 }
 
-.calorieTrackedAchievement { 
+.unitAchievement { 
     background: linear-gradient(to right, #FFC300, #FF5733); 
     box-shadow: 0 0 10px rgba(255, 195, 0, 0.7), 0 0 15px rgba(255, 87, 51, 0.5);
+}
+
+.achievement.selected{ 
+    position: fixed;
+    top:50%;
+    z-index: 1000;
+    left:50%;
+    transform :translate(-50%, -50%);
+    width :60vw; 
+    height :45vh;  
+    font-size: clamp(1.2rem, 1.5cqw, 3rem);
+
+    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+
+.medal-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+    width: 90%;
+    height: 70%;
+    margin-bottom: 2%;
+}
+
+.medal-container img {
+    width: 40%;
+    height: auto;
+    margin: 0 1.25%;  
+}
+
+.medal{
+    width:25%
+}
+
+
+.medal p {
+    text-align: center;
+    margin-top: 7.5%;
+    /* margin-bottom: 2.5%; */
+    font-size: clamp(1rem, 2cqw, 2.5rem);
+    color: white;
 }
 
 
@@ -291,33 +312,23 @@ input {
 
 
 /* /top buttons */
-.top-left-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+.top-left-btn{
+    width:7%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     border: 3px solid orange;
     border-radius: 50%;
-    width: 7vw;
-    height: 9vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 5rem; 
-    cursor: pointer;
     color: orange;
+    cursor: pointer;
     transition: 0.3s;
-     transform: scale(1.02);
+    margin-left:1%;
 }
 
-.top-left-btn i { 
-    width: 100%;
-    height: 100%;
-    font-size: 100%; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
+
 
 .top-left-btn:hover {
     opacity: 0.7; 
@@ -325,36 +336,31 @@ input {
 }
 
 .top-right-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px; 
-    background-color: darkorange; 
-    border: 3px solid white;
-    border-radius: 100%; 
-    width: 7vw;
-    height: 9vh; 
+    width: 7%;
+    height: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4rem;
+    background-color: orange;
+    border: 3px solid white;
+    border-radius: 50%;
+    color: white;
     cursor: pointer;
-    color: white; 
     transition: 0.3s;
+    margin-right: 1%;
 }
 
 .top-right-btn:hover {
     opacity: 0.7; 
     transform: scale(1.1);
 }
-.top-right-btn i { 
-    width: 100%;
-    height: 100%;
-    font-size: 100%; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
+.top-right-btn img, .top-left-btn img { 
+    height: 60%; 
+    width: 65%;
+    /* aspect-ratio: 1 / 1; */
 }
+
 
 
   
@@ -428,10 +434,7 @@ input {
 }
 
 /* Log In Page Id's */
-#hellthTitle {
-    font-size: 40px;
-    font-weight: bold;
-}
+
 
 #returningUser {
     font-size: xx-large;
@@ -506,11 +509,11 @@ input {
     font-size: xx-large;
     font-family: 'Oswald';
     margin: 0 2%;
-  }
+}
 
 #eyeIcon {
     margin-top: 1%;
-  }
+}
 
 #newUserTitle {
     font-size: 28px;
@@ -523,9 +526,6 @@ input {
     justify-content: center;
     font-size: 36px;
 }
-
-
-
 
 .inputdiv{
     backdrop-filter: blur(10px);
@@ -541,6 +541,12 @@ input {
 }
 
 
+
+
+
+
+
+
 /* meal Page stuff */
 #mealPageSection {
     display: flex;
@@ -548,28 +554,27 @@ input {
     flex-direction: row; 
     justify-content: space-between;
     width: 90%;
-    height: 85vh;
-    margin: 0vh auto;
+    height: 100%;
+    margin: 0 auto;
 }
 
-
-
+#hellthTitle {
+    font-size: clamp(1.6rem, 2.4cqw, 8rem);
+    font-weight: bold;
+}
 
 .mainBtn{
     padding:2% 8%;
     border:#D9D9D9;
     border-style: solid;
     border-radius: 8px;
-    font-size: 2rem;
     font-family: 'Oswald';
     color:#EFEDE7;
-    font-weight: 1000;
     background-image: linear-gradient(#95180F, 50%, #EA7B3A);   
     border-width: 2px;
     box-shadow: 5px 5px #000000;
     backdrop-filter: blur(10px);
 }
-
 
 .foodAddSection, .overviewSection{
     width: 27.5%;
@@ -580,7 +585,6 @@ input {
     position: relative; 
 
 }
-
 
 .centerSection{
     width: 35%;
@@ -593,10 +597,10 @@ input {
  
 }
 
-
 .foodAddSection {
     height: 90%;  
     margin-right: 5%;
+
   
 }
 
@@ -606,21 +610,21 @@ input {
 }
 
 #mealBtn {
-    width: 30vw;
-    height: 12.5vh;
-    font-size: 2rem;
+    width: 100%;
+    height: 12.5%;
     position: absolute;
     bottom: 0; 
     left: 50%;
     transform: translateX(-50%);
     margin: 0 auto;
+    font-size: clamp(1rem, 3cqw, 6rem);
+    border-radius: 15px;
+
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
-
-
 
 .nutrientSection {
     width: 100%;
@@ -632,35 +636,29 @@ input {
     background-color: #383F42;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
-    /* padding: 2%; */
-    /* margin-bottom: 0; */
+
     justify-content: space-between;
 }
 
 .calorieTitle {
-    font-size: clamp(1.5rem, 2vw, 1.2rem); 
-    font-weight: bold;
+    font-size: clamp(1rem, 2cqw, 5rem);
     text-align: center;
-    margin-top: 3vh;
+    margin-top:4%;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .itemTotalTitle {
-    font-size: clamp(1.5rem, 2vw, 1.2rem); 
-    font-weight: bold;
-    text-align: center;
-    margin-top: 1vh;
+    font-size: clamp(1rem, 2cqw, 5rem);
+    margin-top:2%;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-.protein, .fiber, .carbs, .fat, .sugar {
-    font-size: clamp(0.5rem, 1.5vw, 0.9rem);
-    text-align: center;
-    margin: 2vh 0;
-    padding-bottom: 1vh;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    /* pointer-events: none; */
 }
 
+.protein, .fiber, .carbs, .fat, .sugar {
+    font-size: clamp(1rem, 1.5cqw, 4rem);
+    text-align: center;
+    margin-top:2%;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
 
 .itemTotalTitle:hover, .calorieTitle:hover, .protein:hover, .fiber:hover, .carbs:hover, .fat:hover, .sugar:hover {
     opacity: 0.7; 
@@ -670,24 +668,19 @@ input {
     
 }
 
-
 #foodTitle{
     position: relative;
-    top:3%  !important;
-    font-size: 1.5rem;
+    font-size: clamp(1.4rem, 2cqw, 4rem);
 }
 
 #mealTypeTitle{
     position: relative;
-    top:5%;
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 2cqw, 5rem);
 }
-
-
 
 .foodAdd {
     width: 100%;
-    height: 20%;
+    height: 25%;
     display: flex;
     background-color: #383F42;
     flex-direction: column;
@@ -698,58 +691,59 @@ input {
     margin-bottom: 2.5%;
 }
 
-
-
 .search-container {
     display: flex;
     align-items: center;
     position: relative;
-    width: 20vw;
-    height: 7.5vh;
+    width: 80%;
+    font-size: clamp(0.8rem, 1.5cqw, 4rem);
+    height: 60%;
     border-radius: 15px;
-
 }
 
 .search-bar {
-    flex-grow: 1; 
     border-radius: 5px 5px;
     outline: none;
-    padding: 2vh 1vw;
-    font-size: 1rem;
+    padding: 7.5% 5%;
+    font-size: clamp(1.2rem, 1.5cqw, 4rem);
+    width:85%;
     position: relative;
-    width:1.5vw; 
-    height: 1.5vh;
     transition: all 0.3s ease-in-out;
     margin: 0 auto;
 }
 
 .search-bar:focus {
-    width: 90%;
     box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
 }
 
 .search-results {
     width: 100%;
-    height: 75%; 
+    height: 80%; 
     overflow-y: auto;
     background-color: #383F42;
     border-radius: 15px;
     transition: all 0.3s ease-in-out;
-    /* margin: 2vh auto; */
-    padding: 3vh 0;
+    padding: 3% 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
+    scrollbar-width: none;     
+    -ms-overflow-style: none;  /
+}
+
+#search-results::-webkit-scrollbar {
+    display: none; 
 }
 
 .search-item {
-    padding: 2vw 2vh;
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 75%;
-    margin-bottom: 2.5vh;
+    width: 80%;
+    margin-bottom: 4%;
+    font-size: clamp(1.2rem, 1.5cqw, 4rem);
+    padding: 5% 0;
     text-align: center;
     color: #fff;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
@@ -766,35 +760,32 @@ input {
     background-color: rgba(255, 255, 255, 0.4);
 }
 
-
 .foodList {
     width: 100%;
-    height: 47.5vh; 
+    height: 66.6%; 
     overflow-y: auto;
     background-color: #383F42;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* margin-top:5vh; */
 }
 
 .foodList .item {
-    width: 85%;
-    min-height: 8vh;
+    width: 90%;
+    height: 20%;
     padding: 3% 1%;
     min-width: 15vw;
-    /* margin-top:4%; */
+    font-size: clamp(1.2rem, 1.5cqw, 4rem);
     background: #474f53;
     color: white;
     border-radius: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1.5vh;
+    margin-top: 5%;
     transition: transform 0.4s ease, background 0.4s ease;  
 }
-
 
 .foodList .item:hover {
     transform: scale(1.05);  
@@ -819,7 +810,7 @@ input {
 
 .foodList .item i {
     transition: transform 0.3s ease; 
-    transform: scale(1.5); 
+    font-size: clamp(1.2rem, 2cqw, 4rem);
 }
 
 .foodList .item:hover i {
@@ -831,35 +822,39 @@ input {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 15px;
+    overflow-wrap: break-word;
     
     border-radius: 5px;
     background-color: #f9f9f9;
     position: relative;
 }
 
+.item .textcontainer{
+    width:50%;
+    margin-left: -1%;
+}
+
+
 .quantity-container {
     position: absolute;
-    right: 1vw;
+    left: 30%;    
+    font-size: clamp(1.2rem, 1.5cqw, 4rem);
     display: flex;
     align-items: center;
-
 }
 
 .quantity-input {
-    width: 4vw;
+    width: 20%;
     padding: 1% ;
-    /* font-size: 2rem; */
-    text-align: center;
+    font-size: clamp(1.2rem, 1.5cqw, 4rem);
+
+    text-align: right;
     border-radius: 5px;
-    /* border: 1px solid #ccc; */
     background-color: white;
-    margin-right: 3vw;
 }
 
-
 label {
-    font-size: 1rem;
+    font-size: clamp(1.2rem, 1.5cqw, 4rem);
     margin-right: 0.2vw;
     min-width: 10vw; 
     text-align: right; 
@@ -867,8 +862,7 @@ label {
 }
 
 #mealType {
-    padding: 2vh 6vw;
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 1.5cqw, 4rem);
     border: 1px solid #aaa;
     border-radius: 4px;
     background-color: #f0f0f0;
@@ -890,22 +884,12 @@ label {
     box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
 }
 
-
-
 .mainBtn:hover{
     background: linear-gradient(#be1f13, 50%, #ee7736);
 }
 
 .mainBtn:active{
     background: linear-gradient(#7a130c, 50%, #b95b29);
-}
-
-
-
-.hellthTitle {
-    font-size: 40px;
-    font-weight: bold;
-    
 }
 
 
@@ -918,13 +902,11 @@ label {
     margin: 0 auto; 
 }
 
-
 .greyContainer {
     
     width: 35%;
     height: 35%;
     padding-bottom: 5%;
-    /* margin-left: 7.5%; */
     margin-top: 2%;
     justify-content: center;
     align-items: center;
@@ -965,6 +947,8 @@ label {
 }
 
 
+/* Popup stuff */
+
 .popup {
     display: none;
     position: fixed;
@@ -973,19 +957,20 @@ label {
     transform: translate(-50%, -50%);
     background-color: #383F42;
     padding-bottom: 2%;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
-
     text-align: center;
-    border-radius: 30px;
-    width: 60vw;
-    height: 60vh;
+    border-radius: 30px 60px;
+    width: 70vw;
+    height: 70vh;
     color: white;
-    font-size: 4rem;
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: clamp(1.2rem, 1.5cqw, 5rem);
+
+
 }
 
 .popup-content {
@@ -997,16 +982,44 @@ label {
     height: 100%;
 }
 
-#popupMessage {
-    margin:  auto;
-    font-size: 2rem;
+#foodMessagePopup {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    font-size: clamp(1rem, 2.5cqw, 5rem);
+    text-align: center; 
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0%;
+    white-space: normal; 
+    overflow: auto; 
 }
+
+
+#foodMessageContainer{
+    display: flex;
+    margin: 0 auto;
+    padding: 0%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:60%;
+    height:75%;
+    font-size: clamp(1rem, 2.5cqw, 5rem);
+
+}
+
 
 .popup-buttons {
     display: flex;
-    gap: 2vw;
     justify-content: center;
-    margin-top: 2vh;
     display: flex;  
     align-items: center; 
     justify-content: center; 
@@ -1021,8 +1034,8 @@ label {
 }
 
 #mealName, #mealType {
-    font-size: 1.5rem;
-    padding: 1vh 4vw;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    padding: 2%;
     border-radius: 10px;
     border: none;
     margin: 0 auto;
@@ -1034,7 +1047,7 @@ label {
     background-color: #444;
     color: black;
     background-color: #f8f9fa;
-    width: 67%;
+    width: 80%;
     border-radius: 10px;
 }
 
@@ -1053,35 +1066,34 @@ label {
 }
 
 
-#confirmBtn {
+#confirmBtn, #confirmBtn2 {
+    position: fixed;
     background: none;
     color: white;
     background-color: darkorange;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem;
-    width: 40%;  
-    padding: 1vh 2vw;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    width: 30%;  
+    bottom:5%;
+    padding: 1% 5%;
     border-radius: 10px;
-    display: flex;  
-    align-items: center; 
-    justify-content: center; 
-    text-align: center;  
+    margin: 0 auto;
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-#cancelBtn {
+#cancelBtn,#cancelBtn2  {
     position: fixed;
     top: 8%;
-    left: 90%;
-    width: 7%;
-    height: 7%;
+    left: 85%;
+    width: 10%;
+    height: 10%;
     border-radius: 10px;
     background: red;
     border: #000000;
     color: white;
     border: none;
-    font-size: 18px;
+    font-size: clamp(1rem, 2cqw, 5rem);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -1115,8 +1127,9 @@ label {
     z-index: 999;
 }
 
+
+
 .overlay {
-    /* display: none; */
     position: fixed;
     top: 0;
     left: 0;
@@ -1129,265 +1142,663 @@ label {
 
 
 
-
-/* #mealsecltion paage ids */
+/* #mealsection page  */
 #mealActivityPageSection {
-    display: flex;
-    align-items: stretch;
-    flex-direction: row; 
-    justify-content: space-between;
-    width: 90%;
-    height: 77.5vh;
-    margin: 7.5% auto;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr); 
+    grid-template-columns: 1fr 1fr;
+    gap:5%;
+    width: 80%;
+    height: 90%;
+    margin:2% auto;
+
 }
 
-#mealSection, #activitySection{
-    width: 47.5%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; 
-    position: relative; 
-}
-
-
-#mealDiv, #activityDiv {
-    width: 40vw;
-    overflow: auto;
-    position: relative; 
-    height: 50vh;
-    display: flex;
-    flex-direction: row;  
-    align-items: center; 
-    background-color: #383F42;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 20px;
-    margin-top: 1%;
+.recordPageTitleContainers {
     text-align: center;
-    /* -right: 12%; */
-    color: #383F42;
-    transition: transform 0.3s ease-in-out, background 0.3s ease; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    height: 15%;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+.recordPageImageContainer{
+    width:100%;
+    height: 70%;
+    margin-top: 5%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+
+}
+.recordPageTextContainer{
+    width:80%;
+    height: 60%;
+    margin-top: 3%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+
+#mealLink{
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    grid-row: 1;
+    grid-column:1; 
+    width: 100%;
+    height: 90%;
+
+} 
+#activityLink {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    grid-row: 2;
+    grid-column:1; 
+    width: 100%;
+    height: 90%;
+}
+
+#activityDiv, #mealDiv {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    background-color: #383F42;
+    border: 2px solid;
     border-radius: 15px;
-    justify-content: flex-start;  
-    /* padding: 2%;   */
+    color: #383F42;
+    font-size: clamp(1rem, 1.5cqw, 4rem);
+
+    text-align: center;
+    transition: transform 0.3s ease-in-out, background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    justify-content: flex-start;
+    overflow: hidden;
+    position: relative;
 }
 
 #mealDiv:hover, #activityDiv:hover {
     transform: scale(1.05);
     cursor: pointer;
     box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
-
 }
 
 #mealDiv:active, #activityDiv:active {
     transform: scale(1.2);
     color: #fff;
-    cursor: pointer;
     transition: transform 0.9s ease, color 0.9s ease;
 }
 
-#mealDiv, #activityDiv {
-    transition: transform 0.2s ease, color 0.2s ease;
-}
-
 #activityIcon, #mealIcon {
-    width: 40%;
-    height: 55%;
-    margin-top: 5vh;
-    margin-left: 2vw;
-    transition: transform 0.3s ease; 
-   
-}
-
-.medal-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;  
-    width: 90%;
-    height: 70%;
-    margin-bottom: 2%;
-}
-
-.medal-container img {
-    width: 50%;
-    /* height: auto; */
-    /* height:1000%; */
-    margin: 0 1.25%;  
-}
-
-.medal{
-    width:25%
-}
-
-
-.medal p {
-    text-align: center;
-    margin-top: 7.5%;
-    /* margin-bottom: 2.5%; */
-    font-size: 0.9rem;
-    color: white;
+    width: 60%;
+    height: 80%;
+    margin: auto;
+    transition: transform 0.3s ease;
 }
 
 #mealDiv:hover #mealIcon, #activityDiv:hover #activityIcon {
-    transform: scale(1.05); 
-
+    transform: scale(1.05);
 }
 
-#addTitle {
-    position: absolute;
-    font-size: 2rem;
-    top: -5%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #fff;
-    transition: color 0.3s ease; 
-}
+#addTitle{
+    align-items: flex-start;
+    margin-top: 2%;
+    font-size: clamp(1.1rem, 1.75cqw, 4rem);
 
-#mealLink, #activityLink {
-    display: block;
-    text-decoration: none;
-    color: inherit;
 }
 
 #recordH3 {
-    padding: 0 5vh;
-    font-size: 1.3rem;
+    padding: 0 5%;
+    font-size: clamp(1rem, 1.5cqw, 4rem);
     color: #fff;
     text-align: left;
     margin: 0;
-    transition: color 0.3s ease, transform 0.3s ease; 
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 #mealDiv:hover #recordH3, #activityDiv:hover #recordH3 {
-    transform: translateY(-4%); 
-
+    transform: translateY(-4%);
 }
 
 #recordH3 li {
-    margin-top: 6vh;
-    margin-left: 2vw;
+    margin-top: 15%;
 }
 
 
 
 
 
+/* profile page stuff */
+.profileSection {
+    width: 90%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto auto; 
+    gap: 10%; 
+    margin: 5% auto;
+    align-items: center;
+    justify-content: center;
+}
 
-@media (max-width: 1400px) {
-    .nav-btn {
-        width: 20%; 
-        height: 80%;  
-        font-size: 2.5rem;
-    }
-
-    .nav-btn i {
-        font-size: 2.rem;
-    }
-
-    #mealPageSection{
-        margin-top: -2%;
-    }
-
-    .top-left-btn{
-        width:8vw;
-        height: 9vh;
-        /* /* color: #000000;  */
-        font-size: 3.1rem;
-    }
-
-    .top-right-btn{
-        width:8vw;
-        height: 9vh;
-        /* /* color: #000000;  */
-        font-size: 2.6rem;
-    }
-
-    .center-btn {
-        font-size: 3rem;
-    }
-    .center-btn-container{
-        width: 10vw; 
-        height: 12vh;
-    }
+.mainDiv{
+    display: flex;
+    grid-column: 1; 
+    grid-row: 1;    
+    flex-direction: column;
+    align-items: center;
+    width: 100%;    
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    height: 100%;
+    background-color: #383F42;
+    border-radius: 25px;
+    display: flex;
+    border-width: 1.5px; 
+    border-style: solid;
+    border-color: white;
 
 }
 
-@media (max-width: 900px) {
-    .nav-btn {
-        width: 20%; 
-        height: 80%;  
-        font-size: 2.2rem;
-    }
+.statsdiv {
+    display: flex;
+    grid-column: 1; 
+    grid-row: 2;    
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    background-color: #383F42;
+    border-radius: 25px;
+    display: flex;
+    border-width: 1.5px; 
+    border-style: solid;
+    border-color: white;
+}
 
-    .achievement {
-        width: 90%; 
-        margin: 0 auto;
-        margin-bottom: 7.5%;
-    }
+.settingsDiv{
+    display: flex;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    grid-column: 2; 
+    grid-row: 1;    
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #383F42;
+    border-radius: 20px;
+    display: flex;
+    border-width: 1.5px; 
+    border-style: solid;
+    border-color: white;
+    height: 100%;
 
-    #medals {
-        padding: 0 0;
-    }
+}
 
-    .nav-btn i {
-        font-size: 2.3rem;
-    }
+.achievementsDiv{
+    grid-column: 2; 
+    grid-row: 2; 
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #383F42;
+    border-radius: 25px;
+    display: flex;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    border-width: 1.5px; 
+    border-style: solid;
+    border-color: white;
+}
+
+
+.mainArticle {
+    width: 100%; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-bottom: 5%;
+}
+
+.mainTitleContainer {
+    width: 100%; 
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10%; 
+    left: 0;
+}
+
+.mainTitle {
+    text-align: center;
+    font-size: clamp(1.2rem, 2cqw, 5rem);
+}
+
+.statsArticle {
+    width: 100%;
+    height: 50%; 
+    background-color: #383F42;
+    display: flex;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+
+    flex-direction: column;
+    align-items: center;
+    position: relative; 
+}
+
+.statsArticle2{
+    width: 100%;
+    height: 50%; 
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    background-color: #383F42;
+    border-radius: 0 0 25px 25px; 
+}
+
+.mainstatsSection {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    height: 100%;
+    position: relative;
+    margin: auto;
+    gap:5%;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    border-width: 0px 0px 1px 0px; 
+    border-style: solid;
+    border-color: white;
+    align-items: center;
+    flex-direction: row;
+    border-color: white;
+    overflow: hidden;
+    box-sizing: border-box; 
+}
+
+.mainArticleTitle{
+    position: relative;
+    top:0;
+    align-items: center;
+    text-align: center;
+}
+
+.mainArticleStats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: auto;
+    gap:5%;
+    top: 10%;
+    align-items: center;
+    flex-direction: row;
+    overflow: hidden;
+    box-sizing: border-box; 
+}
+
+.mainArticleStat1,.mainArticleStat2,.mainArticleStat3 {
+    height: 100%;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;  
+    align-items: center; 
+    width: 30%;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    text-align: center;  
+}
+
+.secondarystatsSection{
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    height: 100%;
+    position: relative;
+    margin: auto;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    gap:0;
+    align-items: center;
+    flex-direction: row;
+    overflow: hidden;
+    box-sizing: border-box; 
+
+}
+
+.settingsArticle {
+    width: 100%;
+    height: 100%; 
+    background-color: #383F42;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    position: relative; 
+    justify-content: center;
+}
+
+.metricButton {
+    background-color: #DC946A;
+    border: 1px solid white;
+    width:35%;
+    height: 55%;
+    color: white;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+
+    margin:auto;
+    cursor: pointer;
+    border-radius: 15px; 
+    transition: background-color 0.3s ease;
+}
+
+span {
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    align-items: center;
+    color: white;
+}
+
+.achievementSection{
+    width: 100%;
+    height: 100%; 
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    background-color: #383F42;
+    align-items: center;
+
+}
+
+.mainArticleTitleContainer {
+    height: 20%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.achievementSection a{
+    width: 100%;
+    height: 100%;
+    text-decoration: none; 
+
+ 
+}
+
+.achievementsMainImgs {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 3.5%;
+    flex-wrap: wrap; 
+}
+
+.achievementItem {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.achievementItem img {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin:auto
+
+}
+
+.achievementItem p {
+    position: relative;
+    text-align: center;
+    margin:0 auto;
+    color: white;
+    margin-top: 5%;
+    font-size: clamp(1rem, 1.5cqw, 5rem);
+}
+
+.profileTitles{
+    margin-bottom: 2%;
+    font-size: clamp(1.2rem, 2cqw, 5rem);
+} 
+.otherTitles{
+    margin-top: 2%;
+    font-size: clamp(1.2rem, 2cqw, 5rem);
+} 
+
+#mailboxOverlay{
+    background: rgba(0, 0, 0, 0.95); 
+    z-index: 999;
+}
+
+#mailboxContainer{
+    width: 60%;
+    height: 75%; 
+    color: #555;
+    font-size: clamp(1rem, 1.5cqw, 3rem);
+    overflow-y: auto;
+    background-color: #383F42;
+    border-radius: 3%;
+    display: flex;
+    align-items: center;
+    justify-items:center ;
+    margin: 2% auto;
+    flex-direction: column;
+    box-shadow: none;
+    scrollbar-width: none; 
+}
+
+.element::-webkit-scrollbar {
+    display: none; 
+}
+
+.mailboxHeader{
+    top:0%;
+    left: 50%;
+    text-align: center;
+    transform: translateX(-50%);  
+    text-align: center;
+    position: absolute;
+    font-size: clamp(1rem, 1.7vw, 2rem); 
+
+}
+
+.mailboxContainer {
+    border: 1px solid #ccc;
+    overflow: hidden;
+    margin: auto;
+}
+
+.mailboxList {
+    width: 100%;
+    height: 100%;
+}
+
+.mailboxItem {
+    width: 85%;
+    height: 20%;
+
+    background: #D9D9D9;
+    color: #555;
+    border: white 1px solid;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    margin:5% auto;
+    align-items: center;
+    transition: transform 0.4s ease, background 0.4s ease;  
+    cursor: pointer;
+
+}
+
+.mailboxItem:hover {
+    animation: wobble 0.4s ease-in-out;
+}
+
+@keyframes wobble {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(2deg); }
+    50% { transform: rotate(-2deg); }
+    75% { transform: rotate(1deg); }
+    100% { transform: rotate(0); }
+}
+
+.mailboxItem:last-child {
+    border-bottom: none;
+}
+
+.mailContent{
+    width: 100%;
+    position: row;
+    justify-content: space-between;
+
+}
+
+.mailSender {
+    color: #555;
+
+}
+
+.mailSubject {
+    color: #555;
+}
+
+.mailDate {
+    color: #555;
+}
+
+.imageContent{
+    width: 25%;
+    height: 100%;
+    right:0%;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    border: white 2px solid;
+    border-width: 0 0 0 2px;
+}
+
+.imageContent img{
+    width: 75%;
+    height: 80%;
+    margin: auto;
+}
+
+.textContent{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: clamp(1rem, 1.7vw, 1.4rem); 
+    gap: 7.5%;
+    width: 60%;
+    overflow: hidden;
+    word-wrap: break-word; 
+    margin-left: 5%;
+}
+
+
+ /* mobile phone  view */
+ @media (max-width: 700px) { 
     
-
-    .center-btn {
-        font-size: 1.3rem;
+    .nav-btn img {
+        width: 80%;
+        aspect-ratio: 1 / 1;
     }
+
     .center-btn-container{
-
-        width: 10vw; 
-        height: 12vh; 
-        top: -15%;
-
+        width:20vw;
+        height:100%;
+        margin: auto 0 ;
     }
 
-    .top-left-btn{
-        width:11vw;
-        height: 10vh;
-        font-size: 2.1rem;
+    .top-left-btn, .top-right-btn{
+        width: 12%;
+        height: 85%;
     }
 
-    .top-right-btn{
-        width:11vw;
-        height: 10vh;
-        font-size: 2.1rem;
+    .top-left-btn img, .top-right-btn img{
+        height: 70%; 
+        width: 70%;
+        aspect-ratio: 1 / 1;
     }
 
-
-    #mealPageSection {
-        flex-direction: column;
-        height: auto; 
-        align-items: center;
-        margin-top: -8%;
+    .center-btn{
+        width: 12vw;
     }
+
 
     .foodAddSection, .centerSection {
         width: 90%;
-        height:40vh;
-        margin-right:0vw ;
+        flex-grow: 1; 
+        display: flex;
+        margin: 0 auto;
+        height: 100%;
+        align-items: center; 
+        justify-content: center;
     }
 
+    .foodAddSection {
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        justify-content: center; 
+        position: relative;
+        font-size: 1rem;
+        height: 100vh; 
+        width: 90%;
+        text-align: center;
+    }
+    
+    .foodAdd {
+        display: flex;
+        justify-content: center; 
+        width: 100%; 
+        height: 20%;
+        /* margin: 0 0 0 0; */
+        padding:2.5% 0;
+        
+    }
+    
     .search-container {
         display: flex;
-        align-items: center;
-        position: relative;
-        width: 50vw;
-        height:3vh;
+        align-items: center; 
+        justify-content: center;
+        width: 70%; 
+        height: 70%; 
         border-radius: 15px;
+        background-color: #f9f9f9; 
+   
+    }
+    
+    .search-bar {
+        padding: 0;
+        width: 100%; 
+        height: 100%; 
+        text-align: center;        
+    }
+    
 
+    #foodTitle{
+        top:2%;
+        
     }
 
+
     .search-results {
-        width: 90%;
-        height: 25vh; 
+        width: 100%;
+        height: 50vh; 
         overflow-y: auto;
-        margin: 0vh auto;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -1395,9 +1806,8 @@ label {
     }
 
     #mealBtn {
-        width: 72.5vw;
-        font-size: 1rem;
-        height: 4vh;
+        width: 72.5%;
+        height: 10%;
         position: absolute;
         bottom: 1%; 
         left: 50%;
@@ -1412,78 +1822,44 @@ label {
         display: none;
     }
 
-    .foodAdd {
-        width: 90%;
-        height: 20vh;
-        display: flex;
-        background-color: #383F42;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border-radius: 15px;
-    }
     
 
     .foodList {
-        width: 90%;
-        height: 25vh; 
-        font-size: 0.8rem;
+        width: 100%;
+        height: 60vh; 
         overflow-y: auto;
         background-color: #383F42;
         border-radius: 10px;
+        margin-bottom: 30%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* gap: 5px;  */
-        margin-top:-5%;
-    }
+       }
+
+
 
     .quantity-container {
         position: absolute;
-        right: 7vw;
-        font-size: 0.8rem;
+        margin-right: 15%;
+        text-align: right;
         display: flex;
-        align-items: center;
+        align-items: right;
+        justify-content: right;
     }
     
     .quantity-input {
-        width: 6vw;
+        width: 20%;
         padding: 2%;
-        font-size: 0.8rem;
         text-align: center;
         border-radius: 5px;
         background-color: #fff;
-        margin-left: 1vw;
     }
 
-
-    .popup {
-  
-        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-        text-align: center;
-        border-radius: 30px;
-        width: 80vw;
-        height: 50vh;
-        color: white;
-        font-size: 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .popupMessage{
-        width:70%
-
-    }
-
-
-
+ 
     .popup-buttons {
         display: flex;
-        gap: 2vw;
         justify-content: center;
-        margin-top: 2vh;
+        margin-top: 10%;
         display: flex;  
         align-items: center; 
         justify-content: center; 
@@ -1494,44 +1870,57 @@ label {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 2vh;
+        gap: 5%;
     }
 
     #mealName, #mealType {
-        font-size: 1rem;
-    
         margin: 0 auto;
     }
 
     #mealType{
-        width:78%;
+        width:76%;
         margin: 5% auto;
     }
 
 
-
-} 
-
-
-
-
-@media (max-width: 450px) {
-    
-    #achievementPageTitle{
-        font-size: 2.5rem;
+    .popup {
+        width: 80vw;
+        height: 50vh;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
-    .nav-btn {
-        width: 24%; 
-        height: 90%;  
-        font-size: 2.3rem;
+    #mealPageSection {
+        flex-direction: column;
+        height: 75vh; 
+        width:80vw;
+        scroll-behavior: smooth; 
+        overflow-y: auto;
+        align-items: center;
+        scrollbar-width: none; 
     }
-    
+
+    #mealPageSection::-webkit-scrollbar {
+        display: none; 
+    }
+
+
     .achievement {
-        width: 90%; 
-        margin: 0 auto;
+        width: 100%; 
+        margin: 0 auto; 
         margin-bottom: 10%;
+        height: 80%;
+    } 
+
+    .achievement.selected{
+        width: 90vw;
+        height: 30vh;
     }
+
+
 
     #medals {
         padding: 0 0;
@@ -1541,35 +1930,79 @@ label {
     .icon-text {
         display: none;
     }
-    .nav-btn i {
-        font-size: 2.8rem;
-        
+
+    #mealActivityPageSection {
+        display: grid;
+        grid-template-rows: repeat(4, 37.5%); 
+        grid-template-columns: 1fr;
+        gap: 5%;
+        width: 80%;
+        max-height: 90vh;
+        overflow-y: auto;
+        scrollbar-width: none;     
+        -ms-overflow-style: none;  
+        margin-top: 7.5%;
+    }
+    
+    #mealActivityPageSection::-webkit-scrollbar {
+        display: none; 
+    }
+    
+  
+    #mealLink{
+        display: flex;
+        text-decoration: none;
+        color: inherit;
+        grid-row: 1;
+        grid-column:1; 
+        width: 100%;
+        height: 90%;
+    
+    } 
+    #activityLink {
+        display: flex;
+        text-decoration: none;
+        color: inherit;
+        grid-row: 2;
+        grid-column:1; 
+        width: 100%;
+        height: 90%;
     }
 
-    .center-btn {
-        font-size: 2rem;
-    }
-    .center-btn-container{
-        width: 16vw; 
-        height: 10vh; 
-        top: -10%;
 
-    }
-
-    .top-left-btn{
-        width:13vw;
-        height: 8vh;
-        /* /* color: #000000;  */
-        font-size: 2rem;
+    .profileSection {
+        display: grid;
+        grid-template-rows: repeat(4, 1fr); 
+        grid-template-columns: 1fr;
+        gap:5%;
+        width: 80%;
+        height: 90%;
+        /* margin:5% auto; */
+    
     }
 
-    .top-right-btn{
-        width:13vw;
-        height: 8vh;
-        /* /* color: #000000;  */
-        font-size: 2rem;
+    .mainDiv{
+
+        grid-column: 1; 
+        grid-row: 1;    
+
     }
+    
+    .statsdiv {
+        grid-column: 1; 
+        grid-row: 2;    
+    }
+    
+    .settingsDiv{
+        grid-column: 1; 
+        grid-row: 3;    
+    }
+    
+    .achievementsDiv{
+        grid-column: 1; 
+        grid-row: 4; 
+    }
+    
 } 
 
-
-  
+   
