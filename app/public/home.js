@@ -24,7 +24,7 @@ let targetCalorie = document.getElementById("targetCalorie");
 let count = 0;
 var caloriesLogged = 0;
 var calorieTarget = 0;
-var username = "Jim Broh";
+var username = window.sessionStorage.getItem("username");
 
 const maxPercent = caloriesLogged / calorieTarget;
 

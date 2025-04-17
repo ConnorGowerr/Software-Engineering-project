@@ -158,7 +158,12 @@ app.post("/", async (req, res) => {
             if (await checkHash(password, logIn.rows[0].password)) 
             {
                 console.log("Log in successful");
-                res.status(200).json({ message: "Login successful" });;
+                res.status(200).json(
+                    { 
+                        message: "Login successful",
+                        username: logIn.rows[0].username
+                    });;
+                    console.log(logIn.rows[0].username);
             } else 
             {
                 console.log("Password does not match existing account");
