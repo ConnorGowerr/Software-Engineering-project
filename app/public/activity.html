@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<head>
+<title>Hellth</title>
+<link rel="icon" href="Logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <script type="module" src="./ExerciseView.js" defer></script> -->
+<link rel="stylesheet" href="activity.css">
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+    <header class="top-header">
+        <button class="top-left-btn">
+            <img src="images/envelope-solid.svg" alt="profileIcon">
+        </button>
+
+
+        <h1 id="activityTitle">Add Actvity</h1>
+
+        <a href="profile.html" class="top-right-btn">
+            <img src="images/user-solid.svg" alt="profileIcon">
+        </a>
+    </header>
+
+    <main>
+    <section id = "activityPageSection">
+        <div class="exerciseAddSection">
+            <h2 id="exerciseTitle">Select Exercise</h2>
+            <div class="exerciseAdd">
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search For Exercises...">
+                </div>
+            </div>
+            <div class="search-select">
+                <p>No exercise selected</p>
+            </div> 
+            <div class="search-results">
+            </div> 
+        </div>
+
+        </div>
+        <div class = "centerSection">
+            <h2 id="exerciseTitle">Customise Activity</h2>
+            <form id="activityForm">
+                <input type="number" min="0" id="activityDuration" placeholder="Activity Duration" required = "true">
+                <select id="activityIntensity" required = "true">
+                    <option value="" disabled selected>Select Activity Intensity</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+            </form>
+            <button id="activityBtn" class="mainBtn">Create Activity</button>
+        </div>
+       
+        <div class="overviewSection">
+            <h2 id="exerciseTitle">Overview</h2>
+            <div class = "calorieSection">
+                <h2 class="calorieTitle1">Calories Burnt per Hour: 0</h2>
+                <h2 class="calorieTitle2">Duration: 0</h2>
+                <h2 class="calorieTitle3">Total Calories Burnt: 0</h2>
+            </div>
+        </div>
+    </section>    
+    <div class="popup-overlay" id="popupOverlay">
+        <div id="activityPopup" class="popup">
+            <div class="popup-content">
+                <p id="popupMessage"></p>
+                <form id="activityForm">
+                
+                    <div class="popup-buttons">
+                        <button id="confirmBtn">Confirm</button>
+                        <button id="cancelBtn"><i class="fas fa-times"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="exerciseOverlay">
+        <div id="exercisePopup" class="popup">
+            <div class="popup-content">
+                <div id="exerciseMessageContainer">
+                    <ul id="exerciseMessagePopup"></ul>
+                </div>  
+                <button id="confirmBtn2">Confirm</button>
+                <button id="cancelBtn2"><i class="fas fa-times"></i></button>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="mailboxOverlay">
+        <div class="mailboxHeader">
+            <h2>Inbox</h2>
+        </div>
+        <div id="mailboxContainer" class = popup>
+            <div class="mailboxList">
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    </main>
+    <div class="navbar">
+        <a href="login.html" class="nav-btn">
+            <img src="images/house-solid.svg" alt="Home">
+            <span class="icon-text">Home</span>
+        </a>
+        
+        <a href="progress.html" class="nav-btn">
+            <img src="images/chart-line-solid.svg" alt="Progress">
+            <span class="icon-text">Progress</span>
+        </a>
+    
+        <div class="center-btn-container">
+            <a href="mealActivtiySelect.html" class="center-btn">
+                <img src="images/plus-solid.svg" alt="Add">
+            </a>
+        </div>
+    
+        <a href="groups.html" class="nav-btn">
+            <img src="images/user-group-solid.svg" alt="Groups">
+            <span class="icon-text">Groups</span>
+        </a>
+    
+        <a href="help.html" class="nav-btn">
+            <img src="images/person-circle-question-solid.svg" alt="Help">
+            <span class="icon-text">Help</span>
+        </a>
+    </div>
+    
+    <div id="quantity-alert"></div>
+    
+</body>
