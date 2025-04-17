@@ -1,15 +1,19 @@
 // All the require functions/api
-const express = require('express')
+const { checkHash } = require('./hash.js');
+const express = require('express');
 const app = express();
 const port = 8008;
 const {Client} = require('pg');
 const cors = require("cors");
 require("dotenv").config();
 
+
 app.use(express.static('public'));
 
 // allows passing of data from front end to back
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:8080' 
+}));
 app.use(express.json());
 
 app.get('/', (req, res) =>  {
@@ -60,6 +64,14 @@ connection.query('SET SEARCH_PATH to "Hellth", public;', async (err) => {
         console.log(err.message);
     } else {
         console.log("yipee search path found");
+    }
+})
+
+connection.query(`SET TIME ZONE 'Europe/London';`, async (err) => {
+    if (err) {
+        console.log(err.message);
+    } else {
+        console.log("time zone set");
     }
 })
 
@@ -127,6 +139,118 @@ app.get("/signup/:check", async (req, res) => {
             console.error("There was an error searching for email", error);
             res.status(500).json({ error: "There was an error with the server" });
         }
+    }
+       
+})
+
+app.post("/", async (req, res) => {
+    
+    const {username, password} = req.body;
+
+    try {
+        const logIn = await connection.query("SELECT username, password FROM Users WHERE username = $1", [username]);
+
+        if (logIn.rows.length === 0) 
+        {
+            res.status(404).json({error: "User not found"});
+            console.log("User does not exist");
+        } else 
+        {
+            console.log(logIn.rows[0]);
+            if (await checkHash(password, logIn.rows[0].password)) 
+            {
+                console.log("Log in successful");
+                res.status(200).json(
+                    { 
+                        message: "Login successful",
+                        username: logIn.rows[0].username
+                    });;
+                    console.log(logIn.rows[0].username);
+            } else 
+            {
+                console.log("Password does not match existing account");
+                res.status(401).json({ message: "Invalid Password" });;
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+       
+})
+
+app.post("/home.html", async (req, res) => {
+    
+    const {username} = req.body;
+
+    try {
+        const dailyCalorie = await connection.query("SELECT SUM(calories * quantity) FROM Meal INNER JOIN MealContents ON Meal.mealID = mealContents.mealID INNER JOIN Food ON MealContents.foodID = Food.foodID WHERE username = $1 AND mealDate = CURRENT_DATE;", [username]);
+        const dailyCalorieTarget = await connection.query("SELECT dailyCalorieTarget FROM Users WHERE username = $1", [username]);
+        const weeklyGoals = await connection.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
+        const weeklyCompletedGoals = await connection.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = true AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username]);
+        if (weeklyGoals.rows.length === 0) 
+        {
+            if (weeklyCompletedGoals.rows.length === 0) 
+            {
+                res.status(404).json({error: "Goals not found"});
+                console.log("There are no goals for this user");
+            }
+        }
+        if (dailyCalorie.rows.length === 0) 
+        {
+            res.status(404).json({error: "User not found"});
+            console.log("User does not exist");
+        } else 
+        {
+            console.log(dailyCalorie.rows[0]);
+            console.log(dailyCalorieTarget.rows[0]);
+            if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) 
+            {
+                console.log("data retrieved");
+                res.status(200).json({ 
+                    message: "Data retrieved successfully",
+                    type: "activity",
+                    calories: dailyCalorie.rows[0].sum,
+                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                    userActivity: weeklyGoals.rows[0].weeklyactivity,
+                    activityTarget: weeklyGoals.rows[0].targetactivity
+
+                });
+            } else if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].currentweight != null) 
+            {
+                console.log("data retrieved");
+                res.status(200).json({ 
+                    message: "Data retrieved successfully",
+                    type: "weight",
+                    calories: dailyCalorie.rows[0].sum,
+                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                    currentWeight: weeklyGoals.rows[0].currentweight,
+                    targetWeight: weeklyGoals.rows[0].targetweight
+                });
+            } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) 
+            {
+                console.log("data retrieved");
+                res.status(200).json({ 
+                    message: "Data retrieved successfully",
+                    type: "completed",
+                    calories: dailyCalorie.rows[0].sum,
+                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                    userActivity: weeklyCompletedGoals.rows[0].weeklyactivity,
+                    activityTarget: weeklyCompletedGoals.rows[0].targetactivity
+                });
+            } else 
+            {
+                console.log("data not retrieved");
+                res.status(401).json({ 
+                    message: "Error: failure to retrieve data",
+                    calories: 0,
+                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
+                 });;
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
     }
        
 })

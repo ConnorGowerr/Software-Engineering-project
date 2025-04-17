@@ -8,7 +8,7 @@ If you want to add hashing to your browser page then you need to do the followin
 1. add <script src="https://cdn.jsdelivr.net/npm/bcryptjs/umd/index.js"></script> to your html file
 2. add 
 const hashedPassword = bcrypt.hashSync(userPassword, 10);
-console.log(hashedPassword);
+
 
 to the js file you want to do the hashing in, replacing userPassword with the variable you want to hash
 
@@ -35,29 +35,28 @@ to your html file just underneath the line in step 3
 */
 
 
+// // source: https://www.npmjs.com/package/bcryptjs
 
-import bcrypt from "bcryptjs";
+const bcrypt = require("bcryptjs");
 
-// source: https://www.npmjs.com/package/bcryptjs
-
-// Hashes a plain text string, returns the hash
-export async function hash(string) 
+// Hashes a plain text string, returns the hashed value
+async function hash(string) 
 {
     //Salt adds randomness to hashes so that the same string does not always generate the exact same hash
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(string, salt);
-
     return hash;
-
 }
-// Compares plain text to a hash to check if they match, returns true if match and false otherwise
-export async function checkHash(string, hash) {
-    try 
-    {
+
+// Compares plain text to a hash to check if they match
+async function checkHash(string, hash) 
+{
+    try {
         return await bcrypt.compare(string, hash);
-    } catch (err) 
-    {
+    } catch (err) {
         console.error(err.message);
         return false;
     }
 }
+
+module.exports = { hash, checkHash };
