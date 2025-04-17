@@ -13,7 +13,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10%;
+    /* padding: 10%; */
     padding-top: 3%;
     padding-bottom: 6%;
     margin-bottom: 5%;
@@ -34,7 +34,7 @@
 {
     display: flex;
     flex-direction: column;
-    
+    max-width: 45%;
 }
 
 
@@ -43,13 +43,14 @@
 Circular progress bar made with the help from https://www.youtube.com/watch?v=H2HYccAGR00&t=508s
 
 */
-
-@keyframes progressFill 
+/* @keyframes progressFill 
 {
-    100% {
+    100% 
+    {
         stroke-dashoffset: 90;
     }
-}
+} */
+
 
 
 circle 
@@ -57,8 +58,8 @@ circle
     fill: none;
     stroke: url(#progressBarColour);
     stroke-width: 36px;
-    stroke-dasharray: 450;
-    stroke-dashoffset: 450;
+    stroke-dasharray: 571;
+    stroke-dashoffset: 571;
     animation: progressFill 2s forwards;
     
 }
@@ -78,18 +79,7 @@ circle
     font-family: 'Poppins';
     margin-top: 1%;
     padding-top: 0;
-}
-
-
-
-#calorieRow2 
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-family: 'Poppins';
-    color: #EFEDE7;
-    margin-left: 10%;
+    white-space: nowrap;
 }
 
 #calorieRow 
@@ -114,7 +104,7 @@ circle
 {
     position: absolute;
     top: 2.7%;
-    left: 2.2%;
+    left: 2.5%;
     pointer-events: none;
 }
   
@@ -130,12 +120,13 @@ circle
     white-space: nowrap;
     text-shadow: 2px 2px 4px #000000;
     font-size: larger;
+    margin-left: 40px;
 }
   
 #calorieTargetBox 
 {
-    padding-left: 5em;
-    padding-right: 5em;
+    padding-left: 40%;
+    padding-right: 40%;
     margin-right: 600px;
     padding-bottom: 0;
 }
@@ -169,4 +160,192 @@ circle
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+#activityTargetBox, #groupChallengeBox 
+{
+    max-width: 40%;
+    width: 40%;
+}
+
+#progressTitleHome, #groupsTitleHome, #helpTitleHome
+{
+    font-size: 30px;
+}
+
+#progressBox 
+{
+    padding-top: 0;
+    padding-bottom: 2%;
+    justify-content: center;
+    align-items: center;
+}
+
+#trackProgressButton, #groupsButton, #helpButton 
+{
+    padding: 4%;
+    white-space: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#groupsButton 
+{
+    padding: 7%;
+}
+
+#helpButton 
+{
+    padding: 9%;
+}
+
+#helpBox 
+{
+    margin-bottom: 15%;
+}
+
+#activityTargetBox, #groupChallengeBox 
+{
+    width: auto;
+    max-width: 80%;
+    flex-grow: 1;
+}
+
+#goalMainSection, #challengeMainSection 
+{
+    text-shadow: 2px 2px 4px #000000;
+    font-size: larger;
+    font-family: 'Poppins';
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+}
+
+#goalSectioning1, #challengeSectioning1
+{
+    margin-left: -6%;
+}
+
+#goalSectioning2, #challengeSectioning2 
+{
+    margin-left: 12%;
+}
+
+
+@keyframes linearProgressFill1 
+{
+    100% 
+    {
+        width: 80%;
+    }
+}
+
+@keyframes linearProgressFill2 
+{
+    100% 
+    {
+        width: 80%;
+    }
+}
+
+#goalProgressBar, #groupProgressBar 
+{
+    height: 3vh;
+    width: 80%;
+    background: #ddd;
+    border-radius: 25px;
+    border: 6px solid #BABABA;
+    overflow: hidden;
+    position: relative;
+    /* margin-top: auto; */
+    margin-bottom: 3%; 
+    box-shadow: inset 0 0 10px #222;
+}
+
+
+.progress 
+{
+    height: 100%;
+    border-radius: 25px;
+    transition: width 0.3s ease-in-out;
+    width: 0%;
+    animation: linearProgressFill1 2s forwards;
+    
+}
+
+.groupProgressColor 
+{ 
+    background: linear-gradient(to right, #007AFF, #1DE44F); 
+    box-shadow:
+        0 0 10px white,
+        0 0 20px white,
+        0 0 30px #1DE44F,
+        0 0 40px #1DE44F;
+        background-image: 
+        url("images/noise.png"),
+        linear-gradient(to right, #007AFF, #1DE44F);
+        background-blend-mode: hard-light;
+        background-repeat: repeat;
+        background-size: cover;
+}
+
+.goalProgressColor 
+{ 
+    background: linear-gradient(to right, #FF8C00, #FFD700); 
+    box-shadow:
+        0 0 10px #FF8C00,
+        0 0 20px #FF8C00,
+        0 0 30px #FFD700,
+        0 0 40px #FFD700;
+        background-image: 
+        url("images/noise.png"),
+        linear-gradient(to right, #FF8C00, #FFD700);
+        background-blend-mode: hard-light;
+        background-repeat: repeat;
+        background-size: cover;
+        
+}
+
+.goalProgressColor::before 
+{
+    content: "";
+    position: absolute;
+    border-radius: 25px;
+    background: linear-gradient(to right, #FF8C00, #FFD700);
+    filter: blur(12px);
+    opacity: 0.6;
+    z-index: -1;
+}
+
+#challengeTitleSectioning 
+{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: -5%;
+}
+
+#challengeTitle, #challengeTitleRemaining 
+{
+    font-family: 'Poppins';
+    white-space: nowrap;
+}
+
+#groupChallengeBox 
+{
+    margin-bottom: 15%;
+}
+
+#challengeTitle 
+{
+    margin-left: -3%;
+}
+
+#challengeTitleRemaining 
+{
+    margin-left: 5%;
+}
+
+h2, h3, h4 
+{
+    font-family: 'Poppins';
 }

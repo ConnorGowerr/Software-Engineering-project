@@ -27,12 +27,14 @@ export async function logIn()
             warning("⚠︎ User does not exist");
         } else 
         {
-        
-            document.location.href = "http://localhost:8008/home.html";
-        
+            return response.json();
         }
     })
-    .then(data => console.log(data))
+    .then(data => 
+    {
+        window.sessionStorage.setItem("username", data.username);
+        document.location.href = "http://localhost:8008/home.html";
+    })
     .catch(error => console.error("Error:", error));
 
     
