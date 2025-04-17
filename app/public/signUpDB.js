@@ -261,15 +261,16 @@ fetch("http://localhost:8008/signup", {
         imperialMetric: isMetric, 
         dailyCalorieTarget: calorieTarget
     })
-})
+})  
 .then(response => response.json())
 .then(data => {
     showAlert("Your account has been created successfully! Redirecting...");
     setTimeout(() =>{
         window.location.href='login.html';       
     }, 2000)
-
 })
+
+
 .catch(error => console.error("Error:", error));
 }
 
