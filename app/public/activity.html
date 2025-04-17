@@ -3,7 +3,7 @@
 <title>Hellth</title>
 <link rel="icon" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <script type="module" src="./FoodView.js" defer></script> -->
+<!-- <script type="module" src="./ExerciseView.js" defer></script> -->
 <link rel="stylesheet" href="activity.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
@@ -28,34 +28,40 @@
     <main>
     <section id = "activityPageSection">
         <div class="exerciseAddSection">
-            <h2 id="exerciseTitle">Add Exercise</h2>
+            <h2 id="exerciseTitle">Select Exercise</h2>
             <div class="exerciseAdd">
                 <div class="search-container">
-                    <input type="text" class="search-bar" placeholder="Search For Activities...">
+                    <input type="text" class="search-bar" placeholder="Search For Exercises...">
                 </div>
             </div>
+            <div class="search-select">
+                <p>No exercise selected</p>
+            </div> 
             <div class="search-results">
             </div> 
         </div>
 
         </div>
         <div class = "centerSection">
-            <h2 id = "exerciseTitle">Current Selection</h2>
-            <div class="exerciseList"></div> 
-          
+            <h2 id="exerciseTitle">Customise Activity</h2>
+            <form id="activityForm">
+                <input type="number" id="activityDuration" placeholder="Activity Duration" required = "true">
+                <select id="activityIntensity" required = "true">
+                    <option value="" disabled selected>Select Activity Intensity</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+            </form>
             <button id="activityBtn" class="mainBtn">Create Activity</button>
         </div>
        
         <div class="overviewSection">
-            <h2 id="exerciseTitle">Calories</h2>
+            <h2 id="exerciseTitle">Overview</h2>
             <div class = "calorieSection">
-                <h2 class="calorieTitle">Total Calories: 0</h2>
-                <h2 class="itemTotalTitle">Total Exercises: 0</h2>
-                <!-- <h5 class="protein">Protein: 0g</h5>
-                <h5 class="fiber">Fiber: 0g</h5>
-                <h5 class="carbs">Carbohydrates: 0g</h5>
-                <h5 class="fat">Fat: 0g</h5>
-                <h5 class="sugar">Sugar: 0g</h5> -->
+                <h2 class="calorieTitle1">Calories Burnt per Hour: 0</h2>
+                <h2 class="calorieTitle2">Duration: 0</h2>
+                <h2 class="calorieTitle3">Total Calories Burnt: 0</h2>
             </div>
         </div>
     </section>    
@@ -64,16 +70,7 @@
             <div class="popup-content">
                 <p id="popupMessage"></p>
                 <form id="activityForm">
-                    <input type="text" id="activityName" placeholder="Activity Name" required = "true">
-    
-                    <select id="activityType" required = "true">
-                        <option value="" disabled selected>Select Activity Type</option>
-                        <option value="breakfast">Breakfast</option>
-                        <option value="lunch">Lunch</option>
-                        <option value="dinner">Dinner</option>
-                        <option value="snack">Snack</option>
-                    </select>
-                    
+                
                     <div class="popup-buttons">
                         <button id="confirmBtn">Confirm</button>
                         <button id="cancelBtn"><i class="fas fa-times"></i></button>
