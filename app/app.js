@@ -91,7 +91,9 @@ app.post("/signup", async (req, res) => {
         const values = [username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric];
         
         const result = await connection.query(createAccount, values);
-        res.status(201).json({ message: "User created successfully", user: result.rows[0] });
+        res.status(201).json({ 
+            message: "User created successfully", 
+            user: result.rows[0]});
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });

@@ -94,7 +94,7 @@ function circleAnimate()
     {
         clearInterval(interval);
     }
-    
 }, 30);
 
 }
+
