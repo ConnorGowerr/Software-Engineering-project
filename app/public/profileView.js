@@ -47,6 +47,7 @@ function mailboxPopup() {
 }
 
 
-document.querySelector(".top-left-btn").addEventListener("click", event => {
-    userController.mailboxPopup();
+document.querySelector(".top-left-btn").addEventListener("click", e => {
+    e.preventDefault();
+    mailboxPopup();
 });

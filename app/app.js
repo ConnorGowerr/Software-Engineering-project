@@ -109,35 +109,7 @@ DB_PASSWORD="YOUR DB PASSWORD HERE"
 
 make sure to also be connected to vpn
 */
-const connection = new Client({
-    host: "cmpstudb-01.cmp.uea.ac.uk",
-    user: process.env.DB_USERNAME,
-    port: 5432,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_USERNAME,
-})
-
-
-
-connection.connect().then(() => console.log("Database is connected")).catch(err => console.error("Database failed to connect", err.message));
-
 // sets the db connection to the correct schema
-connection.query('SET SEARCH_PATH to "Hellth", public;', async (err) => {
-    if (err) {
-        console.log(err.message);
-    } else {
-        console.log("yipee search path found");
-    }
-})
-
-connection.query(`SET TIME ZONE 'Europe/London';`, async (err) => {
-    if (err) {
-        console.log(err.message);
-    } else {
-        console.log("time zone set");
-    }
-})
-
 /* Receives the data from the post request sent by the signup page and attemps to insert the data into the database into the user table
 
 
@@ -153,7 +125,7 @@ app.post("/signup", async (req, res) => {
 
         const values = [username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric];
         
-        const result = await connection.query(createAccount, values);
+        const result = await dbClient.query(createAccount, values);
         res.status(201).json({ 
             message: "User created successfully", 
             user: result.rows[0]});
@@ -170,7 +142,7 @@ app.get("/signup/:check", async (req, res) => {
     try {
         if (username) 
         {
-            const searchUser = await connection.query("SELECT username FROM Users WHERE username = $1", [username]);
+            const searchUser = await dbClient.query("SELECT username FROM Users WHERE username = $1", [username]);
 
             if (searchUser.rows.length === 0) 
             {
@@ -180,7 +152,7 @@ app.get("/signup/:check", async (req, res) => {
         }
         if (email) 
         {
-            const searchEmail = await connection.query("SELECT email FROM Users WHERE email = $1", [email]);
+            const searchEmail = await dbClient.query("SELECT email FROM Users WHERE email = $1", [email]);
 
             if (searchEmail.rows.length === 0) 
             {
@@ -211,7 +183,7 @@ app.post("/", async (req, res) => {
     const {username, password} = req.body;
 
     try {
-        const logIn = await connection.query("SELECT username, password FROM Users WHERE username = $1", [username]);
+        const logIn = await dbClient.query("SELECT username, password FROM Users WHERE username = $1", [username]);
 
         if (logIn.rows.length === 0) 
         {
@@ -247,10 +219,10 @@ app.post("/home.html", async (req, res) => {
     const {username} = req.body;
 
     try {
-        const dailyCalorie = await connection.query("SELECT SUM(calories * quantity) FROM Meal INNER JOIN MealContents ON Meal.mealID = mealContents.mealID INNER JOIN Food ON MealContents.foodID = Food.foodID WHERE username = $1 AND mealDate = CURRENT_DATE;", [username]);
-        const dailyCalorieTarget = await connection.query("SELECT dailyCalorieTarget FROM Users WHERE username = $1", [username]);
-        const weeklyGoals = await connection.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
-        const weeklyCompletedGoals = await connection.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = true AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username]);
+        const dailyCalorie = await dbClient.query("SELECT SUM(calories * quantity) FROM Meal INNER JOIN MealContents ON Meal.mealID = mealContents.mealID INNER JOIN Food ON MealContents.foodID = Food.foodID WHERE username = $1 AND mealDate = CURRENT_DATE;", [username]);
+        const dailyCalorieTarget = await dbClient.query("SELECT dailyCalorieTarget FROM Users WHERE username = $1", [username]);
+        const weeklyGoals = await dbClient.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
+        const weeklyCompletedGoals = await dbClient.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = true AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username]);
         if (weeklyGoals.rows.length === 0) 
         {
             if (weeklyCompletedGoals.rows.length === 0) 

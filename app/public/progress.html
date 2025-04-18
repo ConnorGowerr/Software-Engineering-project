@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type = "module" src="profileView.js" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
@@ -13,9 +14,10 @@
 </head>
 <body>
     <header class="top-header">
-        <a href="profile.html" class="top-left-btn">
+        <a href="#" class="top-left-btn" id="messageBtn">
             <img src="images/envelope-solid.svg" alt="profileIcon">
         </a>
+
         <h1 id="hellthTitle">Progress</h1>
         
         <a href="profile.html" class="top-right-btn">
@@ -55,6 +57,66 @@
                 </div>
             </div>
         </section>
+
+        <div class="popup-overlay" id="mailboxOverlay">
+            <div class="mailboxHeader">
+                <h2 class = 'mailboxTitle'>Inbox</h2>
+            </div>
+            <div id="mailboxContainer" class="popup">
+                <div class="mailboxList">
+                    <div class="mailboxItem">
+                        <div class = "textContent">
+                            <div class="mailSender">Hellth</div>
+                            <div class="mailSubject">New Meal Logged</div>
+                            <div class="mailDate">31/02/2025</div>
+                        </div>
+                        <div class = "imageContent">
+                            <img src = "images/user-group-solid.svg" alt = "Text">
+                        </div>
+                    </div>
+                    <div class="mailboxItem">
+                        <div class = "textContent">
+                            <div class="mailSender">Hellth</div>
+                            <div class="mailSubject">New Meal Logged</div>
+                            <div class="mailDate">31/02/2025</div>
+                        </div>
+                        <div class = "imageContent">
+                            <img src = "images/user-group-solid.svg" alt = "Text">
+                        </div>
+                    </div>
+                    <div class="mailboxItem">
+                        <div class = "textContent">
+                            <div class="mailSender">Hellth</div>
+                            <div class="mailSubject">New Meal Logged</div>
+                            <div class="mailDate">31/02/2025</div>
+                        </div>
+                        <div class = "imageContent">
+                            <img src = "images/user-group-solid.svg" alt = "Text">
+                        </div>
+                    </div>
+                    <div class="mailboxItem">
+                        <div class = "textContent">
+                            <div class="mailSender">Hellth</div>
+                            <div class="mailSubject">New Meal Logged</div>
+                            <div class="mailDate">31/02/2025</div>
+                        </div>
+                        <div class = "imageContent">
+                            <img src = "images/user-group-solid.svg" alt = "Text">
+                        </div>
+                    </div>
+                    <div class="mailboxItem">
+                        <div class = "textContent">
+                            <div class="mailSender">Hellth</div>
+                            <div class="mailSubject">New Meal Logged</div>
+                            <div class="mailDate">31/02/2025</div>
+                        </div>
+                        <div class = "imageContent">
+                            <img src = "images/user-group-solid.svg" alt = "Text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <div class="navbar">
         <a href="login.html" class="nav-btn">
@@ -78,9 +140,10 @@
             <span class="icon-text">Groups</span>
         </a>
     
-        <a href="help.html" class="nav-btn">
+        <a href="contact.html" class="nav-btn">
             <img src="images/person-circle-question-solid.svg" alt="Help">
             <span class="icon-text">Help</span>
         </a>
     </div>
+    
 </body>
