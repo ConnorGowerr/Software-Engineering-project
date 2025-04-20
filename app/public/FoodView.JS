@@ -122,6 +122,8 @@ class FoodView {
         const cancelBtn = document.getElementById("cancelBtn");
         const popupMessage = document.getElementById("popupMessage");
     
+
+
         const foodItems = document.querySelectorAll('.item');
         let totalCals = 0;
         this.allMealFood = [];
@@ -160,9 +162,11 @@ class FoodView {
             const mealType = document.getElementById("mealType").value;
     
             const mealData = {
+                user: window.sessionStorage.getItem("username"),
                 mealName,
                 mealType,
-                foods: this.allMealFood
+                foods: this.allMealFood,
+                date: new Date()
             };
     
             try {
@@ -173,12 +177,6 @@ class FoodView {
                     },
                     body: JSON.stringify(mealData)
                 });
-
-
-
-                console.table(mealData);
-                console.table(response);
-                console.table(JSON.stringify(mealData))
 
     
                 if (!response.ok) throw new Error('Failed to send meal to server');
@@ -294,9 +292,14 @@ class FoodView {
     //display popup with food attributes currently a bit buggy)
     async createMealPopup(item) {
         console.table(item)
+        fetch('/meal')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        });
        
         const formattedText = `
-            <strong>${item.foodname}</strong> (${item.foodtype})<br>
+            <strong>${item.foodname}</strong>
             Calories: ${item.calories}<br>
             Protein: ${item.protein}g<br>
             Fibre: ${item.fibre}g<br>
@@ -346,4 +349,9 @@ class FoodView {
     }
 }
 
+
+
 const foodView = new FoodView();
+
+
+

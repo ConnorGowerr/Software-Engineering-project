@@ -47,18 +47,21 @@ class FoodController {
                 callback(res.rows);  
             });
         });
+
     }
 
     saveMeal(req, res) {
-        const {username, mealtype, mealdate, mealtime } = req.body;
+        const {username, mealtype, mealdate} = req.body;
     
     
         const insertQuery = `
-        INSERT INTO Meal (username, mealType, mealDate, mealTime)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO Meal (username, mealType, mealDate, mealDate)
+        VALUES ($1, $2, $3, $3)
         `;
 
-        const values = [username, mealtype, mealdate, mealtime];
+        
+
+        const values = [username, mealtype, mealdate];
     
         dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
             if (err) {

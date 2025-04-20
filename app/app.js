@@ -12,6 +12,7 @@ const port = 8008;
 const {Client} = require('pg');
 const cors = require("cors");
 require("dotenv").config();
+const foodController = new FoodController();
 
 
 app.use(express.static('public'));
@@ -22,14 +23,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.get('/', (req, res) =>  {
-    //sends the static file (login page) once server is run to port 8008
-    res.sendFile('help.html', {root: 'public'}, (err) => {
-        if(err) {
-            console.log(err);
-        }
-    })
-});
+
 
 app.get('/signup', (req, res) =>  {
     res.sendFile('signup.html', {root: 'public'}, (err) => {
@@ -38,7 +32,6 @@ app.get('/signup', (req, res) =>  {
         }
     })
 });
-const foodController = new FoodController();
 
 
 // Search food based on query (fetching from DB)
@@ -96,6 +89,31 @@ app.get('/achievements', (req, res) => {
     });
 });
 
+
+app.get('/meal', (req, res) => {
+    if (!dbClient) {
+        return res.status(500).json({ error: 'Database client not initialized' });
+    }
+
+    dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+        if (err) {
+            console.error("Error setting search path:", err);
+            return res.status(500).json({ error: "Failed to set database search path" });
+        }
+
+        const queryString = 'SELECT * FROM meal';
+        dbClient.query(queryString, (err, result) => {
+            if (err) {
+                console.error("Error fetching meal:", err);
+                return res.status(500).json({ error: "Failed to fetch achievements" });
+            }
+            res.status(200).json(result.rows);
+        });
+    });
+});
+
+
+
 // allows server to wait on the correct port
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
@@ -139,10 +157,14 @@ app.post("/signup", async (req, res) => {
 app.get("/signup/:check", async (req, res) => {
     
     const {username, email} = req.query;
+
+    if (!dbClient) {
+        return res.status(500).json({ error: 'Database client not initialized' });
+    }
     try {
         if (username) 
         {
-            const searchUser = await dbClient.query("SELECT username FROM Users WHERE username = $1", [username]);
+            const searchUser = await dbClient.query("SELECT username FROM users WHERE username = $1", [username]);
 
             if (searchUser.rows.length === 0) 
             {
@@ -152,7 +174,7 @@ app.get("/signup/:check", async (req, res) => {
         }
         if (email) 
         {
-            const searchEmail = await dbClient.query("SELECT email FROM Users WHERE email = $1", [email]);
+            const searchEmail = await dbClient.query("SELECT email FROM users WHERE email = $1", [email]);
 
             if (searchEmail.rows.length === 0) 
             {
@@ -179,40 +201,44 @@ app.get("/signup/:check", async (req, res) => {
 })
 
 app.post("/", async (req, res) => {
-    
-    const {username, password} = req.body;
+    const { username, password } = req.body;
 
     try {
-        const logIn = await dbClient.query("SELECT username, password FROM Users WHERE username = $1", [username]);
+        // Set the search path
+        await dbClient.query('SET SEARCH_PATH TO "Hellth", public;');
 
-        if (logIn.rows.length === 0) 
-        {
-            res.status(404).json({error: "User not found"});
+        // Query the user
+        const logIn = await dbClient.query(
+            "SELECT username, password FROM Users WHERE username = $1",
+            [username]
+        );
+
+        if (logIn.rows.length === 0) {
             console.log("User does not exist");
-        } else 
-        {
-            console.log(logIn.rows[0]);
-            if (await checkHash(password, logIn.rows[0].password)) 
-            {
-                console.log("Log in successful");
-                res.status(200).json(
-                    { 
-                        message: "Login successful",
-                        username: logIn.rows[0].username
-                    });;
-                    console.log(logIn.rows[0].username);
-            } else 
-            {
-                console.log("Password does not match existing account");
-                res.status(401).json({ message: "Invalid Password" });;
-            }
+            return res.status(404).json({ error: "User not found" });
         }
+
+        const user = logIn.rows[0];
+        console.log(user);
+
+        if (await checkHash(password, user.password)) {
+            console.log("Log in successful");
+            console.log(user.username);
+            return res.status(200).json({
+                message: "Login successful",
+                username: user.username
+            });
+        } else {
+            console.log("Password does not match existing account");
+            return res.status(401).json({ message: "Invalid Password" });
+        }
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });
     }
-       
-})
+});
+
 
 app.post("/home.html", async (req, res) => {
     
