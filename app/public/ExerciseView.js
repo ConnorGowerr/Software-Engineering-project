@@ -1,11 +1,11 @@
 class ExerciseView {
     constructor() {
         this.exerciseList = document.querySelector('.exerciseList');
+        this.selectedContainer = document.querySelector('.search-select');
         this.resultsContainer = document.querySelector('.search-results');
         this.calorieSection = document.querySelector('.calorieSection');
         this.activityPopup = document.getElementById("exercisePopup");
         this.popupOverlay = document.getElementById("exerciseOverlay");
-
         this.setupEventListeners();
     }
 
@@ -37,7 +37,9 @@ class ExerciseView {
     }
 
     //adds the selected item from search, finds it then appends to our 'basket' and updates all atrributes for the nutrients section
-    addFoodItemToUI(itemName) {
+
+    // ----- NOTE: I intend to change this so, instead of adding/removing multiple items, only 1 exercise can be selected at once, which is displayed in .search-select
+    selectExercise(itemName) {
         fetch(`/api/return-exercise?q=${itemName}`)
             .then(response => {
                 if (!response.ok) {
@@ -215,7 +217,7 @@ class ExerciseView {
     //for every food in basket work out attributes
 
     calculateTotalCal() {
-        let totals = { calories: 0, protein: 0, fiber: 0, carbs: 0, fat: 0, sugar: 0, count: 0 };
+        let totals = { caloriesPerHour: 0, duration: 0, calories: 0};
         if (!this.exerciseList.hasChildNodes()) {
             this.updateSummaryUI(totals);
             return;
@@ -261,7 +263,7 @@ class ExerciseView {
 
     updateSummaryUI(totals) {
         this.calorieSection.querySelector('.calorieTitle1').textContent = `Calories Burnt per Hour: (CALORIE/HOUR FROM EXERCISE)`;
-        this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: (DURATION FROM ACTIVITY)`;
+        this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: (DURATION FROM ACTIVITY) minutes`;
         this.calorieSection.querySelector('.calorieTitle3').textContent = `Total Calories Burnt: (MATHS)`;
     }
 
@@ -277,7 +279,7 @@ class ExerciseView {
                 const isConfirmed = await this.createMealPopup(food);
 
                 if (isConfirmed) {
-                    this.addFoodItemToUI(food.foodname);
+                    this.selectExercise(food.foodname);
                     document.querySelector('.search-bar').value = '';
                     this.resultsContainer.innerHTML = '';
                 }
