@@ -9,10 +9,11 @@ class FoodView {
         this.setupEventListeners();
     }
 
+
+    // made this method to initialize all event listeners,self explanitory just initializes all main event listeners for the page
     setupEventListeners(){
 
-        //search functionality (for every input fetch all foods from database that contain the input)
-
+        //search functionality, on every input the user does we send a request to our sevrer to obtain all values that contain the current input, and the return these values to the browser so we can display them to the user.
         document.querySelector(".search-bar").addEventListener("input", (event) => {
             console.log("hi");
             const query = event.target.value;
@@ -36,7 +37,11 @@ class FoodView {
         }
     }
 
-    //adds the selected item from search, finds it then appends to our 'basket' and updates all atrributes for the nutrients section
+  //Method to add a cetain food item to the 'basket' i.e. our food current selection.
+  //Here we send a request for the parameter passed into this method and we return the exact food instance (itemname which is a unique field in our food Table)
+  //then we create a custom 'item' div to store this object in the UI, we then appened this as a child to our basket.
+  //we add extra functionality like a button with an event listener to allow for the button to be removed
+  //we also add a quantity section to allow for users to change how many of a certain item they want.
     addFoodItemToUI(itemName) {
         fetch(`/api/return-food?q=${itemName}`)
             .then(response => {
@@ -113,7 +118,10 @@ class FoodView {
     }
     
 
-    //funtion to create a meal objecrs from all items in the current food list, user can confirm cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
+    //Method to  allow user to log a meal
+    //First were retrieve all food items from 'basket', we then request these from the database, wethen calculate total calories and store all these items in a new array
+    //we then create the meal popup, i.e. a small popup so the user can enter the meal name and type they wish to use for this meal.
+    //then we send a post request to our sever with all this information so that the server can work with the database to store this info
     async createMeal() {
         const mealForm = document.getElementById("mealForm");
         const mealPopup = document.getElementById("mealPopup");
@@ -209,7 +217,8 @@ class FoodView {
     
     
 
-    //for every food in basket work out attributes
+    //Method to calculate every nutritional value for our basket items
+    //for every item extract all values and sum them,then update the UI accordingly
 
     calculateTotalCal() {
         let totals = { calories: 0, protein: 0, fiber: 0, carbs: 0, fat: 0, sugar: 0, count: 0 };
@@ -255,7 +264,6 @@ class FoodView {
         });
     }
     
-
     updateNutritionUI(totals) {
         this.nutrientSection.querySelector('.calorieTitle').textContent = `Total Calories: ${totals.calories}`;
         this.nutrientSection.querySelector('.itemTotalTitle').textContent = `Total Items: ${totals.count}`;
@@ -266,6 +274,9 @@ class FoodView {
         this.nutrientSection.querySelector('.sugar').textContent = `Sugar: ${totals.sugar}g`;
     }
 
+
+    //displays all of the food items returned that matched the users search.
+    //then on clicking any of the items, we create a foodpopup to display the exact food selected.
     renderSearchResults(filteredFoodData) {
         this.resultsContainer.innerHTML = '';
 
@@ -289,7 +300,9 @@ class FoodView {
     }
 
     
-    //display popup with food attributes currently a bit buggy)
+    //display popup with food attributes. 
+    //On confirm add to basket and close popup
+    //On cancel close popup
     async createMealPopup(item) {
         console.table(item)
         fetch('/meal')
