@@ -6,6 +6,7 @@ class ExerciseView {
         this.calorieSection = document.querySelector('.calorieSection');
         this.activityPopup = document.getElementById("exercisePopup");
         this.popupOverlay = document.getElementById("exerciseOverlay");
+        this.currentCph = number(0); //I don't know if global variables like this are considered bad practice, but it's the only method I could think of
         this.setupEventListeners();
     }
 
@@ -50,7 +51,9 @@ class ExerciseView {
             .then(exerciseData => {
                 console.log("Found exercise:", exerciseData[0]);
 
-    
+                this.selectedContainer.querySelector('#search-select').textContent = `${exerciseData[0].exerciseName}`;
+                this.currentCph = exerciseData[0].caloriesPerHour;
+                this.updateSummaryUI();
                 // let totalQuantity = 0;
                 // this.exerciseList.querySelectorAll('.quantity-input').forEach(input => {
                 //     totalQuantity += parseInt(input.value);
@@ -261,28 +264,28 @@ class ExerciseView {
     }
     
 
-    updateSummaryUI(totals) {
-        this.calorieSection.querySelector('.calorieTitle1').textContent = `Calories Burnt per Hour: (CALORIE/HOUR FROM EXERCISE)`;
-        this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: (DURATION FROM ACTIVITY) minutes`;
-        this.calorieSection.querySelector('.calorieTitle3').textContent = `Total Calories Burnt: (MATHS)`;
+    updateSummaryUI() {
+        this.calorieSection.querySelector('.calorieTitle1').textContent = `Calories Burnt per Hour: `, currentCph;
+        this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: `, document.getElementById('activityDuration').value, ` minutes`;
+        this.calorieSection.querySelector('.calorieTitle3').textContent = `Total Calories Burnt: `, (currentCph / 60) * document.getElementById('activityDuration').value;
     }
 
-    renderSearchResults(filteredFoodData) {
+    renderSearchResults(filteredExerciseData) {
         this.resultsContainer.innerHTML = '';
 
-        for (const food of filteredFoodData) {
+        for (const exercise of filteredExerciseData) {
             const resultItem = document.createElement('div');
             resultItem.classList.add('search-item');
-            resultItem.textContent = `${food.foodname} - ${food.calories} kcals`;
+            resultItem.textContent = `${exercise.exerciseName} - ${exercise.caloriesPerHour} kcals/hr`;
 
             resultItem.onclick = async () => {
-                const isConfirmed = await this.createMealPopup(food);
+                //const isConfirmed = await this.createMealPopup(exercise);
 
-                if (isConfirmed) {
-                    this.selectExercise(food.foodname);
+                //if (isConfirmed) {
+                    this.selectExercise(exercise.exerciseName);
                     document.querySelector('.search-bar').value = '';
                     this.resultsContainer.innerHTML = '';
-                }
+                //}
             };
 
             this.resultsContainer.appendChild(resultItem);
