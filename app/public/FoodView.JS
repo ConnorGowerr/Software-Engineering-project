@@ -35,6 +35,11 @@ class FoodView {
             console.log("meal")
             this.createMeal();
         }
+
+        this.cycleSearchPlaceholder('.search-bar', [
+            "Pizza", "Sushi", "Tacos", "Cheese Burger", "Pasta",
+            "Ramen", "Salad", "Curry", "Beef Steak", "Ice Cream"
+        ]);
     }
 
   //Method to add a cetain food item to the 'basket' i.e. our food current selection.
@@ -129,11 +134,10 @@ class FoodView {
         const confirmBtn = document.getElementById("confirmBtn");
         const cancelBtn = document.getElementById("cancelBtn");
         const popupMessage = document.getElementById("popupMessage");
-    
+        const cals = document.querySelector();
 
 
         const foodItems = document.querySelectorAll('.item');
-        let totalCals = 0;
         this.allMealFood = [];
     
         for (const food of foodItems) {
@@ -149,7 +153,6 @@ class FoodView {
                 const foundFood = foodData[0];
     
                 if (foundFood) {
-                    totalCals += foundFood.calories * quantity;
                     foundFood.quantity = quantity;
                     this.allMealFood.push(foundFood);
                 }
@@ -158,7 +161,7 @@ class FoodView {
             }
         }
    
-        popupMessage.textContent = `Total Calories: ${totalCals}`;
+        popupMessage.textContent = `Total Calories: ${totalCals} Total Calories: ${totalCals}  Total Calories: ${totalCals}  Total Calories: ${totalCals}`;
         mealPopup.style.display = "block";
         popupOverlay.style.display = "block";
     
@@ -279,22 +282,34 @@ class FoodView {
     //then on clicking any of the items, we create a foodpopup to display the exact food selected.
     renderSearchResults(filteredFoodData) {
         this.resultsContainer.innerHTML = '';
-
+    
         for (const food of filteredFoodData) {
             const resultItem = document.createElement('div');
             resultItem.classList.add('search-item');
-            resultItem.textContent = `${food.foodname} - ${food.calories} kcals`;
-
-            resultItem.onclick = async () => {
+    
+            
+            const plusIcon = document.createElement('span');
+            plusIcon.innerHTML = '+'; 
+            plusIcon.classList.add('plus-icon');
+    
+            plusIcon.onclick = async (event) => {
+                event.stopPropagation(); 
                 const isConfirmed = await this.createMealPopup(food);
-
+    
                 if (isConfirmed) {
                     this.addFoodItemToUI(food.foodname);
                     document.querySelector('.search-bar').value = '';
                     this.resultsContainer.innerHTML = '';
                 }
             };
-
+    
+            const text = document.createElement('span');
+            text.textContent = `${food.foodname} - ${food.calories} kcals`;
+            text.classList.add('food-text');
+    
+            resultItem.appendChild(plusIcon);
+            resultItem.appendChild(text);
+    
             this.resultsContainer.appendChild(resultItem);
         }
     }
@@ -360,11 +375,23 @@ class FoodView {
             }, 300);
         }, 2000);
     }
+
+    cycleSearchPlaceholder(className, items) {
+        const element = document.querySelector(className);
+        if (!element) return;
+    
+        let index = 0;
+    
+        function updatePlaceholder() {
+            element.placeholder = `${items[index]}`;
+            index = (index + 1) % items.length;
+        }
+    
+        updatePlaceholder(); 
+        setInterval(updatePlaceholder, 2000);
+    }
 }
 
 
 
 const foodView = new FoodView();
-
-
-
