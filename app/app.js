@@ -55,7 +55,10 @@ app.get('/api/return-food', (req, res) => {
 
 // recievee a post request with our new meal info (will add db stuff)
 app.post('/api/meal', express.json(), (req, res) => {
+    console.log(req.body);  // Log the data to see what’s received
+
     foodController.saveMeal(req, res);
+    
 });
 
 
@@ -241,79 +244,71 @@ app.post("/", async (req, res) => {
 
 
 app.post("/home.html", async (req, res) => {
-    
-    const {username} = req.body;
+    const { username } = req.body;
 
     try {
         const dailyCalorie = await dbClient.query("SELECT SUM(calories * quantity) FROM Meal INNER JOIN MealContents ON Meal.mealID = mealContents.mealID INNER JOIN Food ON MealContents.foodID = Food.foodID WHERE username = $1 AND mealDate = CURRENT_DATE;", [username]);
         const dailyCalorieTarget = await dbClient.query("SELECT dailyCalorieTarget FROM Users WHERE username = $1", [username]);
-        const weeklyGoals = await dbClient.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
+        const weeklyGoals = await dbClient.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username]);
         const weeklyCompletedGoals = await dbClient.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = true AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username]);
-        if (weeklyGoals.rows.length === 0) 
-        {
-            if (weeklyCompletedGoals.rows.length === 0) 
-            {
-                res.status(404).json({error: "Goals not found"});
-                console.log("There are no goals for this user");
-            }
-        }
-        if (dailyCalorie.rows.length === 0) 
-        {
-            res.status(404).json({error: "User not found"});
-            console.log("User does not exist");
-        } else 
-        {
-            console.log(dailyCalorie.rows[0]);
-            console.log(dailyCalorieTarget.rows[0]);
-            if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) 
-            {
-                console.log("data retrieved");
-                res.status(200).json({ 
-                    message: "Data retrieved successfully",
-                    type: "activity",
-                    calories: dailyCalorie.rows[0].sum,
-                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
-                    userActivity: weeklyGoals.rows[0].weeklyactivity,
-                    activityTarget: weeklyGoals.rows[0].targetactivity
 
-                });
-            } else if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].currentweight != null) 
-            {
-                console.log("data retrieved");
-                res.status(200).json({ 
-                    message: "Data retrieved successfully",
-                    type: "weight",
-                    calories: dailyCalorie.rows[0].sum,
-                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
-                    currentWeight: weeklyGoals.rows[0].currentweight,
-                    targetWeight: weeklyGoals.rows[0].targetweight
-                });
-            } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) 
-            {
-                console.log("data retrieved");
-                res.status(200).json({ 
-                    message: "Data retrieved successfully",
-                    type: "completed",
-                    calories: dailyCalorie.rows[0].sum,
-                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
-                    userActivity: weeklyCompletedGoals.rows[0].weeklyactivity,
-                    activityTarget: weeklyCompletedGoals.rows[0].targetactivity
-                });
-            } else 
-            {
-                console.log("data not retrieved");
-                res.status(401).json({ 
-                    message: "Error: failure to retrieve data",
-                    calories: 0,
-                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
-                 });;
+        if (weeklyGoals.rows.length === 0) {
+            if (weeklyCompletedGoals.rows.length === 0) {
+                console.log("There are no goals for this user");
+                return res.status(404).json({ error: "Goals not found" });
             }
         }
+
+        if (dailyCalorie.rows.length === 0) {
+            console.log("User does not exist");
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        console.log(dailyCalorie.rows[0]);
+        console.log(dailyCalorieTarget.rows[0]);
+
+        if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) {
+            console.log("data retrieved");
+            return res.status(200).json({
+                message: "Data retrieved successfully",
+                type: "activity",
+                calories: dailyCalorie.rows[0].sum,
+                dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                userActivity: weeklyGoals.rows[0].weeklyactivity,
+                activityTarget: weeklyGoals.rows[0].targetactivity
+            });
+        } else if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].currentweight != null) {
+            console.log("data retrieved");
+            return res.status(200).json({
+                message: "Data retrieved successfully",
+                type: "weight",
+                calories: dailyCalorie.rows[0].sum,
+                dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                currentWeight: weeklyGoals.rows[0].currentweight,
+                targetWeight: weeklyGoals.rows[0].targetweight
+            });
+        } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) {
+            console.log("data retrieved");
+            return res.status(200).json({
+                message: "Data retrieved successfully",
+                type: "completed",
+                calories: dailyCalorie.rows[0].sum,
+                dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                userActivity: weeklyCompletedGoals.rows[0].weeklyactivity,
+                activityTarget: weeklyCompletedGoals.rows[0].targetactivity
+            });
+        } else {
+            console.log("data not retrieved");
+            return res.status(401).json({
+                message: "Error: failure to retrieve data",
+                calories: 0,
+                dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
+            });
+        }
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });
     }
-       
-})
-
+});
 

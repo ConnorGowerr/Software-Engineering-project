@@ -15,7 +15,6 @@ class FoodView {
 
         //search functionality, on every input the user does we send a request to our sevrer to obtain all values that contain the current input, and the return these values to the browser so we can display them to the user.
         document.querySelector(".search-bar").addEventListener("input", (event) => {
-            console.log("hi");
             const query = event.target.value;
             fetch(`/api/search-food?q=${query}`)
                 .then(response => {
@@ -32,7 +31,6 @@ class FoodView {
         });
 
         document.getElementById("mealBtn").onclick = () => {
-            console.log("meal")
             this.createMeal();
         }
 
@@ -134,11 +132,21 @@ class FoodView {
         const confirmBtn = document.getElementById("confirmBtn");
         const cancelBtn = document.getElementById("cancelBtn");
         const popupMessage = document.getElementById("popupMessage");
-        const cals = document.querySelector();
+        const totalCals = this.nutrientSection.querySelector('.calorieTitle').textContent;
+        const calorieValue = totalCals.split(': ')[1];
+        const protein = this.nutrientSection.querySelector('.protein').textContent;
+        const proteinValue = protein.split(': ')[1];
+        const carbs = this.nutrientSection.querySelector('.carbs').textContent;
+        const carbsValue = carbs.split(': ')[1];
+        const fat = this.nutrientSection.querySelector('.fat').textContent;
+        const fatValue = fat.split(': ')[1];
+       
+ 
 
 
         const foodItems = document.querySelectorAll('.item');
         this.allMealFood = [];
+
     
         for (const food of foodItems) {
             const foodName = food.textContent.split(' - ')[0]?.trim();
@@ -161,8 +169,16 @@ class FoodView {
             }
         }
    
-        popupMessage.textContent = `Total Calories: ${totalCals} Total Calories: ${totalCals}  Total Calories: ${totalCals}  Total Calories: ${totalCals}`;
-        mealPopup.style.display = "block";
+        popupMessage.innerHTML = `
+        <div class="popupMessage">
+            <div>Calories<br>${calorieValue}</div>
+            <div>Protein<br>${proteinValue}</div>
+            <div>Carbs<br>${carbsValue}</div>
+            <div>Fats<br>${fatValue}</div>
+        </div>
+        `;
+         mealPopup.style.display = "block";
+
         popupOverlay.style.display = "block";
     
     
@@ -174,11 +190,14 @@ class FoodView {
     
             const mealData = {
                 user: window.sessionStorage.getItem("username"),
-                mealName,
+                // mealName,
                 mealType,
                 foods: this.allMealFood,
-                date: new Date()
+                date: new Date(),
+                date2: new Date()
             };
+
+            console.table(mealData)
     
             try {
                 const response = await fetch('/api/meal', {

@@ -1,3 +1,4 @@
+const { randomInt } = require('crypto');
 const Food = require('./Food')
 const Meal = require('./Meal')
 const dbClient = require('./db.js')
@@ -51,18 +52,18 @@ class FoodController {
     }
 
     saveMeal(req, res) {
-        const {username, mealtype, mealdate} = req.body;
-    
+        const {user, mealType, foods, date, date2} = req.body;
+        const mealid = randomInt(1000000)
     
         const insertQuery = `
-        INSERT INTO Meal (username, mealType, mealDate, mealDate)
-        VALUES ($1, $2, $3, $3)
+        INSERT INTO Meal (mealid, username, mealType, mealdate, mealtime)
+        VALUES ($1, $2, $3, $4, $5)
         `;
 
-        
-
-        const values = [username, mealtype, mealdate];
     
+        const values = [mealid, user, mealType,  date, date2];
+    
+        console.table(values)
         dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
             if (err) {
                 console.error("Search path error:", err);
