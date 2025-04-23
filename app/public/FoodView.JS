@@ -171,14 +171,13 @@ class FoodView {
    
         popupMessage.innerHTML = `
         <div class="popupMessage">
-            <div>Calories<br>${calorieValue}</div>
-            <div>Protein<br>${proteinValue}</div>
-            <div>Carbs<br>${carbsValue}</div>
-            <div>Fats<br>${fatValue}</div>
+            <div><Strong>Calories</Strong><br>${calorieValue}kcal</div>
+            <div><Strong>Protein</Strong><br>${proteinValue}</div>
+            <div><Strong>Carbs</Strong><br>${carbsValue}</div>
+            <div><Strong>Fats</Strong><br>${fatValue}</div>
         </div>
         `;
          mealPopup.style.display = "block";
-
         popupOverlay.style.display = "block";
     
     
@@ -197,7 +196,6 @@ class FoodView {
                 date2: new Date()
             };
 
-            console.table(mealData)
     
             try {
                 const response = await fetch('/api/meal', {
@@ -339,7 +337,7 @@ class FoodView {
     //On cancel close popup
     async createMealPopup(item) {
         console.table(item)
-        fetch('/meal')
+        fetch('/mealcontents')
         .then(res => res.json())
         .then(data => {
             console.log(data);

@@ -13,6 +13,6 @@ const connection = new Client({
 
 connection.connect()
     .then(() => console.log("Database connected"))
-    .catch(err => console.error("Error connecting to the database:", err.message));
+    .catch(err => console.error("Error connecting to the database:", err));
 
 module.exports = connection;

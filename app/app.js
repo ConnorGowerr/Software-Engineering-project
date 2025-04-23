@@ -3,7 +3,8 @@ const { checkHash } = require('./hash.js');
 const express = require('express');;
 const dbClient = require('./db.js'); 
 const FoodController = require('./FoodController.js');
-const Food = require('./Food.js');
+const UserController = require('./UserController.js');
+
 const app = express();
 app.use(express.json()); 
 require('dotenv').config();
@@ -13,6 +14,8 @@ const {Client} = require('pg');
 const cors = require("cors");
 require("dotenv").config();
 const foodController = new FoodController();
+const userController = new UserController();
+
 
 
 app.use(express.static('public'));
@@ -53,9 +56,17 @@ app.get('/api/return-food', (req, res) => {
     });
 });
 
+app.get('/api/return-user', (req, res) => {
+    const query = req.query.q;
+    
+    userController.returnUser(query, (userData) => {
+        res.json(userData);
+    });
+});
+
 // recievee a post request with our new meal info (will add db stuff)
 app.post('/api/meal', express.json(), (req, res) => {
-    console.log(req.body);  // Log the data to see what’s received
+    // console.log(req.body);  
 
     foodController.saveMeal(req, res);
     
