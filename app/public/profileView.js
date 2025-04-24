@@ -66,4 +66,14 @@ document.querySelector(".top-left-btn").addEventListener("click", e => {
     mailboxPopup();
 });
 
+const buttons = document.querySelectorAll('.metricButton');
+
+buttons.forEach(btn => {
+    console.log("h")
+    btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active')); 
+        btn.classList.add('active'); 
+    });
+});
+
 updateProfileStats();
