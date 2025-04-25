@@ -48,10 +48,20 @@ class FoodView {
     ingredientPopup() {
         const Popup = document.querySelector("#ingredientPopup");
         const popupOverlay = document.getElementById("ingredientOverlay");
+        const cancelBtn = document.getElementById("cancelBtn3");
     
         
         Popup.style.display = "block";
         popupOverlay.style.display = "block";
+
+
+
+        cancelBtn.onclick = (event) => {
+            event.preventDefault();
+            mealPopup.style.display = "none";
+            popupOverlay.style.display = "none";
+        };
+
     }
     
 
