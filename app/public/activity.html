@@ -3,7 +3,7 @@
 <title>Hellth</title>
 <link rel="icon" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <script type="module" src="./ExerciseView.js" defer></script> -->
+<script type="module" src="./ExerciseView.js" defer></script>
 <link rel="stylesheet" href="activity.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
@@ -45,12 +45,13 @@
         <div class = "centerSection">
             <h2 id="exerciseTitle">Customise Activity</h2>
             <form id="activityForm">
-                <input type="number" min="0" id="activityDuration" placeholder="Activity Duration (minutes)" required = "true">
+                <input type="number" min="0" id="activityDuration" placeholder="Activity Duration (minutes)" required = "true" value = 12>
                 <select id="activityIntensity" required = "true">
-                    <option value="" disabled selected>Select Activity Intensity</option>
-                    <option value="1">Low</option>
-                    <option value="2">Medium</option>
-                    <option value="3">High</option>
+                    <option value="0" disabled selected>Select Activity Intensity</option>
+                    <option value="0.5">Smouldering (0.5x)</option>
+                    <option value="1">Burning (1x)</option>
+                    <option value="1.5">Inferno (1.5x)</option>
+                    <option value="2">Hellfire (2x)</option>
                 </select>
             </form>
             <button id="activityBtn" class="mainBtn">Create Activity</button>

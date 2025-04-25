@@ -1,4 +1,5 @@
 class ExerciseView {
+    #currentCph;
     constructor() {
         this.exerciseList = document.querySelector('.exerciseList');
         this.selectedContainer = document.querySelector('.search-select');
@@ -6,7 +7,9 @@ class ExerciseView {
         this.calorieSection = document.querySelector('.calorieSection');
         this.activityPopup = document.getElementById("exercisePopup");
         this.popupOverlay = document.getElementById("exerciseOverlay");
-        this.currentCph = number(0); //I don't know if global variables like this are considered bad practice, but it's the only method I could think of
+        this.activityDuration = document.getElementById('activityDuration');
+        this.activityIntensity = document.getElementById('activityIntensity');
+        this.#currentCph = 0;
         this.setupEventListeners();
     }
 
@@ -31,6 +34,17 @@ class ExerciseView {
                 .catch(error => console.error('Error fetching search results:', error));
         });
 
+        //Note: i did try and use event listeners for these 2 events, 
+        // but they don't seem to work when calling this.functions
+        this.activityDuration.oninput = () =>{
+            console.log('duration changed');
+            this.updateSummaryUI();
+        }
+        this.activityIntensity.onchange = () =>{
+            console.log('intensity changed');
+            this.updateSummaryUI();
+        }
+
         document.getElementById("activityBtn").onclick = () => {
             console.log("activity")
             this.createActivity();
@@ -52,7 +66,7 @@ class ExerciseView {
                 console.log("Found exercise:", exerciseData[0]);
 
                 this.selectedContainer.querySelector('#search-select').textContent = `${exerciseData[0].exerciseName}`;
-                this.currentCph = exerciseData[0].caloriesPerHour;
+                this.#currentCph = exerciseData[0].caloriesPerHour;
                 this.updateSummaryUI();
                 // let totalQuantity = 0;
                 // this.exerciseList.querySelectorAll('.quantity-input').forEach(input => {
@@ -263,11 +277,13 @@ class ExerciseView {
         });
     }
     
-
+    //This works
     updateSummaryUI() {
-        this.calorieSection.querySelector('.calorieTitle1').textContent = `Calories Burnt per Hour: `, currentCph;
-        this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: `, document.getElementById('activityDuration').value, ` minutes`;
-        this.calorieSection.querySelector('.calorieTitle3').textContent = `Total Calories Burnt: `, (currentCph / 60) * document.getElementById('activityDuration').value;
+        console.log('summary updated');
+        this.calorieSection.querySelector('.calorieTitle1').textContent = `Calories Burnt per Hour: ` + this.#currentCph;
+        this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: ` + activityDuration.value + ` minutes`;
+        this.calorieSection.querySelector('.calorieTitle3').textContent = `Total Calories Burnt: `
+             + Math.floor((this.#currentCph / 60) * activityDuration.value * activityIntensity.value);
     }
 
     renderSearchResults(filteredExerciseData) {
