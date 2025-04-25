@@ -1120,6 +1120,7 @@ label {
 }
 #ingredientPopup{
     height: 60%;
+    width: 70%;
     z-index: 999;
 }
 #ingredientOverlay{
@@ -1131,56 +1132,64 @@ label {
     background: rgba(0, 0, 0, 0.8); 
     z-index: 999;
 }
-
-
-#ingredientMessageContainer{
-    display: flex;
-    width: 80%;
-
+#ingredientPopup{
+    height: 60%;
+    width: 70%;
+    z-index: 999;
 }
 
-#ingredientForm {
+#ingredientMessageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 60%; 
+    overflow: scroll;
+    margin: 0;
+  }
+  
+  #ingredientForm {
     display: grid;
-    margin: 0 auto;
-    justify-items: stretch; 
-    align-items: stretch; 
     grid-template-columns: repeat(3, 1fr);
     gap: 5% 5%;
+    width: 80%;
+    height: 100%;
     padding: 5%;
-}
-
-#ingredientForm label:nth-child(1),
-#ingredientForm label:nth-child(2) {
-    grid-column: span 1;
-}
-
-#ingredientForm label:nth-child(1) {
-    grid-column: 1 / 2;
-}
-
-#ingredientForm label:nth-child(2) {
-    grid-column: 2 / 3;
-}
-
-
-#ingredientForm label {
+    margin: 0 auto;
+    align-items: center;
+    justify-items: center;
+  }
+  
+  
+  .form-item {
     display: flex;
     flex-direction: column;
-    font-weight: bold;
-}
-
-#ingredientForm input,
-#ingredientForm select {
-    margin-top: 5%;
-    padding: 5%;
-    font-size: clamp(1rem, 1.1cqw, 4rem);
-
-    border: 1px solid darkgray;
+    justify-content: flex-start;
+    width: 100%; 
+  }
+  
+  .form-item select, .form-item input {
+    box-sizing: border-box;
+    appearance: none;
+    background-color: #4f4f4f;
     color: white;
-    background-color: darkgray;
+    font-size: inherit;
+    padding: 5%;
+    border: 1px solid darkgray;
     border-radius: 10px;
-}
-
+    width: 100%; /* Ensure inputs and selects take full width */
+  }
+  
+  .label-text {
+    display: inline-block;
+    width: 12ch; /* Set label width */
+    max-width: 100%; /* Prevent the label from exceeding container width */
+    font-size: clamp(0.8rem, 1vw, 1.5rem); /* Adjust font size responsively */
+    font-weight: bold;
+    color: darkgray;
+  }
+  
+  
 
 #popupMessage{
     width: 50%;      

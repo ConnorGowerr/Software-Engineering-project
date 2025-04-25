@@ -108,65 +108,76 @@
 
     <div class="popup-overlay" id="ingredientOverlay">
         <div id="ingredientPopup" class="popup">
-            <div class="popup-content">
-                <div class = "mainPopupContainer">
-                    <h2 class = "otherTitles">Cant Find What Your Looking For?</h2>
-                </div>
-                <div id="ingredientMessageContainer">
-                    
-                    <div id="ingredientForm">
-                        <label>Food Name:
-                            <input type="text" id="foodName">
-                        </label>
-                    
-                        <label>Food Type:
-                            <select id="foodType">
-                                <option value="">Select type</option>
-                                <option value="Fruit">Fruit</option>
-                                <option value="Vegetable">Vegetable</option>
-                                <option value="Protein">Protein</option>
-                                <option value="Grain">Grain</option>
-                                <option value="Dairy">Dairy</option>
-                            </select>
-                        </label>
-                    
-                        <label>Calories (kcal):
-                            <input type="number" id="calories">
-                        </label>
-                    
-                        <label>Serving Size (g):
-                            <input type="text" id="servingSize">
-                        </label>
-                    
-                        <label>Protein (g):
-                            <input type="number" id="protein">
-                        </label>
-                    
-                        <label>Fats (g):
-                            <input type="number" id="fats">
-                        </label>
-                    
-                        <label>Carbs (g):
-                            <input type="number" id="carbs">
-                        </label>
-                    
-                        <label>Sugar (g):
-                            <input type="number" id="sugar">
-                        </label>
-                    
-                        <label>Fibre (g):
-                            <input type="number" id="fibre">
-                        </label>
-                    </div>
-                    
-                    
-                    
-                </div>  
-                <button id="confirmBtn2">Confirm</button>
-                <button id="cancelBtn2"><i class="fas fa-times"></i></button>
+          <div class="popup-content">
+            <div class="mainPopupContainer">
+              <h2 class="otherTitles">Can't Find What You're Looking For?</h2>
             </div>
+      
+            <div id="ingredientMessageContainer">
+              <form id="ingredientForm">
+                <!-- Row 1 -->
+                <div class="form-item">
+                  <label for="foodname"><span class="label-text">Food Name:</span></label>
+                  <input type="text" id="foodname" name="foodname">
+                </div>
+      
+                <div class="form-item">
+                  <label for="foodtype"><span class="label-text">Food Type:</span></label>
+                  <select id="foodtype" name="foodtype">
+                    <option value="">Select</option>
+                    <option value="veg">Vegetable</option>
+                    <option value="fruit">Fruit</option>
+                    <option value="protein">Protein</option>
+                    <option value="grain">Grain</option>
+                  </select>
+                </div>
+      
+                <!-- Row 2 -->
+                <div class="form-item">
+                  <label for="calories"><span class="label-text">Calories:</span></label>
+                  <input type="number" id="calories" name="calories">
+                </div>
+      
+                <div class="form-item">
+                  <label for="servingsize"><span class="label-text">Serving Size:</span></label>
+                  <input type="text" id="servingsize" name="servingsize">
+                </div>
+      
+                <div class="form-item">
+                  <label for="protein"><span class="label-text">Protein (g):</span></label>
+                  <input type="number" id="protein" name="protein">
+                </div>
+      
+                <!-- Row 3 -->
+                <div class="form-item">
+                  <label for="fats"><span class="label-text">Fats (g):</span></label>
+                  <input type="number" id="fats" name="fats">
+                </div>
+      
+                <div class="form-item">
+                  <label for="carbs"><span class="label-text">Carbs (g):</span></label>
+                  <input type="number" id="carbs" name="carbs">
+                </div>
+      
+                <div class="form-item">
+                  <label for="sugar"><span class="label-text">Sugar (g):</span></label>
+                  <input type="number" id="sugar" name="sugar">
+                </div>
+      
+                <!-- Row 4 -->
+                <div class="form-item">
+                  <label for="fibre"><span class="label-text">Fibre (g):</span></label>
+                  <input type="number" id="fibre" name="fibre">
+                </div>
+              </form>
+            </div>
+      
+            <button id="confirmBtn2">Confirm</button>
+            <button id="cancelBtn2"><i class="fas fa-times"></i></button>
+          </div>
         </div>
-    </div>
+      </div>
+      
 
     <div class="popup-overlay" id="mailboxOverlay">
         <div class="mailboxHeader">
