@@ -33,6 +33,9 @@
             <div class="foodAdd">
                 <div class="search-container">
                     <input type="text" class="search-bar" placeholder="Search For Foods...">
+                    <a href="#" class="extraButton">
+                        <img src="images/person-circle-question-solid.svg" alt="profileIcon">
+                    </a>
                 </div>
             </div>
             <div class="search-results">
@@ -63,7 +66,7 @@
     <div class="popup-overlay" id="popupOverlay">
         <div id="mealPopup" class="popup">
             <div class="popup-content">
-                <div class = "mainArticleTitleContainer">
+                <div class = "mainPopupContainer">
                     <h2 class = "otherTitles">Create Meal</h2>
                     </div>
                 <p id="popupMessage"></p>
@@ -79,7 +82,7 @@
                     </select>
                     
                     <div class="popup-buttons">
-                        <button id="confirmBtn">Confirm</button>
+                        <button id="confirmBtn">Create</button>
                         <button id="cancelBtn"><i class="fas fa-times"></i></button>
                     </div>
                 </form>
@@ -90,12 +93,77 @@
     <div class="popup-overlay" id="foodOverlay">
         <div id="foodPopup" class="popup">
             <div class="popup-content">
+                <div class = "mainPopupContainer">
+                    <h2 class = "otherTitles">Food Info</h2>
+                    </div>
                 <div id="foodMessageContainer">
                     <ul id="foodMessagePopup"></ul>
                 </div>  
                 <button id="confirmBtn2">Confirm</button>
                 <button id="cancelBtn2"><i class="fas fa-times"></i></button>
                 
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="ingredientOverlay">
+        <div id="ingredientPopup" class="popup">
+            <div class="popup-content">
+                <div class = "mainPopupContainer">
+                    <h2 class = "otherTitles">Cant Find What Your Looking For?</h2>
+                </div>
+                <div id="ingredientMessageContainer">
+                    
+                    <div id="ingredientForm">
+                        <label>Food Name:
+                            <input type="text" id="foodName">
+                        </label>
+                    
+                        <label>Food Type:
+                            <select id="foodType">
+                                <option value="">Select type</option>
+                                <option value="Fruit">Fruit</option>
+                                <option value="Vegetable">Vegetable</option>
+                                <option value="Protein">Protein</option>
+                                <option value="Grain">Grain</option>
+                                <option value="Dairy">Dairy</option>
+                            </select>
+                        </label>
+                    
+                        <label>Calories (kcal):
+                            <input type="number" id="calories">
+                        </label>
+                    
+                        <label>Serving Size (g):
+                            <input type="text" id="servingSize">
+                        </label>
+                    
+                        <label>Protein (g):
+                            <input type="number" id="protein">
+                        </label>
+                    
+                        <label>Fats (g):
+                            <input type="number" id="fats">
+                        </label>
+                    
+                        <label>Carbs (g):
+                            <input type="number" id="carbs">
+                        </label>
+                    
+                        <label>Sugar (g):
+                            <input type="number" id="sugar">
+                        </label>
+                    
+                        <label>Fibre (g):
+                            <input type="number" id="fibre">
+                        </label>
+                    </div>
+                    
+                    
+                    
+                </div>  
+                <button id="confirmBtn2">Confirm</button>
+                <button id="cancelBtn2"><i class="fas fa-times"></i></button>
             </div>
         </div>
     </div>

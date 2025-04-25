@@ -38,7 +38,24 @@ class FoodView {
             "Pizza", "Sushi", "Tacos", "Cheese Burger", "Pasta",
             "Ramen", "Salad", "Curry", "Beef Steak", "Ice Cream"
         ]);
+
+        document.querySelector(".extraButton").addEventListener("click", e => {
+            e.preventDefault();
+            this.ingredientPopup();
+        });
     }
+
+    ingredientPopup() {
+        const Popup = document.querySelector("#ingredientPopup");
+        const popupOverlay = document.getElementById("ingredientOverlay");
+    
+        
+        Popup.style.display = "block";
+        popupOverlay.style.display = "block";
+    }
+    
+
+    
 
   //Method to add a cetain food item to the 'basket' i.e. our food current selection.
   //Here we send a request for the parameter passed into this method and we return the exact food instance (itemname which is a unique field in our food Table)
