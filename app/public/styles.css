@@ -1989,7 +1989,7 @@ span {
  /* mobile phone  view */
  @media (max-width: 700px) { 
 
-    #cancelBtn,#cancelBtn2  {
+    #cancelBtn,#cancelBtn2, #cancelBtn3  {
         position: fixed;
         top: 8%;
         left: 90%;

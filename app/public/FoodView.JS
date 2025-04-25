@@ -49,12 +49,112 @@ class FoodView {
         const Popup = document.querySelector("#ingredientPopup");
         const popupOverlay = document.getElementById("ingredientOverlay");
         const cancelBtn = document.getElementById("cancelBtn3");
+        const foodForm = document.querySelector("#ingredientForm");
     
         
         Popup.style.display = "block";
         popupOverlay.style.display = "block";
 
+        // <input type="text" id="foodname" name="foodname">
+        // </div>
 
+        // <div class="form-item">
+        //   <label for="foodtype"><span class="label-text">Food Type:</span></label>
+        //   <select id="foodtype" name="foodtype">
+        //     <option value="">Select</option>
+        //     <option value="veg">Vegetable</option>
+        //     <option value="fruit">Fruit</option>
+        //     <option value="protein">Protein</option>
+        //     <option value="grain">Grain</option>
+        //   </select>
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="calories"><span class="label-text">Calories:</span></label>
+        //   <input type="number" id="calories" name="calories">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="servingsize"><span class="label-text">Serving Size:</span></label>
+        //   <input type="text" id="servingsize" name="servingsize">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="protein"><span class="label-text">Protein (g):</span></label>
+        //   <input type="number" id="protein" name="protein">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="fats"><span class="label-text">Fats (g):</span></label>
+        //   <input type="number" id="fats" name="fats">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="carbs"><span class="label-text">Carbs (g):</span></label>
+        //   <input type="number" id="carbs" name="carbs">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="sugar"><span class="label-text">Sugar (g):</span></label>
+        //   <input type="number" id="sugar" name="sugar">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="fibre"><span class="label-text">Fibre (g):</span></label>
+        //   <input type="number" id="fibre" name="fibre">
+        // </div>
+
+
+        foodForm.onsubmit = async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById("foodName");
+            const type = document.getElementById("foodTyoe");
+            const calories = document.getElementById("calories");
+            const fats = document.getElementById("fats");
+            const servingsize = document.getElementById("servingsize");
+            const protein = document.getElementById("protein");
+            const carbs = document.getElementById("carbs");
+            const fibre = document.getElementById("fibre");
+            const sugar = document.getElementById("sugar");
+
+
+    
+
+    
+            const foodData = {
+                name: name,
+                type: type,
+                calories: calories,
+                fats: fats,
+                servingsize: servingsize,
+                protein: protein,
+                carbs: carbs,
+                fibre: fibre,
+                sugar: sugar
+            };
+
+    
+            try {
+                const response = await fetch('/api/foodAdd', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(foodData)
+                });
+
+    
+                if (!response.ok) throw new Error('Failed to send food to server');
+                const result = await response.json();
+                console.log('Food saved:', result);
+    
+                
+            } catch (error) {
+                console.error('Error Food meal:', error);
+            }
+
+        };
 
         cancelBtn.onclick = (event) => {
             event.preventDefault();
@@ -214,13 +314,19 @@ class FoodView {
             const mealName = document.getElementById("mealName").value;
             const mealType = document.getElementById("mealType").value;
     
+
+
+            const fullDate = new Date();
+
+            const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate());
+
             const mealData = {
                 user: window.sessionStorage.getItem("username"),
                 // mealName,
                 mealType,
                 foods: this.allMealFood,
-                date: new Date(),
-                date2: new Date()
+                date: dateOnly,
+                date2: fullDate
             };
 
     
@@ -364,11 +470,11 @@ class FoodView {
     //On cancel close popup
     async createMealPopup(item) {
         console.table(item)
-        fetch('/mealcontents')
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-        });
+        // fetch('/mealcontents')
+        // .then(res => res.json())
+        // .then(data => {
+        //     console.log(data);
+        // });
        
         const formattedText = `
             <strong>${item.foodname}</strong>
