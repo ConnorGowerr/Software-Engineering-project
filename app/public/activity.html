@@ -45,7 +45,7 @@
         <div class = "centerSection">
             <h2 id="exerciseTitle">Customise Activity</h2>
             <form id="activityForm">
-                <input type="number" min="0" id="activityDuration" placeholder="Activity Duration (minutes)" required = "true" value = 12>
+                <input type="number" min="0" id="activityDuration" placeholder="Activity Duration (minutes)" required = "true">
                 <select id="activityIntensity" required = "true">
                     <option value="0" disabled selected>Select Activity Intensity</option>
                     <option value="0.5">Smouldering (0.5x)</option>
@@ -69,7 +69,12 @@
     <div class="popup-overlay" id="popupOverlay">
         <div id="activityPopup" class="popup">
             <div class="popup-content">
-                <p id="popupMessage"></p>
+                <h2>Submit activity?</h2>
+                <p id="popupE">(exercise name)</p>
+                <p id="popupC">(calories per hour)</p>
+                <p id="popupD">(duration)</p>
+                <p id="popupI">(intensity)</p>
+                <p id="popupT">(total)</p>
                 <form id="activityForm">
                 
                     <div class="popup-buttons">

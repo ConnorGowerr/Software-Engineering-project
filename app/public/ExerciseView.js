@@ -1,5 +1,6 @@
 class ExerciseView {
     #currentCph;
+    #currentEx;
     constructor() {
         this.exerciseList = document.querySelector('.exerciseList');
         this.selectedContainer = document.querySelector('.search-select');
@@ -10,6 +11,7 @@ class ExerciseView {
         this.activityDuration = document.getElementById('activityDuration');
         this.activityIntensity = document.getElementById('activityIntensity');
         this.#currentCph = 0;
+        this.#currentEx = 'No exercise selected';
         this.setupEventListeners();
     }
 
@@ -65,8 +67,10 @@ class ExerciseView {
             .then(exerciseData => {
                 console.log("Found exercise:", exerciseData[0]);
 
-                this.selectedContainer.querySelector('#search-select').textContent = `${exerciseData[0].exerciseName}`;
+                this.#currentEx = exerciseData[0].exerciseName;
                 this.#currentCph = exerciseData[0].caloriesPerHour;
+                this.selectedContainer.querySelector('#search-select').textContent = currentEx;
+                console.log('changed exercise');
                 this.updateSummaryUI();
                 // let totalQuantity = 0;
                 // this.exerciseList.querySelectorAll('.quantity-input').forEach(input => {
@@ -135,41 +139,48 @@ class ExerciseView {
 
     //funtion to create a meal objecrs from all items in the current food list, user can confirm cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
     async createActivity() {
-        const mealForm = document.getElementById("mealForm");
-        const mealPopup = document.getElementById("mealPopup");
+        const mealForm = document.getElementById("activityForm");
+        const activityPopup = document.getElementById("activityPopup");
         const popupOverlay = document.getElementById("popupOverlay");
         const confirmBtn = document.getElementById("confirmBtn");
         const cancelBtn = document.getElementById("cancelBtn");
-        const popupMessage = document.getElementById("popupMessage");
+
+        const popupE = document.getElementById("popupE");
+        const popupC = document.getElementById("popupC");
+        const popupD = document.getElementById("popupD");
+        const popupI = document.getElementById("popupI");
+        const popupT = document.getElementById("popupT");
     
-        const foodItems = document.querySelectorAll('.item');
-        let totalCals = 0;
-        this.allMealFood = [];
+        const exercise = document.querySelectorAll('.item');
     
-        for (const food of foodItems) {
-            const foodName = food.textContent.split(' - ')[0]?.trim();
-            const quantityInput = food.querySelector('.quantity-input');
-            const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+        // for (const food of exercise) {
+        //     const foodName = food.textContent.split(' - ')[0]?.trim();
+        //     const quantityInput = food.querySelector('.quantity-input');
+        //     const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
     
-            try {
-                const response = await fetch(`/api/return-food?q=${foodName}`);
-                if (!response.ok) throw new Error('Failed to fetch food data');
+        //     try {
+        //         const response = await fetch(`/api/return-food?q=${foodName}`);
+        //         if (!response.ok) throw new Error('Failed to fetch food data');
     
-                const foodData = await response.json();
-                const foundFood = foodData[0];
+        //         const foodData = await response.json();
+        //         const foundFood = foodData[0];
     
-                if (foundFood) {
-                    totalCals += foundFood.calories * quantity;
-                    foundFood.quantity = quantity;
-                    this.allMealFood.push(foundFood);
-                }
-            } catch (err) {
-                console.error(`Error fetching food data for "${foodName}":`, err);
-            }
-        }
+        //         if (foundFood) {
+        //             totalCals += foundFood.calories * quantity;
+        //             foundFood.quantity = quantity;
+        //             this.allMealFood.push(foundFood);
+        //         }
+        //     } catch (err) {
+        //         console.error(`Error fetching food data for "${foodName}":`, err);
+        //     }
+        // }
    
-        popupMessage.textContent = `Total Calories: ${totalCals}`;
-        mealPopup.style.display = "block";
+        popupE.textContent = this.#currentEx;
+        popupC.textContent = this.#currentCph + ` calories per hour`;
+        popupD.textContent = `Duration: ` + this.activityDuration.value + ` minutes`;
+        popupI.textContent = this.activityIntensity.value + ` intensity`;
+        popupT.textContent = `Total Calories: ` + Math.floor((this.#currentCph / 60) * this.activityDuration.value * this.activityIntensity.value);
+        activityPopup.style.display = "block";
         popupOverlay.style.display = "block";
     
     
@@ -208,7 +219,7 @@ class ExerciseView {
                 this.allMealFood.length = 0;
                 this.exerciseList.querySelectorAll('.item').forEach(item => item.remove());
                 this.calculateTotalCal();
-                mealPopup.style.display = "none";
+                activityPopup.style.display = "none";
                 popupOverlay.style.display = "none";
 
     
@@ -221,7 +232,7 @@ class ExerciseView {
     
         cancelBtn.onclick = (event) => {
             event.preventDefault();
-            mealPopup.style.display = "none";
+            activityPopup.style.display = "none";
             popupOverlay.style.display = "none";
         };
 
