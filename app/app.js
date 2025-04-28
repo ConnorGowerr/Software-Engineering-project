@@ -243,8 +243,8 @@ app.post("/home.html", async (req, res) => {
                 console.log("data not retrieved");
                 res.status(401).json({ 
                     message: "Error: failure to retrieve data",
-                    calories: 0,
-                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
+                    calories: 0
+                    // dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
                  });;
             }
         }

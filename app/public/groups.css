@@ -295,3 +295,55 @@
 #emptyspace{
     margin-top: 5%;
 }
+
+.box2 {
+    background-color: #383F42;
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    box-shadow: 5px 5px #000000;
+    margin-bottom: 2%;
+    transform: translateZ(0);
+
+}
+
+.box3 {
+    background-color: #383F42;
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    box-shadow: 5px 5px #000000;
+    margin-bottom: 2%;
+    transform: translateZ(0);
+
+}
+
+.box2:hover{
+    animation: pop 1s forwards;
+    cursor:pointer;
+}
+
+
+
+@keyframes pop {
+    
+    from 
+    {
+        transform: scale(1);
+        box-shadow: 5px 5px #000000;
+    }
+    to
+    {
+        transform: scale(1.05);
+        box-shadow: 15px 15px #000000;
+    }
+    
+}
+
+.box2::before, .box2::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    inset: -6px;
+    border-radius: inherit;
+}
