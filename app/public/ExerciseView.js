@@ -53,9 +53,6 @@ class ExerciseView {
         }
     }
 
-    //adds the selected item from search, finds it then appends to our 'basket' and updates all atrributes for the nutrients section
-
-    // ----- NOTE: I intend to change this so, instead of adding/removing multiple items, only 1 exercise can be selected at once, which is displayed in .search-select
     selectExercise(itemName) {
         fetch(`/api/return-exercise?q=${itemName}`)
             .then(response => {
