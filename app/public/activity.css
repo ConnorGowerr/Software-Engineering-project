@@ -1,4 +1,8 @@
 /* Generics */
+*{
+    cursor: progress;
+}
+
 main{
     height:80%;
 }
