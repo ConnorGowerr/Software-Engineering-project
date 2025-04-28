@@ -255,3 +255,21 @@ app.post("/home.html", async (req, res) => {
        
 })
 
+app.get("/groups/:allgroups", async (req, res) => {
+    connection.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+        if (err) {
+            console.error("Error setting search path:", err);
+            return res;  
+        }
+
+        const queryString = `SELECT * FROM userGroups`;
+        connection.query(queryString, (err, resp) => {
+            if (err) {
+                console.error("Database query error:", err);
+                return res;
+            }
+            
+            return res.status(200).json(resp.rows);
+        })
+    })
+})
