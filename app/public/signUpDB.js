@@ -267,7 +267,7 @@ fetch("http://localhost:8008/signup", {
     showAlert("Your account has been created successfully! Redirecting...");
     setTimeout(() =>{
         window.location.href='login.html';       
-    }, 2000)
+    }, 3000)
 })
 
 

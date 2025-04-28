@@ -249,24 +249,28 @@ app.post("/home.html", async (req, res) => {
     try {
         const dailyCalorie = await connection.query("SELECT SUM(calories * quantity) FROM Meal INNER JOIN MealContents ON Meal.mealID = mealContents.mealID INNER JOIN Food ON MealContents.foodID = Food.foodID WHERE username = $1 AND mealDate = CURRENT_DATE;", [username]);
         const dailyCalorieTarget = await connection.query("SELECT dailyCalorieTarget FROM Users WHERE username = $1", [username]);
-        const weeklyGoals = await connection.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
+        const weeklyGoals = await connection.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
         const weeklyCompletedGoals = await connection.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = true AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username]);
+        const mealChallenge = await connection.query("SELECT MealChallenge.goalId, MealChallenge.groupID, MealChallenge.currentCalories, MealChallenge.calorieTarget, Goal.startDate, Goal.endDate FROM MealChallenge LEFT JOIN Goal ON Goal.goalID = MealChallenge.GoalID LEFT JOIN userGroups ON userGroups.groupID = MealChallenge.groupID LEFT JOIN groupMembers ON groupMembers.groupID = MealChallenge.groupID WHERE groupMembers.username = $1 AND  Goal.startDate <= CURRENT_DATE AND Goal.isGoalMet = false AND Goal.endDate > CURRENT_DATE ORDER BY Goal.endDate;", [username]);
+        const exerciseChallenge = await connection.query("SELECT ExerciseChallenge.goalId, ExerciseChallenge.groupID, ExerciseChallenge.caloriesBurnt, ExerciseChallenge.targetCaloriesBurnt, Goal.startDate, Goal.endDate FROM ExerciseChallenge LEFT JOIN Goal ON Goal.goalID = ExerciseChallenge.GoalID LEFT JOIN userGroups ON userGroups.groupID = ExerciseChallenge.groupID LEFT JOIN groupMembers ON groupMembers.groupID = ExerciseChallenge.groupID WHERE groupMembers.username = $1 AND  Goal.startDate <= CURRENT_DATE AND Goal.isGoalMet = false AND Goal.endDate > CURRENT_DATE ORDER BY Goal.endDate;", [username]);
         if (weeklyGoals.rows.length === 0) 
         {
+            weeklyGoals = await connection.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID WHERE mealGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
             if (weeklyCompletedGoals.rows.length === 0) 
             {
                 res.status(404).json({error: "Goals not found"});
                 console.log("There are no goals for this user");
             }
         }
-        if (dailyCalorie.rows.length === 0) 
+        if (dailyCalorieTarget.rows.length === 0) 
         {
-            res.status(404).json({error: "User not found"});
+            res.status(404).json({error: "No data found"});
             console.log("User does not exist");
         } else 
         {
             console.log(dailyCalorie.rows[0]);
             console.log(dailyCalorieTarget.rows[0]);
+            console.log("hi");
             if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) 
             {
                 console.log("data retrieved");
@@ -288,7 +292,8 @@ app.post("/home.html", async (req, res) => {
                     calories: dailyCalorie.rows[0].sum,
                     dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
                     currentWeight: weeklyGoals.rows[0].currentweight,
-                    targetWeight: weeklyGoals.rows[0].targetweight
+                    targetWeight: weeklyGoals.rows[0].targetweight,
+                    startWeight: weeklyGoals.rows[0].startweight
                 });
             } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) 
             {
@@ -306,8 +311,8 @@ app.post("/home.html", async (req, res) => {
                 console.log("data not retrieved");
                 res.status(401).json({ 
                     message: "Error: failure to retrieve data",
-                    calories: 0,
-                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
+                    calories: 0
+                    // dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
                  });;
             }
         }

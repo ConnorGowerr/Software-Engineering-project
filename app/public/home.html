@@ -12,17 +12,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src = "home.js" defer></script>
 </head>
-
-<body>
+<header class="top-header">
     <button class="top-left-btn">
-        <i class="fa-solid fa-envelope"></i>
+        <img src="images/envelope-solid.svg" alt="profileIcon">
     </button>
-
-    <button class="top-right-btn">
-        <i class="fa-solid fa-user"></i>
-    </button>
-<main>
     <h1 id = "hellthTitle">Dashboard</h1>
+    <a href="profile.html" class="top-right-btn">
+        <img src="images/user-solid.svg" alt="profileIcon">
+    </a>
+</header>
+<body>
+<main>
     <section id = "homeSection">
         <section class = "homeColumns">
             <div class = "box homeBox" id = "calorieTargetBox">
@@ -57,14 +57,14 @@
             <div class = "box homeBox" id = "activityTargetBox">
                 <div id = "goalMainSection">
                     <div id = "goalSectioning1">
-                        <h3>Activity Today</h3>
-                        <h4>60</h4>
-                        <h3>Minutes</h3>
+                        <h3 id = "currentGoalTitle">Activity Today</h3>
+                        <h4 id = "currentGoalNumber">60</h4>
+                        <h3 class = "goalUnit">Minutes</h3>
                     </div>
                     <div id = "goalSectioning2">
-                        <h3>Weekly Activity Target</h3>
-                        <h4>240</h4>
-                        <h3>Minutes</h3>
+                        <h3 id = "targetGoalTitle">Weekly Activity Target</h3>
+                        <h4 id = "targetGoalNumber">240</h4>
+                        <h3 class = "goalUnit">Minutes</h3>
                     </div>
                     </div>
                     <div id="goalProgressBar">
@@ -79,14 +79,14 @@
                 </div>
                 <div id = "challengeMainSection">
                     <div id = "challengeSectioning1">
-                        <h3>Your Contribution</h3>
-                        <h4>626</h4>
-                        <h3>Calories</h3>
+                        <h3 id = "currentChallengeTitle">Your Contribution</h3>
+                        <h4 id = "currentChallengeNumber">626</h4>
+                        <h3 class = "challengeUnit">Calories</h3>
                     </div>
                     <div id = "challengeSectioning2">
-                        <h3>Target Calories Burned</h3>
-                        <h4>10000</h4>
-                        <h3>Calories</h3>
+                        <h3 id = "targetChallengeTitle">Target Calories Burned</h3>
+                        <h4 id = "targetChallengeNumber">10000</h4>
+                        <h3 class = "challengeUnit">Calories</h3>
                     </div>
                 </div>
                 <div id="groupProgressBar">
@@ -114,40 +114,30 @@
     </section>
 </main>
 <div class="navbar">
-    <button class="nav-btn">
-        <a href="home.html">
-            <i class="fa fa-home"></i>
-        </a>
+    <a href="home.html" class="nav-btn">
+        <img src="images/house-solid.svg" alt="Home">
         <span class="icon-text">Home</span>
-    </button>
-    <button class="nav-btn">
-        <a href="progress.html">
-            <i class="fa fa-chart-line"></i>
-        </a>
+    </a>
+    
+    <a href="progress.html" class="nav-btn">
+        <img src="images/chart-line-solid.svg" alt="Progress">
         <span class="icon-text">Progress</span>
+    </a>
 
-    </button>
     <div class="center-btn-container">
-        <button class="center-btn">
-            <a href="mealActivtiySelect.html">
-                <i class="fa-solid fa-plus"></i>
-            </a>
-        </button>
-    </div>
-    <button class="nav-btn">
-        <a href="groups.html">
-            <i class="fa-solid fa-users" ></i>
+        <a href="mealActivtiySelect.html" class="center-btn">
+            <img src="images/plus-solid.svg" alt="Add">
         </a>
+    </div>
+
+    <a href="groups.html" class="nav-btn">
+        <img src="images/user-group-solid.svg" alt="Groups">
         <span class="icon-text">Groups</span>
+    </a>
 
-    </button>
-    <button class="nav-btn">
-        <a href="groups.html">
-            <i class="fa fa-info-circle"></i>
-        </a>
+    <a href="contact.html" class="nav-btn">
+        <img src="images/person-circle-question-solid.svg" alt="Help">
         <span class="icon-text">Help</span>
-
-    </button>
-        
-    </div>
+    </a>
+</div>
 </body>
