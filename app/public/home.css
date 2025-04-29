@@ -240,13 +240,13 @@ circle
     }
 } */
 
-@keyframes linearProgressFill2 
+/* @keyframes linearProgressFill2 
 {
     100% 
     {
         width: 80%;
     }
-}
+} */
 
 #goalProgressBar, #groupProgressBar 
 {
@@ -263,7 +263,7 @@ circle
 }
 
 
-.progress 
+.progress, .progress2
 {
     height: 100%;
     border-radius: 25px;

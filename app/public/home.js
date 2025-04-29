@@ -80,7 +80,63 @@ fetch("http://localhost:8008/home.html", {
         {
             goalAnimation("Activity Today", "Weekly Activity Target", "Minutes", data.userActivity, data.activityTarget, -1);
         }
-        circleAnimate(); 
+        
+// let cTitleRemaining = document.getElementById("challengeTitleRemaining");
+// let cChallengeTitle = document.getElementById("currentChallengeTitle");
+
+// let tChallengeTitle = document.getElementById("targetChallengeTitle");
+
+// let challengeUnit = document.querySelectorAll(".challengeUnit");
+        circleAnimate();
+        cTitle.innerHTML = data.challengeT;
+        cChallengeNumber.innerHTML = data.challengeC;
+        tChallengeNumber.innerHTML = data.challengeTarg;
+        cChallengeTitle.innerHTML = "Your Progress";
+        tChallengeTitle.innerHTML = data.challengeTargetT;
+        if (data.challengeC == "N/A") 
+        {
+            cTitleRemaining.innerHTML = "";
+            const linearProgressFill = 
+            `@keyframes linearProgressFill2 {
+            0% 
+            {
+                width: 0%
+            }
+            100% 
+            {
+                width: 100%;
+            }
+            }`;
+            styleSheet.insertRule(linearProgressFill, styleSheet.cssRules.length);
+
+            const prog = document.querySelector(".progress2");
+            prog.style.animation = 'none';
+            void prog.offsetWidth;
+            prog.style.animation = `linearProgressFill2 2s forwards`;
+        } else 
+        {
+            var date1 = new Date(data.challengeE);
+            var date2 = new Date();
+            const diffInDays = Math.ceil((date1 - date2) / (1000 * 60 * 60 * 24));
+            cTitleRemaining.innerHTML = `${diffInDays} Days left`;
+            const linearProgressFill = 
+            `@keyframes linearProgressFill2 {
+            0% 
+            {
+                width: 0%
+            }
+            100% 
+            {
+                width: ${(data.challengeC / data.challengeTarg) * 100}%;
+            }
+            }`;
+            styleSheet.insertRule(linearProgressFill, styleSheet.cssRules.length);
+
+            const prog = document.querySelector(".progress2");
+            prog.style.animation = 'none';
+            void prog.offsetWidth;
+            prog.style.animation = `linearProgressFill2 2s forwards`;
+        }
     } else 
     {
         caloriesRemaining.innerHTML = calorieTarget;
@@ -159,11 +215,19 @@ function circleAnimate()
 {
     count = 0;
     targetCalorie.innerHTML = calorieTarget;
+    var circularProg = 0;
+    if (caloriesLogged > calorieTarget) 
+    {
+        circularProg = 0;
+    } else 
+    {
+        circularProg = 571 - (caloriesLogged / calorieTarget) * 571;
+    }
     const circularFillAnim =
     `@keyframes progressFill {
     100% 
     {
-        stroke-dashoffset: ${571 - ((caloriesLogged / calorieTarget) * 571)};
+        stroke-dashoffset: ${circularProg};
     }
     }`;
 

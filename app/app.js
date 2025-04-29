@@ -247,12 +247,21 @@ app.post("/home.html", async (req, res) => {
     const {username} = req.body;
 
     try {
+        var challengeFound = "none";
+        var challengeUnit = "N/A";
+        var challengeCurrent = "N/A";
+        var challengeTarget = "N/A";
+        var challengeTargetTitle = "N/A";
+        var challengeTitle = "You have no active challenges";
+        var challengeEnd = "N/A";
+        
+
         const dailyCalorie = await connection.query("SELECT SUM(calories * quantity) FROM Meal INNER JOIN MealContents ON Meal.mealID = mealContents.mealID INNER JOIN Food ON MealContents.foodID = Food.foodID WHERE username = $1 AND mealDate = CURRENT_DATE;", [username]);
         const dailyCalorieTarget = await connection.query("SELECT dailyCalorieTarget FROM Users WHERE username = $1", [username]);
         const weeklyGoals = await connection.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
         const weeklyCompletedGoals = await connection.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = true AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username]);
-        const mealChallenge = await connection.query("SELECT MealChallenge.goalId, MealChallenge.groupID, MealChallenge.currentCalories, MealChallenge.calorieTarget, Goal.startDate, Goal.endDate FROM MealChallenge LEFT JOIN Goal ON Goal.goalID = MealChallenge.GoalID LEFT JOIN userGroups ON userGroups.groupID = MealChallenge.groupID LEFT JOIN groupMembers ON groupMembers.groupID = MealChallenge.groupID WHERE groupMembers.username = $1 AND  Goal.startDate <= CURRENT_DATE AND Goal.isGoalMet = false AND Goal.endDate > CURRENT_DATE ORDER BY Goal.endDate;", [username]);
-        const exerciseChallenge = await connection.query("SELECT ExerciseChallenge.goalId, ExerciseChallenge.groupID, ExerciseChallenge.caloriesBurnt, ExerciseChallenge.targetCaloriesBurnt, Goal.startDate, Goal.endDate FROM ExerciseChallenge LEFT JOIN Goal ON Goal.goalID = ExerciseChallenge.GoalID LEFT JOIN userGroups ON userGroups.groupID = ExerciseChallenge.groupID LEFT JOIN groupMembers ON groupMembers.groupID = ExerciseChallenge.groupID WHERE groupMembers.username = $1 AND  Goal.startDate <= CURRENT_DATE AND Goal.isGoalMet = false AND Goal.endDate > CURRENT_DATE ORDER BY Goal.endDate;", [username]);
+        const mealChallenge = await connection.query("SELECT MealChallenge.goalId, MealChallenge.groupID, MealChallenge.currentCalories, MealChallenge.calorieTarget, Goal.goalName, Goal.startDate, Goal.endDate FROM MealChallenge LEFT JOIN Goal ON Goal.goalID = MealChallenge.GoalID LEFT JOIN userGroups ON userGroups.groupID = MealChallenge.groupID LEFT JOIN groupMembers ON groupMembers.groupID = MealChallenge.groupID WHERE groupMembers.username = $1 AND  Goal.startDate <= CURRENT_DATE AND Goal.isGoalMet = 'false' AND Goal.endDate > CURRENT_DATE ORDER BY Goal.endDate;", [username]);
+        const exerciseChallenge = await connection.query("SELECT ExerciseChallenge.goalId, ExerciseChallenge.groupID, ExerciseChallenge.caloriesBurnt, ExerciseChallenge.targetCaloriesBurnt, Goal.goalName, Goal.startDate, Goal.endDate FROM ExerciseChallenge LEFT JOIN Goal ON Goal.goalID = ExerciseChallenge.GoalID LEFT JOIN userGroups ON userGroups.groupID = ExerciseChallenge.groupID LEFT JOIN groupMembers ON groupMembers.groupID = ExerciseChallenge.groupID WHERE groupMembers.username = $1 AND  Goal.startDate <= CURRENT_DATE AND Goal.isGoalMet = 'false' AND Goal.endDate > CURRENT_DATE ORDER BY Goal.endDate;", [username]);
         if (weeklyGoals.rows.length === 0) 
         {
             weeklyGoals = await connection.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID WHERE mealGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
@@ -262,15 +271,43 @@ app.post("/home.html", async (req, res) => {
                 console.log("There are no goals for this user");
             }
         }
+        if (mealChallenge.rows.length === 0) 
+        {
+            if (exerciseChallenge.rows.length === 0) 
+            {
+                console.log("There are no challenges for this user");
+            } else 
+            {
+                challengeFound = "exercise";
+            }
+        } else 
+        {
+            challengeFound = "meal";
+        }
         if (dailyCalorieTarget.rows.length === 0) 
         {
             res.status(404).json({error: "No data found"});
             console.log("User does not exist");
         } else 
         {
-            console.log(dailyCalorie.rows[0]);
-            console.log(dailyCalorieTarget.rows[0]);
-            console.log("hi");
+            if (challengeFound == "meal") 
+            {
+                challengeUnit = "Calories";
+                challengeTarget = mealChallenge.rows[0].calorietarget;
+                challengeCurrent = mealChallenge.rows[0].currentcalories;
+                challengeTargetTitle = "Target Calories Eaten";
+                challengeTitle = mealChallenge.rows[0].goalname;
+                challengeEnd = mealChallenge.rows[0].enddate;
+
+            } else if (challengeFound == "exercise") 
+            {
+                challengeUnit = "Calories";
+                challengeTarget = exerciseChallenge.rows[0].targetcaloriesburnt;
+                challengeCurrent = exerciseChallenge.rows[0].caloriesburnt;
+                challengeTargetTitle = "Target Calories Burned";
+                challengeTitle = exerciseChallenge.rows[0].goalname;
+                challengeEnd = mealChallenge.rows[0].enddate;
+            }
             if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) 
             {
                 console.log("data retrieved");
@@ -280,7 +317,13 @@ app.post("/home.html", async (req, res) => {
                     calories: dailyCalorie.rows[0].sum,
                     dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
                     userActivity: weeklyGoals.rows[0].weeklyactivity,
-                    activityTarget: weeklyGoals.rows[0].targetactivity
+                    activityTarget: weeklyGoals.rows[0].targetactivity,
+                    challengeU: challengeUnit,
+                    challengeTarg: challengeTarget,
+                    challengeC: challengeCurrent,
+                    challengeTargetT: challengeTargetTitle,
+                    challengeT: challengeTitle,
+                    challengeE: challengeEnd
 
                 });
             } else if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].currentweight != null) 
@@ -293,7 +336,13 @@ app.post("/home.html", async (req, res) => {
                     dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
                     currentWeight: weeklyGoals.rows[0].currentweight,
                     targetWeight: weeklyGoals.rows[0].targetweight,
-                    startWeight: weeklyGoals.rows[0].startweight
+                    startWeight: weeklyGoals.rows[0].startweight,
+                    challengeU: challengeUnit,
+                    challengeTarg: challengeTarget,
+                    challengeC: challengeCurrent,
+                    challengeTargetT: challengeTargetTitle,
+                    challengeT: challengeTitle,
+                    challengeE: challengeEnd
                 });
             } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) 
             {
@@ -304,7 +353,13 @@ app.post("/home.html", async (req, res) => {
                     calories: dailyCalorie.rows[0].sum,
                     dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
                     userActivity: weeklyCompletedGoals.rows[0].weeklyactivity,
-                    activityTarget: weeklyCompletedGoals.rows[0].targetactivity
+                    activityTarget: weeklyCompletedGoals.rows[0].targetactivity,
+                    challengeU: challengeUnit,
+                    challengeTarg: challengeTarget,
+                    challengeC: challengeCurrent,
+                    challengeTargetT: challengeTargetTitle,
+                    challengeT: challengeTitle,
+                    challengeE: challengeEnd
                 });
             } else 
             {
