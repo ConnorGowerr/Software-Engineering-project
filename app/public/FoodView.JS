@@ -9,12 +9,12 @@ class FoodView {
         this.setupEventListeners();
     }
 
+
+    // made this method to initialize all event listeners,self explanitory just initializes all main event listeners for the page
     setupEventListeners(){
 
-        //search functionality (for every input fetch all foods from database that contain the input)
-
+        //search functionality, on every input the user does we send a request to our sevrer to obtain all values that contain the current input, and the return these values to the browser so we can display them to the user.
         document.querySelector(".search-bar").addEventListener("input", (event) => {
-            console.log("hi");
             const query = event.target.value;
             fetch(`/api/search-food?q=${query}`)
                 .then(response => {
@@ -31,12 +31,147 @@ class FoodView {
         });
 
         document.getElementById("mealBtn").onclick = () => {
-            console.log("meal")
             this.createMeal();
         }
+
+        this.cycleSearchPlaceholder('.search-bar', [
+            "Pizza", "Sushi", "Tacos", "Cheese Burger", "Pasta",
+            "Ramen", "Salad", "Curry", "Beef Steak", "Ice Cream"
+        ]);
+
+        document.querySelector(".extraButton").addEventListener("click", e => {
+            e.preventDefault();
+            this.ingredientPopup();
+        });
     }
 
-    //adds the selected item from search, finds it then appends to our 'basket' and updates all atrributes for the nutrients section
+    ingredientPopup() {
+        const Popup = document.querySelector("#ingredientPopup");
+        const popupOverlay = document.getElementById("ingredientOverlay");
+        const cancelBtn = document.getElementById("cancelBtn3");
+        const foodForm = document.querySelector("#ingredientForm");
+    
+        
+        Popup.style.display = "block";
+        popupOverlay.style.display = "block";
+
+        // <input type="text" id="foodname" name="foodname">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="foodtype"><span class="label-text">Food Type:</span></label>
+        //   <select id="foodtype" name="foodtype">
+        //     <option value="">Select</option>
+        //     <option value="veg">Vegetable</option>
+        //     <option value="fruit">Fruit</option>
+        //     <option value="protein">Protein</option>
+        //     <option value="grain">Grain</option>
+        //   </select>
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="calories"><span class="label-text">Calories:</span></label>
+        //   <input type="number" id="calories" name="calories">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="servingsize"><span class="label-text">Serving Size:</span></label>
+        //   <input type="text" id="servingsize" name="servingsize">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="protein"><span class="label-text">Protein (g):</span></label>
+        //   <input type="number" id="protein" name="protein">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="fats"><span class="label-text">Fats (g):</span></label>
+        //   <input type="number" id="fats" name="fats">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="carbs"><span class="label-text">Carbs (g):</span></label>
+        //   <input type="number" id="carbs" name="carbs">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="sugar"><span class="label-text">Sugar (g):</span></label>
+        //   <input type="number" id="sugar" name="sugar">
+        // </div>
+
+        // <div class="form-item">
+        //   <label for="fibre"><span class="label-text">Fibre (g):</span></label>
+        //   <input type="number" id="fibre" name="fibre">
+        // </div>
+
+
+        foodForm.onsubmit = async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById("foodName");
+            const type = document.getElementById("foodTyoe");
+            const calories = document.getElementById("calories");
+            const fats = document.getElementById("fats");
+            const servingsize = document.getElementById("servingsize");
+            const protein = document.getElementById("protein");
+            const carbs = document.getElementById("carbs");
+            const fibre = document.getElementById("fibre");
+            const sugar = document.getElementById("sugar");
+
+
+    
+
+    
+            const foodData = {
+                name: name,
+                type: type,
+                calories: calories,
+                fats: fats,
+                servingsize: servingsize,
+                protein: protein,
+                carbs: carbs,
+                fibre: fibre,
+                sugar: sugar
+            };
+
+    
+            try {
+                const response = await fetch('/api/foodAdd', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(foodData)
+                });
+
+    
+                if (!response.ok) throw new Error('Failed to send food to server');
+                const result = await response.json();
+                console.log('Food saved:', result);
+    
+                
+            } catch (error) {
+                console.error('Error Food meal:', error);
+            }
+
+        };
+
+        cancelBtn.onclick = (event) => {
+            event.preventDefault();
+            mealPopup.style.display = "none";
+            popupOverlay.style.display = "none";
+        };
+
+    }
+    
+
+    
+
+  //Method to add a cetain food item to the 'basket' i.e. our food current selection.
+  //Here we send a request for the parameter passed into this method and we return the exact food instance (itemname which is a unique field in our food Table)
+  //then we create a custom 'item' div to store this object in the UI, we then appened this as a child to our basket.
+  //we add extra functionality like a button with an event listener to allow for the button to be removed
+  //we also add a quantity section to allow for users to change how many of a certain item they want.
     addFoodItemToUI(itemName) {
         fetch(`/api/return-food?q=${itemName}`)
             .then(response => {
@@ -113,7 +248,10 @@ class FoodView {
     }
     
 
-    //funtion to create a meal objecrs from all items in the current food list, user can confirm cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
+    //Method to  allow user to log a meal
+    //First were retrieve all food items from 'basket', we then request these from the database, wethen calculate total calories and store all these items in a new array
+    //we then create the meal popup, i.e. a small popup so the user can enter the meal name and type they wish to use for this meal.
+    //then we send a post request to our sever with all this information so that the server can work with the database to store this info
     async createMeal() {
         const mealForm = document.getElementById("mealForm");
         const mealPopup = document.getElementById("mealPopup");
@@ -121,10 +259,21 @@ class FoodView {
         const confirmBtn = document.getElementById("confirmBtn");
         const cancelBtn = document.getElementById("cancelBtn");
         const popupMessage = document.getElementById("popupMessage");
-    
+        const totalCals = this.nutrientSection.querySelector('.calorieTitle').textContent;
+        const calorieValue = totalCals.split(': ')[1];
+        const protein = this.nutrientSection.querySelector('.protein').textContent;
+        const proteinValue = protein.split(': ')[1];
+        const carbs = this.nutrientSection.querySelector('.carbs').textContent;
+        const carbsValue = carbs.split(': ')[1];
+        const fat = this.nutrientSection.querySelector('.fat').textContent;
+        const fatValue = fat.split(': ')[1];
+       
+ 
+
+
         const foodItems = document.querySelectorAll('.item');
-        let totalCals = 0;
         this.allMealFood = [];
+
     
         for (const food of foodItems) {
             const foodName = food.textContent.split(' - ')[0]?.trim();
@@ -139,7 +288,6 @@ class FoodView {
                 const foundFood = foodData[0];
     
                 if (foundFood) {
-                    totalCals += foundFood.calories * quantity;
                     foundFood.quantity = quantity;
                     this.allMealFood.push(foundFood);
                 }
@@ -148,8 +296,15 @@ class FoodView {
             }
         }
    
-        popupMessage.textContent = `Total Calories: ${totalCals}`;
-        mealPopup.style.display = "block";
+        popupMessage.innerHTML = `
+        <div class="popupMessage">
+            <div><Strong>Calories</Strong><br>${calorieValue}kcal</div>
+            <div><Strong>Protein</Strong><br>${proteinValue}</div>
+            <div><Strong>Carbs</Strong><br>${carbsValue}</div>
+            <div><Strong>Fats</Strong><br>${fatValue}</div>
+        </div>
+        `;
+         mealPopup.style.display = "block";
         popupOverlay.style.display = "block";
     
     
@@ -159,11 +314,21 @@ class FoodView {
             const mealName = document.getElementById("mealName").value;
             const mealType = document.getElementById("mealType").value;
     
+
+
+            const fullDate = new Date();
+
+            const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate());
+
             const mealData = {
-                mealName,
+                user: window.sessionStorage.getItem("username"),
+                // mealName,
                 mealType,
-                foods: this.allMealFood
+                foods: this.allMealFood,
+                date: dateOnly,
+                date2: fullDate
             };
+
     
             try {
                 const response = await fetch('/api/meal', {
@@ -173,12 +338,6 @@ class FoodView {
                     },
                     body: JSON.stringify(mealData)
                 });
-
-
-
-                console.table(mealData);
-                console.table(response);
-                console.table(JSON.stringify(mealData))
 
     
                 if (!response.ok) throw new Error('Failed to send meal to server');
@@ -211,7 +370,8 @@ class FoodView {
     
     
 
-    //for every food in basket work out attributes
+    //Method to calculate every nutritional value for our basket items
+    //for every item extract all values and sum them,then update the UI accordingly
 
     calculateTotalCal() {
         let totals = { calories: 0, protein: 0, fiber: 0, carbs: 0, fat: 0, sugar: 0, count: 0 };
@@ -257,7 +417,6 @@ class FoodView {
         });
     }
     
-
     updateNutritionUI(totals) {
         this.nutrientSection.querySelector('.calorieTitle').textContent = `Total Calories: ${totals.calories}`;
         this.nutrientSection.querySelector('.itemTotalTitle').textContent = `Total Items: ${totals.count}`;
@@ -268,35 +427,57 @@ class FoodView {
         this.nutrientSection.querySelector('.sugar').textContent = `Sugar: ${totals.sugar}g`;
     }
 
+
+    //displays all of the food items returned that matched the users search.
+    //then on clicking any of the items, we create a foodpopup to display the exact food selected.
     renderSearchResults(filteredFoodData) {
         this.resultsContainer.innerHTML = '';
-
+    
         for (const food of filteredFoodData) {
             const resultItem = document.createElement('div');
             resultItem.classList.add('search-item');
-            resultItem.textContent = `${food.foodname} - ${food.calories} kcals`;
-
-            resultItem.onclick = async () => {
+    
+            
+            const plusIcon = document.createElement('span');
+            plusIcon.innerHTML = '+'; 
+            plusIcon.classList.add('plus-icon');
+    
+            plusIcon.onclick = async (event) => {
+                event.stopPropagation(); 
                 const isConfirmed = await this.createMealPopup(food);
-
+    
                 if (isConfirmed) {
                     this.addFoodItemToUI(food.foodname);
                     document.querySelector('.search-bar').value = '';
                     this.resultsContainer.innerHTML = '';
                 }
             };
-
+    
+            const text = document.createElement('span');
+            text.textContent = `${food.foodname} - ${food.calories} kcals`;
+            text.classList.add('food-text');
+    
+            resultItem.appendChild(plusIcon);
+            resultItem.appendChild(text);
+    
             this.resultsContainer.appendChild(resultItem);
         }
     }
 
     
-    //display popup with food attributes currently a bit buggy)
+    //display popup with food attributes. 
+    //On confirm add to basket and close popup
+    //On cancel close popup
     async createMealPopup(item) {
         console.table(item)
+        // fetch('/mealcontents')
+        // .then(res => res.json())
+        // .then(data => {
+        //     console.log(data);
+        // });
        
         const formattedText = `
-            <strong>${item.foodname}</strong> (${item.foodtype})<br>
+            <strong>${item.foodname}</strong>
             Calories: ${item.calories}<br>
             Protein: ${item.protein}g<br>
             Fibre: ${item.fibre}g<br>
@@ -344,6 +525,23 @@ class FoodView {
             }, 300);
         }, 2000);
     }
+
+    cycleSearchPlaceholder(className, items) {
+        const element = document.querySelector(className);
+        if (!element) return;
+    
+        let index = 0;
+    
+        function updatePlaceholder() {
+            element.placeholder = `${items[index]}`;
+            index = (index + 1) % items.length;
+        }
+    
+        updatePlaceholder(); 
+        setInterval(updatePlaceholder, 2000);
+    }
 }
+
+
 
 const foodView = new FoodView();

@@ -5,21 +5,27 @@
     <link rel="icon" href="images/Logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styles.css">
+    <script type = "module" src="profileView.js" defer></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
-<header class="top-header">
-    <button class="top-left-btn">
-        <img src="images/envelope-solid.svg" alt="profileIcon">
-    </button>
-    <h1 id = "hellthTitle">Help</h1>
-    <a href="profile.html" class="top-right-btn">
-        <img src="images/user-solid.svg" alt="profileIcon">
-    </a>
-</header>
+
+
 <body>
-    <main>
+    <header class="top-header">
+        <a href="#" class="top-left-btn" id="messageBtn">
+            <img src="images/envelope-solid.svg" alt="profileIcon">
+        </a>
+
+        <h1 id="hellthTitle">Contact Us</h1>
+
+        <a href="profile.html" class="top-right-btn">
+            <img src="images/user-solid.svg" alt="profileIcon">
+        </a>
+    </header>
+        <h1 id="hellthTitle">Help</h1>
             <div class="graph">
                 <div id="thankYouMSG">Got a burning question?</div>
                 <div id="adjustText">One of our admins will be happy to help you!</div>
@@ -52,6 +58,7 @@
     </main>
     <div class="navbar">
         <a href="home.html" class="nav-btn">
+
             <img src="images/house-solid.svg" alt="Home">
             <span class="icon-text">Home</span>
         </a>
@@ -77,6 +84,7 @@
             <span class="icon-text">Help</span>
         </a>
     </div>
+    
     <script>
         function toggleDropdown() {
             var dropdown = document.getElementById("dropdown");

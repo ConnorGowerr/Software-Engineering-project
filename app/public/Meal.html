@@ -3,6 +3,8 @@
 <title>Hellth</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="module" src="./FoodView.js" defer></script>
+<script type = "module" src="profileView.js" defer></script>
+
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -13,10 +15,9 @@
 
 <body>
     <header class="top-header">
-        <button class="top-left-btn">
+        <a href="#" class="top-left-btn" id="messageBtn">
             <img src="images/envelope-solid.svg" alt="profileIcon">
-        </button>
-
+        </a>
 
         <h1 id="hellthTitle">Add Meal</h1>
 
@@ -32,6 +33,9 @@
             <div class="foodAdd">
                 <div class="search-container">
                     <input type="text" class="search-bar" placeholder="Search For Foods...">
+                    <a href="#" class="extraButton">
+                        <img src="images/person-circle-question-solid.svg" alt="profileIcon">
+                    </a>
                 </div>
             </div>
             <div class="search-results">
@@ -62,6 +66,9 @@
     <div class="popup-overlay" id="popupOverlay">
         <div id="mealPopup" class="popup">
             <div class="popup-content">
+                <div class = "mainPopupContainer">
+                    <h2 class = "otherTitles">Create Meal</h2>
+                    </div>
                 <p id="popupMessage"></p>
                 <form id="mealForm">
                     <input type="text" id="mealName" placeholder="Meal Name" required = "true">
@@ -75,7 +82,7 @@
                     </select>
                     
                     <div class="popup-buttons">
-                        <button id="confirmBtn">Confirm</button>
+                        <button id="confirmBtn">Create</button>
                         <button id="cancelBtn"><i class="fas fa-times"></i></button>
                     </div>
                 </form>
@@ -86,6 +93,9 @@
     <div class="popup-overlay" id="foodOverlay">
         <div id="foodPopup" class="popup">
             <div class="popup-content">
+                <div class = "mainPopupContainer">
+                    <h2 class = "otherTitles">Food Info</h2>
+                    </div>
                 <div id="foodMessageContainer">
                     <ul id="foodMessagePopup"></ul>
                 </div>  
@@ -96,12 +106,131 @@
         </div>
     </div>
 
+    <div class="popup-overlay" id="ingredientOverlay">
+        <div id="ingredientPopup" class="popup">
+          <div class="popup-content">
+            <div class="mainPopupContainer">
+              <h2 class="otherTitles">Can't Find What You're Looking For?</h2>
+            </div>
+      
+            <div id="ingredientMessageContainer">
+              <form id="ingredientForm">
+                <div class="form-item">
+                  <label for="foodname"><span class="label-text">Food Name:</span></label>
+                  <input type="text" id="foodname" name="foodname">
+                </div>
+      
+                <div class="form-item">
+                  <label for="foodtype"><span class="label-text">Food Type:</span></label>
+                  <select id="foodtype" name="foodtype">
+                    <option value="">Select</option>
+                    <option value="veg">Vegetable</option>
+                    <option value="fruit">Fruit</option>
+                    <option value="protein">Protein</option>
+                    <option value="grain">Grain</option>
+                  </select>
+                </div>
+      
+                <div class="form-item">
+                  <label for="calories"><span class="label-text">Calories:</span></label>
+                  <input type="number" id="calories" name="calories">
+                </div>
+      
+                <div class="form-item">
+                  <label for="servingsize"><span class="label-text">Serving Size:</span></label>
+                  <input type="text" id="servingsize" name="servingsize">
+                </div>
+      
+                <div class="form-item">
+                  <label for="protein"><span class="label-text">Protein (g):</span></label>
+                  <input type="number" id="protein" name="protein">
+                </div>
+      
+                <div class="form-item">
+                  <label for="fats"><span class="label-text">Fats (g):</span></label>
+                  <input type="number" id="fats" name="fats">
+                </div>
+      
+                <div class="form-item">
+                  <label for="carbs"><span class="label-text">Carbs (g):</span></label>
+                  <input type="number" id="carbs" name="carbs">
+                </div>
+      
+                <div class="form-item">
+                  <label for="sugar"><span class="label-text">Sugar (g):</span></label>
+                  <input type="number" id="sugar" name="sugar">
+                </div>
+      
+                <div class="form-item">
+                  <label for="fibre"><span class="label-text">Fibre (g):</span></label>
+                  <input type="number" id="fibre" name="fibre">
+                </div>
+              </form>
+            </div>
+      
+            <button id="confirmBtn3">Add Ingredient</button>
+            <button id="cancelBtn3"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+      </div>
+      
+
     <div class="popup-overlay" id="mailboxOverlay">
         <div class="mailboxHeader">
-            <h2>Inbox</h2>
+            <h2 class = 'mailboxTitle'>Inbox</h2>
         </div>
-        <div id="mailboxContainer" class = popup>
+        <div id="mailboxContainer" class="popup">
             <div class="mailboxList">
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
             </div>
         </div>
     </div>

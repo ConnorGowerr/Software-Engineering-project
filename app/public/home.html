@@ -12,17 +12,22 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src = "home.js" defer></script>
 </head>
+
+<body>
 <header class="top-header">
-    <button class="top-left-btn">
+    <a href="#" class="top-left-btn" id="messageBtn">
         <img src="images/envelope-solid.svg" alt="profileIcon">
-    </button>
-    <h1 id = "hellthTitle">Dashboard</h1>
+    </a>
+
+
+    <h1 id="hellthTitle">Dashboard</h1>
+
     <a href="profile.html" class="top-right-btn">
         <img src="images/user-solid.svg" alt="profileIcon">
     </a>
 </header>
-<body>
 <main>
+
     <section id = "homeSection">
         <section class = "homeColumns">
             <div class = "box homeBox" id = "calorieTargetBox">
@@ -112,6 +117,66 @@
             </div>
         </section>
     </section>
+
+    <div class="popup-overlay" id="mailboxOverlay">
+        <div class="mailboxHeader">
+            <h2 class = 'mailboxTitle'>Inbox</h2>
+        </div>
+        <div id="mailboxContainer" class="popup">
+            <div class="mailboxList">
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <div class="navbar">
     <a href="home.html" class="nav-btn">
@@ -140,4 +205,5 @@
         <span class="icon-text">Help</span>
     </a>
 </div>
+
 </body>

@@ -14,10 +14,9 @@
 
 <body>
     <header class="top-header">
-        <button class="top-left-btn">
+        <a href="#" class="top-left-btn" id="messageBtn">
             <img src="images/envelope-solid.svg" alt="profileIcon">
-        </button>
-
+        </a>
 
         <h1 id="hellthTitle">Profile</h1>
 
@@ -30,8 +29,8 @@
         <section  class = "profileSection">
             <div class = "mainDiv">
                 <article class = "mainArticle">
-                    <div class = "mainTitleContainer">
-                        <h2 class = "mainTitle"> Name</h2>
+                    <div class = "smallArticleTitleContainer">
+                        <h2 class = "otherTitles">Name</h2>
                     </div>
                     <div class = mainArticleStats>
                         <p class = "mainArticleStat1">Created on <br></p>
@@ -44,8 +43,9 @@
 
             
             <div class = "statsdiv">
-                
+                <div class = "mainArticleTitleContainer">
                 <h2 class = "otherTitles">Your Stats</h2>
+            </div>
                 <article class = "statsArticle">
                     <div class = "mainstatsSection">
                     <p >Weigth <br></p>
@@ -63,7 +63,9 @@
             </div>
 
             <div class = "settingsDiv">
+                <div class = "smallArticleTitleContainer">
                 <h2 class = "otherTitles">Settings</h2>
+                </div>
                 <article class="settingsArticle">
                     <button class="metricButton" id="weightMetric">Metric</button>
                     <span>/</span>
@@ -76,7 +78,7 @@
                 <article class = "achievementSection">
                     <a href = "Achievements.html">
                         <div class = "mainArticleTitleContainer">
-                            <h2 >Achievements</h2>
+                            <h2 class = "otherTitles">Achievements</h2>
                         </div>
                         <div class = 'achievementsMainImgs' >
                             <div class="achievementItem">
@@ -105,7 +107,7 @@
 
         <div class="popup-overlay" id="mailboxOverlay">
             <div class="mailboxHeader">
-                <h2>Inbox</h2>
+                <h2 class = 'mailboxTitle'>Inbox</h2>
             </div>
             <div id="mailboxContainer" class="popup">
                 <div class="mailboxList">

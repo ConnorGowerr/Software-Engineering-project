@@ -4,19 +4,26 @@
     <title>Hellth</title>
     <link rel="icon" href="Logo.png">
     <link rel="stylesheet" href="style.css">
+    <script type = "module" src="profileView.js" defer></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 
 <body>
-    <button class="top-left-btn">
-        <i class="fa-solid fa-envelope"></i>
-    </button>
-    <button class="top-right-btn">
-        <i class="fa-solid fa-user"></i>
-    </button>
-    <main>
+    <header class="top-header">
+        <a href="#" class="top-left-btn" id="messageBtn">
+            <img src="images/envelope-solid.svg" alt="profileIcon">
+        </a>
+
+
+        <h1 id="hellthTitle">Achievements</h1>
+
+        <a href="profile.html" class="top-right-btn">
+            <img src="images/user-solid.svg" alt="profileIcon">
+        </a>
+    </header>
         <h1 id="hellthTitle">Thank you for your feedback!</h1>
             <div class="graph">
                 <div id="thankYouMSG">An admin will be summoned shortly to deal with your query</div>
@@ -52,10 +59,10 @@
             <span class="icon-text">Groups</span>
         </a>
     
-        <a href="help.html" class="nav-btn">
+        <a href="contact.html" class="nav-btn">
             <img src="images/person-circle-question-solid.svg" alt="Help">
             <span class="icon-text">Help</span>
         </a>
-
     </div>
+    
 </body>
