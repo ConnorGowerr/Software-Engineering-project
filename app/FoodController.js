@@ -81,6 +81,42 @@ class FoodController {
         });
     }
 
+
+
+
+
+    saveFood(req, res) {
+        const {name, type, calories, fats, servingsize, protein, carbs, fibre, sugar} = req.body;
+
+        const foodid = randomInt(1000000)
+    
+        const insertQuery = `
+        INSERT INTO Food (foodid, foodname, foodtype, servingsize, protein, carbs, fibre, sugar, fat, calories)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        `;
+
+    
+        const values = [foodid, name, type, servingsize, protein, carbs, fibre, sugar, fats, calories];
+    
+        console.table(values)
+        dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+            if (err) {
+                console.error("Search path error:", err);
+                return res.status(500).json({ error: "Failed to set search path" });
+            }
+    
+            dbClient.query(insertQuery, values, (err, result) => {
+                if (err) {
+                    console.error( err);
+                    return res.status(500).json({ error: "Failed to insert food" });
+                }
+    
+                return res.status(201).json({ message: "Food inserted", food: result.rows[0] });
+            });
+        });
+    }
+
+
     
 }    
 
