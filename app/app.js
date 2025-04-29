@@ -66,11 +66,18 @@ app.get('/api/return-user', (req, res) => {
     });
 });
 
-// recievee a post request with our new meal info (will add db stuff)
+// recieve a post request with our new meal info 
 app.post('/api/meal', express.json(), (req, res) => {
     // console.log(req.body);  
 
     foodController.saveMeal(req, res);
+    
+});
+
+// recieve a post request with our new food info
+app.post('/api/foodAdd', express.json(), (req, res) => {
+  
+    foodController.saveFood(req, res);
     
 });
 
@@ -117,7 +124,7 @@ app.get('/meal', (req, res) => {
             return res.status(500).json({ error: "Failed to set database search path" });
         }
 
-        const queryString = 'SELECT * FROM meal';
+        const queryString = 'SELECT * FROM food';
         dbClient.query(queryString, (err, result) => {
             if (err) {
                 console.error("Error fetching meal:", err);
