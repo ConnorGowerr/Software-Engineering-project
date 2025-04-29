@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src = "home.js" defer></script>
 </head>
+
 <body>
 <header class="top-header">
     <a href="#" class="top-left-btn" id="messageBtn">
@@ -25,9 +26,8 @@
         <img src="images/user-solid.svg" alt="profileIcon">
     </a>
 </header>
-
 <main>
-    
+
     <section id = "homeSection">
         <section class = "homeColumns">
             <div class = "box homeBox" id = "calorieTargetBox">
@@ -62,14 +62,14 @@
             <div class = "box homeBox" id = "activityTargetBox">
                 <div id = "goalMainSection">
                     <div id = "goalSectioning1">
-                        <h3>Activity Today</h3>
-                        <h4>60</h4>
-                        <h3>Minutes</h3>
+                        <h3 id = "currentGoalTitle">Activity Today</h3>
+                        <h4 id = "currentGoalNumber">60</h4>
+                        <h3 class = "goalUnit">Minutes</h3>
                     </div>
                     <div id = "goalSectioning2">
-                        <h3>Weekly Activity Target</h3>
-                        <h4>240</h4>
-                        <h3>Minutes</h3>
+                        <h3 id = "targetGoalTitle">Weekly Activity Target</h3>
+                        <h4 id = "targetGoalNumber">240</h4>
+                        <h3 class = "goalUnit">Minutes</h3>
                     </div>
                     </div>
                     <div id="goalProgressBar">
@@ -84,18 +84,18 @@
                 </div>
                 <div id = "challengeMainSection">
                     <div id = "challengeSectioning1">
-                        <h3>Your Contribution</h3>
-                        <h4>626</h4>
-                        <h3>Calories</h3>
+                        <h3 id = "currentChallengeTitle">Your Contribution</h3>
+                        <h4 id = "currentChallengeNumber">626</h4>
+                        <h3 class = "challengeUnit">Calories</h3>
                     </div>
                     <div id = "challengeSectioning2">
-                        <h3>Target Calories Burned</h3>
-                        <h4>10000</h4>
-                        <h3>Calories</h3>
+                        <h3 id = "targetChallengeTitle">Target Calories Burned</h3>
+                        <h4 id = "targetChallengeNumber">10000</h4>
+                        <h3 class = "challengeUnit">Calories</h3>
                     </div>
                 </div>
                 <div id="groupProgressBar">
-                    <div class="progress groupProgressColor"></div>
+                    <div class="progress2 groupProgressColor"></div>
                   </div>
             </div>
         </section>
@@ -179,7 +179,7 @@
     </div>
 </main>
 <div class="navbar">
-    <a href="login.html" class="nav-btn">
+    <a href="home.html" class="nav-btn">
         <img src="images/house-solid.svg" alt="Home">
         <span class="icon-text">Home</span>
     </a>

@@ -232,21 +232,21 @@ circle
 }
 
 
-@keyframes linearProgressFill1 
+/* @keyframes linearProgressFill1 
 {
     100% 
     {
         width: 80%;
     }
-}
+} */
 
-@keyframes linearProgressFill2 
+/* @keyframes linearProgressFill2 
 {
     100% 
     {
         width: 80%;
     }
-}
+} */
 
 #goalProgressBar, #groupProgressBar 
 {
@@ -263,14 +263,12 @@ circle
 }
 
 
-.progress 
+.progress, .progress2
 {
     height: 100%;
     border-radius: 25px;
     transition: width 0.3s ease-in-out;
     width: 0%;
-    animation: linearProgressFill1 2s forwards;
-    
 }
 
 .groupProgressColor 
@@ -287,6 +285,7 @@ circle
         background-blend-mode: hard-light;
         background-repeat: repeat;
         background-size: cover;
+        
 }
 
 .goalProgressColor 
