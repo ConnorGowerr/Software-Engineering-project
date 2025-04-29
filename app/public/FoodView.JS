@@ -45,6 +45,8 @@ class FoodView {
         });
     }
 
+
+    //add new food ingredient to our database, then add it to the users basket
     ingredientPopup() {
         const Popup = document.querySelector("#ingredientPopup");
         const popupOverlay = document.getElementById("ingredientOverlay");
@@ -92,10 +94,7 @@ class FoodView {
                     },
                     body: JSON.stringify(foodData)
                 
-
                 });
-
-             
 
     
                 if (!response.ok) throw new Error('Failed to send food to server');
@@ -286,6 +285,8 @@ class FoodView {
                 date: dateOnly,
                 date2: fullDate
             };
+
+            console.table(this.allMealFood)
 
     
             try {

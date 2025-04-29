@@ -124,7 +124,7 @@ app.get('/meal', (req, res) => {
             return res.status(500).json({ error: "Failed to set database search path" });
         }
 
-        const queryString = 'SELECT * FROM food';
+        const queryString = 'SELECT * FROM mealcontents';
         dbClient.query(queryString, (err, result) => {
             if (err) {
                 console.error("Error fetching meal:", err);
