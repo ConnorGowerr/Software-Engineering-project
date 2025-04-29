@@ -254,12 +254,12 @@ class FoodView {
         }
    
         popupMessage.innerHTML = `
-        <div class="popupMessage">
+        
             <div><Strong>Calories</Strong><br>${calorieValue}kcal</div>
             <div><Strong>Protein</Strong><br>${proteinValue}</div>
             <div><Strong>Carbs</Strong><br>${carbsValue}</div>
             <div><Strong>Fats</Strong><br>${fatValue}</div>
-        </div>
+        
         `;
          mealPopup.style.display = "block";
         popupOverlay.style.display = "block";
