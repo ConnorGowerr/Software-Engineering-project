@@ -894,6 +894,7 @@ label {
 
 .mainBtn:hover{
     background: linear-gradient(#be1f13, 50%, #ee7736);
+    cursor: pointer;
 }
 
 .mainBtn:active{

@@ -1,6 +1,8 @@
     
 const popup = document.querySelector(".popup2")
 const popupoverlay = document.querySelector(".popup-overlay")
+const createpopup = document.querySelector(".popup3")
+const createpopupoverlay = document.querySelector(".popup-overlay2")
     
     function one(){
     fetch(`/groups/:allgroups`)
@@ -54,6 +56,16 @@ const popupoverlay = document.querySelector(".popup-overlay")
         box3.querySelector(".groupText").innerHTML = `${d[2].groupname}`;
     }
 
+    document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
+        createpopup.style.display = "block";
+        createpopupoverlay.style.display = "block";
+        document.querySelector(".otherTitles").innerHTML = `Would you like to join ${data[0].groupname}?`
+    })
 
+    document.getElementById("cancelBtn3").addEventListener("click", (event) =>{
+        createpopup.style.display = "none";
+        createpopupoverlay.style.display = "none";
+    })
     
+
 one();

@@ -30,9 +30,13 @@
                 <h2>Summon your squad and feel the burn together!</h2>
                 <div class="rowInput">
                     <input class="inputs" type="text" id="username" placeholder="Join via Code">
-                    <img src="images/User plus.png" class="iconBoxGroup">
+                    <img src="images/User plus.png" class="iconBoxGroup" id="joinGroup">
                 </div>
             </div>
+        </div>
+        <div class="box3" id="makeGroup">
+            <h2>Don't have anyone to burn calories with? Create your own group and set your own challenges!</h2>
+            <button class="mainBtn" id="createGroupBtn">Create group</button>
         </div>
     </section>
     
@@ -111,23 +115,32 @@
             </div>
         </div>
     </section>
-    
-    <div class="popup-overlay" id="foodOverlay">
-        <div id="foodPopup" class="popup2">
+</div>
+    <div class="popup-overlay">
+        <div class="popup2">
             <div class="popup-content2">
                 <div class = "mainPopupContainer">
-                    <h2 class = "otherTitles">Would you like to join</h2>
-                    </div>
-                <div id="foodMessageContainer">
-                    <ul id="foodMessagePopup"></ul>
-                </div>  
+                    <h2 class = "otherTitles"></h2>
+                </div>
                 <button id="confirmBtn2">Join Group</button>
                 <button id="cancelBtn2">Not interested</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay2">
+        <div class="popup3">
+            <div class="popup-content3">
+                <div class = "mainPopupContainer">
+                    <h2>Choose a group name that is under 20 characters in length.</h2>
+                </div>
+                <input class="inputs2" type="text" placeholder="Your Group Name">
+                <button id="confirmBtn3">Create Group</button>
+                <button id="cancelBtn3">Nevermind</button>
                 
             </div>
         </div>
     </div>
-</div>
 <div id="emptyspace">‎</div>
 </main>
 <div class="navbar">
