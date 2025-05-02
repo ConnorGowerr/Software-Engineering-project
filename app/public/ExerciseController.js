@@ -3,7 +3,7 @@ const Activity = require('./Activity')
 const dbClient = require('./db.js')
 
 
-class FoodController {
+class ExerciseController {
     constructor() {
     }  
 
@@ -71,10 +71,10 @@ class FoodController {
             dbClient.query(insertQuery, values, (err, result) => {
                 if (err) {
                     console.error( err);
-                    return res.status(500).json({ error: "Failed to insert meal" });
+                    return res.status(500).json({ error: "Failed to insert activity" });
                 }
     
-                return res.status(201).json({ message: "Meal inserted", meal: result.rows[0] });
+                return res.status(201).json({ message: "Activity inserted", activity: result.rows[0] });
             });
         });
     }
@@ -83,4 +83,4 @@ class FoodController {
 }    
 
 
-module.exports = FoodController;
+module.exports = ExerciseController;

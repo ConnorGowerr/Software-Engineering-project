@@ -787,7 +787,8 @@ label {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 #popupE, #popupC, #popupD, #popupI, #popupT {
-    color: #EFEDE7;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 #popupT {
     font-size: larger;

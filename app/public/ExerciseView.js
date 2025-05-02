@@ -174,57 +174,84 @@ class ExerciseView {
    
         popupE.textContent = this.#currentEx;
         popupC.textContent = this.#currentCph + ` calories per hour`;
-        popupD.textContent = `Duration: ` + this.activityDuration.value + ` minutes`;
+        if (this.activityDuration.value == null || this.activityDuration.value <= 0)
+        {
+            popupD.textContent = `Duration: 0 minutes`;
+        }
+        else
+        {
+            popupD.textContent = `Duration: ` + this.activityDuration.value + ` minutes`;
+        }
         popupI.textContent = this.activityIntensity.value + ` intensity`;
         popupT.textContent = `Total Calories: ` + Math.floor((this.#currentCph / 60) * this.activityDuration.value * this.activityIntensity.value);
         activityPopup.style.display = "block";
         popupOverlay.style.display = "block";
     
-    
-        mealForm.onsubmit = async (event) => {
+        activityForm.onsubmit = async (event) => {
             event.preventDefault();
-    
-            const mealName = document.getElementById("mealName").value;
-            const mealType = document.getElementById("mealType").value;
-    
-            const mealData = {
-                mealName,
-                mealType,
-                foods: this.allMealFood
-            };
-    
-            try {
-                const response = await fetch('/api/meal', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(mealData)
-                });
+            //This if statement should make the page display an alert message if the data isn't complete, and
+            //not bother with any of the database stuff. However, clicking submit seems to instantly refresh the page and I don't know why.
+            if (this.#currentEx !== 'No exercise selected' && this.activityIntensity.value != 0
+                && this.activityDuration.value != null && this.activityDuration.value > 0)
+            {
+                const activityDuration = document.getElementById("activityDuration").value;
+                const activityIntensity = document.getElementById("activityIntensity").value;
+                switch (activityIntensity)
+                {
+                    case 0.5:
+                        activityIntensity = 'Smouldering';
+                        break;
+                    case 1.5:
+                        activityIntensity = 'Inferno';
+                        break;
+                    case 2:
+                        activityIntensity = 'Hellfire';
+                        break;
+                    default:
+                        activityIntensity = 'Burning';
+                        break;
+                    //Switches intensity to a word because it's saved as an enum. Defaults to burning (1x) intensity
+
+                }
+                const activityData = {
+                    exerciseName: this.#currentEx,
+                    activityDuration: activityDuration,
+                    activityIntensity: activityIntensity
+                };
+        
+                try {
+                    const response = await fetch('/api/activity', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(activityData)
+                    });
 
 
 
-                console.table(mealData);
-                console.table(response);
-                console.table(JSON.stringify(mealData))
+                    console.table(activityData);
+                    console.table(response);
+                    console.table(JSON.stringify(activityData))
 
-    
-                if (!response.ok) throw new Error('Failed to send meal to server');
-                const result = await response.json();
-                console.log('Meal saved:', result);
-    
-                this.allMealFood.length = 0;
-                this.exerciseList.querySelectorAll('.item').forEach(item => item.remove());
-                this.calculateTotalCal();
-                activityPopup.style.display = "none";
-                popupOverlay.style.display = "none";
+        
+                    if (!response.ok) throw new Error('Failed to send activity to server');
+                    const result = await response.json();
+                    console.log('Activity saved:', result);
+                    
+                    activityPopup.style.display = "none";
+                    popupOverlay.style.display = "none";
 
-    
-            } catch (error) {
-                console.error('Error saving meal:', error);
+        
+                } catch (error) {
+                    console.error('Error saving activity:', error);
+                } 
             }
-
-            
+            else
+            //As stated above, this alert never appears
+            {
+                alert('Please fill in all information before submitting.')
+            }
         };
     
         cancelBtn.onclick = (event) => {
