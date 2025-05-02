@@ -123,14 +123,32 @@ app.get('/meal', (req, res) => {
             console.error("Error setting search path:", err);
             return res.status(500).json({ error: "Failed to set database search path" });
         }
-
-        const queryString = 'SELECT * FROM mealcontents';
-        dbClient.query(queryString, (err, result) => {
+    
+        const getTablesQuery = `
+            SELECT table_name
+            FROM information_schema.tables
+            WHERE table_schema = 'Hellth' AND table_type = 'BASE TABLE';
+        `;
+    
+        dbClient.query(getTablesQuery, async (err, tablesResult) => {
             if (err) {
-                console.error("Error fetching meal:", err);
-                return res.status(500).json({ error: "Failed to fetch achievements" });
+                console.error("Error fetching table names:", err);
+                return res.status(500).json({ error: "Failed to fetch table names" });
             }
-            res.status(200).json(result.rows);
+    
+            const tableNames = tablesResult.rows.map(row => row.table_name);
+            const allData = {};
+    
+            try {
+                for (const table of tableNames) {
+                    const tableResult = await dbClient.query(`SELECT * FROM "Hellth"."${table}"`);
+                    allData[table] = tableResult.rows;
+                }
+                res.status(200).json(allData);
+            } catch (fetchErr) {
+                console.error("Error fetching table data:", fetchErr);
+                res.status(500).json({ error: "Failed to fetch data from all tables" });
+            }
         });
     });
 });
@@ -260,6 +278,53 @@ app.post("/", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });
     }
+});
+
+app.get("/groups/:allgroups", async (req, res) => {
+    dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+        if (err) {
+            console.error("Error setting search path:", err);
+            return res;  
+        }
+
+        const queryString = `SELECT * FROM userGroups`;
+        dbClient.query(queryString, (err, resp) => {
+            if (err) {
+                console.error("Database query error:", err);
+                return res;
+            }
+            
+            return res.status(200).json(resp.rows);
+        })
+    })
+})
+
+app.get('/group/:groupname', (req, res) => {
+    res.sendFile(__dirname + '/public/group.html');
+});
+
+
+
+app.get('/api/groups/:groupname', (req, res) => {
+    const groupname = decodeURIComponent(req.params.groupname);
+
+    dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+        if (err) {
+            console.error("Error setting search path:", err);
+            return res.status(500).json({ error: "Failed to set database schema" });
+        }
+            
+        dbClient.query('SELECT * FROM usergroups WHERE groupname = $1', [groupname], (err, result) => {
+            if (err) {
+                console.error("DB error:", err);
+                return res.status(500).json({ error: "DB query failed" });
+            }
+            if (result.rows.length === 0) {
+                return res.status(404).json({ error: "Group not found" });
+            }
+            res.json(result.rows[0]);
+        });
+    });
 });
 
 
@@ -399,5 +464,7 @@ app.post("/home.html", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });
     }
+
+    
 });
 

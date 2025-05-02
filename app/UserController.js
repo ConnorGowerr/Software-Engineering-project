@@ -25,6 +25,17 @@ class UserController {
         });
     }
 
+    // addGroups(query, callback) {
+    //     dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+    //         if (err) {
+    //             console.error("Error setting search path:", err);
+    //             return callback([]);  
+    //         }
+    
+           
+    //     });
+    // }
+
 
 }
 
