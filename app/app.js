@@ -263,13 +263,15 @@ app.get("/groups/:allgroups", async (req, res) => {
         }
 
         const queryString = `SELECT * FROM userGroups`;
+        // const queryMembers = `SELECT username FROM Users LEFT JOIN userGroups.username ON Users.username WHERE userGroups.groupname = "group name here"`;
         connection.query(queryString, (err, resp) => {
             if (err) {
                 console.error("Database query error:", err);
                 return res;
             }
-            
+            console.table(resp.rows);
             return res.status(200).json(resp.rows);
+            
         })
     })
 })
