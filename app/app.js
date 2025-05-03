@@ -328,6 +328,28 @@ app.get('/api/groups/:groupname', (req, res) => {
 });
 
 
+app.get("/api/groupMembers/:id", (req, res) => {
+    const groupId = req.params.id;
+
+    dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+        if (err) {
+            console.error("Error setting search path:", err);
+            return res.status(500).json({ error: "Failed to set database schema" });
+        }
+
+        dbClient.query('SELECT * FROM groupmembers WHERE groupid = $1', [groupId], (err, result) => {
+            if (err) {
+                console.error("DB error:", err);
+                return res.status(500).json({ error: "DB query failed" });
+            }
+
+            // Always return the rows, even if empty
+            res.json(result.rows);
+        });
+    });
+});
+
+
 app.post("/home.html", async (req, res) => {
     const { username } = req.body;
 

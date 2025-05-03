@@ -2149,6 +2149,9 @@ span {
     margin-left: 5%;
 }
 
+
+/* 
+GROUP PAGE SECTION */
 #specificGroupSection {
     width: 96%;
     height: 100%;
@@ -2170,12 +2173,14 @@ span {
 
 #GD1{
     grid-column: 1;
+    display: flex;
 
 }
 
 
 #GD3{
     grid-column: 2;
+    display: flex;
   
 }
 
@@ -2186,13 +2191,18 @@ span {
     width: 90%;
     justify-content: center;
     margin: 0 auto;
-
     border: 2px solid white;
 }
 
 #groupContent3 {
     justify-content: center;  
     align-items: center;      
+    flex-direction: column;  
+
+}
+
+#groupContent1 {
+    
     flex-direction: column;  
 
 }
@@ -2211,7 +2221,6 @@ span {
     height: 10%;  
     display: flex;
     justify-content: center;
-    border: 2px solid white;
 
     align-items: center;
     
@@ -2220,7 +2229,6 @@ span {
 .titleContainer2 {
     width: 100%;
     height: 20%;  
-    border: 2px solid white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2235,14 +2243,15 @@ span {
 }
 
 .scrollableContainer {
+    display: flex;
     width: 100%;
-    height: 80%;  
-    overflow-y: auto;  
-    box-sizing: border-box; 
+    height: 78%;  
+    max-height: 23vh;
+    overflow-y: scroll;
+    margin-top: 2%;
     scrollbar-width: none; 
-    justify-items: center;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    
 }
 
 .scrollableContainer::-webkit-scrollbar {
@@ -2250,19 +2259,91 @@ span {
 }
 
 
-.userItem {
-    margin-bottom: 10px;
-    border-radius: 15px;
-    height: 40%;
+.userItem {         
+    flex-shrink: 0;  
+    flex-grow: 0;
+    display: flex;
+    height: 30%;
+    border-radius: 25px;
     justify-items: center;
+    box-sizing: border-box; 
     justify-content: center;
     align-items: center;
     text-align: center;
+    transition:  0.5s ease;
 }
 
 
 
 
+
+.userImgSection{
+    display: flex;
+    width:25%;
+    height: 100%;
+}
+
+.userImgSection img{
+    display: flex;
+    margin:auto ;
+    width:40%;
+    height: 40%;
+    aspect-ratio: 1 / 1;
+}
+.userTextSection{
+    width:50%;
+    display: flex;
+
+    height: 100%;
+}
+
+.userTextSection p{
+    margin:auto ;
+    font-size: clamp(1rem, 1.1cqw, 3rem);
+
+}
+
+.userItem:hover{
+    background-color: #474f53;
+}
+
+.userRemove{
+    display: flex;
+    width:25%;
+    height: 100%;
+
+}
+
+.userRemove img{
+    display: flex;
+    width:40%;
+    height: 40%;
+    margin:auto ;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    transition:  0.3s ease;
+
+}
+
+.userRemove img:hover{
+    transform: scale(1.4);
+}
+
+
+
+.GI1, .GI2{
+    height: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1rem, 1.1cqw, 3rem);
+}
+
+.GI1 p{
+    /* margin: 0 2.5%; */
+    width: 12ch;
+    
+}
  /* mobile phone  view */
  @media (max-width: 700px) { 
 
