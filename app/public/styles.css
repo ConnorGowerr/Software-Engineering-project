@@ -1051,6 +1051,28 @@ label {
 }
 
 
+.addAdmin{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #383F42;
+    padding-bottom: 2%;
+    box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
+    text-align: center;
+    border-radius: 30px 60px;
+    width: 30%;
+    height: 25%;
+    color: white;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1rem, 1.1cqw, 4rem);
+}
+
 .GroupMemeberDelete{
     display: none;
     position: fixed;
@@ -1075,11 +1097,12 @@ label {
 }
 
 .groupMemberPopupContainer {
-    width: 100%;
+    width: 80%;
     height: 100%;
     position: absolute;
     top: 1.5%;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     font-size: clamp(1rem, 1.1cqw, 4rem);
@@ -2205,7 +2228,7 @@ GROUP PAGE SECTION */
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5%;
     width: 96%;
-    margin: 1.5% auto;
+    margin: 0 auto;
     height: 100%;
 
    
@@ -2221,8 +2244,7 @@ GROUP PAGE SECTION */
     margin: 10% auto;
     border-radius: 25px;
     background-color: #383F42; 
-    /* border: white 2px solid;
-    border-width: 2px; */
+
 }
 
 #groupContent1:hover, #groupContent2:hover, #groupContent3:hover {
@@ -2236,13 +2258,10 @@ GROUP PAGE SECTION */
 
 #groupContent1 {
     flex-direction: column;  
-
 }
 
 #groupContent2 {
     flex-direction: column;  
- 
-
 }
 
 
@@ -2301,6 +2320,7 @@ GROUP PAGE SECTION */
     flex-grow: 0;
     display: flex;
     height: 30%;
+    cursor: pointer;
     border-radius: 25px;
     justify-items: center;
     box-sizing: border-box; 
@@ -2369,16 +2389,76 @@ GROUP PAGE SECTION */
 
 
 .GI1{
-    height: 90%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: clamp(1rem, 1.4cqw, 3rem);
+    margin: 10% 0;
+    font-size: clamp(1rem, 1.25cqw, 3rem);
 }
 
-.GI1 p{
+.GI1 p {
+    color: transparent;
+    background: white;
+    width: 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-weight: bold;
+    transition: transform 0.3s ease, letter-spacing 0.3s ease;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.GI1 p:hover {
+    transform: scale(1.05);
+    /* letter-spacing: 1px; */
+}
+
+
+.add-member-btn, .toggle-status-btn {
+    background-color: grey;
+    color: white;
+    border: none;
+    padding: 0 3%;
+    font-size: clamp(1rem, 2cqw, 6rem);
+    margin-left: 10%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-member-btn:hover, .toggle-status-btn:hover {
+    background-color: #00f5a0;
+}
+
+
+#invite-bar {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25%;
+    padding: 5%;
     
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#search-bar {
+    width: 80%;
+    padding: 10px;
+    
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+#search-bar:focus {
+    border-color: darkorange;
+    outline: none;
     
 }
 
