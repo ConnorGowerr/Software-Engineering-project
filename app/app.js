@@ -343,7 +343,7 @@ app.get("/api/groupMembers/:id", (req, res) => {
                 return res.status(500).json({ error: "DB query failed" });
             }
 
-            // Always return the rows, even if empty
+    
             res.json(result.rows);
         });
     });

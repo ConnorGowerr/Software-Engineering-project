@@ -27,6 +27,38 @@ document.addEventListener("DOMContentLoaded", async () => {
         info[2].innerHTML = `<p>Created On: <br> ${groupData.creationdate.split('T')[0]}</p>`;
         info[3].innerHTML = `<p>Created By: <br> ${groupData.createdby}</p>`;
         info[4].innerHTML = `<p>Status: <br> ${groupData.ispublic}</p>`;
+
+
+        const users = document.querySelectorAll(".scrollableContainer")[0];
+        const admins = document.querySelectorAll(".scrollableContainer")[1];
+
+        for(const user of membersData){
+            
+
+            const userItem = document.createElement("div");
+            userItem.className = "userItem";
+
+            userItem.innerHTML = `
+                <div class="userImgSection">
+                    <img src="/images/user-solid.svg" alt="User">
+                </div>
+                <div class="userTextSection">
+                    <p>${user.username}</p>
+                </div>
+                <div class="userRemove">
+                    <img src="/images/user-remove.svg" alt="User">
+                </div>
+                `;
+
+
+            if (user.isadmin){
+                admins.appendChild(userItem);
+                continue;
+            }
+                
+            users.appendChild(userItem);
+
+        }
     } catch (err) {
         console.error("Error during fetch operations:", err);
     }
