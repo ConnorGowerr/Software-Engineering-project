@@ -16,6 +16,10 @@
 </html>
 
 <body>
+
+    <div id="skeleton-screen">
+        <div class="loader"></div>
+      </div>
     <header class="top-header">
         <a href="#" class="top-left-btn" id="messageBtn">
             <img src="/images/envelope-solid.svg" alt="profileIcon">
@@ -44,12 +48,21 @@
             
                 </div>
 
-                <div class = "GI2">
-                    
-                </div>
                
             </div>
         </div>
+
+        <div class="groupDiv" id="GD2">
+            <div id="groupContent2">
+                
+                <div class="titleContainer">
+                    <h2 class="GroupDivTitles">Challenges</h2>
+                </div>
+
+
+            </div>
+        </div>
+        
        
         <div class="groupDiv" id="GD3">
             <div id="groupContent3">
@@ -77,7 +90,18 @@
         </div>
     </section>
     
-    
+    <div class="popup-overlay">
+        <div class="GroupMemeberDelete">
+            <div class="popup-content">
+                <div class = "groupMemberPopupContainer">
+                    <h2 class = "groupDelTitle"></h2>
+                </div>
+                <button class ="confirmBtn">Yes </button>
+                <button class ="cancelBtn">X</button>
+            </div>
+        </div>
+    </div>
+      
 
 
 
