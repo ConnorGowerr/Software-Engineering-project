@@ -1051,7 +1051,7 @@ label {
 }
 
 
-.addAdmin{
+.addAdmin, .addMember{
     display: none;
     position: fixed;
     top: 50%;
@@ -1072,6 +1072,8 @@ label {
     justify-content: center;
     font-size: clamp(1rem, 1.1cqw, 4rem);
 }
+
+
 
 .GroupMemeberDelete{
     display: none;
@@ -1389,7 +1391,9 @@ label {
     transform: scale(1.1);
 }
 
-
+#confirmBtn7{
+    width: 40%;  
+}
 #cancelBtn,#cancelBtn2, #cancelBtn3, .cancelBtn  {
     position: fixed;
     top: 5%;
@@ -1398,7 +1402,7 @@ label {
     border-width: 1px;
     border-color: #EFEDE7;
     border-style: solid;
-    height: 8%;
+    height: 10%;
     border-radius: 10px;
     background-color: #5a6369;
     color: white;
@@ -2229,15 +2233,21 @@ GROUP PAGE SECTION */
     gap: 2.5%;
     width: 96%;
     margin: 0 auto;
-    height: 100%;
+    
+}
 
+#GD1 {
+    height: 85vh;  
    
 }
+
 
 
 #groupContent1, #groupContent3, #groupContent2  {
     display: flex;
     height: 80%;
+  
+
     width: 90%;
     margin: auto;
     align-items: center; 
@@ -2246,6 +2256,8 @@ GROUP PAGE SECTION */
     background-color: #383F42; 
 
 }
+
+
 
 #groupContent1:hover, #groupContent2:hover, #groupContent3:hover {
     box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
@@ -2388,14 +2400,15 @@ GROUP PAGE SECTION */
 
 
 
-.GI1{
-    height: 80%;
+.GI1 {
+    height: 80%;  
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 10% 0;
-    font-size: clamp(1rem, 1.25cqw, 3rem);
+    margin: 10% auto; 
+    
+    font-size: clamp(1rem, 1.5vw, 1.7rem);  
 }
 
 .GI1 p {
@@ -2413,7 +2426,6 @@ GROUP PAGE SECTION */
 
 .GI1 p:hover {
     transform: scale(1.05);
-    /* letter-spacing: 1px; */
 }
 
 
@@ -2434,29 +2446,30 @@ GROUP PAGE SECTION */
 }
 
 
-#invite-bar {
+#inviteBar {
     position: absolute;
-    bottom: 15%;
+    bottom: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 25%;
-    padding: 5%;
-    
+    transform: translate(-50%, 50%);
+    width: 85%;
+
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#search-bar {
+
+#search-bar-users {
     width: 80%;
-    padding: 10px;
-    
-    border-radius: 5px;
+    padding: 3.5%;
+    border-radius: 15px;
     border: 1px solid #ddd;
     transition: all 0.3s ease;
+    font-size: clamp(1rem, 1.25cqw, 3rem);
+
 }
 
-#search-bar:focus {
+#search-bar-users:focus {
     border-color: darkorange;
     outline: none;
     

@@ -58,6 +58,7 @@ app.get('/api/return-food', (req, res) => {
     });
 });
 
+//return single user item
 app.get('/api/return-user', (req, res) => {
     const query = req.query.q;
     
@@ -79,6 +80,40 @@ app.post('/api/foodAdd', express.json(), (req, res) => {
   
     foodController.saveFood(req, res);
     
+});
+
+//set a groups status.
+app.post('/api/groups/:id/status', express.json(), (req, res) => {
+    console.log('Received request to update group status', req.body);
+    userController.updateGroupStatus(req, res);
+});
+
+//send invite to a user from a certain group.
+app.post('/api/groups/:groupId/invite', (req, res) => {
+    console.log('Received request to invite user', req.body);
+
+    userController.sendInvite(req, res);
+});
+
+//confirm user invitation.
+app.get('/api/groups/confirm/:groupId', (req, res) => {
+    console.log('Received request to confirm user', req.body);
+
+    userController.confirmInvite(req, res);
+});
+
+//make user into an admin from a certain group
+app.post('/api/group/admin', (req, res) => {
+    console.log('Received request to confirm user to admin', req.body);
+
+    userController.confirmAdmin(req, res);
+});
+
+//remove user from group
+app.post('/api/group/removeUser', (req, res) => {
+    console.log('Received request to remove user', req.body);
+
+    userController.removeUserFromGroup(req, res);
 });
 
 
@@ -179,7 +214,7 @@ app.post("/signup", async (req, res) => {
     const {username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric} = req.body;
 
     try {
-        const createAccount = `INSERT INTO Users (username, password, dailyCalorieTarget, email, realName, dob, creationDate, lastLogIn, height, weight, gender, isAdmin, imperialMetric)
+        const createAccount = `INSERT INTO "Hellth"."users" (username, password, dailyCalorieTarget, email, realName, dob, creationDate, lastLogIn, height, weight, gender, isAdmin, imperialMetric)
         VALUES ($1, $2, $3, $4, $5, $6, CURRENT_DATE, CURRENT_TIMESTAMP, $7, $8, $9, false, $10)`;
 
         const values = [username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric];
@@ -205,7 +240,7 @@ app.get("/signup/:check", async (req, res) => {
     try {
         if (username) 
         {
-            const searchUser = await dbClient.query("SELECT username FROM users WHERE username = $1", [username]);
+            const searchUser = await dbClient.query('SELECT username FROM "Hellth"."users" WHERE username = $1', [username]);
 
             if (searchUser.rows.length === 0) 
             {
@@ -215,7 +250,7 @@ app.get("/signup/:check", async (req, res) => {
         }
         if (email) 
         {
-            const searchEmail = await dbClient.query("SELECT email FROM users WHERE email = $1", [email]);
+            const searchEmail = await dbClient.query('SELECT email FROM "Hellth"."users" WHERE email = $1', [email]);
 
             if (searchEmail.rows.length === 0) 
             {
@@ -240,6 +275,7 @@ app.get("/signup/:check", async (req, res) => {
     }
        
 })
+
 
 app.post("/", async (req, res) => {
     const { username, password } = req.body;
@@ -350,8 +386,9 @@ app.get("/api/groupMembers/:id", (req, res) => {
 });
 
 
-app.post("/home.html", async (req, res) => {
+app.get("/home.html", async (req, res) => {
     const { username } = req.body;
+    console.log(username)
 
     try {
         var challengeFound = "none";
@@ -361,132 +398,168 @@ app.post("/home.html", async (req, res) => {
         var challengeTargetTitle = "N/A";
         var challengeTitle = "You have no active challenges";
         var challengeEnd = "N/A";
-        
 
-        const dailyCalorie = await dbClient.query("SELECT SUM(calories * quantity) FROM Meal INNER JOIN MealContents ON Meal.mealID = mealContents.mealID INNER JOIN Food ON MealContents.foodID = Food.foodID WHERE username = $1 AND mealDate = CURRENT_DATE;", [username]);
-        const dailyCalorieTarget = await dbClient.query("SELECT dailyCalorieTarget FROM Users WHERE username = $1", [username]);
-        const weeklyGoals = await dbClient.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
-        const weeklyCompletedGoals = await dbClient.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = true AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username]);
-        const mealChallenge = await dbClient.query("SELECT MealChallenge.goalId, MealChallenge.groupID, MealChallenge.currentCalories, MealChallenge.calorieTarget, Goal.goalName, Goal.startDate, Goal.endDate FROM MealChallenge LEFT JOIN Goal ON Goal.goalID = MealChallenge.GoalID LEFT JOIN userGroups ON userGroups.groupID = MealChallenge.groupID LEFT JOIN groupMembers ON groupMembers.groupID = MealChallenge.groupID WHERE groupMembers.username = $1 AND  Goal.startDate <= CURRENT_DATE AND Goal.isGoalMet = 'false' AND Goal.endDate > CURRENT_DATE ORDER BY Goal.endDate;", [username]);
-        const exerciseChallenge = await dbClient.query("SELECT ExerciseChallenge.goalId, ExerciseChallenge.groupID, ExerciseChallenge.caloriesBurnt, ExerciseChallenge.targetCaloriesBurnt, Goal.goalName, Goal.startDate, Goal.endDate FROM ExerciseChallenge LEFT JOIN Goal ON Goal.goalID = ExerciseChallenge.GoalID LEFT JOIN userGroups ON userGroups.groupID = ExerciseChallenge.groupID LEFT JOIN groupMembers ON groupMembers.groupID = ExerciseChallenge.groupID WHERE groupMembers.username = $1 AND  Goal.startDate <= CURRENT_DATE AND Goal.isGoalMet = 'false' AND Goal.endDate > CURRENT_DATE ORDER BY Goal.endDate;", [username]);
-        if (weeklyGoals.rows.length === 0) 
-        {
-            weeklyGoals = await dbClient.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID WHERE mealGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
-            if (weeklyCompletedGoals.rows.length === 0) 
-            {
-                res.status(404).json({error: "Goals not found"});
+        const dailyCalorie = await dbClient.query(`
+            SELECT SUM(calories * quantity)
+            FROM "Hellth".meal
+            INNER JOIN "Hellth".mealcontents ON meal.mealid = mealcontents.mealid
+            INNER JOIN "Hellth".food ON mealcontents.foodid = food.foodid
+            WHERE username = $1 AND mealdate = CURRENT_DATE;
+        `, [username]);
 
+        const dailyCalorieTarget = await dbClient.query(`
+            SELECT dailycalorietarget
+            FROM "Hellth".users
+            WHERE username = $1;
+        `, [username]);
+
+        let weeklyGoals = await dbClient.query(`
+            SELECT *
+            FROM "Hellth".goal
+            LEFT JOIN "Hellth".exercisegoal ON goal.goalid = exercisegoal.goalid
+            WHERE exercisegoal.username = $1 AND isgoalmet = false
+            AND startdate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE
+            ORDER BY startdate;
+        `, [username]);
+
+        const weeklyCompletedGoals = await dbClient.query(`
+            SELECT *
+            FROM "Hellth".goal
+            LEFT JOIN "Hellth".exercisegoal ON goal.goalid = exercisegoal.goalid
+            WHERE exercisegoal.username = $1 AND isgoalmet = true
+            AND startdate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE
+            ORDER BY startdate;
+        `, [username]);
+
+        const mealChallenge = await dbClient.query(`
+            SELECT mealchallenge.goalid, mealchallenge.groupid, mealchallenge.currentcalories,
+                   mealchallenge.calorietarget, goal.goalname, goal.startdate, goal.enddate
+            FROM "Hellth".mealchallenge
+            LEFT JOIN "Hellth".goal ON goal.goalid = mealchallenge.goalid
+            LEFT JOIN "Hellth".usergroups ON usergroups.groupid = mealchallenge.groupid
+            LEFT JOIN "Hellth".groupmembers ON groupmembers.groupid = mealchallenge.groupid
+            WHERE groupmembers.username = $1 AND goal.startdate <= CURRENT_DATE
+            AND goal.isgoalmet = false AND goal.enddate > CURRENT_DATE
+            ORDER BY goal.enddate;
+        `, [username]);
+
+        const exerciseChallenge = await dbClient.query(`
+            SELECT exercisechallenge.goalid, exercisechallenge.groupid, exercisechallenge.caloriesburnt,
+                   exercisechallenge.targetcaloriesburnt, goal.goalname, goal.startdate, goal.enddate
+            FROM "Hellth".exercisechallenge
+            LEFT JOIN "Hellth".goal ON goal.goalid = exercisechallenge.goalid
+            LEFT JOIN "Hellth".usergroups ON usergroups.groupid = exercisechallenge.groupid
+            LEFT JOIN "Hellth".groupmembers ON groupmembers.groupid = exercisechallenge.groupid
+            WHERE groupmembers.username = $1 AND goal.startdate <= CURRENT_DATE
+            AND goal.isgoalmet = false AND goal.enddate > CURRENT_DATE
+            ORDER BY goal.enddate;
+        `, [username]);
+
+        if (weeklyGoals.rows.length === 0) {
+            weeklyGoals = await dbClient.query(`
+                SELECT *
+                FROM "Hellth".goal
+                LEFT JOIN "Hellth".mealgoal ON goal.goalid = mealgoal.goalid
+                WHERE mealgoal.username = $1 AND isgoalmet = false
+                AND startdate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE
+                ORDER BY startdate;
+            `, [username]);
+
+            if (weeklyCompletedGoals.rows.length === 0) {
                 console.log("There are no goals for this user");
                 return res.status(404).json({ error: "Goals not found" });
             }
         }
-        if (mealChallenge.rows.length === 0) 
-        {
-            if (exerciseChallenge.rows.length === 0) 
-            {
+
+        if (mealChallenge.rows.length === 0) {
+            if (exerciseChallenge.rows.length === 0) {
                 console.log("There are no challenges for this user");
-            } else 
-            {
+            } else {
                 challengeFound = "exercise";
             }
-        } else 
-        {
+        } else {
             challengeFound = "meal";
         }
-        if (dailyCalorieTarget.rows.length === 0) 
-        {
-            res.status(404).json({error: "No data found"});
+
+        if (dailyCalorieTarget.rows.length === 0) {
             console.log("User does not exist");
-        } else 
-        {
-            if (challengeFound == "meal") 
-            {
-                challengeUnit = "Calories";
-                challengeTarget = mealChallenge.rows[0].calorietarget;
-                challengeCurrent = mealChallenge.rows[0].currentcalories;
-                challengeTargetTitle = "Target Calories Eaten";
-                challengeTitle = mealChallenge.rows[0].goalname;
-                challengeEnd = mealChallenge.rows[0].enddate;
+            return res.status(404).json({ error: "No data found" });
+        }
 
-            } else if (challengeFound == "exercise") 
-            {
-                challengeUnit = "Calories";
-                challengeTarget = exerciseChallenge.rows[0].targetcaloriesburnt;
-                challengeCurrent = exerciseChallenge.rows[0].caloriesburnt;
-                challengeTargetTitle = "Target Calories Burned";
-                challengeTitle = exerciseChallenge.rows[0].goalname;
-                challengeEnd = mealChallenge.rows[0].enddate;
-            }
-            if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) 
-            {
-                console.log("data retrieved");
-                res.status(200).json({ 
-                    message: "Data retrieved successfully",
-                    type: "activity",
-                    calories: dailyCalorie.rows[0].sum,
-                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
-                    userActivity: weeklyGoals.rows[0].weeklyactivity,
-                    activityTarget: weeklyGoals.rows[0].targetactivity,
-                    challengeU: challengeUnit,
-                    challengeTarg: challengeTarget,
-                    challengeC: challengeCurrent,
-                    challengeTargetT: challengeTargetTitle,
-                    challengeT: challengeTitle,
-                    challengeE: challengeEnd
+        if (challengeFound == "meal") {
+            challengeUnit = "Calories";
+            challengeTarget = mealChallenge.rows[0].calorietarget;
+            challengeCurrent = mealChallenge.rows[0].currentcalories;
+            challengeTargetTitle = "Target Calories Eaten";
+            challengeTitle = mealChallenge.rows[0].goalname;
+            challengeEnd = mealChallenge.rows[0].enddate;
 
-                });
-            } else if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].currentweight != null) 
-            {
-                console.log("data retrieved");
-                res.status(200).json({ 
-                    message: "Data retrieved successfully",
-                    type: "weight",
-                    calories: dailyCalorie.rows[0].sum,
-                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
-                    currentWeight: weeklyGoals.rows[0].currentweight,
-                    targetWeight: weeklyGoals.rows[0].targetweight,
-                    startWeight: weeklyGoals.rows[0].startweight,
-                    challengeU: challengeUnit,
-                    challengeTarg: challengeTarget,
-                    challengeC: challengeCurrent,
-                    challengeTargetT: challengeTargetTitle,
-                    challengeT: challengeTitle,
-                    challengeE: challengeEnd
-                });
-            } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) 
-            {
-                console.log("data retrieved");
-                res.status(200).json({ 
-                    message: "Data retrieved successfully",
-                    type: "completed",
-                    calories: dailyCalorie.rows[0].sum,
-                    dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
-                    userActivity: weeklyCompletedGoals.rows[0].weeklyactivity,
-                    activityTarget: weeklyCompletedGoals.rows[0].targetactivity,
-                    challengeU: challengeUnit,
-                    challengeTarg: challengeTarget,
-                    challengeC: challengeCurrent,
-                    challengeTargetT: challengeTargetTitle,
-                    challengeT: challengeTitle,
-                    challengeE: challengeEnd
-                });
-            } else 
-            {
-                console.log("data not retrieved");
-                res.status(401).json({ 
-                    message: "Error: failure to retrieve data",
-                    calories: 0
-                    // dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
-                 });;
-            }
+        } else if (challengeFound == "exercise") {
+            challengeUnit = "Calories";
+            challengeTarget = exerciseChallenge.rows[0].targetcaloriesburnt;
+            challengeCurrent = exerciseChallenge.rows[0].caloriesburnt;
+            challengeTargetTitle = "Target Calories Burned";
+            challengeTitle = exerciseChallenge.rows[0].goalname;
+            challengeEnd = exerciseChallenge.rows[0].enddate;
+        }
 
+        if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) {
+            return res.status(200).json({
+                message: "Data retrieved successfully",
+                type: "activity",
+                calories: dailyCalorie.rows[0].sum,
+                dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                userActivity: weeklyGoals.rows[0].weeklyactivity,
+                activityTarget: weeklyGoals.rows[0].targetactivity,
+                challengeU: challengeUnit,
+                challengeTarg: challengeTarget,
+                challengeC: challengeCurrent,
+                challengeTargetT: challengeTargetTitle,
+                challengeT: challengeTitle,
+                challengeE: challengeEnd
+            });
+        } else if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].currentweight != null) {
+            return res.status(200).json({
+                message: "Data retrieved successfully",
+                type: "weight",
+                calories: dailyCalorie.rows[0].sum,
+                dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                currentWeight: weeklyGoals.rows[0].currentweight,
+                targetWeight: weeklyGoals.rows[0].targetweight,
+                startWeight: weeklyGoals.rows[0].startweight,
+                challengeU: challengeUnit,
+                challengeTarg: challengeTarget,
+                challengeC: challengeCurrent,
+                challengeTargetT: challengeTargetTitle,
+                challengeT: challengeTitle,
+                challengeE: challengeEnd
+            });
+        } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) {
+            return res.status(200).json({
+                message: "Data retrieved successfully",
+                type: "completed",
+                calories: dailyCalorie.rows[0].sum,
+                dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
+                userActivity: weeklyCompletedGoals.rows[0].weeklyactivity,
+                activityTarget: weeklyCompletedGoals.rows[0].targetactivity,
+                challengeU: challengeUnit,
+                challengeTarg: challengeTarget,
+                challengeC: challengeCurrent,
+                challengeTargetT: challengeTargetTitle,
+                challengeT: challengeTitle,
+                challengeE: challengeEnd
+            });
+        } else {
+            return res.status(401).json({
+                message: "Error: failure to retrieve data",
+                calories: 0
+            });
         }
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "There was an error with the server" });
+        return res.status(500).json({ error: "There was an error with the server" });
     }
-
-    
 });
+
 

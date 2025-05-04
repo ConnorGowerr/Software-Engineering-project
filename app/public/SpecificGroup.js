@@ -1,5 +1,7 @@
 const loadStartTime = Date.now(); 
 
+
+//loading screen
 window.addEventListener('load', () => {
     const skeleton = document.getElementById('skeleton-screen');
     if (!skeleton) return;
@@ -15,6 +17,7 @@ window.addEventListener('load', () => {
 });
 
 
+//loading everything
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         const urlParts = window.location.pathname.split("/");
@@ -40,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const isAdmin = membersData.some(member => member.username === activeUser && member.isadmin);
 
-        // if(isAdmin) loadInviteBar();
+        
 
         document.getElementById("hellthTitle").innerHTML = groupData.groupname;
 
@@ -48,17 +51,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         info[0].innerHTML = `<p>ID:  ${groupId}</p>`;
         if (isAdmin) {
             info[1].innerHTML = `<p>Members: ${membersData.length}/50 <button class="add-member-btn">+</button></p>`;
+            document.querySelector(".add-member-btn").addEventListener("click", e =>{
+                loadInviteBar(groupId);
+            })
         } else {
             info[1].innerHTML = `<p>Members: ${membersData.length}/50</p>`;
         }
         
         info[2].innerHTML = `<p>Created On:  ${groupData.creationdate.split('T')[0]}</p>`;
         info[3].innerHTML = `<p>Created By:  ${groupData.createdby}</p>`;
-        if (isAdmin) {
-            info[1].innerHTML = `<p>Members: ${membersData.length}/50 <button class="add-member-btn">+</button></p>`;
-        } else {
-            info[1].innerHTML = `<p>Members: ${membersData.length}/50</p>`;
-        }
+
         
    
         if (isAdmin) {
@@ -81,16 +83,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         membersData.forEach(user => {
             const userItem = createUserItem(user);
-
+        
             if (isAdmin && !user.isadmin) {
-                attachAdminPromotionHandler(userItem, user, adminsContainer);
+                attachAdminPromotionHandler(userItem, user, adminsContainer, groupId);
             }
-
+        
             const isSelf = user.username === activeUser;
-            if ((isAdmin && !isSelf) || isSelf) {
-                attachRemoveHandler(userItem, user.username, isSelf);
+            if ((isAdmin && !isSelf && !user.isadmin) || isSelf) {
+                attachRemoveHandler(userItem, user.username, isSelf, groupId);
             }
-
+        
             (user.isadmin ? adminsContainer : usersContainer).appendChild(userItem);
         });
 
@@ -122,7 +124,7 @@ function createUserItem(user) {
 //Making a currrent user an admin, this function can only be called by an admin.
 //Remove current UserItem from user container, then add a new Admin item
 
-function attachAdminPromotionHandler(userItem, user, adminsContainer) {
+function attachAdminPromotionHandler(userItem, user, adminsContainer, groupid) {
     const imgElement = userItem.querySelector(".userImgSection img");
     const overlay = document.querySelector("#addAdminMemberOverlay");
     const popup = document.querySelector(".addAdmin");
@@ -135,7 +137,25 @@ function attachAdminPromotionHandler(userItem, user, adminsContainer) {
         popup.style.display = "block";
         title.textContent = `Do you want to make ${user.username} an admin?`;
 
-        const handleConfirm = () => {
+        const handleConfirm = async () => {
+
+            const adminMade = await fetch('/api/group/admin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: user.username,  
+                    groupId: groupid 
+                })
+            });
+            
+            if (!adminMade.ok) {
+                throw new Error(`adminMade failed: ${adminMade.status}`);
+            }
+            
+            const adminInfo = await adminMade.json();
+
             userItem.remove();
             const newAdminItem = createUserItem({ ...user, isadmin: true });
             adminsContainer.appendChild(newAdminItem);
@@ -159,7 +179,7 @@ function attachAdminPromotionHandler(userItem, user, adminsContainer) {
 //scenarios -
 // 1- you are an admin, you can remove any user and yourself, but not other admins
 // 2 - You are a user, you can remove only yourself.
-function attachRemoveHandler(userItem, username, isSelf) {
+function attachRemoveHandler(userItem, username, isSelf, groupId) {
     const removeSection = userItem.querySelector(".userRemove");
     removeSection.innerHTML = `<img src="/images/user-remove.svg" alt="Remove User" style="cursor: pointer;">`;
     const removeBtn = removeSection.querySelector("img");
@@ -171,7 +191,21 @@ function attachRemoveHandler(userItem, username, isSelf) {
 
         showConfirmationPopup({
             titleText: title,
-            onConfirm: () => {
+            onConfirm: async () => {
+                const remnoved = await fetch('/api/group/removeUser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,  
+                        groupId: groupId 
+                    })
+                });
+                
+                if (!remnoved.ok) {
+                    throw new Error(`remnoved failed: ${remnoved.status}`);
+                }
                 userItem.remove();
                 if (isSelf) {
                     window.location.href = "/home.html";
@@ -210,25 +244,65 @@ function showConfirmationPopup({ titleText, onConfirm }) {
 }
 
 
-
-//basic popup for confirming to remove user 
-function showConfirmationPopup({ titleText, onConfirm }) {
-    const popupOverlay = document.querySelector(".popup-overlay");
-    const title = document.querySelector("#groupDelTitle");
-    const confirmBtn = document.querySelector("#confirmBtn5");
-    const cancelBtn = document.querySelector("#cancelBtn5");
-
-    title.textContent = titleText;
+//send post request to user email if they receieve a invite.
+function loadInviteBar(groupId){
+    const popupOverlay = document.querySelector("#addMemberOverlay");
+    const popup = document.querySelector(".addMember");
+    const confirmBtn = document.querySelector("#confirmBtn7");
+    const cancelBtn = document.querySelector("#cancelBtn7");
     popupOverlay.style.display = "block";
+    popup.style.display = "block";
 
     const confirmHandler = () => {
-        popupOverlay.style.display = "none";
+
+        const username = document.querySelector("#search-bar-users").value;
+
+        console.log(username)
+        console.log(groupId)
+
+
+        if (!username || !groupId) {
+            alert('Please enter a username and group ID.');
+            return;
+        }
+
+    
+       
+        fetch(`/api/groups/${groupId}/invite`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Invitation sent!');
+                popupOverlay.style.display = "none";
+                popup.style.display = "none";
+
+                cleanup();
+            } else {
+                alert('Failed to send invitation: ' + data.error);
+                popupOverlay.style.display = "none";
+                popup.style.display = "none";
+
         cleanup();
-        onConfirm();
+            }
+        })
+        .catch(error => {
+            console.error('Error sending invite:', error);
+            alert('An error occurred while sending the invite.');
+        });
+        
+       
     };
 
     const cancelHandler = () => {
         popupOverlay.style.display = "none";
+        popup.style.display = "none";
+
         cleanup();
     };
 
@@ -241,27 +315,45 @@ function showConfirmationPopup({ titleText, onConfirm }) {
     cancelBtn.addEventListener("click", cancelHandler);
 }
 
-function loadInviteBar(){
-    const inviteBar = document.getElementById("invite-bar");
-    inviteBar.style.display = "flex"; 
-}
 
+//changes status from public to private and vise versa.
 function updateStatusButton(groupData, info) {
     const statusButton = document.querySelector('.toggle-status-btn');
     if (statusButton) {
-        statusButton.addEventListener('click', function() {
-        
+        statusButton.addEventListener('click', function handleClick() {
+          
+            statusButton.disabled = true;
+
+           
             groupData.ispublic = !groupData.ispublic;
 
             
-            const newStatusText = groupData.ispublic ? 'Public' : 'Private';
-            const newToggleSymbol = groupData.ispublic ? '–' : '+'; 
+            fetch(`/api/groups/${groupData.groupid}/status`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ isPublic: groupData.ispublic })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
 
-        
-            info.innerHTML = `<p>Status: ${newStatusText} <button class="toggle-status-btn">${newToggleSymbol}</button></p>`;
-            
            
-            updateStatusButton(groupData, info);  
+                const newStatusText = groupData.ispublic ? 'Public' : 'Private';
+                const newToggleSymbol = groupData.ispublic ? '–' : '+';
+                info.innerHTML = `<p>Status: ${newStatusText} <button class="toggle-status-btn">${newToggleSymbol}</button></p>`;
+
+               
+                setTimeout(() => {
+                    updateStatusButton(groupData, info);
+                }, 1000);
+            })
+            .catch(error => {
+                console.error('Error updating status:', error);
+                statusButton.disabled = false;
+            });
         });
     }
 }
