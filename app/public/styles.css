@@ -2401,15 +2401,27 @@ GROUP PAGE SECTION */
 
 
 .GI1 {
-    height: 80%;  
+  
+    
+    height: 80%;
+    width: 100%; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin: 10% auto; 
+    justify-content: flex-start; /* changed from center */
     
-    font-size: clamp(1rem, 1.5vw, 1.7rem);  
+    overflow-y: scroll;
+    overflow-x: hidden;  
+    font-size: clamp(0.7rem, 1.3vw, 1.7rem);
+    scrollbar-width: none; 
+  
+    
 }
+
+.GI1::-webkit-scrollbar {
+    display: none; 
+}
+
 
 .GI1 p {
     color: transparent;

@@ -38,7 +38,7 @@ const createpopupoverlay = document.querySelector(".popup-overlay2")
             popup.style.display = "none";
             popupoverlay.style.display = "none";
         
-            const name = data[0].groupname;
+            const name = data[2].groupname;
             if (name) {
                 window.location.href = `/group/${encodeURIComponent(name)}`;
             }
@@ -55,16 +55,16 @@ const createpopupoverlay = document.querySelector(".popup-overlay2")
 
     function groupValues(d){
         const box1 = document.getElementById("greyContainer3");
-        // const box2 = document.getElementById("greyContainer4");
-        // const box3 = document.getElementById("greyContainer5");
+        const box2 = document.getElementById("greyContainer4");
+        const box3 = document.getElementById("greyContainer5");
 
         const data1 = d[0];
-        // const data2 = d[1];
-        // const data3 = d[2];
+        const data2 = d[1];
+        const data3 = d[2];
 
         box1.querySelector(".groupText").innerHTML = `${d[0].groupname}`;
-        // box2.querySelector(".groupText").innerHTML = `${d[1].groupname}`;
-        // box3.querySelector(".groupText").innerHTML = `${d[2].groupname}`;
+        box2.querySelector(".groupText").innerHTML = `${d[1].groupname}`;
+        box3.querySelector(".groupText").innerHTML = `${d[2].groupname}`;
     }
 
     document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
