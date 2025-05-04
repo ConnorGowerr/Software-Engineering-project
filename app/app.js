@@ -3,6 +3,7 @@ const { checkHash } = require('./hash.js');
 const express = require('express');;
 const dbClient = require('./db.js'); 
 const FoodController = require('./FoodController.js');
+const ExerciseController = require('./ExerciseController.js');
 const Food = require('./Food.js');
 const app = express();
 app.use(express.json()); 
@@ -39,6 +40,7 @@ app.get('/', (req, res) =>  {
 //     })
 // });
 const foodController = new FoodController();
+const exerciseController = new ExerciseController();
 
 
 // Search food based on query (fetching from DB)
@@ -49,6 +51,14 @@ app.get('/api/search-food', (req, res) => {
         res.json(foodData);
     });
 });
+// Search exercise based on query
+app.get('/api/search-exercise', (req, res) => {
+    const query = req.query.q;
+    
+    exerciseController.searchExercise(query, (exerciseData) => {
+        res.json(exerciseData);
+    });
+});
 
 
 // reutrn single food item 
@@ -57,6 +67,14 @@ app.get('/api/return-food', (req, res) => {
     
     foodController.returnFood(query, (foodData) => {
         res.json(foodData);
+    });
+});
+// return single exercise
+app.get('/api/return-exercise', (req, res) => {
+    const query = req.query.q;
+    
+    foodController.returnExercise(query, (exerciseData) => {
+        res.json(exerciseData);
     });
 });
 

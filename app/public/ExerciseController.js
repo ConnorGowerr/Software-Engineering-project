@@ -1,5 +1,3 @@
-const Exercise = require('./Exercise')
-const Activity = require('./Activity')
 const dbClient = require('./db.js')
 
 
@@ -49,35 +47,33 @@ class ExerciseController {
         });
     }
 
-    saveActivity(req, res) {
-        const {name, duration, intensity} = req.body;
+    // saveActivity(req, res) {
+    //     const {name, duration, intensity} = req.body;
     
     
-        const insertQuery = `
-        INSERT INTO Activity (name, duration, intensity)
-        VALUES ($1, $2, $3)
-        `;
+    //     const insertQuery = `
+    //     INSERT INTO Activity (name, duration, intensity)
+    //     VALUES ($1, $2, $3)
+    //     `;
 
-        const values = [name, duration, intensity];
-    
-//----------------------------------------------------
+    //     const values = [name, duration, intensity];
 
-        dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
-            if (err) {
-                console.error("Search path error:", err);
-                return res.status(500).json({ error: "Failed to set search path" });
-            }
+    //     dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+    //         if (err) {
+    //             console.error("Search path error:", err);
+    //             return res.status(500).json({ error: "Failed to set search path" });
+    //         }
     
-            dbClient.query(insertQuery, values, (err, result) => {
-                if (err) {
-                    console.error( err);
-                    return res.status(500).json({ error: "Failed to insert activity" });
-                }
+    //         dbClient.query(insertQuery, values, (err, result) => {
+    //             if (err) {
+    //                 console.error( err);
+    //                 return res.status(500).json({ error: "Failed to insert activity" });
+    //             }
     
-                return res.status(201).json({ message: "Activity inserted", activity: result.rows[0] });
-            });
-        });
-    }
+    //             return res.status(201).json({ message: "Activity inserted", activity: result.rows[0] });
+    //         });
+    //     });
+    // }
 
     
 }    

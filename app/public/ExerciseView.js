@@ -136,7 +136,7 @@ class ExerciseView {
 
     //funtion to create a meal objecrs from all items in the current food list, user can confirm cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
     async createActivity() {
-        const mealForm = document.getElementById("activityForm");
+        const activityForm = document.getElementById("activityForm");
         const activityPopup = document.getElementById("activityPopup");
         const popupOverlay = document.getElementById("popupOverlay");
         const confirmBtn = document.getElementById("confirmBtn");
@@ -187,10 +187,9 @@ class ExerciseView {
         activityPopup.style.display = "block";
         popupOverlay.style.display = "block";
     
-        activityForm.onsubmit = async (event) => {
+        confirmBtn.onclick = async (event) => {
             event.preventDefault();
-            //This if statement should make the page display an alert message if the data isn't complete, and
-            //not bother with any of the database stuff. However, clicking submit seems to instantly refresh the page and I don't know why.
+            //Only proceeds if all the important data is valid, otherwise an alert is displayed.
             if (this.#currentEx !== 'No exercise selected' && this.activityIntensity.value != 0
                 && this.activityDuration.value != null && this.activityDuration.value > 0)
             {
@@ -248,7 +247,6 @@ class ExerciseView {
                 } 
             }
             else
-            //As stated above, this alert never appears
             {
                 alert('Please fill in all information before submitting.')
             }
