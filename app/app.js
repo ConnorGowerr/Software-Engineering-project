@@ -45,7 +45,7 @@ app.get('/', (req, res) =>  {
 //         }
 //     })
 // });
-const foodController = new FoodController();
+
 const exerciseController = new ExerciseController();
 
 
