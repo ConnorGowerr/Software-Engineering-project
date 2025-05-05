@@ -6,6 +6,7 @@ const FoodController = require('./FoodController.js');
 const ExerciseController = require('./ExerciseController.js');
 const Food = require('./Food.js');
 const UserController = require('./UserController.js');
+const { randomInt } = require('crypto');
 
 const app = express();
 app.use(express.json()); 
@@ -355,6 +356,38 @@ app.post("/", async (req, res) => {
         if (await checkHash(password, user.password)) {
             console.log("Log in successful");
             console.log(user.username);
+            const goals = await dbClient.query
+            (
+                "SELECT * FROM ExerciseGoal INNER JOIN Goal ON Goal.goalid = ExerciseGoal.goalid WHERE ExerciseGoal.username = $1 AND Goal.isgoalmet = false AND Goal.startdate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE;", [username]
+            );
+            if (goals.rows.length === 0) 
+            {
+                var valid = false;
+                var id = randomInt(1000000);
+                while (!valid) 
+                {
+                    const checkValidID = await dbClient.query 
+                (
+                    `SELECT * FROM Goal WHERE goalid = $1;`, [id]
+                );
+                if (checkValidID.rows.length === 0) 
+                {
+                    valid = true;
+                } else 
+                {
+                    id = randomInt(1000000);
+                }
+                }
+                
+                const addGoal = await dbClient.query 
+                (
+                    "INSERT INTO Goal (goalid, goalname, startdate, enddate, isgoalmet, points) VALUES ($1, 'Weekly Activity', CURRENT_DATE, (CURRENT_DATE + INTERVAL '7 days'), false, 100);", [id]
+                );
+                const addEGoal = await dbClient.query
+                (
+                    `INSERT INTO ExerciseGoal (goalid, username, caloriesburnt, targetactivity, weeklyactivity) VALUES ($1, $2, 0, 180, 0)`, [id, username]
+                );
+            }
             return res.status(200).json({
                 message: "Login successful",
                 username: user.username
@@ -441,11 +474,13 @@ app.get("/api/groupMembers/:id", (req, res) => {
 });
 
 
-app.get("/home.html", async (req, res) => {
+app.post("/home.html", async (req, res) => {
     const { username } = req.body;
     console.log(username)
 
     try {
+
+        var dCalories = 0;
         var challengeFound = "none";
         var challengeUnit = "N/A";
         var challengeCurrent = "N/A";
@@ -461,13 +496,13 @@ app.get("/home.html", async (req, res) => {
             INNER JOIN "Hellth".food ON mealcontents.foodid = food.foodid
             WHERE username = $1 AND mealdate = CURRENT_DATE;
         `, [username]);
-
+            console.log(dailyCalorie);
         const dailyCalorieTarget = await dbClient.query(`
             SELECT dailycalorietarget
             FROM "Hellth".users
             WHERE username = $1;
         `, [username]);
-
+            console.log(dailyCalorieTarget.rows[0].dailycalorietarget);
         let weeklyGoals = await dbClient.query(`
             SELECT *
             FROM "Hellth".goal
@@ -522,7 +557,7 @@ app.get("/home.html", async (req, res) => {
 
             if (weeklyCompletedGoals.rows.length === 0) {
                 console.log("There are no goals for this user");
-                return res.status(404).json({ error: "Goals not found" });
+                // return res.status(404).json({ error: "Goals not found" });
             }
         }
 
@@ -535,11 +570,17 @@ app.get("/home.html", async (req, res) => {
         } else {
             challengeFound = "meal";
         }
-
         if (dailyCalorieTarget.rows.length === 0) {
             console.log("User does not exist");
 
             return res.status(404).json({ error: "No data found" });
+        }
+        if (dailyCalorie.rows[0].sum === null) 
+        {
+            console.log("No meals entered today")
+        } else 
+        {
+            dCalories = dailyCalorie.rows[0].sum;
         }
 
 
@@ -560,11 +601,11 @@ app.get("/home.html", async (req, res) => {
             challengeEnd = exerciseChallenge.rows[0].enddate;
         }
 
-        if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) {
+        if (weeklyGoals.rows[0].weeklyactivity != null) {
             return res.status(200).json({
                 message: "Data retrieved successfully",
                 type: "activity",
-                calories: dailyCalorie.rows[0].sum,
+                calories: dCalories,
                 dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
                 userActivity: weeklyGoals.rows[0].weeklyactivity,
                 activityTarget: weeklyGoals.rows[0].targetactivity,
@@ -575,11 +616,11 @@ app.get("/home.html", async (req, res) => {
                 challengeT: challengeTitle,
                 challengeE: challengeEnd
             });
-        } else if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].currentweight != null) {
+        } else if (weeklyGoals.rows[0].currentweight != null) {
             return res.status(200).json({
                 message: "Data retrieved successfully",
                 type: "weight",
-                calories: dailyCalorie.rows[0].sum,
+                calories: dCalories,
                 dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
                 currentWeight: weeklyGoals.rows[0].currentweight,
                 targetWeight: weeklyGoals.rows[0].targetweight,
@@ -591,11 +632,11 @@ app.get("/home.html", async (req, res) => {
                 challengeT: challengeTitle,
                 challengeE: challengeEnd
             });
-        } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) {
+        } else if (weeklyCompletedGoals.rows[0].currentweight != null) {
             return res.status(200).json({
                 message: "Data retrieved successfully",
                 type: "completed",
-                calories: dailyCalorie.rows[0].sum,
+                calories: dCalories,
                 dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget,
                 userActivity: weeklyCompletedGoals.rows[0].weeklyactivity,
                 activityTarget: weeklyCompletedGoals.rows[0].targetactivity,
