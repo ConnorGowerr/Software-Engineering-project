@@ -1,7 +1,6 @@
 // Done (mahybe more validations and stuff)
 class Food {
     
-    static allFoodData = [];
     constructor(calories, foodName, foodType, servingSize, proteinContent, carbContent, fibreContent, sugarContent, fatContent) {
         this.foodName = foodName;
         this.foodType = foodType;
@@ -12,7 +11,6 @@ class Food {
         this.fibreContent = fibreContent;
         this.sugarContent = sugarContent;
         this.fatContent = fatContent;
-        Food.allFoodData.push(this);
     }
 
     getServingSize() {
@@ -47,17 +45,9 @@ class Food {
         return Number.isInteger(this.calories) && this.calories >= 0;
     }
 
-    static getAllFoodData() {
-        return Food.allFoodData;
-    }
-
-    static getFoodData(foodName) {
-        return Food.allFoodData.find(food => food.foodName.toLowerCase() === foodName.toLowerCase());
-    }
-
     toString(){
-        return `Name: ${this.foodName}. Type: ${this.foodType}. Calories: ${this.calories}`;
+        return `Name: ${this.foodName}. Type: ${this.foodType}. Calories: ${this.calories} ServingSize: ${this.servingSize}. Protein: ${this.proteinContent}. Carbs: ${this.carbContent} Fibre: ${this.fibreContent}. Sugar: ${this.sugarContent}. Fat: ${this.fatContent}`;
     }
 }
 
-export default Food;
+module.exports = Food;

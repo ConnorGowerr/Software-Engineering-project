@@ -1,4 +1,4 @@
-// Done (mahybe more validations and stuff)
+// Done (maybe more validations and stuff)
 class Achievement {
     
     constructor(achievementName, achievementType, value) {
@@ -19,6 +19,7 @@ class Achievement {
     getValue() {
         return this.value;
     }
+
 
 
     toString(){

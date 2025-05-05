@@ -1,0 +1,92 @@
+/* Generics */
+
+body {
+    background-color: #1C1F21;
+    text-align: center;
+}
+  
+h1 {
+    color: #EFEDE7;
+    font-size: xx-large;
+    font-family: 'Oswald';
+    text-shadow: 2px 2px 4px #000000;
+}
+summary{
+    text-align: left;
+    font-size: larger;
+    color: #EFEDE7;
+    font-family: 'Poppins';
+    text-shadow: 2px 2px 4px #000000;
+}
+p {
+    text-align: left;
+    font-size: large;
+    color: #EFEDE7;
+    font-family: 'Poppins';
+    text-shadow: 2px 2px 4px #000000;
+
+}
+  
+input {
+    background-color: #EFEDE7;
+    border-width: 3px;
+    border-color: #B0B0B0;
+    border-style: solid;
+    font-family: 'Poppins';
+    box-shadow: 5px 5px;
+    backdrop-filter: blur(10px);
+}
+select {
+    background-color: #EFEDE7;
+    border-width: 3px;
+    border-color: #B0B0B0;
+    border-style: solid;
+    font-family: 'Poppins';
+    font-size: 'medium';
+    box-shadow: 5px 5px;
+    backdrop-filter: blur(10px);
+}
+span {
+    font-size: 2rem;
+    align-items: center;
+    color: white;
+}
+  
+/* Classes */
+
+.box {
+    border-radius: 20px;
+    background-color: #383F42;
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    box-shadow: 5px 5px;
+    backdrop-filter: blur(10px);
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 12px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.iconBox {
+    background-color: #B0B0B0;
+    border-width: 2px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    box-shadow: 5px 5px;
+    backdrop-filter: blur(10px);
+}
+
+#faqTitle {
+    margin-bottom: 2%;
+}
+
+#boxEnd {
+    margin-bottom: 25vh;
+}
+
+
+

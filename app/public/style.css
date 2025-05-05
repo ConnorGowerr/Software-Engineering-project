@@ -401,12 +401,18 @@ source: https://www.youtube.com/watch?v=OnOBfoT1zuw
 }
 
 
-#forgottenPassword 
+
+#forgottenPassword, #forgotLink 
 {
     font-family: 'Poppins';
     text-shadow: 2px 2px 4px #000000;
-    font-style: italic;
     font-size: small;
+    color: #EFEDE7;
+
+}
+
+#forgottenPassword:visited, #forgotLink
+{
     color: #EFEDE7;
 }
 
@@ -424,6 +430,7 @@ source: https://www.youtube.com/watch?v=OnOBfoT1zuw
     font-family: 'Oswald';
     margin: 0 2%;
   }
+
 
 
 #eyeIcon {
