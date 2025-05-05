@@ -1,5 +1,5 @@
     
-const popup = document.querySelector(".popup2")
+const popup = document.querySelector(".popupg2")
 const popupoverlay = document.querySelector(".popup-overlay")
 const createpopup = document.querySelector(".popup3")
 const createpopupoverlay = document.querySelector(".popup-overlay2")
@@ -35,8 +35,10 @@ function randomiseGroup(d){
             return response.json();
         })
         .then(data => {
-            console.table(data)
+
             randomiseGroup(data);
+            console.table(data)
+            
             // groupValues(data);
             console.table(rng);
             
@@ -51,6 +53,9 @@ function randomiseGroup(d){
             const data3 = pubarr[rng[2]];
             const data4 = pubarr[rng[3]];
             const data5 = pubarr[rng[4]];
+
+            memberCount(data1);
+
     
             box1.querySelector(".groupText").innerHTML = `${data1.groupname}`;
             box2.querySelector(".groupText").innerHTML = `${data2.groupname}`;
@@ -61,40 +66,56 @@ function randomiseGroup(d){
             document.getElementById("greyContainer" + arr[0]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
-                document.querySelector(".otherTitles").innerHTML = `Would you like to join ${pubarr[rng[0]].groupname}?`
+                document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[0]].groupname}?`
             })
             document.getElementById("greyContainer" + arr[1]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
-                document.querySelector(".otherTitles").innerHTML = `Would you like to join ${pubarr[rng[1]].groupname}?`
+                document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[1]].groupname}?`
             })
             document.getElementById("greyContainer" + arr[2]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
-                document.querySelector(".otherTitles").innerHTML = `Would you like to join ${pubarr[rng[2]].groupname}?`
+                document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[2]].groupname}?`
             })
             document.getElementById("greyContainer" + arr[3]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
-                document.querySelector(".otherTitles").innerHTML = `Would you like to join ${pubarr[rng[3]].groupname}?`
+                document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[3]].groupname}?`
             })
             document.getElementById("greyContainer" + arr[4]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
-                document.querySelector(".otherTitles").innerHTML = `Would you like to join ${pubarr[rng[4]].groupname}?`
+                document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[4]].groupname}?`
             })
-            document.getElementById("cancelBtn2").addEventListener("click", (event) =>{
+            document.getElementById("cancelBtn12").addEventListener("click", (event) =>{
                 popup.style.display = "none";
                 popupoverlay.style.display = "none";
             })
         })
         .catch(error => console.error('Error fetching search results:', error));
-        }
+
+   }
 
     // function groupValues(d){
 
 
     // }
+
+    function memberCount(groupid){
+
+            fetch(`/groups/:allgroups/:${groupid}`)
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Server returned an error:', response.statusText);
+                    throw new Error('Failed to fetch search results');
+                }
+                return response.json();
+            }).then(data2 => {
+                console.log(data2)
+            })
+ 
+    }
 
     document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
         createpopup.style.display = "block";
@@ -102,7 +123,7 @@ function randomiseGroup(d){
         document.querySelector(".otherTitles").innerHTML = `Would you like to join ${data[0].groupname}?`
     })
 
-    document.getElementById("cancelBtn3").addEventListener("click", (event) =>{
+    document.getElementById("cancelBtn13").addEventListener("click", (event) =>{
         createpopup.style.display = "none";
         createpopupoverlay.style.display = "none";
     })
