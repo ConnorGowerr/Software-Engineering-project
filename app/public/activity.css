@@ -375,6 +375,9 @@ label {
     margin-bottom: 2.5%;
     
 }
+.search-results{
+    margin-bottom: 10vh;
+}
 
 .search-item {
     cursor: pointer;
@@ -581,7 +584,7 @@ label {
     gap: 2vh;
 }
 
-#activityBtn {
+#activityBtn1, #activityBtn2{
     width: 75%;
     height: 30%;
     /* position: absolute; */
@@ -594,6 +597,10 @@ label {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+#activityBtn2{
+    width: 85%;
+    margin-bottom: 20vh;
 }
 
 #activityDuration {
@@ -838,4 +845,20 @@ label {
     scrollbar-width: none; 
 }
 
+@media (min-width: 700px){
+    #activityBtn2{
+        display: none;
+    }
+}
+@media (max-width: 701px){
+    #activityBtn1{
+        display: none;
+    }
+    .exerciseAddSection, .centerSection, .overviewSection{
+        width: 100%;
+    }
+    #activityPageSection {
+        flex-direction: column;
+    }
+}
 

@@ -47,7 +47,12 @@ class ExerciseView {
             this.updateSummaryUI();
         }
 
-        document.getElementById("activityBtn").onclick = () => {
+        //2 activity buttons - 1 appears when wide screen, the other appears when thin screen.
+        document.getElementById("activityBtn1").onclick = () => {
+            console.log("activity")
+            this.createActivity();
+        }
+        document.getElementById("activityBtn2").onclick = () => {
             console.log("activity")
             this.createActivity();
         }
