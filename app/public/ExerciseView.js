@@ -64,8 +64,8 @@ class ExerciseView {
             .then(exerciseData => {
                 console.log("Found exercise:", exerciseData[0]);
 
-                this.#currentEx = exerciseData[0].exerciseName;
-                this.#currentCph = exerciseData[0].caloriesPerHour;
+                this.#currentEx = exerciseData[0].exercisename;
+                this.#currentCph = exerciseData[0].caloriesperhour;
                 this.selectedContainer.querySelector('#search-select').textContent = currentEx;
                 console.log('changed exercise');
                 this.updateSummaryUI();
@@ -325,13 +325,13 @@ class ExerciseView {
         for (const exercise of filteredExerciseData) {
             const resultItem = document.createElement('div');
             resultItem.classList.add('search-item');
-            resultItem.textContent = `${exercise.exerciseName} - ${exercise.caloriesPerHour} kcals/hr`;
+            resultItem.textContent = `${exercise.exercisename} - ${exercise.caloriesperhour} kcals/hr`;
 
             resultItem.onclick = async () => {
                 //const isConfirmed = await this.createMealPopup(exercise);
 
                 //if (isConfirmed) {
-                    this.selectExercise(exercise.exerciseName);
+                    this.selectExercise(exercise.exercisename);
                     document.querySelector('.search-bar').value = '';
                     this.resultsContainer.innerHTML = '';
                 //}
