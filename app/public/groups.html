@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<head>
+<title>Hellth</title>
+<link rel="icon" href="images/Logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="groups.css">
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="groups.js" defer></script>
+</head>
+
+<body>
+    <button class="top-left-btn">
+        <i class="fa-solid fa-envelope"></i>
+    </button>
+
+    <button class="top-right-btn">
+        <i class="fa-solid fa-user"></i>
+    </button>
+<main>
+    <h1 id = "hellthTitle">Groups</h1>
+
+    <section class="groupBoxSection">
+        <div id="greyContainer1" class = "box3">
+            <div class="inputdivs">
+                <h2>Summon your squad and feel the burn together!</h2>
+                <div class="rowInput">
+                    <input class="inputs" type="text" id="username" placeholder="Join via Code">
+                    <img src="images/User plus.png" class="iconBoxGroup" id="joinGroup">
+                </div>
+            </div>
+        </div>
+        <div class="box3" id="makeGroup">
+            <h2>Don't have anyone to burn calories with? Create your own group and set your own challenges!</h2>
+            <button class="mainBtn" id="createGroupBtn">Create group</button>
+        </div>
+    </section>
+    
+    <h1 class="boldtext">- Your Groups -</h2>
+    <section class="groupBoxSection2">
+        <div id="greyContainer2" class = "box2">
+            <div class="inputdivs">
+                <div class="rowInputLeft">
+                    <img src="images/groupicon.png" class="groupicons">
+                    <h2 class="groupText">Friendly Runners Club</h2>
+                    
+                </div>
+            </div>
+            <div class="textRight">
+                <h2 class="membersText">Members</h2>
+            </div>
+            <div class="textRight">
+                <h2 class="valueText">47/50</h2>
+            </div>
+        </div>
+    </section>
+    <h1 class="boldtext">- Publicly Available Groups -</h1>
+    <div id="linediv">
+        <hr id="line">
+    </div>
+
+    <!-- sections important yes use -->
+<div id="pubGroups">
+    <section class="groupBoxSection3">
+        <div id="greyContainer3" class = "box2 greyContainer2">
+            <div class="inputdivs">
+                <div class="rowInputLeft">
+                    <img src="images/groupicon.png" class="groupicons">
+                    <h2 class="groupText"></h2>
+                </div>
+            </div>                
+            <div class="textRight">
+                <h2 class="membersText">Members</h2>
+            </div>
+            <div class="textRight">
+                <h2 class="valueText">18/50</h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="groupBoxSection3">
+        <div id="greyContainer4" class = "box2 greyContainer2">
+            <div class="inputdivs">
+                <div class="rowInputLeft">
+                    <img src="images/groupicon.png" class="groupicons">
+                    <h2 class="groupText"></h2>
+                </div>
+            </div>
+            <div class="textRight">
+                <h2 class="membersText">Members</h2>
+            </div>
+            <div class="textRight">
+                <h2 class="valueText">24/50</h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="groupBoxSection3">
+        <div id="greyContainer5" class = "box2 greyContainer2">
+            <div class="inputdivs">
+                <div class="rowInputLeft">
+                    <img src="images/groupicon.png" class="groupicons">
+                    <h2 class="groupText"></h2>
+                </div>
+            </div>
+            <div class="textRight">
+                <h2 class="membersText">Members</h2>
+            </div>
+            <div class="textRight">
+                <h2 class="valueText">39/50</h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="groupBoxSection3">
+        <div id="greyContainer6" class = "box2 greyContainer2">
+            <div class="inputdivs">
+                <div class="rowInputLeft">
+                    <img src="images/groupicon.png" class="groupicons">
+                    <h2 class="groupText"></h2>
+                </div>
+            </div>
+            <div class="textRight">
+                <h2 class="membersText">Members</h2>
+            </div>
+            <div class="textRight">
+                <h2 class="valueText">39/50</h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="groupBoxSection3">
+        <div id="greyContainer7" class = "box2 greyContainer2">
+            <div class="inputdivs">
+                <div class="rowInputLeft">
+                    <img src="images/groupicon.png" class="groupicons">
+                    <h2 class="groupText"></h2>
+                </div>
+            </div>
+            <div class="textRight">
+                <h2 class="membersText">Members</h2>
+            </div>
+            <div class="textRight">
+                <h2 class="valueText">39/50</h2>
+            </div>
+        </div>
+    </section>
+</div>
+    <div class="popup-overlay">
+        <div class="popup2">
+            <div class="popup-content2">
+                <div class = "mainPopupContainer">
+                    <h2 class = "otherTitles"></h2>
+                </div>
+                <button id="confirmBtn2">Join Group</button>
+                <button id="cancelBtn2">Not interested</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay2">
+        <div class="popup3">
+            <div class="popup-content3">
+                <div class = "mainPopupContainer">
+                    <h2>Choose a group name that is under 20 characters in length.</h2>
+                </div>
+                <input class="inputs2" type="text" placeholder="Your Group Name">
+                <button id="confirmBtn3">Create Group</button>
+                <button id="cancelBtn3">Nevermind</button>
+                
+            </div>
+        </div>
+    </div>
+<div id="emptyspace">‎</div>
+</main>
+<div class="navbar">
+    <button class="nav-btn">
+        <a href="home.html">
+            <i class="fa fa-home"></i>
+        </a>
+        <span class="icon-text">Home</span>
+    </button>
+    <button class="nav-btn">
+        <a href="progress.html">
+            <i class="fa fa-chart-line"></i>
+        </a>
+        <span class="icon-text">Progress</span>
+
+    </button>
+    <div class="center-btn-container">
+        <button class="center-btn">
+            <a href="mealActivtiySelect.html">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </button>
+    </div>
+    <button class="nav-btn">
+        <a href="groups.html">
+            <i class="fa-solid fa-users" ></i>
+        </a>
+        <span class="icon-text">Groups</span>
+
+    </button>
+    <button class="nav-btn">
+        <a href="groups.html">
+            <i class="fa fa-info-circle"></i>
+        </a>
+        <span class="icon-text">Help</span>
+
+    </button>
+        
+    </div>
+</body>
