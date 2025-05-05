@@ -1,11 +1,17 @@
 class ExerciseView {
+    #currentCph;
+    #currentEx;
     constructor() {
         this.exerciseList = document.querySelector('.exerciseList');
+        this.selectedContainer = document.querySelector('.search-select');
         this.resultsContainer = document.querySelector('.search-results');
         this.calorieSection = document.querySelector('.calorieSection');
         this.activityPopup = document.getElementById("exercisePopup");
         this.popupOverlay = document.getElementById("exerciseOverlay");
-
+        this.activityDuration = document.getElementById('activityDuration');
+        this.activityIntensity = document.getElementById('activityIntensity');
+        this.#currentCph = 0;
+        this.#currentEx = 'No exercise selected';
         this.setupEventListeners();
     }
 
@@ -30,14 +36,24 @@ class ExerciseView {
                 .catch(error => console.error('Error fetching search results:', error));
         });
 
+        //Note: i did try and use event listeners for these 2 events, 
+        // but they don't seem to work when calling this.functions
+        this.activityDuration.oninput = () =>{
+            console.log('duration changed');
+            this.updateSummaryUI();
+        }
+        this.activityIntensity.onchange = () =>{
+            console.log('intensity changed');
+            this.updateSummaryUI();
+        }
+
         document.getElementById("activityBtn").onclick = () => {
             console.log("activity")
             this.createActivity();
         }
     }
 
-    //adds the selected item from search, finds it then appends to our 'basket' and updates all atrributes for the nutrients section
-    addFoodItemToUI(itemName) {
+    selectExercise(itemName) {
         fetch(`/api/return-exercise?q=${itemName}`)
             .then(response => {
                 if (!response.ok) {
@@ -48,7 +64,11 @@ class ExerciseView {
             .then(exerciseData => {
                 console.log("Found exercise:", exerciseData[0]);
 
-    
+                this.#currentEx = exerciseData[0].exerciseName;
+                this.#currentCph = exerciseData[0].caloriesPerHour;
+                this.selectedContainer.querySelector('#search-select').textContent = currentEx;
+                console.log('changed exercise');
+                this.updateSummaryUI();
                 // let totalQuantity = 0;
                 // this.exerciseList.querySelectorAll('.quantity-input').forEach(input => {
                 //     totalQuantity += parseInt(input.value);
@@ -116,93 +136,125 @@ class ExerciseView {
 
     //funtion to create a meal objecrs from all items in the current food list, user can confirm cancel (upon confirm reset everything and create meal, upon cancel drop the opoup)
     async createActivity() {
-        const mealForm = document.getElementById("mealForm");
-        const mealPopup = document.getElementById("mealPopup");
+        const activityForm = document.getElementById("activityForm");
+        const activityPopup = document.getElementById("activityPopup");
         const popupOverlay = document.getElementById("popupOverlay");
         const confirmBtn = document.getElementById("confirmBtn");
         const cancelBtn = document.getElementById("cancelBtn");
-        const popupMessage = document.getElementById("popupMessage");
+
+        const popupE = document.getElementById("popupE");
+        const popupC = document.getElementById("popupC");
+        const popupD = document.getElementById("popupD");
+        const popupI = document.getElementById("popupI");
+        const popupT = document.getElementById("popupT");
     
-        const foodItems = document.querySelectorAll('.item');
-        let totalCals = 0;
-        this.allMealFood = [];
+        const exercise = document.querySelectorAll('.item');
     
-        for (const food of foodItems) {
-            const foodName = food.textContent.split(' - ')[0]?.trim();
-            const quantityInput = food.querySelector('.quantity-input');
-            const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+        // for (const food of exercise) {
+        //     const foodName = food.textContent.split(' - ')[0]?.trim();
+        //     const quantityInput = food.querySelector('.quantity-input');
+        //     const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
     
-            try {
-                const response = await fetch(`/api/return-food?q=${foodName}`);
-                if (!response.ok) throw new Error('Failed to fetch food data');
+        //     try {
+        //         const response = await fetch(`/api/return-food?q=${foodName}`);
+        //         if (!response.ok) throw new Error('Failed to fetch food data');
     
-                const foodData = await response.json();
-                const foundFood = foodData[0];
+        //         const foodData = await response.json();
+        //         const foundFood = foodData[0];
     
-                if (foundFood) {
-                    totalCals += foundFood.calories * quantity;
-                    foundFood.quantity = quantity;
-                    this.allMealFood.push(foundFood);
-                }
-            } catch (err) {
-                console.error(`Error fetching food data for "${foodName}":`, err);
-            }
-        }
+        //         if (foundFood) {
+        //             totalCals += foundFood.calories * quantity;
+        //             foundFood.quantity = quantity;
+        //             this.allMealFood.push(foundFood);
+        //         }
+        //     } catch (err) {
+        //         console.error(`Error fetching food data for "${foodName}":`, err);
+        //     }
+        // }
    
-        popupMessage.textContent = `Total Calories: ${totalCals}`;
-        mealPopup.style.display = "block";
+        popupE.textContent = this.#currentEx;
+        popupC.textContent = this.#currentCph + ` calories per hour`;
+        if (this.activityDuration.value == null || this.activityDuration.value <= 0)
+        {
+            popupD.textContent = `Duration: 0 minutes`;
+        }
+        else
+        {
+            popupD.textContent = `Duration: ` + this.activityDuration.value + ` minutes`;
+        }
+        popupI.textContent = this.activityIntensity.value + ` intensity`;
+        popupT.textContent = `Total Calories: ` + Math.floor((this.#currentCph / 60) * this.activityDuration.value * this.activityIntensity.value);
+        activityPopup.style.display = "block";
         popupOverlay.style.display = "block";
     
-    
-        mealForm.onsubmit = async (event) => {
+        confirmBtn.onclick = async (event) => {
             event.preventDefault();
-    
-            const mealName = document.getElementById("mealName").value;
-            const mealType = document.getElementById("mealType").value;
-    
-            const mealData = {
-                mealName,
-                mealType,
-                foods: this.allMealFood
-            };
-    
-            try {
-                const response = await fetch('/api/meal', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(mealData)
-                });
+            //Only proceeds if all the important data is valid, otherwise an alert is displayed.
+            if (this.#currentEx !== 'No exercise selected' && this.activityIntensity.value != 0
+                && this.activityDuration.value != null && this.activityDuration.value > 0)
+            {
+                const activityDuration = document.getElementById("activityDuration").value;
+                const activityIntensity = document.getElementById("activityIntensity").value;
+                switch (activityIntensity)
+                {
+                    case 0.5:
+                        activityIntensity = 'Smouldering';
+                        break;
+                    case 1.5:
+                        activityIntensity = 'Inferno';
+                        break;
+                    case 2:
+                        activityIntensity = 'Hellfire';
+                        break;
+                    default:
+                        activityIntensity = 'Burning';
+                        break;
+                    //Switches intensity to a word because it's saved as an enum. Defaults to burning (1x) intensity
+
+                }
+                const activityData = {
+                    exerciseName: this.#currentEx,
+                    activityDuration: activityDuration,
+                    activityIntensity: activityIntensity
+                };
+        
+                try {
+                    const response = await fetch('/api/activity', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(activityData)
+                    });
 
 
 
-                console.table(mealData);
-                console.table(response);
-                console.table(JSON.stringify(mealData))
+                    console.table(activityData);
+                    console.table(response);
+                    console.table(JSON.stringify(activityData))
 
-    
-                if (!response.ok) throw new Error('Failed to send meal to server');
-                const result = await response.json();
-                console.log('Meal saved:', result);
-    
-                this.allMealFood.length = 0;
-                this.exerciseList.querySelectorAll('.item').forEach(item => item.remove());
-                this.calculateTotalCal();
-                mealPopup.style.display = "none";
-                popupOverlay.style.display = "none";
+        
+                    if (!response.ok) throw new Error('Failed to send activity to server');
+                    const result = await response.json();
+                    console.log('Activity saved:', result);
+                    
+                    activityPopup.style.display = "none";
+                    popupOverlay.style.display = "none";
 
-    
-            } catch (error) {
-                console.error('Error saving meal:', error);
+        
+                } catch (error) {
+                    console.error('Error saving activity:', error);
+                } 
             }
-
-            
+            else
+            {
+                alert('Please fill in all information before submitting.')
+            }
         };
     
         cancelBtn.onclick = (event) => {
             event.preventDefault();
-            mealPopup.style.display = "none";
+            activityPopup.style.display = "none";
             popupOverlay.style.display = "none";
         };
 
@@ -215,7 +267,7 @@ class ExerciseView {
     //for every food in basket work out attributes
 
     calculateTotalCal() {
-        let totals = { calories: 0, protein: 0, fiber: 0, carbs: 0, fat: 0, sugar: 0, count: 0 };
+        let totals = { caloriesPerHour: 0, duration: 0, calories: 0};
         if (!this.exerciseList.hasChildNodes()) {
             this.updateSummaryUI(totals);
             return;
@@ -258,29 +310,31 @@ class ExerciseView {
         });
     }
     
-
-    updateSummaryUI(totals) {
-        this.calorieSection.querySelector('.calorieTitle1').textContent = `Calories Burnt per Hour: (CALORIE/HOUR FROM EXERCISE)`;
-        this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: (DURATION FROM ACTIVITY)`;
-        this.calorieSection.querySelector('.calorieTitle3').textContent = `Total Calories Burnt: (MATHS)`;
+    //This works
+    updateSummaryUI() {
+        console.log('summary updated');
+        this.calorieSection.querySelector('.calorieTitle1').textContent = `Calories Burnt per Hour: ` + this.#currentCph;
+        this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: ` + activityDuration.value + ` minutes`;
+        this.calorieSection.querySelector('.calorieTitle3').textContent = `Total Calories Burnt: `
+             + Math.floor((this.#currentCph / 60) * activityDuration.value * activityIntensity.value);
     }
 
-    renderSearchResults(filteredFoodData) {
+    renderSearchResults(filteredExerciseData) {
         this.resultsContainer.innerHTML = '';
 
-        for (const food of filteredFoodData) {
+        for (const exercise of filteredExerciseData) {
             const resultItem = document.createElement('div');
             resultItem.classList.add('search-item');
-            resultItem.textContent = `${food.foodname} - ${food.calories} kcals`;
+            resultItem.textContent = `${exercise.exerciseName} - ${exercise.caloriesPerHour} kcals/hr`;
 
             resultItem.onclick = async () => {
-                const isConfirmed = await this.createMealPopup(food);
+                //const isConfirmed = await this.createMealPopup(exercise);
 
-                if (isConfirmed) {
-                    this.addFoodItemToUI(food.foodname);
+                //if (isConfirmed) {
+                    this.selectExercise(exercise.exerciseName);
                     document.querySelector('.search-bar').value = '';
                     this.resultsContainer.innerHTML = '';
-                }
+                //}
             };
 
             this.resultsContainer.appendChild(resultItem);
