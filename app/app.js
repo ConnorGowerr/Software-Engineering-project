@@ -460,4 +460,27 @@ app.post("/home.html", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });
     }
-});
+       
+})
+
+app.get("/groups/:allgroups", async (req, res) => {
+    connection.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+        if (err) {
+            console.error("Error setting search path:", err);
+            return res;  
+        }
+
+        const queryString = `SELECT * FROM userGroups`;
+        // const queryMembers = `SELECT username FROM Users LEFT JOIN userGroups.username ON Users.username WHERE userGroups.groupname = "group name here"`;
+        connection.query(queryString, (err, resp) => {
+            if (err) {
+                console.error("Database query error:", err);
+                return res;
+            }
+            console.table(resp.rows);
+            return res.status(200).json(resp.rows);
+            
+        })
+    })
+})
+
