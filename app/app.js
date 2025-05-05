@@ -1,4 +1,5 @@
 // All the require functions/api
+require('dotenv').config();
 const { checkHash } = require('./hash.js');
 const express = require('express');;
 const dbClient = require('./db.js'); 
@@ -7,7 +8,6 @@ const UserController = require('./UserController.js');
 
 const app = express();
 app.use(express.json()); 
-require('dotenv').config();
 
 const port = 8008;
 const {Client} = require('pg');
@@ -388,6 +388,32 @@ app.post("/home.html", async (req, res) => {
 
         }
 
+        //database chart logic
+        app.get('/api/data/:type', async (req, res) => {
+            const { type } = req.params;
+            const { range } = req.query;
+            const userId = req.session?.user?.id || 1; // Replace with real session logic
+        
+            try {
+                let data;
+                if (type === 'calories') {
+                    data = await getCaloriesData(userId, range);
+                } else if (type === 'activity') {
+                    data = await getActivityData(userId, range);
+                } else {
+                    return res.status(400).json({ error: 'Invalid type' });
+                }
+        
+                res.json({
+                    labels: data.map(entry => entry.date),
+                    values: data.map(entry => entry.value),
+                });
+            } catch (err) {
+                console.error(err);
+                res.status(500).json({ error: 'Failed to fetch data' });
+            }
+        });
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });

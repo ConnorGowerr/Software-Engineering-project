@@ -6,12 +6,13 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type = "module" src="profileView.js" defer></script>
-
+    <script type="module" src="profileView.js" defer></script>
+    <script src="chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
+
 <body>
     <header class="top-header">
         <a href="#" class="top-left-btn" id="messageBtn">
@@ -19,99 +20,98 @@
         </a>
 
         <h1 id="hellthTitle">Progress</h1>
-        
+
         <a href="profile.html" class="top-right-btn">
             <img src="images/user-solid.svg" alt="profileIcon">
         </a>
     </header>
     <main>
-            <div class="container">
-                <div class="graph">
-                    <div id="medals">Calories</div>
-                    <img src="Graph1.PNG" alt="graph to show progress" class="progress-image">
-                    <div class="view-buttons">
-                        <button class="btn" id="graphBtn">Week</button>
-                        <button class="btn" id="graphBtn">Month</button>
-                        <button class="btn" id="graphBtn">Year</button>
-                    </div>
-                </div>
-                <div class="graph">
-                    <div id="medals">Activity</div>
-                    <img src="Graph2.PNG" alt="graph to show progress" class="progress-image">
-                    <div class="view-buttons">
-                        <button class="btn" id="graphBtn">Week</button>
-                        <button class="btn" id="graphBtn">Month</button>
-                        <button class="btn" id="graphBtn">Year</button>
-                    </div>
-                </div>
-                <div>
-                    <div id="changeTargets">- Change Targets -</div>
-                    <div class="graph">
-                        <div id="changeText">Struggling to keep up or need more challenge?</div>
-                        <div id="adjustText">Adjust your targets here!</div>
-                        <div class="buttons">
-                            <button class="btn">Calories</button>
-                            <button class="btn">Activity</button>
-                        </div>
-                    </div>
+        <div class="container">
+            <div class="graph">
+                <div id="medals">Calories</div>
+                <canvas id="caloriesChart" class="progress-image"></canvas>
+                <div class="view-buttons">
+                    <button class="btn" data-chart="calories" data-range="week">Week</button>
+                    <button class="btn" data-chart="calories" data-range="month">Month</button>
+                    <button class="btn" data-chart="calories" data-range="year">Year</button>
                 </div>
             </div>
+            <div class="graph">
+                <div id="medals">Activity</div>
+                <canvas id="activityChart" class="progress-image"></canvas>
+                <div class="view-buttons">
+                    <button class="btn" data-chart="activity" data-range="week">Week</button>
+                    <button class="btn" data-chart="activity" data-range="month">Month</button>
+                    <button class="btn" data-chart="activity" data-range="year">Year</button>
+                </div>
+            </div>
+            <div id="changeTargets">- Change Targets -</div>
+            <div class="graph">
+                <div id="changeText">Struggling to keep up or need more challenge?</div>
+                <div id="adjustText">Adjust your targets here!</div>
+                <div class="buttons">
+                    <button class="btn">Calories</button>
+                    <button class="btn">Activity</button>
+                </div>
+            </div>
+        </div>
+        </div>
         </section>
 
         <div class="popup-overlay" id="mailboxOverlay">
             <div class="mailboxHeader">
-                <h2 class = 'mailboxTitle'>Inbox</h2>
+                <h2 class='mailboxTitle'>Inbox</h2>
             </div>
             <div id="mailboxContainer" class="popup">
                 <div class="mailboxList">
                     <div class="mailboxItem">
-                        <div class = "textContent">
+                        <div class="textContent">
                             <div class="mailSender">Hellth</div>
                             <div class="mailSubject">New Meal Logged</div>
                             <div class="mailDate">31/02/2025</div>
                         </div>
-                        <div class = "imageContent">
-                            <img src = "images/user-group-solid.svg" alt = "Text">
+                        <div class="imageContent">
+                            <img src="images/user-group-solid.svg" alt="Text">
                         </div>
                     </div>
                     <div class="mailboxItem">
-                        <div class = "textContent">
+                        <div class="textContent">
                             <div class="mailSender">Hellth</div>
                             <div class="mailSubject">New Meal Logged</div>
                             <div class="mailDate">31/02/2025</div>
                         </div>
-                        <div class = "imageContent">
-                            <img src = "images/user-group-solid.svg" alt = "Text">
+                        <div class="imageContent">
+                            <img src="images/user-group-solid.svg" alt="Text">
                         </div>
                     </div>
                     <div class="mailboxItem">
-                        <div class = "textContent">
+                        <div class="textContent">
                             <div class="mailSender">Hellth</div>
                             <div class="mailSubject">New Meal Logged</div>
                             <div class="mailDate">31/02/2025</div>
                         </div>
-                        <div class = "imageContent">
-                            <img src = "images/user-group-solid.svg" alt = "Text">
+                        <div class="imageContent">
+                            <img src="images/user-group-solid.svg" alt="Text">
                         </div>
                     </div>
                     <div class="mailboxItem">
-                        <div class = "textContent">
+                        <div class="textContent">
                             <div class="mailSender">Hellth</div>
                             <div class="mailSubject">New Meal Logged</div>
                             <div class="mailDate">31/02/2025</div>
                         </div>
-                        <div class = "imageContent">
-                            <img src = "images/user-group-solid.svg" alt = "Text">
+                        <div class="imageContent">
+                            <img src="images/user-group-solid.svg" alt="Text">
                         </div>
                     </div>
                     <div class="mailboxItem">
-                        <div class = "textContent">
+                        <div class="textContent">
                             <div class="mailSender">Hellth</div>
                             <div class="mailSubject">New Meal Logged</div>
                             <div class="mailDate">31/02/2025</div>
                         </div>
-                        <div class = "imageContent">
-                            <img src = "images/user-group-solid.svg" alt = "Text">
+                        <div class="imageContent">
+                            <img src="images/user-group-solid.svg" alt="Text">
                         </div>
                     </div>
                 </div>
@@ -123,27 +123,27 @@
             <img src="images/house-solid.svg" alt="Home">
             <span class="icon-text">Home</span>
         </a>
-        
+
         <a href="progress.html" class="nav-btn">
             <img src="images/chart-line-solid.svg" alt="Progress">
             <span class="icon-text">Progress</span>
         </a>
-    
+
         <div class="center-btn-container">
             <a href="mealActivtiySelect.html" class="center-btn">
                 <img src="images/plus-solid.svg" alt="Add">
             </a>
         </div>
-    
+
         <a href="groups.html" class="nav-btn">
             <img src="images/user-group-solid.svg" alt="Groups">
             <span class="icon-text">Groups</span>
         </a>
-    
+
         <a href="contact.html" class="nav-btn">
             <img src="images/person-circle-question-solid.svg" alt="Help">
             <span class="icon-text">Help</span>
         </a>
     </div>
-    
+
 </body>
