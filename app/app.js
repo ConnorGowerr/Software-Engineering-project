@@ -177,20 +177,20 @@ DB_PASSWORD="YOUR DB PASSWORD HERE"
 make sure to also be connected to vpn
 */
 
-const connection = new Client({
-    host: "cmpstudb-01.cmp.uea.ac.uk",
-    user: process.env.DB_USERNAME,
-    port: 5432,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_USERNAME,
-})
+// const connection = new Client({
+//     host: "cmpstudb-01.cmp.uea.ac.uk",
+//     user: process.env.DB_USERNAME,
+//     port: 5432,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_USERNAME,
+// })
 
 
 
-connection.connect().then(() => console.log("Database is connected")).catch(err => console.error("Database failed to connect", err.message));
+// connection.connect().then(() => console.log("Database is connected")).catch(err => console.error("Database failed to connect", err.message));
 
 // sets the db connection to the correct schema
-connection.query('SET SEARCH_PATH to "Hellth", public;', async (err) => {
+dbClient.query('SET SEARCH_PATH to "Hellth", public;', async (err) => {
     if (err) {
         console.log(err.message);
     } else {
@@ -198,7 +198,7 @@ connection.query('SET SEARCH_PATH to "Hellth", public;', async (err) => {
     }
 })
 
-connection.query(`SET TIME ZONE 'Europe/London';`, async (err) => {
+dbClient.query(`SET TIME ZONE 'Europe/London';`, async (err) => {
     if (err) {
         console.log(err.message);
     } else {

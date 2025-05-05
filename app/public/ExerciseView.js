@@ -66,7 +66,7 @@ class ExerciseView {
 
                 this.#currentEx = exerciseData[0].exercisename;
                 this.#currentCph = exerciseData[0].caloriesperhour;
-                this.selectedContainer.querySelector('#search-select').textContent = currentEx;
+                this.selectedContainer.querySelector('#search-select').textContent = this.#currentEx;
                 console.log('changed exercise');
                 this.updateSummaryUI();
                 // let totalQuantity = 0;
