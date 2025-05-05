@@ -1,4 +1,7 @@
+require('dotenv').config();
+const {Client} = require('pg');
 // All the require functions/api
+
 const { checkHash } = require('./hash.js');
 const express = require('express');;
 const dbClient = require('./db.js'); 
@@ -9,10 +12,9 @@ const UserController = require('./UserController.js');
 
 const app = express();
 app.use(express.json()); 
-require('dotenv').config();
 
 const port = 8008;
-const {Client} = require('pg');
+
 const cors = require("cors");
 require("dotenv").config();
 
