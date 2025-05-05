@@ -3,6 +3,8 @@ const { checkHash } = require('./hash.js');
 const express = require('express');;
 const dbClient = require('./db.js'); 
 const FoodController = require('./FoodController.js');
+const ExerciseController = require('./ExerciseController.js');
+const Food = require('./Food.js');
 const UserController = require('./UserController.js');
 
 const app = express();
@@ -13,9 +15,9 @@ const port = 8008;
 const {Client} = require('pg');
 const cors = require("cors");
 require("dotenv").config();
+
 const foodController = new FoodController();
 const userController = new UserController();
-
 
 
 app.use(express.static('public'));
@@ -36,6 +38,15 @@ app.get('/', (req, res) =>  {
     })
 });
 
+// app.get('/signup', (req, res) =>  {
+//     res.sendFile('signup.html', {root: 'public'}, (err) => {
+//         if(err) {
+//             console.log(err);
+//         }
+//     })
+// });
+
+const exerciseController = new ExerciseController();
 
 
 
@@ -48,6 +59,16 @@ app.get('/api/search-food', (req, res) => {
     });
 });
 
+// Search exercise based on query
+app.get('/api/search-exercise', (req, res) => {
+    const query = req.query.q;
+    
+    exerciseController.searchExercise(query, (exerciseData) => {
+        res.json(exerciseData);
+    });
+});
+
+
 
 // reutrn single food item 
 app.get('/api/return-food', (req, res) => {
@@ -58,12 +79,22 @@ app.get('/api/return-food', (req, res) => {
     });
 });
 
-//return single user item
+
+// return single exercise
+app.get('/api/return-exercise', (req, res) => {
+    const query = req.query.q;
+    
+    foodController.returnExercise(query, (exerciseData) => {
+        res.json(exerciseData);
+         });
+});
+
 app.get('/api/return-user', (req, res) => {
     const query = req.query.q;
     
     userController.returnUser(query, (userData) => {
         res.json(userData);
+
     });
 });
 
@@ -148,6 +179,7 @@ app.get('/achievements', (req, res) => {
 });
 
 
+
 app.get('/meal', (req, res) => {
     if (!dbClient) {
         return res.status(500).json({ error: 'Database client not initialized' });
@@ -188,8 +220,6 @@ app.get('/meal', (req, res) => {
     });
 });
 
-
-
 // allows server to wait on the correct port
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
@@ -203,7 +233,27 @@ DB_PASSWORD="YOUR DB PASSWORD HERE"
 
 make sure to also be connected to vpn
 */
+
 // sets the db connection to the correct schema
+dbClient.query('SET SEARCH_PATH to "Hellth", public;', async (err) => {
+    if (err) {
+        console.log(err.message);
+    } else {
+        console.log("yipee search path found");
+    }
+})
+
+dbClient.query(`SET TIME ZONE 'Europe/London';`, async (err) => {
+    if (err) {
+        console.log(err.message);
+    } else {
+        console.log("time zone set");
+    }
+})
+
+
+// sets the db connection to the correct schema
+
 /* Receives the data from the post request sent by the signup page and attemps to insert the data into the database into the user table
 
 
@@ -219,6 +269,7 @@ app.post("/signup", async (req, res) => {
 
         const values = [username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric];
         
+
         const result = await dbClient.query(createAccount, values);
         res.status(201).json({ 
             message: "User created successfully", 
@@ -233,6 +284,7 @@ app.post("/signup", async (req, res) => {
 app.get("/signup/:check", async (req, res) => {
     
     const {username, email} = req.query;
+
 
     if (!dbClient) {
         return res.status(500).json({ error: 'Database client not initialized' });
@@ -251,6 +303,7 @@ app.get("/signup/:check", async (req, res) => {
         if (email) 
         {
             const searchEmail = await dbClient.query('SELECT email FROM "Hellth"."users" WHERE email = $1', [email]);
+
 
             if (searchEmail.rows.length === 0) 
             {
@@ -278,6 +331,7 @@ app.get("/signup/:check", async (req, res) => {
 
 
 app.post("/", async (req, res) => {
+
     const { username, password } = req.body;
 
     try {
@@ -314,6 +368,7 @@ app.post("/", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });
     }
+
 });
 
 app.get("/groups/:allgroups", async (req, res) => {
@@ -483,8 +538,10 @@ app.get("/home.html", async (req, res) => {
 
         if (dailyCalorieTarget.rows.length === 0) {
             console.log("User does not exist");
+
             return res.status(404).json({ error: "No data found" });
         }
+
 
         if (challengeFound == "meal") {
             challengeUnit = "Calories";
@@ -555,11 +612,32 @@ app.get("/home.html", async (req, res) => {
                 calories: 0
             });
         }
-
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: "There was an error with the server" });
     }
-});
+       
+})
+
+app.get("/groups/:allgroups", async (req, res) => {
+    connection.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+        if (err) {
+            console.error("Error setting search path:", err);
+            return res;  
+        }
+
+        const queryString = `SELECT * FROM userGroups`;
+        // const queryMembers = `SELECT username FROM Users LEFT JOIN userGroups.username ON Users.username WHERE userGroups.groupname = "group name here"`;
+        connection.query(queryString, (err, resp) => {
+            if (err) {
+                console.error("Database query error:", err);
+                return res;
+            }
+            console.table(resp.rows);
+            return res.status(200).json(resp.rows);
+            
+        })
+    })
+})
 
 

@@ -1,4 +1,8 @@
 /* Generics */
+*{
+    cursor: progress;
+}
+
 main{
     height:80%;
 }
@@ -36,7 +40,6 @@ p {
     color: #EFEDE7;
     font-family: 'Poppins';
     text-shadow: 2px 2px 4px #000000;
-
 }
   
 input {
@@ -786,6 +789,16 @@ label {
     justify-content: center;
     align-items: center;
     transition: transform 0.2s ease, background-color 0.3s ease;
+}
+#popupE, #popupC, #popupD, #popupI, #popupT {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+#popupT {
+    font-size: larger;
+    color: #EFEDE7;
+    font-family: 'Poppins';
+    text-shadow: 2px 2px 4px #000000;
 }
 
 #mailboxOverlay{

@@ -3,7 +3,7 @@
 <title>Hellth</title>
 <link rel="icon" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <script type="module" src="./ExerciseView.js" defer></script> -->
+<script type="module" src="./ExerciseView.js" defer></script>
 <link rel="stylesheet" href="activity.css">
 <script type = "module" src="profileView.js" defer></script>
 
@@ -21,7 +21,8 @@
 
 
 
-        <h1 id="hellthTitle">Achievements</h1>
+        <h1 id="activityTitle">Add Activity</h1>
+
 
         <a href="profile.html" class="top-right-btn">
             <img src="images/user-solid.svg" alt="profileIcon">
@@ -38,7 +39,7 @@
                 </div>
             </div>
             <div class="search-select">
-                <p>No exercise selected</p>
+                <p id = "search-select">No exercise selected</p>
             </div> 
             <div class="search-results">
             </div> 
@@ -48,12 +49,13 @@
         <div class = "centerSection">
             <h2 id="exerciseTitle">Customise Activity</h2>
             <form id="activityForm">
-                <input type="number" min="0" id="activityDuration" placeholder="Activity Duration" required = "true">
+                <input type="number" min="0" id="activityDuration" placeholder="Activity Duration (minutes)" required = "true">
                 <select id="activityIntensity" required = "true">
-                    <option value="" disabled selected>Select Activity Intensity</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option value="0" disabled selected>Select Activity Intensity</option>
+                    <option value="0.5">Smouldering (0.5x)</option>
+                    <option value="1">Burning (1x)</option>
+                    <option value="1.5">Inferno (1.5x)</option>
+                    <option value="2">Hellfire (2x)</option>
                 </select>
             </form>
             <button id="activityBtn" class="mainBtn">Create Activity</button>
@@ -63,7 +65,7 @@
             <h2 id="exerciseTitle">Overview</h2>
             <div class = "calorieSection">
                 <h2 class="calorieTitle1">Calories Burnt per Hour: 0</h2>
-                <h2 class="calorieTitle2">Duration: 0</h2>
+                <h2 class="calorieTitle2">Duration: 0 minutes</h2>
                 <h2 class="calorieTitle3">Total Calories Burnt: 0</h2>
             </div>
         </div>
@@ -71,9 +73,13 @@
     <div class="popup-overlay" id="popupOverlay">
         <div id="activityPopup" class="popup">
             <div class="popup-content">
-                <p id="popupMessage"></p>
+                <h2>Submit activity?</h2>
+                <p id="popupE">(exercise name)</p>
+                <p id="popupC">(calories per hour)</p>
+                <p id="popupD">(duration)</p>
+                <p id="popupI">(intensity)</p>
+                <p id="popupT">(total)</p>
                 <form id="activityForm">
-                
                     <div class="popup-buttons">
                         <button id="confirmBtn">Confirm</button>
                         <button id="cancelBtn"><i class="fas fa-times"></i></button>
