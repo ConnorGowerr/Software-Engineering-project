@@ -85,7 +85,7 @@ app.get('/api/return-food', (req, res) => {
 app.get('/api/return-exercise', (req, res) => {
     const query = req.query.q;
     
-    foodController.returnExercise(query, (exerciseData) => {
+    exerciseController.returnExercise(query, (exerciseData) => {
         res.json(exerciseData);
          });
 });
