@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="module" src="./ExerciseView.js" defer></script>
 <link rel="stylesheet" href="activity.css">
+<script type = "module" src="profileView.js" defer></script>
+
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -13,12 +15,14 @@
 
 <body>
     <header class="top-header">
-        <button class="top-left-btn">
+        <a href="#" class="top-left-btn" id="messageBtn">
             <img src="images/envelope-solid.svg" alt="profileIcon">
-        </button>
+        </a>
+
 
 
         <h1 id="activityTitle">Add Activity</h1>
+
 
         <a href="profile.html" class="top-right-btn">
             <img src="images/user-solid.svg" alt="profileIcon">
@@ -100,10 +104,60 @@
 
     <div class="popup-overlay" id="mailboxOverlay">
         <div class="mailboxHeader">
-            <h2>Inbox</h2>
+            <h2 class = 'mailboxTitle'>Inbox</h2>
         </div>
-        <div id="mailboxContainer" class = popup>
+        <div id="mailboxContainer" class="popup">
             <div class="mailboxList">
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -114,7 +168,7 @@
 
     </main>
     <div class="navbar">
-        <a href="login.html" class="nav-btn">
+        <a href="home.html" class="nav-btn">
             <img src="images/house-solid.svg" alt="Home">
             <span class="icon-text">Home</span>
         </a>

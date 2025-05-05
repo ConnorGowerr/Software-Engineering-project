@@ -1,0 +1,350 @@
+#homeSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    /* gap: 25%; */
+    margin-top: 5%;
+}
+  
+.homeBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 10%; */
+    padding-top: 3%;
+    padding-bottom: 6%;
+    margin-bottom: 5%;
+    color: #EFEDE7;
+    
+}
+
+/* .box:hover {
+    animation: none;
+}
+
+
+.box:after, .box:before {
+    transition: none;
+} */
+
+.homeColumns 
+{
+    display: flex;
+    flex-direction: column;
+    max-width: 45%;
+}
+
+
+/* 
+
+Circular progress bar made with the help from https://www.youtube.com/watch?v=H2HYccAGR00&t=508s
+
+*/
+/* @keyframes progressFill 
+{
+    100% 
+    {
+        stroke-dashoffset: 90;
+    }
+} */
+
+
+
+circle 
+{
+    fill: none;
+    stroke: url(#progressBarColour);
+    stroke-width: 36px;
+    stroke-dasharray: 571;
+    stroke-dashoffset: 571;
+    animation: progressFill 2s forwards;
+    
+}
+
+#calories, #caloriesNumber
+{
+    font-family: 'Poppins';
+    font-weight: bold;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: larger;
+    color: #EFEDE7;
+}
+
+#dailyCalorieTracker 
+{
+    font-family: 'Poppins';
+    margin-top: 1%;
+    padding-top: 0;
+    white-space: nowrap;
+}
+
+#calorieRow 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 2em auto;
+}
+  
+#progressWrapper 
+{
+    position: relative;
+    width: 220px;
+    height: 220px;
+    flex-shrink: 0;
+    margin-right: 10%;
+}
+  
+#progressWrapper svg 
+{
+    position: absolute;
+    top: 2.7%;
+    left: 2.5%;
+    pointer-events: none;
+}
+  
+#calorieRow2 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Poppins';
+    color: #EFEDE7;
+    text-align: center;
+    text-wrap: none;
+    white-space: nowrap;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: larger;
+    margin-left: 40px;
+}
+  
+#calorieTargetBox 
+{
+    padding-left: 40%;
+    padding-right: 40%;
+    margin-right: 600px;
+    padding-bottom: 0;
+}
+  
+.outerCircle 
+{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    padding: 20px;
+    border: 6px; 
+    border-style: solid; 
+    border-color: #BABABA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.4),
+    -8px -8px 16px rgba(255, 255, 255, 0.075);
+  }
+  
+.innerCircle 
+{
+    width: 140px;
+    height: 140px;
+    background-color: #1C1F21;
+    border: 3px solid #BABABA;
+    border-radius: 50%;
+    box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.4),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#activityTargetBox, #groupChallengeBox 
+{
+    max-width: 40%;
+    width: 40%;
+}
+
+#progressTitleHome, #groupsTitleHome, #helpTitleHome
+{
+    font-size: 30px;
+}
+
+#progressBox 
+{
+    padding-top: 0;
+    padding-bottom: 2%;
+    justify-content: center;
+    align-items: center;
+}
+
+#trackProgressButton, #groupsButton, #helpButton 
+{
+    padding: 4%;
+    white-space: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#groupsButton 
+{
+    padding: 7%;
+}
+
+#helpButton 
+{
+    padding: 9%;
+}
+
+#helpBox 
+{
+    margin-bottom: 15%;
+}
+
+#activityTargetBox, #groupChallengeBox 
+{
+    width: auto;
+    max-width: 80%;
+    flex-grow: 1;
+}
+
+#goalMainSection, #challengeMainSection 
+{
+    text-shadow: 2px 2px 4px #000000;
+    font-size: larger;
+    font-family: 'Poppins';
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+}
+
+#goalSectioning1, #challengeSectioning1
+{
+    margin-left: -6%;
+}
+
+#goalSectioning2, #challengeSectioning2 
+{
+    margin-left: 12%;
+}
+
+
+/* @keyframes linearProgressFill1 
+{
+    100% 
+    {
+        width: 80%;
+    }
+} */
+
+/* @keyframes linearProgressFill2 
+{
+    100% 
+    {
+        width: 80%;
+    }
+} */
+
+#goalProgressBar, #groupProgressBar 
+{
+    height: 3vh;
+    width: 80%;
+    background: #ddd;
+    border-radius: 25px;
+    border: 6px solid #BABABA;
+    overflow: hidden;
+    position: relative;
+    /* margin-top: auto; */
+    margin-bottom: 3%; 
+    box-shadow: inset 0 0 10px #222;
+}
+
+
+.progress, .progress2
+{
+    height: 100%;
+    border-radius: 25px;
+    transition: width 0.3s ease-in-out;
+    width: 0%;
+}
+
+.groupProgressColor 
+{ 
+    background: linear-gradient(to right, #007AFF, #1DE44F); 
+    box-shadow:
+        0 0 10px white,
+        0 0 20px white,
+        0 0 30px #1DE44F,
+        0 0 40px #1DE44F;
+        background-image: 
+        url("images/noise.png"),
+        linear-gradient(to right, #007AFF, #1DE44F);
+        background-blend-mode: hard-light;
+        background-repeat: repeat;
+        background-size: cover;
+        
+}
+
+.goalProgressColor 
+{ 
+    background: linear-gradient(to right, #FF8C00, #FFD700); 
+    box-shadow:
+        0 0 10px #FF8C00,
+        0 0 20px #FF8C00,
+        0 0 30px #FFD700,
+        0 0 40px #FFD700;
+        background-image: 
+        url("images/noise.png"),
+        linear-gradient(to right, #FF8C00, #FFD700);
+        background-blend-mode: hard-light;
+        background-repeat: repeat;
+        background-size: cover;
+        
+}
+
+.goalProgressColor::before 
+{
+    content: "";
+    position: absolute;
+    border-radius: 25px;
+    background: linear-gradient(to right, #FF8C00, #FFD700);
+    filter: blur(12px);
+    opacity: 0.6;
+    z-index: -1;
+}
+
+#challengeTitleSectioning 
+{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: -5%;
+}
+
+#challengeTitle, #challengeTitleRemaining 
+{
+    font-family: 'Poppins';
+    white-space: nowrap;
+}
+
+#groupChallengeBox 
+{
+    margin-bottom: 15%;
+}
+
+#challengeTitle 
+{
+    margin-left: -3%;
+}
+
+#challengeTitleRemaining 
+{
+    margin-left: 5%;
+}
+
+h2, h3, h4 
+{
+    font-family: 'Poppins';
+}

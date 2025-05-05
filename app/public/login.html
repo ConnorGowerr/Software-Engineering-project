@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<head>
+<title>Hellth</title>
+<link rel="icon" href="images/Logo.png">
+<link rel="icon" href="images/Logo.png">
+<link rel="stylesheet" href="style.css">
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<script src="https://cdn.jsdelivr.net/npm/bcryptjs/umd/index.js"></script>
+ <!--unsure if needed or not-->
+<!-- <script src="signUpDB.js" defer></script> -->
+  
+<script src = "login.js" defer></script>
+<script type = "module" src="logInDB.js"></script>
+<script type="module">
+    import { logIn } from "/logInDB.js";
+    document.addEventListener("DOMContentLoaded", function() {
+        const signUpButton = document.getElementById('logInButton');
+        signUpButton.addEventListener('click', function(event) 
+        {
+            // stops default form behaviour once log in button is pressed
+            event.preventDefault();
+            logIn();
+        });
+    });
+</script>
+</head>
+<body>
+    <header class="top-header">
+        <h1 id = "hellthTitle">Hellth</h1>
+    </header>
+<main>
+    <h4 id = "warning">⚠︎ Warning</h4>
+    <section id = "loginPageSection">
+        <div class = "box" id = "logInBox">
+            <h2 id = "returningUser">Returning user? Sign in Here!</h2>
+            <form class = "form" id = "logInForm">
+                <div id = "usernameContainer">
+                    <input type = "text" class = "inputClass" id = "logInUsername" placeholder = "Username*" aria-required = "true" required = "true">
+                        <div class = "iconBox" id = "usernameIconBox">
+                            <img id = "usernameIcon" src = "images/User.png">
+                        </div>            
+                </div>
+                <div id = "passwordContainer">
+                    <input type = "password" class = "inputClass" id = "logInPassword" placeholder = "Password*" aria-required = "true" required = "true">
+                        <div class = "iconBox" id = "passwordIconBox" title = "Show password" onclick="showPassword()">
+                            <img id = "eyeIcon" src = "images/Eye off.png">
+                        </div>
+                </div>
+              <a href = "forgotPassword.html" id = "forgotLink"><u id = "forgottenPassword">Forgotten Password?</u></a>
+                <button class = "button" id = "logInButton">Log In</button>
+            </form>
+        </div>
+        <h2 id = "OR">- OR -</h2>
+        <div class = "box" id = "signUpBox">
+            <h2 id = "newUserTitle">Ignite Your Fitness Journey Today</h2>
+            <p class = "welcomeText">Step into the fire and forge a stronger you.</p>
+            <p class = "welcomeText">Hellth isn't just another fitness app—it's your crucible, where powerful tracking, relentless challenges, and a driven community push you to new heights.</p>
+            <p class = "welcomeText">Ready to take the heat? Join now and claim your place!</p>
+            <button class = "button" id = "signUpButton"><a id = "signIn" href = "signup.html">Sign Up</a></button>
+        </div>
+    </section>
+    </main>
+
+    <div id="quantity-alert"></div>
+</body>

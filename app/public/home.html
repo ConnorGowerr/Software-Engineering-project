@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<head>
+<title>Hellth</title>
+<link rel="icon" href="images/Logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="home.css">
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src = "home.js" defer></script>
+</head>
+
+<body>
+<header class="top-header">
+    <a href="#" class="top-left-btn" id="messageBtn">
+        <img src="images/envelope-solid.svg" alt="profileIcon">
+    </a>
+
+
+    <h1 id="hellthTitle">Dashboard</h1>
+
+    <a href="profile.html" class="top-right-btn">
+        <img src="images/user-solid.svg" alt="profileIcon">
+    </a>
+</header>
+<main>
+
+    <section id = "homeSection">
+        <section class = "homeColumns">
+            <div class = "box homeBox" id = "calorieTargetBox">
+                <h2 id = "dailyCalorieTracker">Daily Calorie Tracker</h2>
+                <div id="calorieRow">
+                    <div id="progressWrapper">
+                        <div class="outerCircle">
+                        <div class="innerCircle">
+                            <p id="caloriesNumber">0</p>
+                            <p id="calories">Calories</p>
+                        </div>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="220px" height="220px">
+                            <defs>
+                            <linearGradient id="progressBarColour">
+                                <stop offset="0%" stop-color="#EA7B3A"></stop>
+                                <stop offset="45%" stop-color="#B92318"></stop>
+                                <stop offset="100%" stop-color="#95180F"></stop>
+                            </linearGradient>
+                            </defs>
+                            <circle cx="110" cy="110" r="91" stroke-linecap="round" id="circle"></circle>
+                        </svg>
+                        </div>
+                    <div id="calorieRow2">
+                        <h3>Calories Remaining</h3>
+                        <h4 id = "remainingCalories">0</h4>
+                        <h3>Target Daily Calories</h3>
+                        <h4 id = "targetCalorie">0</h4>
+                    </div>
+                </div>
+            </div>
+            <div class = "box homeBox" id = "activityTargetBox">
+                <div id = "goalMainSection">
+                    <div id = "goalSectioning1">
+                        <h3 id = "currentGoalTitle">Activity Today</h3>
+                        <h4 id = "currentGoalNumber">60</h4>
+                        <h3 class = "goalUnit">Minutes</h3>
+                    </div>
+                    <div id = "goalSectioning2">
+                        <h3 id = "targetGoalTitle">Weekly Activity Target</h3>
+                        <h4 id = "targetGoalNumber">240</h4>
+                        <h3 class = "goalUnit">Minutes</h3>
+                    </div>
+                    </div>
+                    <div id="goalProgressBar">
+                        <div class="progress goalProgressColor"></div>
+                      </div>
+                </div>
+            </div>
+            <div class = "box homeBox" id = "groupChallengeBox">
+                <div id = "challengeTitleSectioning">
+                    <h2 id = "challengeTitle">Weekly Group Challenge:</h2>
+                    <h2 id = "challengeTitleRemaining">2 Days Left</h2>
+                </div>
+                <div id = "challengeMainSection">
+                    <div id = "challengeSectioning1">
+                        <h3 id = "currentChallengeTitle">Your Contribution</h3>
+                        <h4 id = "currentChallengeNumber">626</h4>
+                        <h3 class = "challengeUnit">Calories</h3>
+                    </div>
+                    <div id = "challengeSectioning2">
+                        <h3 id = "targetChallengeTitle">Target Calories Burned</h3>
+                        <h4 id = "targetChallengeNumber">10000</h4>
+                        <h3 class = "challengeUnit">Calories</h3>
+                    </div>
+                </div>
+                <div id="groupProgressBar">
+                    <div class="progress2 groupProgressColor"></div>
+                  </div>
+            </div>
+        </section>
+        <section class = "homeColumns">
+            <div class = "box homeBox" id = "progressBox">
+                <h2 id = "progressTitleHome" class = "welcomeText">The Flames of Progress</h2>
+                <p class = "welcomeText">Where passion meets progress. Keep tabs on your goals, honor your consistency, and stay fired up.<p>
+                <button class = "button" id = "trackProgressButton">Track Progress</button>
+            </div>
+            <div class = "box homeBox" id = "groupBox">
+                <h2 id = "groupsTitleHome" class = "welcomeText">Summon Your Companions</h2>
+                <p class = "welcomeText">Find your inner circle. Join a group today and face your trials together, where sparks fly and strength grows, because no one should conquer the flames alone.<p>
+                <button class = "button" id = "groupsButton">Join Today</button>
+            </div>
+            <div class = "box homeBox" id = "helpBox">
+                <h2 id = "helpTitleHome" class = "welcomeText">Need a Messenger?</h2>
+                <p class = "welcomeText">Need a lifeline? Dive into our FAQ or reach out to our ever-watchful staff—help is just a click away.<p>
+                <button class = "button" id = "helpButton">Seek Aid</button>
+            </div>
+        </section>
+    </section>
+
+    <div class="popup-overlay" id="mailboxOverlay">
+        <div class="mailboxHeader">
+            <h2 class = 'mailboxTitle'>Inbox</h2>
+        </div>
+        <div id="mailboxContainer" class="popup">
+            <div class="mailboxList">
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+                <div class="mailboxItem">
+                    <div class = "textContent">
+                        <div class="mailSender">Hellth</div>
+                        <div class="mailSubject">New Meal Logged</div>
+                        <div class="mailDate">31/02/2025</div>
+                    </div>
+                    <div class = "imageContent">
+                        <img src = "images/user-group-solid.svg" alt = "Text">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div class="navbar">
+    <a href="home.html" class="nav-btn">
+        <img src="images/house-solid.svg" alt="Home">
+        <span class="icon-text">Home</span>
+    </a>
+    
+    <a href="progress.html" class="nav-btn">
+        <img src="images/chart-line-solid.svg" alt="Progress">
+        <span class="icon-text">Progress</span>
+    </a>
+
+    <div class="center-btn-container">
+        <a href="mealActivtiySelect.html" class="center-btn">
+            <img src="images/plus-solid.svg" alt="Add">
+        </a>
+    </div>
+
+    <a href="groups.html" class="nav-btn">
+        <img src="images/user-group-solid.svg" alt="Groups">
+        <span class="icon-text">Groups</span>
+    </a>
+
+    <a href="contact.html" class="nav-btn">
+        <img src="images/person-circle-question-solid.svg" alt="Help">
+        <span class="icon-text">Help</span>
+    </a>
+</div>
+
+</body>
