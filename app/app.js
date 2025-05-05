@@ -484,7 +484,7 @@ app.get("/groups/:allgroups", async (req, res) => {
 })
 
 app.get("/groups/:allgroups/:groupid", async (req, res) => {
-    const groupid = decodeURIComponent(req.query);
+    const groupid = decodeURIComponent(req.groupid);
     console.log(groupid)
     const queryMembers = await dbClient.query("SELECT COUNT(*) FROM groupMembers WHERE groupMembers.groupID = $1", [groupid]);
     if (queryMembers.rows.length === 0) 
