@@ -4,27 +4,6 @@ const popupoverlay = document.querySelector(".popup-overlay")
 const createpopup = document.querySelector(".popup3")
 const createpopupoverlay = document.querySelector(".popup-overlay2")
 
-rng = [];
-arr = [3, 4, 5, 6, 7]
-pubarr = [];
-
-function randomiseGroup(d){
-    const set = new Set();
-
-    for(i = 0; i < d.length; i++){
-        if(d[i].ispublic == true){
-            pubarr.push(d[i]);
-            console.table(pubarr);
-        }
-    }
-    while (set.size != pubarr.length) {
-        set.add(Math.floor(Math.random() * pubarr.length));
-        
-    }
-    rng = [...set];
-
-}
-
     function one(){
     fetch(`/groups/:allgroups`)
         .then(response => {
@@ -36,6 +15,7 @@ function randomiseGroup(d){
         })
         .then(data => {
             console.table(data)
+
             randomiseGroup(data);
             // groupValues(data);
             console.table(rng);
@@ -96,6 +76,7 @@ function randomiseGroup(d){
 
     // }
 
+
     document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
         createpopup.style.display = "block";
         createpopupoverlay.style.display = "block";
@@ -110,3 +91,4 @@ function randomiseGroup(d){
     
 
 one();
+

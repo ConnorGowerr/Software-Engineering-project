@@ -76,4 +76,14 @@ buttons.forEach(btn => {
     });
 });
 
+
+window.addEventListener('load', () => {
+    const skeleton = document.getElementById('skeleton-screen');
+    if (skeleton) {
+      skeleton.style.transition = 'opacity 0.4s ease';
+      skeleton.style.opacity = '0';
+      setTimeout(() => skeleton.remove(), 400); // sync with transition
+    }
+  });
+  
 updateProfileStats();
