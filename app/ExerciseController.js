@@ -13,7 +13,7 @@ class ExerciseController {
                 return callback([]);  
             }
 
-            const queryString = `SELECT * FROM Exercise WHERE LOWER(exerciseName) LIKE LOWER($1)`;
+            const queryString = `SELECT * FROM Exercise WHERE LOWER(exercisename) LIKE LOWER($1)`;
             dbClient.query(queryString, [`%${query}%`], (err, res) => {
                 if (err) {
                     console.error("Database query error:", err);
@@ -35,7 +35,7 @@ class ExerciseController {
                 return callback([]);  
             }
     
-            const queryString = `SELECT * FROM Exercise WHERE LOWER(exerciseName) = LOWER($1)`;
+            const queryString = `SELECT * FROM Exercise WHERE LOWER(exercisename) = LOWER($1)`;
             dbClient.query(queryString, [query], (err, res) => {
                 if (err) {
                     console.error("Database query error:", err);
@@ -47,33 +47,50 @@ class ExerciseController {
         });
     }
 
-    // saveActivity(req, res) {
-    //     const {name, duration, intensity} = req.body;
+    //handles both activity and user activity
+    saveActivity(req, res) {
+        const {logtime, activityid, username, name, duration, intensity} = req.body;
     
     
-    //     const insertQuery = `
-    //     INSERT INTO Activity (name, duration, intensity)
-    //     VALUES ($1, $2, $3)
-    //     `;
+        const insertQuery1 = `
+        INSERT INTO Activity (activityid, username, name, duration, intensity)
+        VALUES ($1, $2, $3, $4 $5)
+        `;
+        const insertQuery2 = `
+        INSERT INTO UserActivity (username, activityid, logtime)
+        VALUES ($1, $2, $3)
+        `;
 
-    //     const values = [name, duration, intensity];
+        const values1 = [activityid, username, name, duration, intensity];
+        const values2 = [username, activityid, logtime];
 
-    //     dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
-    //         if (err) {
-    //             console.error("Search path error:", err);
-    //             return res.status(500).json({ error: "Failed to set search path" });
-    //         }
+        dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+            if (err) {
+                console.error("Search path error:", err);
+                return res.status(500).json({ error: "Failed to set search path" });
+            }
     
-    //         dbClient.query(insertQuery, values, (err, result) => {
-    //             if (err) {
-    //                 console.error( err);
-    //                 return res.status(500).json({ error: "Failed to insert activity" });
-    //             }
+            //activity
+            dbClient.query(insertQuery1, values1, (err, result) => {
+                if (err) {
+                    console.error( err);
+                    return res.status(500).json({ error: "Failed to insert activity" });
+                }
     
-    //             return res.status(201).json({ message: "Activity inserted", activity: result.rows[0] });
-    //         });
-    //     });
-    // }
+                return res.status(201).json({ message: "Activity inserted", activity: result.rows[0] });
+            });
+            
+            //user activity
+            dbClient.query(insertQuery2, values2, (err, result) => {
+                if (err) {
+                    console.error( err);
+                    return res.status(500).json({ error: "Failed to insert user activity" });
+                }
+    
+                return res.status(201).json({ message: "User Activity inserted", useractivity: result.rows[0] });
+            });
+        });
+    }
 
     
 }    

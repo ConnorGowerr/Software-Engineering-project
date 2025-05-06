@@ -199,7 +199,7 @@ class ExerciseView {
                 && this.activityDuration.value != null && this.activityDuration.value > 0)
             {
                 const activityDuration = document.getElementById("activityDuration").value;
-                const activityIntensity = document.getElementById("activityIntensity").value;
+                let activityIntensity = document.getElementById("activityIntensity").value;
                 switch (activityIntensity)
                 {
                     case 0.5:
@@ -218,9 +218,10 @@ class ExerciseView {
 
                 }
                 const activityData = {
-                    exerciseName: this.#currentEx,
-                    activityDuration: activityDuration,
-                    activityIntensity: activityIntensity
+                    username: window.sessionStorage.getItem("username"),
+                    exercisename: this.#currentEx,
+                    activityduration: activityDuration,
+                    activityintensity: activityIntensity
                 };
         
                 try {

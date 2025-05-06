@@ -108,6 +108,13 @@ app.post('/api/meal', express.json(), (req, res) => {
     
 });
 
+//for creating new activity/user activity
+app.post('/api/activity', express.json(), (req, res) => {
+    // console.log(req.body);  
+
+    exerciseController.saveActivity(req, res);
+    
+});
 
 app.get('/', (req, res) => {
     res.sendFile('login.html', { root: 'public' }, (err) => {
