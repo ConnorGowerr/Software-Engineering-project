@@ -1,4 +1,4 @@
-const dbClient = require('./db.js')
+const dbClient = require('../db.js')
 
 
 class UserController {

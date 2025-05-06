@@ -1,7 +1,7 @@
 const { randomInt } = require('crypto');
-const Food = require('./Food')
-const Meal = require('./Meal')
-const dbClient = require('./db.js')
+const Food = require('../models/Food.js')
+const Meal = require('../models/meal.js')
+const dbClient = require('../db.js')
 
 
 class FoodController {

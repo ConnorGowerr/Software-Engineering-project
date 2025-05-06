@@ -76,4 +76,7 @@ buttons.forEach(btn => {
     });
 });
 
+
+
+
 updateProfileStats();

@@ -1,5 +1,5 @@
 //Functions to make an achievement and then fill progress randonmly( this will be replaced with real data)
-import Achievement from "./achievement.js";
+import Achievement from "../public/js/achievement.js";
 
 
 class AchievementController {

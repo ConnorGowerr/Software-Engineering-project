@@ -24,39 +24,44 @@
         <a href="profile.html" class="top-right-btn">
             <img src="images/user-solid.svg" alt="profileIcon">
         </a>
-    </header>
-    <main>
+    </header><main>
         <div class="container">
+          <!-- Chart Container -->
+          <div class="chart-container">
             <div class="graph">
-                <div id="medals">Calories</div>
-                <canvas id="caloriesChart" class="progress-image"></canvas>
-                <div class="view-buttons">
-                    <button class="btn" data-chart="calories" data-range="week">Week</button>
-                    <button class="btn" data-chart="calories" data-range="month">Month</button>
-                    <button class="btn" data-chart="calories" data-range="year">Year</button>
-                </div>
+              <div id="medals">Calories</div>
+              <canvas id="caloriesChart" class="progress-image"></canvas>
+              <div class="view-buttons">
+                <button class="btn" data-chart="calories" data-range="week">Week</button>
+                <button class="btn" data-chart="calories" data-range="month">Month</button>
+                <button class="btn" data-chart="calories" data-range="year">Year</button>
+              </div>
             </div>
+      
             <div class="graph">
-                <div id="medals">Activity</div>
-                <canvas id="activityChart" class="progress-image"></canvas>
-                <div class="view-buttons">
-                    <button class="btn" data-chart="activity" data-range="week">Week</button>
-                    <button class="btn" data-chart="activity" data-range="month">Month</button>
-                    <button class="btn" data-chart="activity" data-range="year">Year</button>
-                </div>
+              <div id="medals">Activity</div>
+              <canvas id="activityChart" class="progress-image"></canvas>
+              <div class="view-buttons">
+                <button class="btn" data-chart="activity" data-range="week">Week</button>
+                <button class="btn" data-chart="activity" data-range="month">Month</button>
+                <button class="btn" data-chart="activity" data-range="year">Year</button>
+              </div>
             </div>
-            <div id="changeTargets">- Change Targets -</div>
-            <div class="graph">
-                <div id="changeText">Struggling to keep up or need more challenge?</div>
-                <div id="adjustText">Adjust your targets here!</div>
-                <div class="buttons">
-                    <button class="btn">Calories</button>
-                    <button class="btn">Activity</button>
-                </div>
+          </div>
+      
+          <!-- Target Adjustment Section -->
+          <div id="changeTargets">- Change Targets -</div>
+          <div class="graph">
+            <div id="changeText">Struggling to keep up or need more challenge?</div>
+            <div id="adjustText">Adjust your targets here!</div>
+            <div class="buttons">
+              <button class="btn">Calories</button>
+              <button class="btn">Activity</button>
             </div>
+          </div>
+      
         </div>
-        </div>
-        </section>
+      
 
         <div class="popup-overlay" id="mailboxOverlay">
             <div class="mailboxHeader">

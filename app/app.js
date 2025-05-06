@@ -1,58 +1,60 @@
 // All the require functions/api
 require('dotenv').config();
-const { checkHash } = require('./hash.js');
+const { checkHash } = require('./models/hash.js');
 const express = require('express');;
-const dbClient = require('./db.js'); 
-const FoodController = require('./FoodController.js');
-const UserController = require('./UserController.js');
+const path = require('path');
+const dbClient = require('./db.js');
+const FoodController = require('./controllers/FoodController.js');
+const UserController = require('./controllers/UserController.js');
 
 const app = express();
-app.use(express.json()); 
+app.use(express.json());
 
 const port = 8008;
-const {Client} = require('pg');
+const { Client } = require('pg');
 const cors = require("cors");
 require("dotenv").config();
 const foodController = new FoodController();
 const userController = new UserController();
 
-
-
 app.use(express.static('public'));
 
 // allows passing of data from front end to back
 app.use(cors({
-    origin: 'http://localhost:8080' 
+    origin: 'http://localhost:8080'
 }));
 app.use(express.json());
 
-
-app.get('/', (req, res) =>  {
-    //sends the static file (login page) once server is run to port 8008
-    res.sendFile('login.html', {root: 'public'}, (err) => {
-        if(err) {
-            console.log(err);
-        }
-    })
+// Serve login.html at root explicitly
+app.get('/', (req, res) => {
+    res.sendFile('login.html', { root: path.join(__dirname, 'views') });
 });
 
-
-
+// Serve all other views dynamically
+app.get('/:page', (req, res) => {
+    const page = req.params.page;
+    const filePath = path.join(__dirname, 'views', `${page}.html`);
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            console.error(`404 - ${page}.html not found`);
+            res.status(404).send('Page not found');
+        }
+    });
+});
 
 // Search food based on query (fetching from DB)
 app.get('/api/search-food', (req, res) => {
     const query = req.query.q;
-    
+
     foodController.searchFood(query, (foodData) => {
         res.json(foodData);
     });
 });
 
-
 // reutrn single food item 
 app.get('/api/return-food', (req, res) => {
     const query = req.query.q;
-    
+
     foodController.returnFood(query, (foodData) => {
         res.json(foodData);
     });
@@ -60,7 +62,7 @@ app.get('/api/return-food', (req, res) => {
 
 app.get('/api/return-user', (req, res) => {
     const query = req.query.q;
-    
+
     userController.returnUser(query, (userData) => {
         res.json(userData);
     });
@@ -71,12 +73,11 @@ app.post('/api/meal', express.json(), (req, res) => {
     // console.log(req.body);  
 
     foodController.saveMeal(req, res);
-    
+
 });
 
-
 app.get('/', (req, res) => {
-    res.sendFile('login.html', { root: 'public' }, (err) => {
+    res.sendFile('login.html', { root: 'views' }, (err) => {
         if (err) {
             console.log(err);
         }
@@ -150,70 +151,65 @@ make sure to also be connected to vpn
 sets the status code based on whether the action was successful or not
 */
 app.post("/signup", async (req, res) => {
-    
-    const {username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric} = req.body;
+
+    const { username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric } = req.body;
 
     try {
         const createAccount = `INSERT INTO Users (username, password, dailyCalorieTarget, email, realName, dob, creationDate, lastLogIn, height, weight, gender, isAdmin, imperialMetric)
         VALUES ($1, $2, $3, $4, $5, $6, CURRENT_DATE, CURRENT_TIMESTAMP, $7, $8, $9, false, $10)`;
 
         const values = [username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric];
-        
+
         const result = await dbClient.query(createAccount, values);
-        res.status(201).json({ 
-            message: "User created successfully", 
-            user: result.rows[0]});
+        res.status(201).json({
+            message: "User created successfully",
+            user: result.rows[0]
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });
     }
-       
+
 })
 
 app.get("/signup/:check", async (req, res) => {
-    
-    const {username, email} = req.query;
+
+    const { username, email } = req.query;
 
     if (!dbClient) {
         return res.status(500).json({ error: 'Database client not initialized' });
     }
     try {
-        if (username) 
-        {
+        if (username) {
             const searchUser = await dbClient.query("SELECT username FROM users WHERE username = $1", [username]);
 
-            if (searchUser.rows.length === 0) 
-            {
-                res.status(404).json({error: "User not found"});
+            if (searchUser.rows.length === 0) {
+                res.status(404).json({ error: "User not found" });
             }
             res.status(200).json(searchUser.rows[0]);
         }
-        if (email) 
-        {
+        if (email) {
             const searchEmail = await dbClient.query("SELECT email FROM users WHERE email = $1", [email]);
 
-            if (searchEmail.rows.length === 0) 
-            {
-                res.status(404).json({error: "Email not found"});
+            if (searchEmail.rows.length === 0) {
+                res.status(404).json({ error: "Email not found" });
             }
             res.status(200).json(searchEmail.rows[0]);
         }
-        
-        
+
+
     } catch (error) {
-        
-        if (username) 
-        {
+
+        if (username) {
             console.error("There was an error searching for users", error);
             res.status(500).json({ error: "There was an error with the server" });
         }
-        if (email) 
-        {
+        if (email) {
             console.error("There was an error searching for email", error);
             res.status(500).json({ error: "There was an error with the server" });
         }
     }
-       
+
 })
 
 app.post("/", async (req, res) => {
@@ -267,7 +263,7 @@ app.post("/home.html", async (req, res) => {
         var challengeTargetTitle = "N/A";
         var challengeTitle = "You have no active challenges";
         var challengeEnd = "N/A";
-        
+
 
         const dailyCalorie = await dbClient.query("SELECT SUM(calories * quantity) FROM Meal INNER JOIN MealContents ON Meal.mealID = mealContents.mealID INNER JOIN Food ON MealContents.foodID = Food.foodID WHERE username = $1 AND mealDate = CURRENT_DATE;", [username]);
         const dailyCalorieTarget = await dbClient.query("SELECT dailyCalorieTarget FROM Users WHERE username = $1", [username]);
@@ -275,38 +271,29 @@ app.post("/home.html", async (req, res) => {
         const weeklyCompletedGoals = await dbClient.query("SELECT * FROM Goal LEFT JOIN exerciseGoal ON goal.goalID = exerciseGoal.goalID WHERE exerciseGoal.username = $1 AND isGoalMet = true AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username]);
         const mealChallenge = await dbClient.query("SELECT MealChallenge.goalId, MealChallenge.groupID, MealChallenge.currentCalories, MealChallenge.calorieTarget, Goal.goalName, Goal.startDate, Goal.endDate FROM MealChallenge LEFT JOIN Goal ON Goal.goalID = MealChallenge.GoalID LEFT JOIN userGroups ON userGroups.groupID = MealChallenge.groupID LEFT JOIN groupMembers ON groupMembers.groupID = MealChallenge.groupID WHERE groupMembers.username = $1 AND  Goal.startDate <= CURRENT_DATE AND Goal.isGoalMet = 'false' AND Goal.endDate > CURRENT_DATE ORDER BY Goal.endDate;", [username]);
         const exerciseChallenge = await dbClient.query("SELECT ExerciseChallenge.goalId, ExerciseChallenge.groupID, ExerciseChallenge.caloriesBurnt, ExerciseChallenge.targetCaloriesBurnt, Goal.goalName, Goal.startDate, Goal.endDate FROM ExerciseChallenge LEFT JOIN Goal ON Goal.goalID = ExerciseChallenge.GoalID LEFT JOIN userGroups ON userGroups.groupID = ExerciseChallenge.groupID LEFT JOIN groupMembers ON groupMembers.groupID = ExerciseChallenge.groupID WHERE groupMembers.username = $1 AND  Goal.startDate <= CURRENT_DATE AND Goal.isGoalMet = 'false' AND Goal.endDate > CURRENT_DATE ORDER BY Goal.endDate;", [username]);
-        if (weeklyGoals.rows.length === 0) 
-        {
+        if (weeklyGoals.rows.length === 0) {
             weeklyGoals = await dbClient.query("SELECT * FROM Goal LEFT JOIN mealGoal ON goal.goalID = mealGoal.goalID WHERE mealGoal.username = $1 AND isGoalMet = false AND startDate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE ORDER BY startDate;", [username])
-            if (weeklyCompletedGoals.rows.length === 0) 
-            {
-                res.status(404).json({error: "Goals not found"});
+            if (weeklyCompletedGoals.rows.length === 0) {
+                res.status(404).json({ error: "Goals not found" });
 
                 console.log("There are no goals for this user");
                 return res.status(404).json({ error: "Goals not found" });
             }
         }
-        if (mealChallenge.rows.length === 0) 
-        {
-            if (exerciseChallenge.rows.length === 0) 
-            {
+        if (mealChallenge.rows.length === 0) {
+            if (exerciseChallenge.rows.length === 0) {
                 console.log("There are no challenges for this user");
-            } else 
-            {
+            } else {
                 challengeFound = "exercise";
             }
-        } else 
-        {
+        } else {
             challengeFound = "meal";
         }
-        if (dailyCalorieTarget.rows.length === 0) 
-        {
-            res.status(404).json({error: "No data found"});
+        if (dailyCalorieTarget.rows.length === 0) {
+            res.status(404).json({ error: "No data found" });
             console.log("User does not exist");
-        } else 
-        {
-            if (challengeFound == "meal") 
-            {
+        } else {
+            if (challengeFound == "meal") {
                 challengeUnit = "Calories";
                 challengeTarget = mealChallenge.rows[0].calorietarget;
                 challengeCurrent = mealChallenge.rows[0].currentcalories;
@@ -314,8 +301,7 @@ app.post("/home.html", async (req, res) => {
                 challengeTitle = mealChallenge.rows[0].goalname;
                 challengeEnd = mealChallenge.rows[0].enddate;
 
-            } else if (challengeFound == "exercise") 
-            {
+            } else if (challengeFound == "exercise") {
                 challengeUnit = "Calories";
                 challengeTarget = exerciseChallenge.rows[0].targetcaloriesburnt;
                 challengeCurrent = exerciseChallenge.rows[0].caloriesburnt;
@@ -323,10 +309,9 @@ app.post("/home.html", async (req, res) => {
                 challengeTitle = exerciseChallenge.rows[0].goalname;
                 challengeEnd = mealChallenge.rows[0].enddate;
             }
-            if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) 
-            {
+            if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].weeklyactivity != null) {
                 console.log("data retrieved");
-                res.status(200).json({ 
+                res.status(200).json({
                     message: "Data retrieved successfully",
                     type: "activity",
                     calories: dailyCalorie.rows[0].sum,
@@ -341,10 +326,9 @@ app.post("/home.html", async (req, res) => {
                     challengeE: challengeEnd
 
                 });
-            } else if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].currentweight != null) 
-            {
+            } else if (dailyCalorie.rows[0].sum != null && weeklyGoals.rows[0].currentweight != null) {
                 console.log("data retrieved");
-                res.status(200).json({ 
+                res.status(200).json({
                     message: "Data retrieved successfully",
                     type: "weight",
                     calories: dailyCalorie.rows[0].sum,
@@ -359,10 +343,9 @@ app.post("/home.html", async (req, res) => {
                     challengeT: challengeTitle,
                     challengeE: challengeEnd
                 });
-            } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) 
-            {
+            } else if (dailyCalorie.rows[0].sum != null && weeklyCompletedGoals.rows[0].currentweight != null) {
                 console.log("data retrieved");
-                res.status(200).json({ 
+                res.status(200).json({
                     message: "Data retrieved successfully",
                     type: "completed",
                     calories: dailyCalorie.rows[0].sum,
@@ -376,14 +359,13 @@ app.post("/home.html", async (req, res) => {
                     challengeT: challengeTitle,
                     challengeE: challengeEnd
                 });
-            } else 
-            {
+            } else {
                 console.log("data not retrieved");
-                res.status(401).json({ 
+                res.status(401).json({
                     message: "Error: failure to retrieve data",
                     calories: 0
                     // dailyTarget: dailyCalorieTarget.rows[0].dailycalorietarget
-                 });;
+                });;
             }
 
         }
@@ -393,7 +375,7 @@ app.post("/home.html", async (req, res) => {
             const { type } = req.params;
             const { range } = req.query;
             const userId = req.session?.user?.id || 1; // Replace with real session logic
-        
+
             try {
                 let data;
                 if (type === 'calories') {
@@ -403,7 +385,7 @@ app.post("/home.html", async (req, res) => {
                 } else {
                     return res.status(400).json({ error: 'Invalid type' });
                 }
-        
+
                 res.json({
                     labels: data.map(entry => entry.date),
                     values: data.map(entry => entry.value),
@@ -413,7 +395,7 @@ app.post("/home.html", async (req, res) => {
                 res.status(500).json({ error: 'Failed to fetch data' });
             }
         });
-        
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });
