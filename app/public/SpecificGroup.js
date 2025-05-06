@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         
 
         document.getElementById("hellthTitle").innerHTML = groupData.groupname;
+        document.querySelectorAll(".GroupDivTitles")[0].innerHTML = `${groupData.groupname} Stats`;
 
         const info = document.querySelector(".GI1").children;
         info[0].innerHTML = `<p>ID:  ${groupId}</p>`;

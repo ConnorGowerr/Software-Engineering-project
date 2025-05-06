@@ -641,3 +641,31 @@ app.get("/groups/:allgroups", async (req, res) => {
 })
 
 
+app.get("/groups/:allgroups/:groupid", async (req, res) => {
+    const groupid = decodeURIComponent(req.groupid);
+    console.log(groupid)
+    const queryMembers = await dbClient.query("SELECT COUNT(*) FROM groupMembers WHERE groupMembers.groupID = $1", [groupid]);
+    if (queryMembers.rows.length === 0) 
+        {
+            res.status(404).json({error: "Group not found"});
+        }
+        res.status(200).json(queryMembers.rows[0]);
+
+    // dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+    //     if (err) {
+    //         console.error("Error setting search path:", err);
+    //         return res;  
+    //     }
+        
+        // const queryMembers = `COUNT FROM groupMembers WHERE groupMembers.groupID = $1`;
+    //     dbClient.query(queryMembers, (err, resp) => {
+    //         if (err) {
+    //             console.error("Database query error:", err);
+    //             return res;
+    //         }
+    //         console.table(resp.rows);
+    //         return res.status(200).json(resp.rows);
+            
+    //     })
+    // })
+})
