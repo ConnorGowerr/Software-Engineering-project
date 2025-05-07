@@ -54,11 +54,7 @@ app.get('/:page.html', (req, res) => {
         }
     });
 });
-const signUpDB = require("./routes/signUpDB");
 
-app.use(express.json());
-app.use(express.static("public")); // serve client files
-app.post("/api/signup", signUpDB.createAccount);
 
 // Search food based on query (fetching from DB)
 app.get('/api/search-food', (req, res) => {
