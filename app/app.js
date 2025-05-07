@@ -483,15 +483,17 @@ app.get("/groups/:allgroups", async (req, res) => {
     })
 })
 
-app.get("/groups/:allgroups/:groupid", async (req, res) => {
-    const groupid = decodeURIComponent(req.groupid);
-    console.log(groupid)
+app.post("/groups/:allgroups/:groupid", async (req, res) => {
+    const groupid = req.body.groupid;
+    // console.table(groupid)
     const queryMembers = await dbClient.query("SELECT COUNT(*) FROM groupMembers WHERE groupMembers.groupID = $1", [groupid]);
+    console.log(groupid);
     if (queryMembers.rows.length === 0) 
         {
             res.status(404).json({error: "Group not found"});
         }
         res.status(200).json(queryMembers.rows[0]);
+        console.log(queryMembers.rows[0]);
 
     // dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
     //     if (err) {
@@ -511,5 +513,6 @@ app.get("/groups/:allgroups/:groupid", async (req, res) => {
     //     })
     // })
 })
+
 
 

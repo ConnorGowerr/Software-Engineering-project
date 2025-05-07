@@ -47,6 +47,12 @@ function randomiseGroup(d){
             const box3 = document.getElementById("greyContainer5");
             const box4 = document.getElementById("greyContainer6");
             const box5 = document.getElementById("greyContainer7");
+
+            const num1 = document.getElementById("memberCount1");
+            const num3 = document.getElementById("memberCount3");
+            const num4 = document.getElementById("memberCount4");
+            const num5 = document.getElementById("memberCount5");
+            const num6 = document.getElementById("memberCount6");
     
             const data1 = pubarr[rng[0]];
             const data2 = pubarr[rng[1]];
@@ -54,7 +60,12 @@ function randomiseGroup(d){
             const data4 = pubarr[rng[3]];
             const data5 = pubarr[rng[4]];
 
-            memberCount(data1);
+            const member1 = memberCount(data1.groupid);
+            console.log(member1);
+            const member2 = memberCount(data2.groupid);
+            const member3 = memberCount(data3.groupid);
+            const member4 = memberCount(data4.groupid);
+            const member5 = memberCount(data5.groupid);
 
     
             box1.querySelector(".groupText").innerHTML = `${data1.groupname}`;
@@ -62,6 +73,16 @@ function randomiseGroup(d){
             box3.querySelector(".groupText").innerHTML = `${data3.groupname}`;
             box4.querySelector(".groupText").innerHTML = `${data4.groupname}`;
             box5.querySelector(".groupText").innerHTML = `${data5.groupname}`;
+
+
+            
+            num3.querySelector(".valueText").innerHTML = `${member3}/50`
+            num4.querySelector(".valueText").innerHTML = `${member4}/50`
+            num5.querySelector(".valueText").innerHTML = `${member5}/50`
+            // num6.querySelector(".valueText").innerHTML = `${member1}/50`
+
+            console.log(member1);
+
 
             document.getElementById("greyContainer" + arr[0]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
@@ -102,18 +123,41 @@ function randomiseGroup(d){
 
     // }
 
-    function memberCount(groupid){
-
-            fetch(`/groups/:allgroups/:${groupid}`)
-            .then(response => {
-                if (!response.ok) {
-                    console.error('Server returned an error:', response.statusText);
-                    throw new Error('Failed to fetch search results');
-                }
-                return response.json();
-            }).then(data2 => {
-                console.log(data2)
+    async function memberCount(groupid){
+        const groupID = [1, 2, 3, 4, 5];
+        for(const groupIDs of groupID){
+            const fetchGroup = await fetch('/groups/:allgroups/:groupid', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                groupid: groupid
             })
+        })
+        const groupnum = await fetchGroup.json()
+        .then(data => {
+            console.log(data.count);
+            console.log(groupIDs);
+            const num2 = document.getElementById("memberCount2");
+            num2.querySelector(".valueText").innerHTML = `${data.count}/50`
+            return data.count;
+        })
+        }
+
+        // console.table(groupnum)
+
+        
+            // fetch(`/groups/:allgroups/:${encodeURIComponent(groupid)}`)
+            // .then(response => {
+            //     if (!response.ok) {
+            //         console.error('Server returned an error:', response.statusText);
+            //         throw new Error('Failed to fetch search results');
+            //     }
+            //     return response.json();
+            // }).then(data2 => {
+            //     console.log(data2)
+            // })
  
     }
 
