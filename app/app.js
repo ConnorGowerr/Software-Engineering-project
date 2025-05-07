@@ -31,7 +31,10 @@ app.get('/', (req, res) => {
 });
 
 // Serve all other views dynamically
-app.get('/:page', (req, res) => {
+app.get('/:page', (req, res, next) => {
+    // Skip static file requests (e.g., .js, .css, .png)
+    if (req.params.page.includes('.')) return next();
+
     const page = req.params.page;
     const filePath = path.join(__dirname, 'views', `${page}.html`);
     res.sendFile(filePath, (err) => {
@@ -41,6 +44,21 @@ app.get('/:page', (req, res) => {
         }
     });
 });
+app.get('/:page.html', (req, res) => {
+    const page = req.params.page;
+    const filePath = path.join(__dirname, 'views', `${page}.html`);
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            console.error(`404 - ${page}.html not found`);
+            res.status(404).send('Page not found');
+        }
+    });
+});
+const signUpDB = require("./routes/signUpDB");
+
+app.use(express.json());
+app.use(express.static("public")); // serve client files
+app.post("/api/signup", signUpDB.createAccount);
 
 // Search food based on query (fetching from DB)
 app.get('/api/search-food', (req, res) => {
@@ -401,4 +419,14 @@ app.post("/home.html", async (req, res) => {
         res.status(500).json({ error: "There was an error with the server" });
     }
 });
-
+//temp debugging of db
+app.get('/debug/db', async (req, res) => {
+    try {
+        const result = await dbClient.query('SELECT * FROM users LIMIT 5');
+        console.log(result.rows); // Optional: view in console
+        res.json(result.rows); // ✅ Should show JSON in browser
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Database error');
+    }
+});
