@@ -66,6 +66,45 @@ app.get('/api/return-user', (req, res) => {
     });
 });
 
+
+//Chart Database Logic
+app.get('/api/chart/calories', async (req, res) => {
+    const username = req.query.username;
+    if (!username) return res.status(400).send('Missing username');
+  
+    const query = dbClient.query(
+
+    )
+  
+    try {
+      const { rows } = await db.query(query, [username]);
+      res.json(rows);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Failed to retrieve calorie data');
+    }
+  });
+  
+
+app.get('/api/chart/activity', async (req, res) => {
+  const userId = req.query.userId;
+  const period = req.query.period || 'week';
+
+  try {
+    const [rows] = await db.query(
+      `SELECT date, minutes_active FROM activity_logs 
+       WHERE user_id = ? AND date >= DATE_SUB(CURDATE(), INTERVAL 1 ${period.toUpperCase()})
+       ORDER BY date ASC`,
+      [userId]
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching activity data');
+  }
+});
+
+
 // recievee a post request with our new meal info (will add db stuff)
 app.post('/api/meal', express.json(), (req, res) => {
     // console.log(req.body);  

@@ -1985,6 +1985,12 @@ span {
     margin-left: 5%;
 }
 
+/*chart stuff*/
+.chart-container{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 2.5%;
+}
 
  /* mobile phone  view */
  @media (max-width: 700px) { 
