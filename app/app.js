@@ -157,19 +157,14 @@ app.get('/', (req, res) => {
     });
 });
 
-//Chart Database Logic
+//Calories Chart Database Logic
 app.get('/api/chart/week-calories', async (req, res) => {
     if (!dbClient) {
       return res.status(500).json({ error: 'Database client not initialized' });
     }
-  
     try {
-      console.log("Database Accessed");
-  
       // 1. Set schema path
       await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
-      console.log("Path Set");
-  
       // 2. Run chart query
       const queryString = `
         WITH days AS (
@@ -206,7 +201,50 @@ app.get('/api/chart/week-calories', async (req, res) => {
     }
   });
   
-
+//Activity Chart Database logic
+app.get('/api/chart/week-activity', async (req, res) => {
+    if (!dbClient) {
+      return res.status(500).json({ error: 'Database client not initialized' });
+    }
+  
+    try {
+    console.log("Database Accessed")
+      await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
+console.log("Path Set")
+      const result = await dbClient.query(`
+WITH days AS (
+  SELECT generate_series(
+    CURRENT_DATE - INTERVAL '6 days',
+    CURRENT_DATE,
+    INTERVAL '1 day'
+  )::date AS date
+),
+daily_activity AS (
+  SELECT 
+    ua.username,
+    ua.logtime::date AS date,
+    SUM(a.duration) AS total_minutes
+  FROM useractivity ua
+  JOIN activity a ON ua.activityid = a.activityid
+  WHERE ua.logtime >= CURRENT_DATE - INTERVAL '6 days'
+  GROUP BY ua.username, ua.logtime::date
+)
+SELECT 
+  d.date,
+  COALESCE(da.username, 'N/A') AS username,
+  COALESCE(da.total_minutes, 0) AS total_minutes
+FROM days d
+LEFT JOIN daily_activity da ON d.date = da.date
+ORDER BY d.date ASC;         
+      `);
+  
+      res.status(200).json(result.rows);
+    } catch (err) {
+      console.error("Error querying weekly activity:", err);
+      res.status(500).json({ error: "Query failed" });
+    }
+  });
+  
 
 
 app.get('/achievements', (req, res) => {

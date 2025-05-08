@@ -69,4 +69,41 @@ window.addEventListener("DOMContentLoaded", async () => {
       }
     }
   });
+  // Fetch dynamic activity data
+const resActivity = await fetch('/api/chart/week-activity');
+const activityData = await resActivity.json();
+
+const activityMinutes = activityData.map(entry => parseInt(entry.total_minutes, 10));
+const activityLabels = activityData.map(entry => {
+  const date = new Date(entry.date);
+  return labels[date.getDay()];
+});
+
+new Chart(document.getElementById('activityChart'), {
+  type: 'bar',
+  data: {
+    labels: activityLabels,
+    datasets: [{
+      label: 'Minutes Active',
+      data: activityMinutes,
+      backgroundColor: activityLabels.map((_, i) =>
+        i === today ? '#FFD700' : '#F8B62D'
+      ),
+      borderRadius: 8,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    ...commonOptions,
+    plugins: {
+      ...commonOptions.plugins,
+      title: {
+        display: true,
+        text: 'Weekly Activity (minutes)',
+        color: '#FFF',
+        font: { family: 'Oswald', size: 18 }
+      }
+    }
+  }
+});
 });
