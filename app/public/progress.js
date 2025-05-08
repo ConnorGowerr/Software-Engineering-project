@@ -71,9 +71,11 @@ window.addEventListener("DOMContentLoaded", async () => {
   });
   // Fetch dynamic activity data
 const resActivity = await fetch('/api/chart/week-activity');
+console.log("Fetch activity try")
 const activityData = await resActivity.json();
-
+console.log("fetch data succesfull")
 const activityMinutes = activityData.map(entry => parseInt(entry.total_minutes, 10));
+console.log(activityMinutes)
 const activityLabels = activityData.map(entry => {
   const date = new Date(entry.date);
   return labels[date.getDay()];
