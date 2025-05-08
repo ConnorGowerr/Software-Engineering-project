@@ -1,7 +1,7 @@
 // All the require functions/api
 const { checkHash } = require('./hash.js');
 const express = require('express');;
-const dbClient = require('./db.js'); 
+const dbClient = require('./db.js');
 const FoodController = require('./FoodController.js');
 const ExerciseController = require('./ExerciseController.js');
 const Food = require('./Food.js');
@@ -9,11 +9,11 @@ const UserController = require('./UserController.js');
 const { randomInt } = require('crypto');
 
 const app = express();
-app.use(express.json()); 
+app.use(express.json());
 require('dotenv').config();
 
 const port = 8008;
-const {Client} = require('pg');
+const { Client } = require('pg');
 const cors = require("cors");
 require("dotenv").config();
 
@@ -25,15 +25,15 @@ app.use(express.static('public'));
 
 // allows passing of data from front end to back
 app.use(cors({
-    origin: 'http://localhost:8080' 
+    origin: 'http://localhost:8080'
 }));
 app.use(express.json());
 
 
-app.get('/', (req, res) =>  {
+app.get('/', (req, res) => {
     //sends the static file (login page) once server is run to port 8008
-    res.sendFile('login.html', {root: 'public'}, (err) => {
-        if(err) {
+    res.sendFile('login.html', { root: 'public' }, (err) => {
+        if (err) {
             console.log(err);
         }
     })
@@ -54,7 +54,7 @@ const exerciseController = new ExerciseController();
 // Search food based on query (fetching from DB)
 app.get('/api/search-food', (req, res) => {
     const query = req.query.q;
-    
+
     foodController.searchFood(query, (foodData) => {
         res.json(foodData);
     });
@@ -63,7 +63,7 @@ app.get('/api/search-food', (req, res) => {
 // Search exercise based on query
 app.get('/api/search-exercise', (req, res) => {
     const query = req.query.q;
-    
+
     exerciseController.searchExercise(query, (exerciseData) => {
         res.json(exerciseData);
     });
@@ -74,7 +74,7 @@ app.get('/api/search-exercise', (req, res) => {
 // reutrn single food item 
 app.get('/api/return-food', (req, res) => {
     const query = req.query.q;
-    
+
     foodController.returnFood(query, (foodData) => {
         res.json(foodData);
     });
@@ -84,15 +84,15 @@ app.get('/api/return-food', (req, res) => {
 // return single exercise
 app.get('/api/return-exercise', (req, res) => {
     const query = req.query.q;
-    
+
     foodController.returnExercise(query, (exerciseData) => {
         res.json(exerciseData);
-         });
+    });
 });
 
 app.get('/api/return-user', (req, res) => {
     const query = req.query.q;
-    
+
     userController.returnUser(query, (userData) => {
         res.json(userData);
 
@@ -104,14 +104,14 @@ app.post('/api/meal', express.json(), (req, res) => {
     // console.log(req.body);  
 
     foodController.saveMeal(req, res);
-    
+
 });
 
 // recieve a post request with our new food info
 app.post('/api/foodAdd', express.json(), (req, res) => {
-  
+
     foodController.saveFood(req, res);
-    
+
 });
 
 //set a groups status.
@@ -157,6 +157,58 @@ app.get('/', (req, res) => {
     });
 });
 
+//Chart Database Logic
+app.get('/api/chart/week-calories', async (req, res) => {
+    if (!dbClient) {
+      return res.status(500).json({ error: 'Database client not initialized' });
+    }
+  
+    try {
+      console.log("Database Accessed");
+  
+      // 1. Set schema path
+      await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
+      console.log("Path Set");
+  
+      // 2. Run chart query
+      const queryString = `
+        WITH days AS (
+          SELECT generate_series(
+            CURRENT_DATE - INTERVAL '6 days',
+            CURRENT_DATE,
+            INTERVAL '1 day'
+          )::date AS date
+        ),
+        daily_calories AS (
+          SELECT 
+            m.mealdate AS date,
+            SUM(mc.quantity * f.calories) AS total_calories
+          FROM meal m
+          JOIN mealcontents mc ON m.mealid = mc.mealid
+          JOIN food f ON mc.foodid = f.foodid
+          WHERE m.mealdate >= CURRENT_DATE - INTERVAL '6 days'
+          GROUP BY m.mealdate
+        )
+        SELECT 
+          d.date,
+          COALESCE(dc.total_calories, 0) AS total_calories
+        FROM days d
+        LEFT JOIN daily_calories dc ON d.date = dc.date
+        ORDER BY d.date ASC;
+      `;
+  
+      const result = await dbClient.query(queryString);
+      res.status(200).json(result.rows);
+  
+    } catch (err) {
+      console.error("Error querying weekly calories:", err);
+      res.status(500).json({ error: "Query failed" });
+    }
+  });
+  
+
+
+
 app.get('/achievements', (req, res) => {
     if (!dbClient) {
         return res.status(500).json({ error: 'Database client not initialized' });
@@ -191,22 +243,22 @@ app.get('/meal', (req, res) => {
             console.error("Error setting search path:", err);
             return res.status(500).json({ error: "Failed to set database search path" });
         }
-    
+
         const getTablesQuery = `
             SELECT table_name
             FROM information_schema.tables
             WHERE table_schema = 'Hellth' AND table_type = 'BASE TABLE';
         `;
-    
+
         dbClient.query(getTablesQuery, async (err, tablesResult) => {
             if (err) {
                 console.error("Error fetching table names:", err);
                 return res.status(500).json({ error: "Failed to fetch table names" });
             }
-    
+
             const tableNames = tablesResult.rows.map(row => row.table_name);
             const allData = {};
-    
+
             try {
                 for (const table of tableNames) {
                     const tableResult = await dbClient.query(`SELECT * FROM "Hellth"."${table}"`);
@@ -261,73 +313,68 @@ dbClient.query(`SET TIME ZONE 'Europe/London';`, async (err) => {
 sets the status code based on whether the action was successful or not
 */
 app.post("/signup", async (req, res) => {
-    
-    const {username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric} = req.body;
+
+    const { username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric } = req.body;
 
     try {
         const createAccount = `INSERT INTO "Hellth"."users" (username, password, dailyCalorieTarget, email, realName, dob, creationDate, lastLogIn, height, weight, gender, isAdmin, imperialMetric)
         VALUES ($1, $2, $3, $4, $5, $6, CURRENT_DATE, CURRENT_TIMESTAMP, $7, $8, $9, false, $10)`;
 
         const values = [username, password, dailyCalorieTarget, email, realName, dob, height, weight, gender, imperialMetric];
-        
+
 
         const result = await dbClient.query(createAccount, values);
-        res.status(201).json({ 
-            message: "User created successfully", 
-            user: result.rows[0]});
+        res.status(201).json({
+            message: "User created successfully",
+            user: result.rows[0]
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "There was an error with the server" });
     }
-       
+
 })
 
 app.get("/signup/:check", async (req, res) => {
-    
-    const {username, email} = req.query;
+
+    const { username, email } = req.query;
 
 
     if (!dbClient) {
         return res.status(500).json({ error: 'Database client not initialized' });
     }
     try {
-        if (username) 
-        {
+        if (username) {
             const searchUser = await dbClient.query('SELECT username FROM "Hellth"."users" WHERE username = $1', [username]);
 
-            if (searchUser.rows.length === 0) 
-            {
-                res.status(404).json({error: "User not found"});
+            if (searchUser.rows.length === 0) {
+                res.status(404).json({ error: "User not found" });
             }
             res.status(200).json(searchUser.rows[0]);
         }
-        if (email) 
-        {
+        if (email) {
             const searchEmail = await dbClient.query('SELECT email FROM "Hellth"."users" WHERE email = $1', [email]);
 
 
-            if (searchEmail.rows.length === 0) 
-            {
-                res.status(404).json({error: "Email not found"});
+            if (searchEmail.rows.length === 0) {
+                res.status(404).json({ error: "Email not found" });
             }
             res.status(200).json(searchEmail.rows[0]);
         }
-        
-        
+
+
     } catch (error) {
-        
-        if (username) 
-        {
+
+        if (username) {
             console.error("There was an error searching for users", error);
             res.status(500).json({ error: "There was an error with the server" });
         }
-        if (email) 
-        {
+        if (email) {
             console.error("There was an error searching for email", error);
             res.status(500).json({ error: "There was an error with the server" });
         }
     }
-       
+
 })
 
 
@@ -357,36 +404,32 @@ app.post("/", async (req, res) => {
             console.log("Log in successful");
             console.log(user.username);
             const goals = await dbClient.query
-            (
-                "SELECT * FROM ExerciseGoal INNER JOIN Goal ON Goal.goalid = ExerciseGoal.goalid WHERE ExerciseGoal.username = $1 AND Goal.isgoalmet = false AND Goal.startdate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE;", [username]
-            );
-            if (goals.rows.length === 0) 
-            {
+                (
+                    "SELECT * FROM ExerciseGoal INNER JOIN Goal ON Goal.goalid = ExerciseGoal.goalid WHERE ExerciseGoal.username = $1 AND Goal.isgoalmet = false AND Goal.startdate BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE;", [username]
+                );
+            if (goals.rows.length === 0) {
                 var valid = false;
                 var id = randomInt(1000000);
-                while (!valid) 
-                {
-                    const checkValidID = await dbClient.query 
-                (
-                    `SELECT * FROM Goal WHERE goalid = $1;`, [id]
-                );
-                if (checkValidID.rows.length === 0) 
-                {
-                    valid = true;
-                } else 
-                {
-                    id = randomInt(1000000);
+                while (!valid) {
+                    const checkValidID = await dbClient.query
+                        (
+                            `SELECT * FROM Goal WHERE goalid = $1;`, [id]
+                        );
+                    if (checkValidID.rows.length === 0) {
+                        valid = true;
+                    } else {
+                        id = randomInt(1000000);
+                    }
                 }
-                }
-                
-                const addGoal = await dbClient.query 
-                (
-                    "INSERT INTO Goal (goalid, goalname, startdate, enddate, isgoalmet, points) VALUES ($1, 'Weekly Activity', CURRENT_DATE, (CURRENT_DATE + INTERVAL '7 days'), false, 100);", [id]
-                );
+
+                const addGoal = await dbClient.query
+                    (
+                        "INSERT INTO Goal (goalid, goalname, startdate, enddate, isgoalmet, points) VALUES ($1, 'Weekly Activity', CURRENT_DATE, (CURRENT_DATE + INTERVAL '7 days'), false, 100);", [id]
+                    );
                 const addEGoal = await dbClient.query
-                (
-                    `INSERT INTO ExerciseGoal (goalid, username, caloriesburnt, targetactivity, weeklyactivity) VALUES ($1, $2, 0, 180, 0)`, [id, username]
-                );
+                    (
+                        `INSERT INTO ExerciseGoal (goalid, username, caloriesburnt, targetactivity, weeklyactivity) VALUES ($1, $2, 0, 180, 0)`, [id, username]
+                    );
             }
             return res.status(200).json({
                 message: "Login successful",
@@ -408,7 +451,7 @@ app.get("/groups/:allgroups", async (req, res) => {
     dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
         if (err) {
             console.error("Error setting search path:", err);
-            return res;  
+            return res;
         }
 
         const queryString = `SELECT * FROM userGroups`;
@@ -417,7 +460,7 @@ app.get("/groups/:allgroups", async (req, res) => {
                 console.error("Database query error:", err);
                 return res;
             }
-            
+
             return res.status(200).json(resp.rows);
         })
     })
@@ -437,7 +480,7 @@ app.get('/api/groups/:groupname', (req, res) => {
             console.error("Error setting search path:", err);
             return res.status(500).json({ error: "Failed to set database schema" });
         }
-            
+
         dbClient.query('SELECT * FROM usergroups WHERE groupname = $1', [groupname], (err, result) => {
             if (err) {
                 console.error("DB error:", err);
@@ -467,7 +510,7 @@ app.get("/api/groupMembers/:id", (req, res) => {
                 return res.status(500).json({ error: "DB query failed" });
             }
 
-    
+
             res.json(result.rows);
         });
     });
@@ -496,13 +539,13 @@ app.post("/home.html", async (req, res) => {
             INNER JOIN "Hellth".food ON mealcontents.foodid = food.foodid
             WHERE username = $1 AND mealdate = CURRENT_DATE;
         `, [username]);
-            console.log(dailyCalorie);
+        console.log(dailyCalorie);
         const dailyCalorieTarget = await dbClient.query(`
             SELECT dailycalorietarget
             FROM "Hellth".users
             WHERE username = $1;
         `, [username]);
-            console.log(dailyCalorieTarget.rows[0].dailycalorietarget);
+        console.log(dailyCalorieTarget.rows[0].dailycalorietarget);
         let weeklyGoals = await dbClient.query(`
             SELECT *
             FROM "Hellth".goal
@@ -575,11 +618,9 @@ app.post("/home.html", async (req, res) => {
 
             return res.status(404).json({ error: "No data found" });
         }
-        if (dailyCalorie.rows[0].sum === null) 
-        {
+        if (dailyCalorie.rows[0].sum === null) {
             console.log("No meals entered today")
-        } else 
-        {
+        } else {
             dCalories = dailyCalorie.rows[0].sum;
         }
 
@@ -657,14 +698,14 @@ app.post("/home.html", async (req, res) => {
         console.error(error);
         return res.status(500).json({ error: "There was an error with the server" });
     }
-       
+
 })
 
 app.get("/groups/:allgroups", async (req, res) => {
     connection.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
         if (err) {
             console.error("Error setting search path:", err);
-            return res;  
+            return res;
         }
 
         const queryString = `SELECT * FROM userGroups`;
@@ -676,7 +717,7 @@ app.get("/groups/:allgroups", async (req, res) => {
             }
             console.table(resp.rows);
             return res.status(200).json(resp.rows);
-            
+
         })
     })
 })

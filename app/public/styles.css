@@ -199,7 +199,31 @@ input {
 }
 
 
-
+/*Chart Stuff*/
+.chart-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .graph {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    padding: 1rem;
+    background-color: #2C2C2C;
+    border-radius: 20px;
+    border: 2px solid white;
+  }
+  
+  .graph canvas {
+    width: 100% !important;
+    height: 300px !important; /* or whatever fits your layout */
+  }
+  
 
 
 /* Achievement stuff */
