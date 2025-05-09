@@ -138,29 +138,29 @@ label {
     left: 50%;
     transform: translateX(-50%);
     width: 98%;
-    height: 10%; 
+    height: 8%; 
     display: flex;
     justify-content: space-evenly;  
-    border-radius: 10px;
+    border-radius: 35px 35px 0 0  ;
     border-style: solid;
+    border-width: 4Px 4px 0 4px;
     background-image: linear-gradient(180deg, #95180F, #CE6B31 90%);
     text-align: center;
     color: white;
     min-height: 64px;
+    font-family: 'Oswald';
 }
 
 .nav-btn {
     background: transparent;
-    width: 10%;
-    height: 100%; 
+    width: auto;
+    height: 90%;
+    aspect-ratio: 1 / 1;
     display: flex;
     text-decoration: none; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* border-radius: 15px; */
-    /* border: 2px solid white; */
-
     margin: auto;
     cursor: pointer;
     transition: 0.3s;
@@ -168,17 +168,19 @@ label {
 }
 
 .nav-btn img {
-    width: 40%;
+    width: 50%;
     height: auto; 
-    /* max-height: 80%;  */
+    max-height: 90%; 
     object-fit: contain; 
 }
+
+
 
 .center-btn-container {
     position: relative;
     width:7%; 
-    height: 95%; 
-    margin: 0 2.5%;
+    height: 94%; 
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -189,16 +191,18 @@ label {
     cursor: pointer;
     transition: 0.3s;
     background-color: white;
-    border: 3px solid darkorange;
-    width: 90%; 
-    height: 90%; 
+    border: 2px solid darkorange;
+    width: auto;
+    height: 92%;
+    aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
     align-items: center; 
+
 }
 
 .center-btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
 
 }
 .center-btn img {
@@ -206,11 +210,14 @@ label {
     height: auto; 
 }
 
+
 .icon-text {
     text-decoration: none;
-    font-size: 1rem;
-    margin-top:4%;
+    font-size: clamp(1rem, 1.1cqw, 4rem);
+    margin-top:1%;
 }
+    
+
 
 /*Classes*/
 
@@ -244,7 +251,7 @@ label {
     padding:2% 8%;
     border:#D9D9D9;
     border-style: solid;
-    border-radius: 8px;
+    border-radius: 35px;
     font-family: 'Oswald';
     color:#EFEDE7;
     background-image: linear-gradient(#95180F, 50%, #EA7B3A);   
@@ -252,10 +259,17 @@ label {
     box-shadow: 5px 5px #000000;
     backdrop-filter: blur(10px);
 }
+.mainBtn:hover{
+    background: linear-gradient(#be1f13, 50%, #ee7736);
+}
+.mainBtn:active{
+    background: linear-gradient(#7a130c, 50%, #b95b29);
+}
 
 
 .exerciseAddSection, .overviewSection{
     width: 27.5%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -272,18 +286,6 @@ label {
     justify-content: flex-start;
     position: relative; 
  
-}
-
-.exerciseAddSection {
-    height: 90%;  
-    margin-right: 5%;
-
-  
-}
-
-.overviewSection{
-    height: 90%;
-    margin-left: 5%;
 }
 
 .calorieSection {
@@ -338,20 +340,26 @@ label {
 .search-container {
     display: flex;
     align-items: center;
+    justify-content: center;
     position: relative;
-    width: 80%;
-    font-size: clamp(0.8rem, 1cqw, 3rem);
-    height: 60%;
-    border-radius: 15px;
+    justify-content: center;
+    width: 90%;
+    font-size: clamp(1rem, 1.1cqw, 4rem);
+    height: 40%;
 }
 
 .search-bar {
-    border-radius: 5px 5px;
-    outline: none;
-    padding: 7.5% 5%;
-    font-size: clamp(0.8rem, 1cqw, 3rem);
-    width:85%;
+    border-radius: 5px;
     position: relative;
+    padding: 3% 5%;
+    height: 50%;
+    background-color: #383F42;
+    font-size: clamp(1rem, 1.1cqw, 4rem);
+    width:100%;
+    color: white;
+
+    border: 3px solid grey;
+
     transition: all 0.3s ease-in-out;
     margin: 0 auto;
 }
@@ -374,6 +382,9 @@ label {
     align-items: center;
     margin-bottom: 2.5%;
     
+}
+.search-select{
+    font-size: clamp(0.8rem, 1.5cqw, 3.5rem);
 }
 .search-results{
     margin-bottom: 10vh;
@@ -500,14 +511,6 @@ label {
     background-color: white;
 }
 
-.mainBtn:hover{
-    background: linear-gradient(#be1f13, 50%, #ee7736);
-}
-
-.mainBtn:active{
-    background: linear-gradient(#7a130c, 50%, #b95b29);
-}
-
 .PageSection {
     display: flex;
     justify-content: center; 
@@ -554,7 +557,8 @@ label {
 /*IDs*/
 
 #activityTitle {
-    margin-bottom: 2%;
+    font-size: clamp(1.6rem, 2.4cqw, 8rem);
+    font-weight: bold;
 }
 
 #exerciseTitle{
@@ -587,7 +591,6 @@ label {
 #activityBtn1, #activityBtn2{
     width: 75%;
     height: 30%;
-    /* position: absolute; */
     bottom: 0; 
     transform: translateY(50%);
     margin: 0 auto;
@@ -597,19 +600,29 @@ label {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 #activityBtn2{
     width: 85%;
     margin-bottom: 20vh;
 }
+#activityBtn1:hover, #activityBtn2:hover {
+    transform: translateY(25px); 
+    box-shadow: 0 8px 25px rgba(255, 138, 0, 0.5);
+}
+
+#activityBtn1:active, #activityBtn2:active {
+    transform: translateY(25px); 
+    box-shadow: 0 2px 10px rgba(255, 138, 0, 0.3);
+}
 
 #activityDuration {
-    color: black;
-    background-color: #f8f9fa;
+    position: relative;
     width: 80%;
     font-size: clamp(0.8rem, 2cqw, 3rem);
     padding: 2%;
-    border-radius: 10px;
+    border-radius: 20px;
     border: none;
     margin: 0 auto;
     outline: none;
@@ -617,22 +630,26 @@ label {
 
 #activityIntensity{
     position: relative;
-    /* top:5%; */
-    background-color: #f0f0f0;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     appearance: none;
     width: 80%;
     margin-bottom: 5%;
     margin-top: 1.5%;
-    border-radius: 10px;
-    color: #333;
+    border-radius: 20px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
     font-size: clamp(0.8rem, 2cqw, 3rem);
     padding: 2%;
     border: none;
     margin: 0 auto;
     outline: none;
+}
+
+#activityDuration, #activityIntensity {
+    background-color: #383F42;
+    color: white;
+    border: 3px solid grey;
+    transition: all 0.3s ease-in-out;
+    margin: 0 auto;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 #activityType:hover {
@@ -845,12 +862,20 @@ label {
     scrollbar-width: none; 
 }
 
-@media (min-width: 700px){
+/* Only applies when NOT mobile view */
+@media (min-width: 701px){
     #activityBtn2{
         display: none;
     }
+    .exerciseAddSection {
+        margin-right: 5%;
+    }
+    .overviewSection{
+        margin-left: 5%;
+    }
 }
-@media (max-width: 701px){
+/* Only applies when mobile view */
+@media (max-width: 700px){
     #activityBtn1{
         display: none;
     }
@@ -859,6 +884,10 @@ label {
     }
     #activityPageSection {
         flex-direction: column;
+    }
+    .nav-btn img {
+        width: 80%;
+        aspect-ratio: 1 / 1;
     }
 }
 
