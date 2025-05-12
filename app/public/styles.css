@@ -206,6 +206,7 @@ input {
     gap: 2rem;
     justify-content: center;
     padding: 1rem;
+    padding-bottom: 0;
     flex-wrap: wrap;
   }
   
@@ -223,7 +224,118 @@ input {
     width: 100% !important;
     height: 300px !important; /* or whatever fits your layout */
   }
-  
+
+  .adjust-targets-section {
+    text-align: center;
+    color: #EFEDE7;
+    font-family: 'Poppins';
+    background-color: #2C2C2C;
+    border-radius: 20px;
+    border: 2px solid #EFEDE7;
+    width: 85%;
+    max-width: 700px;
+    margin: 0 auto auto auto;
+    padding: 2rem;
+    padding-bottom: 400;
+    box-shadow: 0 0 20px rgba(255, 87, 51, 0.15);
+  }
+
+  #adjustBtn{
+    margin: 0 2.5% 0 2.5%;
+  }
+
+  .Empty-Space{
+    margin-top: 5%;
+  }
+
+/*Contact Us Stuff*/
+/* ===== HELP PAGE STYLE OVERRIDES ===== */
+.contact-box {
+    width: 90%;
+    margin: 1.5rem auto 0 auto;
+}
+
+.contact-box .header {
+    background-color: #D96529;
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+    font-family: 'Oswald';
+    font-size: 1.3rem;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown {
+    display: none;
+    background-color: #383F42;
+    border: 2px solid #EFEDE7;
+    border-radius: 10px;
+    margin-top: 1rem;
+    font-family: 'Poppins';
+    color: white;
+    text-align: left;
+    padding: 1rem;
+}
+
+.dropdown.active {
+    display: block;
+}
+
+.submissionBox input[type="text"] {
+    width: 90%;
+    height: 150px;
+    background-color: #F5F3EF;
+    margin: 1.5rem auto;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #ccc;
+    resize: none;
+}
+
+#contactForm .btn {
+    width: 60%;
+    margin: 2rem auto;
+    padding: 0.75rem 1rem;
+    background-image: linear-gradient(#95180F, #EA7B3A);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Oswald';
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+#contactForm .btn:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 700px) {
+    .graph {
+        width: 95%;
+        margin: auto;
+        padding: 1rem;
+    }
+
+    .submissionBox input[type="text"] {
+        height: 200px;
+    }
+
+    .contact-box .header {
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+
+    #contactForm .btn {
+        width: 80%;
+        font-size: 1.2rem;
+    }
+}
+
+
 
 
 /* Achievement stuff */
@@ -602,6 +714,7 @@ input {
 #hellthTitle {
     font-size: clamp(1.6rem, 2.8cqw, 8rem);
     font-weight: bold;
+    margin: 0 auto;
 }
 
 .mainBtn{

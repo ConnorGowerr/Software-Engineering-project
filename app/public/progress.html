@@ -30,13 +30,30 @@
           <div class="chart-container">
             <div class="graph">
               <canvas id="caloriesChart"></canvas>
+              <div class="view-buttons">
+                <button class="btn view-btn" id="dailyBtn">Daily</button>
+                <button class="btn view-btn" id="weeklyBtn">Weekly</button>
+                <button class="btn view-btn" id="monthlyBtn">Monthly</button>
+              </div>
             </div>
             <div class="graph">
               <canvas id="activityChart"></canvas>
+              <div class="view-buttons">
+                <button class="btn view-btn" id="dailyBtn">Daily</button>
+                <button class="btn view-btn" id="weeklyBtn">Weekly</button>
+                <button class="btn view-btn" id="monthlyBtn">Monthly</button>
+              </div>
             </div>
           </div>      
         </div>
-      
+          <div class="adjust-targets-section">
+            <h2 id="changeTargets">- Change Targets -</h2>
+            <p id="adjustText">Struggling to keep up or need more of a challenge?</p>
+            <p>Adjust your targets here!</p>
+            <button class="btn" id="adjustBtn">Adjust Calories</button>
+            <button class="btn" id="adjustBtn">Adjust Activity</button>
+          </div>
+          <div class="Empty-Space">-</div>
 
         <div class="popup-overlay" id="mailboxOverlay">
             <div class="mailboxHeader">
