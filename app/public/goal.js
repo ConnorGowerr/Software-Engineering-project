@@ -1,5 +1,6 @@
 const loadStartTime = Date.now(); 
-
+let user ='';
+let username = ''
 
 //loading screen
 window.addEventListener('load', () => {
@@ -20,7 +21,14 @@ window.addEventListener('load', () => {
 
 async function fetchGoals() {
   try {
-    const username = window.sessionStorage.username;
+    const userResponse = await fetch(`/api/return-user?q=${window.sessionStorage.getItem("username")}`);
+    if (!userResponse.ok) {
+      throw new Error('Failed to fetch user');
+    }
+    const userData = await userResponse.json();
+    user = userData[0]
+    username = userData[0].username;
+
     const response = await fetch('/api/goals', {
       method: 'POST',
       headers: {
@@ -34,36 +42,126 @@ async function fetchGoals() {
     }
 
     const goals = await response.json();
-    console.table (goals);
-    renderGoals(goals)
+    console.table(goals);
+    renderGoals(goals);
   } catch (error) {
     console.error('Failed to fetch goals:', error);
     return [];
   }
-
-
 }
 
 function renderGoals(goals) {
   const container = document.querySelectorAll('.goalscrollableContainer')[0]; 
 
+
+  //weight meal goals
   goals.forEach((goal, index) => {
     const goalDiv = document.createElement('div');
     goalDiv.className = 'goalItem';
     goalDiv.id = `goal-${index}`;
 
     goalDiv.innerHTML = `
-      <div class="goalItemImgSection">
-        <img class="goalImg" src="images/activity.png" alt="Goal Icon">
+      <div class="goalTitleContainer">
+        <h2 >${goal.goalname}</h2>
+      </div> 
+     
+      
+      <div class="goalItemTextSection2">
+        <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
+        <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
+    
       </div>
+
       <div class="goalItemTextSection">
-        <p><strong>Start Weight:</strong> ${goal.startweight} kg</p>
-        <p><strong>Current Weight:</strong> ${goal.currentweight} kg</p>
-        <p><strong>Target Weight:</strong> ${goal.targetweight} kg</p>
-        <p><strong>Daily Calories:</strong> ${goal.dailycalories}</p>
+          <p><strong>Target Weight:</strong> ${goal.targetweight} kg</p>
       </div>
+      
     `;
 
+
+
     container.appendChild(goalDiv);
+
+        
+    goalDiv.addEventListener('click', () => {
+      const overlay = document.getElementById('goalOverlay');
+      overlay.innerHTML = '';
+
+      const cloned = goalDiv.cloneNode(true);
+
+      cloned.innerHTML = `
+        <div class="goalTitleContainer">
+          <h2 >${goal.goalname}</h2>
+        </div> 
+      
+        
+        <div class="goalItemTextSection2">
+          <p><strong>Started:</strong> <br>${goal.enddate.split('T')[0]}</p>
+          <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
+      
+        </div>
+
+        <div class="goalItemTextSection">
+            <p><strong>Target Weight:</strong> ${goal.targetweight} kg</p>
+        </div>
+        
+      `;
+     
+      
+
+  
+
+      const handleOutsideClick = (event) => {
+        if (!cloned.contains(event.target)) {
+            closePopup();
+        }
+      };
+
+      const closePopup = () => {
+          overlay.classList.add('hidden');
+      };
+
+      overlay.appendChild(cloned);
+      overlay.classList.remove('hidden');
+      overlay.addEventListener("click", handleOutsideClick);
+
+});
   });
 }
+
+
+document.getElementById("goalContent2").addEventListener("click", e => {
+  showMealPopup()
+})
+
+function showMealPopup() {
+    const overlay = document.querySelector("#addAdminMemberOverlay");
+    const popup = document.querySelector(".addMeal");
+    const title = document.querySelector("#goalTitle");
+    const confirmBtn = document.querySelector("#confirmBtn55");
+
+    title.textContent = 'Add New Goal';
+    overlay.style.display = "block";
+    popup.style.display = "block";
+
+    const handleConfirm = () => {
+        closePopup();
+    };
+
+    const handleOutsideClick = (event) => {
+        if (!popup.contains(event.target)) {
+            closePopup();
+        }
+    };
+
+    const closePopup = () => {
+        overlay.style.display = "none";
+        popup.style.display = "none";
+        confirmBtn.removeEventListener("click", handleConfirm);
+        overlay.removeEventListener("click", handleOutsideClick);
+    };
+
+    confirmBtn.addEventListener("click", handleConfirm);
+    overlay.addEventListener("click", handleOutsideClick);
+}
+

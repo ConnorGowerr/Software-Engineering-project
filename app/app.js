@@ -685,7 +685,13 @@ app.get("/groups/:allgroups", async (req, res) => {
 app.post('/api/goals', async (req, res) => {
   const { username } = req.body;
   try {
-    const result = await dbClient.query('SELECT * FROM "Hellth".mealgoal WHERE username = $1', [username]);
+    const result = await dbClient.query(`
+        SELECT g.goalid AS goalid, g.*, 
+                mg.goalid AS mealgoalid, mg.*, mg.username
+        FROM "Hellth".goal g
+        JOIN "Hellth".mealgoal mg ON g.goalid = mg.goalid
+        WHERE mg.username = $1
+        `, [username]);
     res.json(result.rows);
   } catch (err) {
     console.error(err);
