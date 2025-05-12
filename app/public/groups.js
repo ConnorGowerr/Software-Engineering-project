@@ -76,9 +76,9 @@ function randomiseGroup(d){
 
 
             
-            num3.querySelector(".valueText").innerHTML = `${member3}/50`
-            num4.querySelector(".valueText").innerHTML = `${member4}/50`
-            num5.querySelector(".valueText").innerHTML = `${member5}/50`
+            // num3.querySelector(".valueText").innerHTML = `${member3}/50`
+            // num4.querySelector(".valueText").innerHTML = `${member4}/50`
+            // num5.querySelector(".valueText").innerHTML = `${member5}/50`
             // num6.querySelector(".valueText").innerHTML = `${member1}/50`
 
             console.log(member1);
@@ -123,10 +123,11 @@ function randomiseGroup(d){
 
     // }
 
-    async function memberCount(groupid){
+    function memberCount(groupid){
         const groupID = [1, 2, 3, 4, 5];
-        for(const groupIDs of groupID){
-            const fetchGroup = await fetch('/groups/:allgroups/:groupid', {
+        let count = 2;
+        for(i = 2; i < 7; i++){
+            fetch('/groups/:allgroups/:groupid', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -135,15 +136,20 @@ function randomiseGroup(d){
                 groupid: groupid
             })
         })
-        const groupnum = await fetchGroup.json()
-        .then(data => {
-            console.log(data.count);
-            console.log(groupIDs);
-            const num2 = document.getElementById("memberCount2");
-            num2.querySelector(".valueText").innerHTML = `${data.count}/50`
-            return data.count;
-        })
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data.count);
+                
+                console.log(i);
+                let num2 = document.getElementById(`memberCount${i}`);
+                num2.querySelector(".valueText").innerHTML = `${data.count}/50`
+                console.log(num2);
+                // count++;
+                // return data.count;
+            })
         }
+        
+
 
         // console.table(groupnum)
 
