@@ -48,7 +48,7 @@ class ExerciseController {
     }
 
     //handles both activity and user activity
-    saveActivity(req, res) {
+    async saveActivity(req, res) {
         const {username, exercisename, activityduration, activityintensity} = req.body;
         let activityid = randomInt(1000000);
         let idCount = 0;
@@ -65,51 +65,63 @@ class ExerciseController {
 
         const values1 = [activityid, username, exercisename, activityduration, activityintensity];
         const values2 = [username, activityid];
+        
+            // dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+            //     if (err) {
+            //         console.error("Search path error:", err);
+            //         return res.status(500).json({ error: "Failed to set search path" });
+            //     }
 
-        dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
-            if (err) {
-                console.error("Search path error:", err);
-                return res.status(500).json({ error: "Failed to set search path" });
-            }
+            //     //check if the id is valid
+            //     // do{
+            //     //     activityid = randomInt(1000000);
+                    
+            //     //     dbClient.query(idCountQuery, [activityid], (err, result1) => {
+            //     //         if (err) {
+            //     //             console.error("Database query error:", err);
+            //     //         }
+            //     //         return res.status(201).json({ message: "test", activity: result1 });
+            //     //     });
+            //     //     // idCount = idCountQuery.rows[0].count;
+            //     // }
+            //     // while(idCount > 0);
+            //     console.log(idCount)
+            //     console.log(activityid)
 
-            //check if the id is valid
-            // do{
-            //     activityid = randomInt(1000000);
-                
-            //     dbClient.query(idCountQuery, [activityid], (err, result1) => {
+
+
+            //     //activity
+            //     dbClient.query(insertQuery1, values1, (err, result2) => {
             //         if (err) {
-            //             console.error("Database query error:", err);
+            //             console.error( err);
+            //             return res.status(500).json({ error: "Failed to insert activity" });
             //         }
-            //         return res.status(201).json({ message: "test", activity: result1 });
+        
+            //         return res.status(201).json({ message: "Activity inserted", activity: result2.rows[0] });
             //     });
-            //     // idCount = idCountQuery.rows[0].count;
-            // }
-            // while(idCount > 0);
-            console.log(idCount)
-            console.log(activityid)
+                
+            //     //user activity
+            //     dbClient.query(insertQuery2, values2, (err, result3) => {
+            //         if (err) {
+            //             console.error( err);
+            //             return res.status(500).json({ error: "Failed to insert user activity" });
+            //         }
+        
+            //         return res.status(201).json({ message: "User Activity inserted", useractivity: result3.rows[0] });
+            //     });
+            // });
+        try {
+            await dbClient.query('SET SEARCH_PATH TO "Hellth", public;');
+            await dbClient.query(insertQuery1, values1);
 
+            await dbClient.query(insertQuery2, values2);
 
-
-            //activity
-            dbClient.query(insertQuery1, values1, (err, result2) => {
-                if (err) {
-                    console.error( err);
-                    return res.status(500).json({ error: "Failed to insert activity" });
-                }
-    
-                return res.status(201).json({ message: "Activity inserted", activity: result2.rows[0] });
-            });
-            
-            //user activity
-            dbClient.query(insertQuery2, values2, (err, result3) => {
-                if (err) {
-                    console.error( err);
-                    return res.status(500).json({ error: "Failed to insert user activity" });
-                }
-    
-                return res.status(201).json({ message: "User Activity inserted", useractivity: result3.rows[0] });
-            });
-        });
+            return res.status(201).json({ message: "activity inserted", activityid });
+        
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Failed to save activity data" });
+        }
     }
 
     
