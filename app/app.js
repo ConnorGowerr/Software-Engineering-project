@@ -476,7 +476,7 @@ app.get("/groups/:allgroups", async (req, res) => {
                 console.error("Database query error:", err);
                 return res;
             }
-            console.table(resp.rows);
+            // console.table(resp.rows);
             return res.status(200).json(resp.rows);
             
         })
@@ -487,32 +487,27 @@ app.post("/groups/:allgroups/:groupid", async (req, res) => {
     const groupid = req.body.groupid;
     // console.table(groupid)
     const queryMembers = await dbClient.query("SELECT COUNT(*) FROM groupMembers WHERE groupMembers.groupID = $1", [groupid]);
-    console.log(groupid);
+    // console.log(groupid);
     if (queryMembers.rows.length === 0) 
         {
             res.status(404).json({error: "Group not found"});
         }
         res.status(200).json(queryMembers.rows[0]);
-        console.log(queryMembers.rows[0]);
-
-    // dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
-    //     if (err) {
-    //         console.error("Error setting search path:", err);
-    //         return res;  
-    //     }
-        
-        // const queryMembers = `COUNT FROM groupMembers WHERE groupMembers.groupID = $1`;
-    //     dbClient.query(queryMembers, (err, resp) => {
-    //         if (err) {
-    //             console.error("Database query error:", err);
-    //             return res;
-    //         }
-    //         console.table(resp.rows);
-    //         return res.status(200).json(resp.rows);
-            
-    //     })
-    // })
 })
 
+app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
+    const query = req.query.q;
+    console.log(query);
+    
+
+    const personalGroup = await dbClient.query(`SELECT * FROM groupMembers JOIN userGroups ON groupMembers.groupid = userGroups.groupid WHERE groupMembers.username = $1`, [query]);
+       
+    if (personalGroup.rows.length === 0) 
+        {
+            res.status(404).json({error: "Groups not found"});
+        }
+        res.status(200).json(personalGroup.rows[0]);
+   
+})
 
 
