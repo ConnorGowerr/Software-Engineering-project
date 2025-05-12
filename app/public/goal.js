@@ -1,6 +1,6 @@
 const loadStartTime = Date.now(); 
-let user ='';
-let username = ''
+let user ="";
+let username = window.sessionStorage.getItem("username")
 
 //loading screen
 window.addEventListener('load', () => {
@@ -21,13 +21,13 @@ window.addEventListener('load', () => {
 
 async function fetchGoals() {
   try {
-    const userResponse = await fetch(`/api/return-user?q=${window.sessionStorage.getItem("username")}`);
+    const userResponse = await fetch(`/api/return-user?q=${username}`);
     if (!userResponse.ok) {
       throw new Error('Failed to fetch user');
     }
     const userData = await userResponse.json();
-    user = userData[0]
-    username = userData[0].username;
+    user = userData[0];
+    
 
     const response = await fetch('/api/goals', {
       method: 'POST',
@@ -78,8 +78,6 @@ function renderGoals(goals) {
       
     `;
 
-
-
     container.appendChild(goalDiv);
 
         
@@ -96,9 +94,8 @@ function renderGoals(goals) {
       
         
         <div class="goalItemTextSection2">
-          <p><strong>Started:</strong> <br>${goal.enddate.split('T')[0]}</p>
+          <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
           <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
-      
         </div>
 
         <div class="goalItemTextSection">
@@ -106,10 +103,6 @@ function renderGoals(goals) {
         </div>
         
       `;
-     
-      
-
-  
 
       const handleOutsideClick = (event) => {
         if (!cloned.contains(event.target)) {
@@ -131,10 +124,12 @@ function renderGoals(goals) {
 
 
 document.getElementById("goalContent2").addEventListener("click", e => {
+  console.table(user)
   showMealPopup()
 })
 
 function showMealPopup() {
+    console.table(user)
     const overlay = document.querySelector("#addAdminMemberOverlay");
     const popup = document.querySelector(".addMeal");
     const title = document.querySelector("#goalTitle");
@@ -144,7 +139,41 @@ function showMealPopup() {
     overlay.style.display = "block";
     popup.style.display = "block";
 
-    const handleConfirm = () => {
+
+    
+    const handleConfirm = async (event) => {
+
+      console.log(user)
+      event.preventDefault();
+
+       const fullDate = new Date();
+        const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate(),0,0,0);
+
+        const body = {
+          goalname: document.getElementById("goalName").value,
+          username: username = window.sessionStorage.getItem("username"),
+          currentWeight: user.weight,
+          enddate:  document.getElementById("meal-date").value ,
+          startdate: dateOnly,
+          targetWeight: document.getElementById("Target").value
+        }
+
+
+        const goalMade = await fetch('/api/goal/AddMealGoal', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ body })
+        });
+        
+        if (!goalMade.ok) {
+            throw new Error(`goalMade failed: ${goalMade.status}`);
+        }
+        
+        const goalRes = await goalMade.json();
+        console.table(goalRes)
+
         closePopup();
     };
 

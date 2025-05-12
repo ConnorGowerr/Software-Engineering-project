@@ -1083,8 +1083,8 @@ label {
     box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
     text-align: center;
     border-radius: 30px 60px;
-    width: 45%;
-    height: 45%;
+    width: 60%;
+    height: 60%;
     color: white;
     color: white;
     display: flex;
@@ -1095,10 +1095,10 @@ label {
 }
 
 .goalPopupContainer{
-    position: absolute;
-        font-size: clamp(1rem, 1.9cqw, 4rem);
+    position: relative;
+    font-size: clamp(1rem, 1.9cqw, 4rem);
 
-    top:0%
+    top:-7.5%;
    
 }
 
@@ -1108,10 +1108,12 @@ label {
     border-radius: 15px;
     width: 80%;
     height: 50%;
+    top:-10%;
     margin: 0 auto;
     display: flex;
+    position:relative;
     flex-direction: column;
-    gap: 15%;
+    gap: 12.5%;
     font-family: 'Poppins', sans-serif;
     color: #EFEDE7;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -1119,7 +1121,7 @@ label {
 
 #goalForm input[type="text"],
 #goalForm input[type="date"] {
-    padding: 2% 2%;
+    padding: 1% 1%;
     border-radius: 8px;
     border: none;
     outline: none;
@@ -1149,10 +1151,12 @@ label {
 }
 
 .goalOverlay .goalItem {
-    width: 35vh !important;
-    height: 15vh !important;
+    width: 55vh !important;
+    height: 40vh !important;
+    min-height: 300px;
+    min-width: 600px;
     border: solid 2px white;
-    padding: 5%;
+    padding: 2.5%;
     background-color: #474f53;
     border-radius: 0px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
@@ -1478,9 +1482,12 @@ label {
 }
 
 #confirmBtn55 {
-  
-   left:50%;
-   transform: translateX(-50%);
+  position: relative;
+  /* bottom:-15% */
+  display:flex;
+  align-self: flex-end;
+   /* left:50%; */
+   /* transform: translateX(-50%); */
 }
 
 #confirmBtn:hover, #confirmBtn2:hover, #confirmBtn3:hover, .confirmBtn:hover {
@@ -2526,13 +2533,13 @@ GROUP PAGE SECTION */
     width: 90%;
     font-family: 'Poppins';
     color: #EFEDE7;
-    height: 37.5%;
-    min-height: 20vh;
+    height: 45.5%;
+    min-height: 25vh;
     margin: 2% auto;
-    /* padding: 7.5% 0; */
+  
     border-radius: 20px;
     background-color: #474f53;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -2549,6 +2556,7 @@ GROUP PAGE SECTION */
     color: #EFEDE7;
     height: 80%;
     width: 50%;
+    font-size: clamp(0.7rem, 1.1vw, 1.7rem);
 
 }
 
@@ -2558,7 +2566,7 @@ GROUP PAGE SECTION */
     margin-top: auto;  
      align-content: center;
     justify-content: center;     
-    /* padding-left: 5%; */
+    font-size: clamp(0.7rem, 1.1vw, 1.7rem);
     height: 80%;
     overflow-y: hidden;
     font-family: 'Poppins';
@@ -2570,7 +2578,7 @@ GROUP PAGE SECTION */
 .goalItemTextSection p  .goalItemTextSection2 p{
     margin: 5% 0; 
     font-family: 'Poppins';
-    font-size: clamp(0.5rem, 0.9cqw, 1.5rem);
+    font-size: clamp(0.5rem, 0.7cqw, 1.5rem);
     color: #fff;
 }
 
@@ -2586,7 +2594,7 @@ GROUP PAGE SECTION */
     
     overflow-y: scroll;
     overflow-x: hidden;  
-    font-size: clamp(0.8rem, 1.3vw, 1.4rem);
+    font-size: clamp(0.8rem, 0.7vw, 1.4rem);
     scrollbar-width: none; 
 
     
@@ -2605,7 +2613,7 @@ GROUP PAGE SECTION */
     justify-content: center; 
     overflow-y: scroll;
     overflow-x: hidden;  
-    font-size: clamp(0.8rem, 1.3vw, 1.4rem);
+    font-size: clamp(0.8rem, 0.7vw, 1.4rem);
     scrollbar-width: none; 
 }
 

@@ -451,6 +451,46 @@ app.get('/api/groups/:groupname', (req, res) => {
     });
 });
 
+app.post('/api/goal/AddMealGoal', async (req, res) => {
+    const goalid = Math.floor(Math.random() * 10000);
+    const points = Math.floor(Math.random() * 10000);
+    const isgoalmet = false;
+    const {name, username, currentweight, startdate, enddate, target} = req.body;
+
+    console.log(username)
+
+    try {
+        const createGoal = `INSERT INTO "Hellth"."goal" (goalid, goalname, startdate, enddate, isgoalmet, points)
+        VALUES ($1, $2, $3, $4, $5, $6)`;
+
+        const values = [goalid, name, startdate, enddate, isgoalmet, points];
+        
+
+
+        const result = await dbClient.query(createGoal, values);
+        res.status(201).json({ 
+            message: "Goal created successfully", 
+            goal: result.rows[0]});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+
+    // try {
+    //     const mealGoal = `INSERT INTO "Hellth"."mealgoal" (goalid, username, startweight, targetweight,  currentweight, dailycalories)
+    //     VALUES ($1, $2, $3, $4, $5, $6)`;
+
+    //     const values2 = [goalid, username, currentweight, target, currentweight, 2000];
+        
+    //     const result = await dbClient.query(mealGoal, values2);
+    //     res.status(201).json({ 
+    //         message: "Goal created successfully", 
+    //         goal: result.rows[0]});
+    // } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ error: "There was an error with the server" });
+    // }
+});
 
 app.get("/api/groupMembers/:id", (req, res) => {
     const groupId = req.params.id;
