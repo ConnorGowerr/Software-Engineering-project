@@ -348,8 +348,6 @@ function renderGoals(goals) {
 }
  
 
-
-
 document.getElementById("goalContent2").addEventListener("click", e => {
   showMealPopup()
 })

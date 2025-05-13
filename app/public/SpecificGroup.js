@@ -381,7 +381,7 @@ function fetchMealChallenges(groupData) {
                     <h2>${challenge.goalname}</h2>
                 </div>
                   <div class="goalItemTextSection2">
-                    <p><strong>Current:</strong>  <br> ${challenge.currentcalories}</p>
+                    <p><strong>Total Calories Tracked:</strong>  <br> ${challenge.currentcalories}</p>
                
                 </div>
                 <div class="goalItemTextSection">
@@ -429,17 +429,15 @@ function fetchActivityChallenges(groupData) {
                     <h2>${challenge.goalname}</h2>
                 </div>
                   <div class="goalItemTextSection2">
-                    <p><strong>Current:</strong>  <br> ${challenge.targetcaloriesburnt}</p>
+                    <p><strong>Total Calories Burnt:</strong>  <br> ${challenge.caloriesburnt}</p>
                
                 </div>
                 <div class="goalItemTextSection">
-                    <p><strong>Target:</strong>  <br> ${challenge.caloriesburnt}</p>
+                    <p><strong>Target:</strong>  <br> ${challenge.targetcaloriesburnt}</p>
                 </div>
-
-              
-            
+       
                 <div class="progressBarContainer">
-                    <div class="progressBar" style="width: ${(challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100}%"></div>
+                    <div class="progressBar2" style="width: ${(challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100}%"></div>
                 </div>
             `;
 
