@@ -365,17 +365,13 @@ make sure to also be connected to vpn
 dbClient.query('SET SEARCH_PATH to "Hellth", public;', async (err) => {
     if (err) {
         console.log(err.message);
-    } else {
-        console.log("yipee search path found");
-    }
+    } 
 })
 
 dbClient.query(`SET TIME ZONE 'Europe/London';`, async (err) => {
     if (err) {
         console.log(err.message);
-    } else {
-        console.log("time zone set");
-    }
+    } 
 })
 
 
