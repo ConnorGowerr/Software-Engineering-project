@@ -816,6 +816,37 @@ app.get('/mealchallenges', async (req, res) => {
   }
 });
 
+
+
+app.get('/activitychallenges', async (req, res) => {
+  const groupId = req.query.id; 
+
+  try {
+    
+    const result = await dbClient.query(
+    `
+        SELECT ac.*, g.*
+        FROM "Hellth".exercisechallenge ac
+        JOIN "Hellth".goal g ON ac.goalid = g.goalid
+        WHERE ac.groupid = $1
+    `,
+    [groupId]
+    );
+
+
+    
+    if (result.rows.length === 0) {
+      return res.status(404).send({ message: 'No meal challenges found for this group' });
+    }
+    
+    return res.json(result.rows);
+
+  } catch (err) {
+    console.error('Error executing query', err);
+    return res.status(500).send({ error: 'Internal server error' });
+  }
+});
+
 app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
     const query = req.query.q;
     console.log(query);
