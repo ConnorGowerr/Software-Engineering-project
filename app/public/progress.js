@@ -31,6 +31,51 @@ window.addEventListener("DOMContentLoaded", async () => {
       easing: 'easeOutCubic'
     }
   };
+  function isValidChartData(data) {
+    if (typeof data !== 'object' || data === null) {
+      console.error("Chart data is not an object:", data);
+      return false;
+    }
+
+    if (!Array.isArray(data.labels) || data.labels.length === 0) {
+      console.error("Chart data must contain a non-empty labels array:", data.labels);
+      return false;
+    }
+
+    if (!Array.isArray(data.datasets) || data.datasets.length === 0) {
+      console.error("Chart data must contain a non-empty datasets array:", data.datasets);
+      return false;
+    }
+
+    for (const dataset of data.datasets) {
+      if (typeof dataset !== 'object' || dataset === null) {
+        console.error("Each dataset must be an object:", dataset);
+        return false;
+      }
+
+      if (typeof dataset.label !== 'string') {
+        console.error("Each dataset must have a string 'label' property:", dataset);
+        return false;
+      }
+
+      if (!Array.isArray(dataset.data)) {
+        console.error("Each dataset must have a 'data' array:", dataset);
+        return false;
+      }
+
+      if (dataset.data.length !== data.labels.length) {
+        console.error("Each dataset 'data' array must match labels length:", dataset.data, data.labels);
+        return false;
+      }
+
+      if (!dataset.data.every(n => typeof n === 'number' && !isNaN(n))) {
+        console.error("Each dataset 'data' must be all numbers:", dataset.data);
+        return false;
+      }
+    }
+
+    return true;
+  }
 
   // Fetch dynamic calorie data
   const response = await fetch('/api/chart/week-calories');
@@ -70,42 +115,42 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   });
   // Fetch dynamic activity data
-const resActivity = await fetch('/api/chart/week-activity');
-console.log("Fetch activity try")
-const activityData = await resActivity.json();
-console.log("fetch data succesfull")
-const activityMinutes = activityData.map(entry => parseInt(entry.total_minutes, 10));
-console.log(activityMinutes)
-const activityLabels = activityData.map(entry => {
-  const date = new Date(entry.date);
-  return labels[date.getDay()];
-});
+  const resActivity = await fetch('/api/chart/week-activity');
+  console.log("Fetch activity try")
+  const activityData = await resActivity.json();
+  console.log("fetch data succesfull")
+  const activityMinutes = activityData.map(entry => parseInt(entry.total_minutes, 10));
+  console.log(activityMinutes)
+  const activityLabels = activityData.map(entry => {
+    const date = new Date(entry.date);
+    return labels[date.getDay()];
+  });
 
-new Chart(document.getElementById('activityChart'), {
-  type: 'bar',
-  data: {
-    labels: activityLabels,
-    datasets: [{
-      label: 'Minutes Active',
-      data: activityMinutes,
-      backgroundColor: activityLabels.map((_, i) =>
-        i === today ? '#FFD700' : '#F8B62D'
-      ),
-      borderRadius: 8,
-      borderSkipped: false
-    }]
-  },
-  options: {
-    ...commonOptions,
-    plugins: {
-      ...commonOptions.plugins,
-      title: {
-        display: true,
-        text: 'Weekly Activity (minutes)',
-        color: '#FFF',
-        font: { family: 'Oswald', size: 18 }
+  new Chart(document.getElementById('activityChart'), {
+    type: 'bar',
+    data: {
+      labels: activityLabels,
+      datasets: [{
+        label: 'Minutes Active',
+        data: activityMinutes,
+        backgroundColor: activityLabels.map((_, i) =>
+          i === today ? '#FFD700' : '#F8B62D'
+        ),
+        borderRadius: 8,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      ...commonOptions,
+      plugins: {
+        ...commonOptions.plugins,
+        title: {
+          display: true,
+          text: 'Weekly Activity (minutes)',
+          color: '#FFF',
+          font: { family: 'Oswald', size: 18 }
+        }
       }
     }
-  }
-});
+  });
 });

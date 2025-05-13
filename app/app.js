@@ -250,12 +250,11 @@ app.post('/submitContact', async (req, res) => {
     }
 });
 
-//Activity Chart Database logic
+//Activity Chart Database 
 app.get('/api/chart/week-activity', async (req, res) => {
     if (!dbClient) {
         return res.status(500).json({ error: 'Database client not initialized' });
     }
-
     try {
         console.log("Database Accessed")
         await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
@@ -294,6 +293,49 @@ ORDER BY d.date ASC;
     }
 });
 
+// Calorie Chart Database
+app.get('/api/chart/week-calories', async (req, res) => {
+    if (!dbClient) {
+        return res.status(500).json({ error: 'Database client not initialized' });
+    }
+
+    try {
+        console.log("Accessing calorie data");
+        await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
+        console.log("Search path set");
+
+        const result = await dbClient.query(`
+WITH days AS (
+  SELECT generate_series(
+    CURRENT_DATE - INTERVAL '6 days',
+    CURRENT_DATE,
+    INTERVAL '1 day'
+  )::date AS date
+),
+daily_calories AS (
+  SELECT 
+    m.mealdate AS date,
+    SUM(mc.quantity * f.calories) AS total_calories
+  FROM meal m
+  JOIN mealcontents mc ON m.mealid = mc.mealid
+  JOIN food f ON mc.foodid = f.foodid
+  WHERE m.mealdate >= CURRENT_DATE - INTERVAL '6 days'
+  GROUP BY m.mealdate
+)
+SELECT 
+  d.date,
+  COALESCE(dc.total_calories, 0) AS total_calories
+FROM days d
+LEFT JOIN daily_calories dc ON d.date = dc.date
+ORDER BY d.date ASC;
+        `);
+
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.error("Error querying weekly calories:", err);
+        res.status(500).json({ error: "Query failed" });
+    }
+});
 
 
 app.get('/achievements', (req, res) => {
