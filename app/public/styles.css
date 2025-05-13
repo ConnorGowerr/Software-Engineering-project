@@ -1058,11 +1058,13 @@ label {
     transform: translate(-50%, -50%);
     background-color: #383F42;
     padding-bottom: 2%;
-    box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
+    box-shadow: 0px 0px 10px white;
     text-align: center;
-    border-radius: 30px 60px;
+    /* border-radius: 30px 60px; */
     width: 30%;
     height: 25%;
+    min-width:250px;
+    min-height: 150px;
     color: white;
     color: white;
     display: flex;
@@ -1218,27 +1220,62 @@ label {
   /* margin-top: 10px; */
 }
 
-.progressBar {
-  /* position: absolute; */
-  /* bottom: 0; */
-  width: 0%; 
-  height: 100%;
-  background: linear-gradient(to right, #FF8C00, #FFD700); 
-    box-shadow: 0 0 10px rgba(255, 195, 0, 0.7), 0 0 15px rgba(255, 87, 51, 0.5);
-  border-radius: 5px;
-  transition: width 0.3s ease;
-}
-
 
 .progressBar2 {
 
   width: 0%; 
   height: 100%;
- background: linear-gradient(to right, #0059B8, #5CABFF); 
-    box-shadow: 0 0 10px #0059B8, 0 0 15px #5CABFF;
+  background: linear-gradient(to right, #0059B8, #5CABFF); 
+  box-shadow: 0 0 10px #0059B8, 0 0 15px #5CABFF;
   border-radius: 5px;
   transition: width 0.3s ease;
+    position: relative;
+
 }
+
+
+.progressBar {
+   width: 0%; 
+  height: 100%;
+  background: linear-gradient(to right, #FF8C00, #FFD700); 
+    box-shadow: 0 0 10px rgba(255, 195, 0, 0.7), 0 0 15px rgba(255, 87, 51, 0.5);
+  border-radius: 5px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+
+
+
+.progressBar::after, 
+.progressBar2::after {
+  content: attr(data-label);
+  position: absolute;
+  top: -200%;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 4px 8px;             
+  border-radius: 5px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+  pointer-events: none;
+
+  width: auto;                
+  height: auto;               
+  max-width: 100%;              
+}
+
+
+.progressBar:hover::after,.progressBar2:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 
 .GroupMemeberDelete{
     display: none;
@@ -2674,7 +2711,7 @@ GROUP PAGE SECTION */
 }
 
 .challenge-item  .goalItemTextSection2 {
-   margin-left: 6%;
+   margin-left: 4%;
     height: 80%;
 
 }
@@ -2878,23 +2915,26 @@ GROUP PAGE SECTION */
 }
 
 
- .challenge-item {
+.challenge-item {
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 90%;
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     color: #EFEDE7;
     height: 45.5%;
     min-height: 25vh;
     margin: 2% auto;
-  
+
     border-radius: 20px;
-    background-color: #474f53;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 
@@ -2946,7 +2986,7 @@ GROUP PAGE SECTION */
 .scrollableContainer {
     display: flex;
     width: 100%;
-    height: 78%;  
+    height: 88%;  
     /* max-height: 15vh; */
     overflow-y: scroll;
     margin-top: 2%;
@@ -2957,7 +2997,7 @@ GROUP PAGE SECTION */
 .scrollableContainer2 {
     display: flex;
     width: 100%;
-    height: 78%;  
+    height: 88%;  
     /* max-height: 15vh; */
     overflow-y: scroll;
     margin-top: 2%;
@@ -3138,6 +3178,82 @@ GROUP PAGE SECTION */
 
  /* mobile phone  view */
  @media (max-width: 700px) { 
+
+    #specificGroupSection {
+        height: 266vh; 
+        /* overflow-y: auto; */
+        display: grid;
+        grid-template-rows: repeat(3, 33%); 
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding-bottom: 20vh;
+    }
+
+    #GD1, #GD2, #GD3 {
+        width: 100%;
+        height: 100%;
+            min-height: 60vh;
+
+    }
+
+    #GD1{
+        grid-row: 1;
+    }
+    #GD3{
+        grid-row: 2;
+    }
+    
+    #goalsSection {
+        height: 266vh; 
+        display: grid;
+        grid-template-rows: repeat(3, 33%); 
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding-bottom: 20vh;
+    }
+
+    #GoalD1 {
+        grid-row: 1;
+        grid-column: 1;
+   
+    }
+
+
+    #GoalD2 {
+        grid-row: 2;
+        grid-column: 1;
+
+    }
+
+    .titleContainer{
+        position: relative;
+    }
+
+
+
+    #GoalD3{
+       grid-row: 3;
+        grid-column: 1;
+
+    }
+
+
+    .goalOverlay .goalItem {
+        display: flex;
+        position: relative;
+        width: 70vw !important;
+        height: 35vh !important;
+        min-width: 12px;
+        min-height: 12px;
+      
+        border: solid 2px white;
+        padding: 2.5%;
+        background-color: #474f53;
+        border-radius: 0px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        font-size: clamp(1.5rem, 2vw,);
+        transform: scale(1.05);
+    }
 
     #cancelBtn,#cancelBtn2, #cancelBtn3  {
         position: fixed;

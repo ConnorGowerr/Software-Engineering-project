@@ -391,13 +391,19 @@ function fetchMealChallenges(groupData) {
               
             
                 <div class="progressBarContainer">
-                    <div class="progressBar" style="width: ${(challenge.currentcalories / challenge.calorietarget) * 100}%"></div>
+                    <div class="progressBar" data-label="${Math.round((challenge.currentcalories / challenge.calorietarget) * 100)}%" style="width: ${(challenge.currentcalories / challenge.calorietarget) * 100}%"></div>
                 </div>
+
+                <button class ="cancelBtn" id = "cancelBtn2">X</button>
             `;
 
 
         
             mealChallengesList.appendChild(listItem);
+            document.getElementById("cancelBtn2").addEventListener("click", e => {
+                mealChallengesList.removeChild(listItem);
+            });
+
         });
         } else {
         errorMessageElement.textContent = 'No meal challenges found for this group.';
@@ -407,7 +413,12 @@ function fetchMealChallenges(groupData) {
         console.error('Error fetching data:', error);
         errorMessageElement.textContent = 'Error fetching meal challenges.';
     });
-}
+
+    document.querySelectorAll(".progressBar").forEach(bar => {
+        bar.style.width =  + '%';
+        bar.setAttribute('data-label', value + '%');
+    });
+    }
 
 
 
@@ -437,13 +448,21 @@ function fetchActivityChallenges(groupData) {
                 </div>
        
                 <div class="progressBarContainer">
-                    <div class="progressBar2" style="width: ${(challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100}%"></div>
+                    <div class="progressBar2" data-label="${Math.round((challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100)}%" style="width: ${(challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100}%"></div>
                 </div>
+
+                <button class ="cancelBtn" id = "cancelBtn3">X</button>
             `;
+
+             mealChallengesList.appendChild(listItem);
+
+            document.getElementById("cancelBtn3").addEventListener("click", e => {
+                mealChallengesList.removeChild(listItem);
+            });
 
 
         
-            mealChallengesList.appendChild(listItem);
+           
         });
         } else {
         errorMessageElement.textContent = 'No meal challenges found for this group.';
@@ -454,3 +473,4 @@ function fetchActivityChallenges(groupData) {
         errorMessageElement.textContent = 'Error fetching meal challenges.';
     });
 }
+

@@ -109,8 +109,10 @@ function renderGoals(goals) {
         </div>
 
         <div class="progressBarContainer">
-          <div class="progressBar" style="width: ${progressPercentage}%"></div>
+          <div class="progressBar" data-label= "${Math.round(progressPercentage)}%" style="width: ${progressPercentage}%"></div>
         </div>
+
+        <button class ="cancelBtn" id = "cancelBtn2">X</button>
       `;
 
       const handleOutsideClick = (event) => {
@@ -126,6 +128,11 @@ function renderGoals(goals) {
       overlay.appendChild(cloned);
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
+
+      document.getElementById("cancelBtn2").addEventListener("click", e => {
+          container.removeChild(goalDiv);
+          closePopup();
+      });
     });
   });
 
@@ -182,9 +189,13 @@ function renderGoals(goals) {
         </div>
 
         <div class="progressBarContainer">
-          <div class="progressBar" style="width: ${progressPercentage}%"></div>
+          <div class="progressBar2"  data-label= "${Math.round(progressPercentage)}%" style="width: ${progressPercentage}%"></div>
         </div>
+
+        <button class ="cancelBtn" id = "cancelBtn3">X</button>
       `;
+
+      
 
       const handleOutsideClick = (event) => {
         if (!cloned.contains(event.target)) {
@@ -199,6 +210,13 @@ function renderGoals(goals) {
       overlay.appendChild(cloned);
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
+
+      document.getElementById("cancelBtn3").addEventListener("click", e => {
+          container.removeChild(goalDiv);
+          closePopup();
+      });
+
+     
      });
   });
 
@@ -251,8 +269,11 @@ function renderGoals(goals) {
         </div>
 
         <div class="progressBarContainer">
-          <div class="progressBar" style="width: 100%"></div>
+          <div class="progressBar" data-label= "100%"  style="width: 100%"></div>
         </div>
+
+                <button class ="cancelBtn" id = "cancelBtn3">X</button>
+
       `;
 
       const handleOutsideClick = (event) => {
@@ -268,6 +289,12 @@ function renderGoals(goals) {
       overlay.appendChild(cloned);
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
+
+      document.querySelector("cancelBtn").addEventListener("click", e => {
+        container2.removeChild(goalDiv);
+      });
+
+      
    });
   });
 
@@ -325,8 +352,11 @@ function renderGoals(goals) {
         </div>
 
         <div class="progressBarContainer">
-          <div class="progressBar" style="width:100%"></div>
+          <div class="progressBar2" data-label= "100%"  style="width:100%"></div>
         </div>
+
+                <button class ="cancelBtn" id = "cancelBtn3">X</button>
+
       `;
 
       const handleOutsideClick = (event) => {
@@ -342,6 +372,10 @@ function renderGoals(goals) {
       overlay.appendChild(cloned);
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
+
+      document.querySelector("cancelBtn").addEventListener("click", e => {
+        container2.removeChild(goalDiv);
+      });
     });
   });
  
