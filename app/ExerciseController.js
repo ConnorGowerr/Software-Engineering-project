@@ -61,7 +61,7 @@ class ExerciseController {
         INSERT INTO UserActivity (username, activityid, logtime)
         VALUES ($1, $2, CURRENT_TIMESTAMP)
         `;
-        const idCountQuery = `SELECT COUNT(*) FROM Exercise WHERE LOWER(activityid) = LOWER($1)`;
+        const idCountQuery = `SELECT COUNT(*) FROM activity WHERE activityid = $1`;
 
         const values1 = [activityid, username, exercisename, activityduration, activityintensity];
         const values2 = [username, activityid];
