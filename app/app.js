@@ -7,6 +7,9 @@ const ExerciseController = require('./ExerciseController.js');
 const Food = require('./Food.js');
 const UserController = require('./UserController.js');
 const { randomInt } = require('crypto');
+const bodyParser = require('body-parser');
+const pool = require('./db');
+const nodemailer = require('nodemailer');
 
 const app = express();
 app.use(express.json());
@@ -156,6 +159,60 @@ app.get('/', (req, res) => {
         }
     });
 });
+//Nodemailer Logic
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public')); // in case contact.html is served here
+
+app.post('/submitContact', async (req, res) => {
+    const { reason, feedbackInput } = req.body;
+    const username = req.cookies?.username || 'Jimmy'; // fallback
+
+    try {
+        // 1. Get user's email from DB
+        const result = await pool.query(
+            'SELECT email FROM "Hellth".users WHERE username = $1',
+            [username]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).send('User email not found');
+        }
+
+        const userEmail = result.rows[0].email;
+
+        // 2. Send email via Nodemailer
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS
+            }
+        });
+
+        await transporter.sendMail({
+            from: `"Hellth Support" <${process.env.MAIL_USER}>`,
+            to: userEmail,
+            subject: `We've received your support request`,
+            html: `
+                <h3>Hi ${username},</h3>
+                <p>Thanks for contacting Hellth support.</p>
+                <p><strong>Reason:</strong> ${reason}</p>
+                <p><strong>Your Message:</strong></p>
+                <p>${feedbackInput}</p>
+                <hr>
+                <p>We'll be in touch shortly.</p>
+            `
+        });
+
+        return res.redirect('/contact.html');
+
+    } catch (err) {
+        console.error('Email send error:', err);
+        return res.status(500).send('Failed to send email');
+    }
+});
+
+
 
 //Calories Chart Database Logic
 app.get('/api/chart/week-calories', async (req, res) => {
