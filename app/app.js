@@ -477,7 +477,74 @@ app.get('/api/groups/:groupname', (req, res) => {
     });
 });
 
+app.post('/api/goal/AddMealGoal', async (req, res) => {
+    const goalid = Math.floor(Math.random() * 10000);
+    const points = Math.floor(Math.random() * 100);
+    const isgoalmet = false;
+    const { goalname, username, currentweight, startdate, enddate, target } = req.body;
 
+    try {
+        
+        const createGoal = `
+            INSERT INTO "Hellth"."goal" (goalid, goalname, startdate, enddate, isgoalmet, points)
+            VALUES ($1, $2, $3, $4, $5, $6)
+        `;
+        const goalValues = [goalid, goalname, startdate, enddate, isgoalmet, points];
+        await dbClient.query(createGoal, goalValues);
+
+        
+        const createMealGoal = `
+            INSERT INTO "Hellth"."mealgoal" (goalid, username, startweight, targetweight, currentweight, dailycalories)
+            VALUES ($1, $2, $3, $4, $5, $6)
+        `;
+        const mealValues = [goalid, username, currentweight, target, currentweight, 2000];
+        await dbClient.query(createMealGoal, mealValues);
+
+        res.status(201).json({
+            message: "Meal goal created successfully",
+            goalid: goalid
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+});
+
+
+app.post('/api/goal/AddActivityGoal', async (req, res) => {
+    const goalid = Math.floor(Math.random() * 10000);
+    const points = Math.floor(Math.random() * 100);
+    const weeklyactivity = 0
+    const caloriesburnt = 0
+    const isgoalmet = false;
+    const { goalname, username, startdate, enddate, target } = req.body;
+
+    try {
+        
+        const createGoal = `
+            INSERT INTO "Hellth"."goal" (goalid, goalname, startdate, enddate, isgoalmet, points)
+            VALUES ($1, $2, $3, $4, $5, $6)
+        `;
+        const goalValues = [goalid, goalname, startdate, enddate, isgoalmet, points];
+        await dbClient.query(createGoal, goalValues);
+
+        
+        const createMealGoal = `
+            INSERT INTO "Hellth"."exercisegoal" (goalid, username, caloriesburnt, targetactivity, weeklyactivity)
+            VALUES ($1, $2, $3, $4, $5)
+        `;
+        const mealValues = [goalid, username, caloriesburnt, target, weeklyactivity];
+        await dbClient.query(createMealGoal, mealValues);
+
+        res.status(201).json({
+            message: "Meal goal created successfully",
+            goalid: goalid
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+});
 app.get("/api/groupMembers/:id", (req, res) => {
     const groupId = req.params.id;
 
@@ -687,24 +754,174 @@ app.post("/home.html", async (req, res) => {
 })
 
 app.get("/groups/:allgroups", async (req, res) => {
-    connection.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
+    dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
         if (err) {
             console.error("Error setting search path:", err);
             return res;  
         }
 
         const queryString = `SELECT * FROM userGroups`;
-        // const queryMembers = `SELECT username FROM Users LEFT JOIN userGroups.username ON Users.username WHERE userGroups.groupname = "group name here"`;
-        connection.query(queryString, (err, resp) => {
+        const queryMembers = `COUNT FROM groupMembers WHERE groupMembers.groupID = $1`;
+        dbClient.query(queryString, (err, resp) => {
             if (err) {
                 console.error("Database query error:", err);
                 return res;
             }
-            console.table(resp.rows);
+            // console.table(resp.rows);
             return res.status(200).json(resp.rows);
             
         })
     })
 })
 
+app.post("/groups/:allgroups/:groupid", async (req, res) => {
+    const groupid = req.body.groupid;
+    // console.table(groupid)
+    const queryMembers = await dbClient.query("SELECT COUNT(*) FROM groupMembers WHERE groupMembers.groupID = $1", [groupid]);
+    // console.log(groupid);
+    if (queryMembers.rows.length === 0) 
+        {
+            res.status(404).json({error: "Group not found"});
+        }
+        res.status(200).json(queryMembers.rows[0]);
+})
 
+
+app.get('/mealchallenges', async (req, res) => {
+  const groupId = req.query.id; 
+
+  try {
+    
+    const result = await dbClient.query(
+    `
+        SELECT mc.*, g.*
+        FROM "Hellth".mealchallenge mc
+        JOIN "Hellth".goal g ON mc.goalid = g.goalid
+        WHERE mc.groupid = $1
+    `,
+    [groupId]
+    );
+
+
+    
+    if (result.rows.length === 0) {
+      return res.status(404).send({ message: 'No meal challenges found for this group' });
+    }
+    
+    return res.json(result.rows);
+
+  } catch (err) {
+    console.error('Error executing query', err);
+    return res.status(500).send({ error: 'Internal server error' });
+  }
+});
+
+
+
+app.get('/activitychallenges', async (req, res) => {
+  const groupId = req.query.id; 
+
+  try {
+    
+    const result = await dbClient.query(
+    `
+        SELECT ac.*, g.*
+        FROM "Hellth".exercisechallenge ac
+        JOIN "Hellth".goal g ON ac.goalid = g.goalid
+        WHERE ac.groupid = $1
+    `,
+    [groupId]
+    );
+
+
+    
+    if (result.rows.length === 0) {
+      return res.status(404).send({ message: 'No meal challenges found for this group' });
+    }
+    
+    return res.json(result.rows);
+
+  } catch (err) {
+    console.error('Error executing query', err);
+    return res.status(500).send({ error: 'Internal server error' });
+  }
+});
+
+app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
+    const query = req.query.q;
+    console.log(query);
+    
+
+    const personalGroup = await dbClient.query(`SELECT * FROM groupMembers JOIN userGroups ON groupMembers.groupid = userGroups.groupid WHERE groupMembers.username = $1`, [query]);
+       
+    if (personalGroup.rows.length === 0) 
+        {
+            res.status(404).json({error: "Groups not found"});
+        }
+        res.status(200).json(personalGroup.rows[0]);
+   
+})
+
+app.post('/api/goals', async (req, res) => {
+  const { username } = req.body;
+  
+  try {
+   
+    const mealGoalsQuery = `
+      SELECT 
+          g.goalid,
+          g.*, 
+          mg.*, 
+          'meal' AS goaltag
+      FROM "Hellth".goal g
+      JOIN "Hellth".mealgoal mg ON g.goalid = mg.goalid
+      WHERE mg.username = $1
+    `;
+    
+ 
+    const activityGoalsQuery = `
+      SELECT 
+          g.goalid,
+          g.*, 
+          eg.*, 
+          NULL AS extra_column,  -- Placeholder for the extra column in mealgoal
+          'exercise' AS goaltag
+      FROM "Hellth".goal g
+      JOIN "Hellth".exercisegoal eg ON g.goalid = eg.goalid
+      WHERE eg.username = $1
+    `;
+    
+  
+    const mealGoalsResult = await dbClient.query(mealGoalsQuery, [username]);
+    const activityGoalsResult = await dbClient.query(activityGoalsQuery, [username]);
+
+   
+    const combinedResults = [
+      ...mealGoalsResult.rows,
+      ...activityGoalsResult.rows
+    ];
+
+    res.json(combinedResults);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database query failed' });
+  }
+});
+
+app.put('/update-weight', async (req, res) => {
+  const { username, weight } = req.body;
+  const result = await dbClient.query(
+    'UPDATE "Hellth".users SET weight = $1 WHERE username = $2 RETURNING *',
+    [weight, username]
+  );
+
+  if (result.rowCount === 0) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  res.status(200).json({
+    message: 'Weight updated successfully',
+    user: result.rows[0] 
+  });
+});
