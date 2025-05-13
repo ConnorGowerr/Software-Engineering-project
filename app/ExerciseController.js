@@ -1,6 +1,7 @@
 const dbClient = require('./public/db.js')
 const { randomInt } = require('crypto');
 
+
 class ExerciseController {
     constructor() {
     }  
@@ -14,6 +15,7 @@ class ExerciseController {
             }
 
             const queryString = `SELECT * FROM Exercise WHERE LOWER(exercisename) LIKE LOWER($1)`;
+
             dbClient.query(queryString, [`%${query}%`], (err, res) => {
                 if (err) {
                     console.error("Database query error:", err);
@@ -36,6 +38,7 @@ class ExerciseController {
             }
     
             const queryString = `SELECT * FROM Exercise WHERE LOWER(exercisename) = LOWER($1)`;
+
             dbClient.query(queryString, [query], (err, res) => {
                 if (err) {
                     console.error("Database query error:", err);
@@ -46,6 +49,7 @@ class ExerciseController {
             });
         });
     }
+
 
     //handles both activity and user activity
     async saveActivity(req, res) {
@@ -123,6 +127,7 @@ class ExerciseController {
             return res.status(500).json({ error: "Failed to save activity data" });
         }
     }
+
 
     
 }    
