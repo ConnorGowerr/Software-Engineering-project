@@ -97,6 +97,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             (user.isadmin ? adminsContainer : usersContainer).appendChild(userItem);
         });
 
+
+        fetchMealChallenges(groupData)
+
     } catch (err) {
         console.error("Error during fetch operations:", err);
     }
@@ -357,4 +360,50 @@ function updateStatusButton(groupData, info) {
             });
         });
     }
+}
+
+function fetchMealChallenges(groupData) {
+  const groupId = groupData.groupid
+  const mealChallengesList = document.querySelector('.scrollableContainer2');
+
+    
+    fetch(`/mealchallenges?id=${groupId}`)
+    .then((response) => response.json())
+    .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+        
+        data.forEach((challenge) => {
+            const listItem = document.createElement('div');
+            listItem.classList.add('challenge-item');
+            listItem.innerHTML = `
+                <div class="goalTitleContainer">
+                    <h2>${challenge.goalname}</h2>
+                </div>
+                  <div class="goalItemTextSection2">
+                    <p><strong>Current:</strong>  <br> ${challenge.currentcalories}</p>
+               
+                </div>
+                <div class="goalItemTextSection">
+                    <p><strong>Target:</strong>  <br> ${challenge.calorietarget}</p>
+                </div>
+
+              
+            
+                <div class="progressBarContainer">
+                    <div class="progressBar" style="width: ${(challenge.currentcalories / challenge.calorietarget) * 100}%"></div>
+                </div>
+            `;
+
+
+        
+            mealChallengesList.appendChild(listItem);
+        });
+        } else {
+        errorMessageElement.textContent = 'No meal challenges found for this group.';
+        }
+    })
+    .catch((error) => {
+        console.error('Error fetching data:', error);
+        errorMessageElement.textContent = 'Error fetching meal challenges.';
+    });
 }

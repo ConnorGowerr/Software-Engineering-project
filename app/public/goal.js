@@ -52,13 +52,16 @@ async function fetchGoals() {
 
 function renderGoals(goals) {
   const container = document.querySelectorAll('.goalscrollableContainer')[0]; 
+  const container2 = document.querySelectorAll('.goalscrollableContainer')[1]; 
 
  
-  const mealGoals = goals.filter(goal => goal.goaltag === 'meal');
-  const activityGoals = goals.filter(goal => goal.goaltag === 'exercise');
+  const mealGoalsnotmet = goals.filter(goal => goal.goaltag === 'meal' && !goal.isgoalmet);
+  const activityGoalsnotmet = goals.filter(goal => goal.goaltag === 'exercise' && !goal.isgoalmet );
+  const mealGoalsmet = goals.filter(goal => goal.goaltag === 'meal' && goal.isgoalmet);
+  const activityGoalsmet = goals.filter(goal => goal.goaltag === 'exercise' && goal.isgoalmet);
 
   
-  mealGoals.forEach((goal, index) => {
+  mealGoalsnotmet.forEach((goal, index) => {
     const goalDiv = document.createElement('div');
     goalDiv.className = 'goalItem';
     goalDiv.id = `goal-${index}`;
@@ -81,54 +84,60 @@ function renderGoals(goals) {
     container.appendChild(goalDiv);
 
     goalDiv.addEventListener('click', () => {
-    const overlay = document.getElementById('goalOverlay');
-    overlay.innerHTML = '';
+      const overlay = document.getElementById('goalOverlay');
+      overlay.innerHTML = '';
 
-    const cloned = goalDiv.cloneNode(true);
+      const cloned = goalDiv.cloneNode(true);
 
-   
-    const progress = (goal.currentweight - goal.startweight) / (goal.targetweight - goal.startweight) * 100;
-    const progressPercentage = Math.min(Math.max(progress, 0), 100);  
+    
+      const progress = (goal.currentweight - goal.startweight) / (goal.targetweight - goal.startweight) * 100;
+      const progressPercentage = Math.min(Math.max(progress, 0), 100);  
 
-    cloned.innerHTML = `
-      <div class="goalTitleContainer">
-        <h2>${goal.goalname}</h2>
-      </div> 
-      
-      <div class="goalItemTextSection2">
-        <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
-        <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
-      </div>
+      cloned.innerHTML = `
+        <div class="goalTitleContainer">
+          <h2>${goal.goalname}</h2>
+        </div> 
+        
+        <div class="goalItemTextSection2">
+          <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
+          <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
+        </div>
 
-      <div class="goalItemTextSection">
-        <p><strong>Current Weight:</strong>  <br>${goal.currentweight} kg</p>
-        <p><strong>Target Weight:</strong>  <br>${goal.targetweight} kg</p>
-      </div>
+        <div class="goalItemTextSection">
+          <p><strong>Current Weight:</strong>  <br>${goal.currentweight} kg</p>
+          <p><strong>Target Weight:</strong>  <br>${goal.targetweight} kg</p>
+        </div>
 
-      <div class="progressBarContainer">
-        <div class="progressBar" style="width: ${progressPercentage}%"></div>
-      </div>
-    `;
+        <div class="progressBarContainer">
+          <div class="progressBar" style="width: ${progressPercentage}%"></div>
+        </div>
+      `;
 
-    const handleOutsideClick = (event) => {
-      if (!cloned.contains(event.target)) {
-        closePopup();
-      }
-    };
+      const handleOutsideClick = (event) => {
+        if (!cloned.contains(event.target)) {
+          closePopup();
+        }
+      };
 
-    const closePopup = () => {
-      overlay.classList.add('hidden');
-    };
+      const closePopup = () => {
+        overlay.classList.add('hidden');
+      };
 
-    overlay.appendChild(cloned);
-    overlay.classList.remove('hidden');
-    overlay.addEventListener("click", handleOutsideClick);
+      overlay.appendChild(cloned);
+      overlay.classList.remove('hidden');
+      overlay.addEventListener("click", handleOutsideClick);
+    });
   });
 
-  });
+
+
+
+
+
 
   // Render activity goals
-  activityGoals.forEach((goal, index) => {
+  activityGoalsnotmet.forEach((goal, index) => {
+
     const goalDiv = document.createElement('div');
     goalDiv.className = 'goalItem';
     goalDiv.id = `goal-${index}`;
@@ -154,6 +163,8 @@ function renderGoals(goals) {
       const overlay = document.getElementById('goalOverlay');
       overlay.innerHTML = '';
 
+      const progress = (goal.weeklyactivity - 0) / (goal.targetactivity - 0) * 100;
+      const progressPercentage = Math.min(Math.max(progress, 0), 100);  
       const cloned = goalDiv.cloneNode(true);
 
       cloned.innerHTML = `
@@ -168,6 +179,153 @@ function renderGoals(goals) {
 
         <div class="goalItemTextSection">
             <p><strong>Weekly Target:</strong>  <br>${goal.targetactivity} min</p>
+        </div>
+
+        <div class="progressBarContainer">
+          <div class="progressBar" style="width: ${progressPercentage}%"></div>
+        </div>
+      `;
+
+      const handleOutsideClick = (event) => {
+        if (!cloned.contains(event.target)) {
+            closePopup();
+        }
+      };
+
+      const closePopup = () => {
+        overlay.classList.add('hidden');
+      };
+
+      overlay.appendChild(cloned);
+      overlay.classList.remove('hidden');
+      overlay.addEventListener("click", handleOutsideClick);
+     });
+  });
+
+
+    // console.table(mealGoalsmet)
+    // console.table(activityGoalsmet)
+
+
+    mealGoalsmet.forEach((goal, index) => {
+    const goalDiv = document.createElement('div');
+    goalDiv.className = 'goalItem';
+    goalDiv.id = `goal-${index}`;
+
+    goalDiv.innerHTML = `
+      <div class="goalTitleContainer">
+        <h2>${goal.goalname}</h2>
+      </div> 
+     
+      <div class="goalItemTextSection2">
+        <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
+        <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
+      </div>
+
+      <div class="goalItemTextSection">
+        <p><strong>Target Weight:</strong>  <br>${goal.targetweight} kg</p>
+      </div>
+    `;
+
+    container2.appendChild(goalDiv);
+
+    goalDiv.addEventListener('click', () => {
+      const overlay = document.getElementById('goalOverlay');
+      overlay.innerHTML = '';
+
+      const cloned = goalDiv.cloneNode(true);
+
+
+      cloned.innerHTML = `
+        <div class="goalTitleContainer">
+          <h2>${goal.goalname}</h2>
+        </div> 
+        
+        <div class="goalItemTextSection2">
+          <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
+          <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
+        </div>
+
+        <div class="goalItemTextSection">
+          <p><strong>Target Weight:</strong>  <br>${goal.targetweight} kg</p>
+        </div>
+
+        <div class="progressBarContainer">
+          <div class="progressBar" style="width: 100%"></div>
+        </div>
+      `;
+
+      const handleOutsideClick = (event) => {
+        if (!cloned.contains(event.target)) {
+          closePopup();
+        }
+      };
+
+      const closePopup = () => {
+        overlay.classList.add('hidden');
+      };
+
+      overlay.appendChild(cloned);
+      overlay.classList.remove('hidden');
+      overlay.addEventListener("click", handleOutsideClick);
+   });
+  });
+
+
+
+
+
+
+  // Render activity goals
+  activityGoalsmet.forEach((goal, index) => {
+    
+    const goalDiv = document.createElement('div');
+    goalDiv.className = 'goalItem';
+    goalDiv.id = `goal-${index}`;
+
+
+    goalDiv.innerHTML = `
+      <div class="goalTitleContainer">
+        <h2>${goal.goalname}</h2>
+      </div> 
+     
+      <div class="goalItemTextSection2">
+        <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
+        <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
+      </div>
+
+      <div class="goalItemTextSection">
+        <p><strong>Target Minutes:</strong> <br>${goal.targetactivity} min</p>
+      </div>
+    `;
+
+    container2.appendChild(goalDiv);
+
+    goalDiv.addEventListener('click', () => {
+      const overlay = document.getElementById('goalOverlay');
+      overlay.innerHTML = '';
+
+
+      const progress = (goal.weeklyactivity - 0) / (goal.targetactivity - 0) * 100;
+      const progressPercentage = Math.min(Math.max(progress, 0), 100);  
+      const cloned = goalDiv.cloneNode(true);
+
+      cloned.innerHTML = `
+        <div class="goalTitleContainer">
+          <h2>${goal.goalname}</h2>
+        </div> 
+      
+        <div class="goalItemTextSection2">
+          <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
+          <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
+        </div>
+
+        <div class="goalItemTextSection">
+            <p><strong>Weekly Target:</strong>  <br>${goal.targetactivity} min</p>
+        </div>
+
+        <div class="progressBarContainer">
+          <div class="progressBar" style="width:100%"></div>
         </div>
       `;
 
@@ -186,7 +344,10 @@ function renderGoals(goals) {
       overlay.addEventListener("click", handleOutsideClick);
     });
   });
+ 
 }
+ 
+
 
 
 document.getElementById("goalContent2").addEventListener("click", e => {

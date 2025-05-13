@@ -760,6 +760,36 @@ app.post("/groups/:allgroups/:groupid", async (req, res) => {
         res.status(200).json(queryMembers.rows[0]);
 })
 
+
+app.get('/mealchallenges', async (req, res) => {
+  const groupId = req.query.id; 
+
+  try {
+    
+    const result = await dbClient.query(
+    `
+        SELECT mc.*, g.*
+        FROM "Hellth".mealchallenge mc
+        JOIN "Hellth".goal g ON mc.goalid = g.goalid
+        WHERE mc.groupid = $1
+    `,
+    [groupId]
+    );
+
+
+    
+    if (result.rows.length === 0) {
+      return res.status(404).send({ message: 'No meal challenges found for this group' });
+    }
+    
+    return res.json(result.rows);
+
+  } catch (err) {
+    console.error('Error executing query', err);
+    return res.status(500).send({ error: 'Internal server error' });
+  }
+});
+
 app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
     const query = req.query.q;
     console.log(query);
@@ -820,4 +850,21 @@ app.post('/api/goals', async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'Database query failed' });
   }
+});
+
+app.put('/update-weight', async (req, res) => {
+  const { username, weight } = req.body;
+  const result = await dbClient.query(
+    'UPDATE "Hellth".users SET weight = $1 WHERE username = $2 RETURNING *',
+    [weight, username]
+  );
+
+  if (result.rowCount === 0) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  res.status(200).json({
+    message: 'Weight updated successfully',
+    user: result.rows[0] 
+  });
 });
