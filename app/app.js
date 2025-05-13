@@ -215,14 +215,27 @@ app.post('/submitContact', async (req, res) => {
             to: userEmail,
             subject: `We've received your support request`,
             html: `
-                <h3>Hi ${username},</h3>
-                <p>Thanks for contacting Hellth support.</p>
-                <p><strong>Reason:</strong> ${reason}</p>
-                <p><strong>Your Message:</strong></p>
-                <p>${feedbackInput}</p>
-                <hr>
-                <p>We'll be in touch shortly.</p>
-            `
+  <div style="background-color:#1C1F21; color:#EFEDE7; font-family:'Poppins', sans-serif; padding:2rem; border-radius:12px; max-width:600px; margin:auto; border:1px solid #444;">
+    <div style="text-align:center; margin-bottom:2rem;">
+      <h1 style="font-family:'Oswald', sans-serif; font-size:28px; color:#FF7043; margin:0;">Hellth Support</h1>
+      <p style="margin-top:0.5rem; font-size:16px;">We've received your message!</p>
+    </div>
+
+    <div style="background-color:#2A2A2A; padding:1rem 1.5rem; border-radius:8px; margin-bottom:2rem;">
+      <p style="margin:0;"><strong style="color:#FFA260;">Username:</strong> ${username}</p>
+      <p style="margin:0;"><strong style="color:#FFA260;">Reason:</strong> ${reason}</p>
+      <p style="margin-top:1rem;"><strong style="color:#FFA260;">Message:</strong></p>
+      <p style="white-space:pre-wrap; line-height:1.6;">${feedbackInput}</p>
+    </div>
+
+    <p style="margin-bottom:2rem;">Our support team will get back to you shortly. Thank you for reaching out!</p>
+
+    <hr style="border: none; border-top: 1px solid #555; margin: 2rem 0;">
+
+    <p style="font-size:12px; color:#777; text-align:center;">This is an automated message from Hellth. Please do not reply directly to this email.</p>
+  </div>
+`
+
         });
 
         // [TEST] Confirm email sent
@@ -236,18 +249,18 @@ app.post('/submitContact', async (req, res) => {
         return res.status(500).send('Failed to send email');
     }
 });
-  
+
 //Activity Chart Database logic
 app.get('/api/chart/week-activity', async (req, res) => {
     if (!dbClient) {
-      return res.status(500).json({ error: 'Database client not initialized' });
+        return res.status(500).json({ error: 'Database client not initialized' });
     }
-  
+
     try {
-    console.log("Database Accessed")
-      await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
-console.log("Path Set")
-      const result = await dbClient.query(`
+        console.log("Database Accessed")
+        await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
+        console.log("Path Set")
+        const result = await dbClient.query(`
 WITH days AS (
   SELECT generate_series(
     CURRENT_DATE - INTERVAL '6 days',
@@ -273,14 +286,14 @@ FROM days d
 LEFT JOIN daily_activity da ON d.date = da.date
 ORDER BY d.date ASC;         
       `);
-  
-      res.status(200).json(result.rows);
+
+        res.status(200).json(result.rows);
     } catch (err) {
-      console.error("Error querying weekly activity:", err);
-      res.status(500).json({ error: "Query failed" });
+        console.error("Error querying weekly activity:", err);
+        res.status(500).json({ error: "Query failed" });
     }
-  });
-  
+});
+
 
 
 app.get('/achievements', (req, res) => {
@@ -365,13 +378,13 @@ make sure to also be connected to vpn
 dbClient.query('SET SEARCH_PATH to "Hellth", public;', async (err) => {
     if (err) {
         console.log(err.message);
-    } 
+    }
 })
 
 dbClient.query(`SET TIME ZONE 'Europe/London';`, async (err) => {
     if (err) {
         console.log(err.message);
-    } 
+    }
 })
 
 
