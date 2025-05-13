@@ -3,7 +3,7 @@
 <title>Hellth</title>
 <link rel="icon" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="module" src="./ExerciseView.js" defer></script>
+<script type="module" src="ExerciseView.js" defer></script>
 <link rel="stylesheet" href="activity.css">
 <script type = "module" src="profileView.js" defer></script>
 
@@ -49,7 +49,7 @@
         <div class = "centerSection">
             <h2 id="exerciseTitle">Customise Activity</h2>
             <form id="activityForm">
-                <input type="number" min="0" id="activityDuration" placeholder="Activity Duration (minutes)" required = "true">
+                <input type="number" min="1" max="1440" id="activityDuration" placeholder="Activity Duration (minutes)" required = "true">
                 <select id="activityIntensity" required = "true">
                     <option value="0" disabled selected>Select Activity Intensity</option>
                     <option value="0.5">Smouldering (0.5x)</option>
@@ -58,7 +58,7 @@
                     <option value="2">Hellfire (2x)</option>
                 </select>
             </form>
-            <button id="activityBtn" class="mainBtn">Create Activity</button>
+            <button id="activityBtn1" class="mainBtn">Create Activity</button>
         </div>
        
         <div class="overviewSection">
@@ -68,6 +68,7 @@
                 <h2 class="calorieTitle2">Duration: 0 minutes</h2>
                 <h2 class="calorieTitle3">Total Calories Burnt: 0</h2>
             </div>
+            <button id="activityBtn2" class="mainBtn">Create Activity</button>
         </div>
     </section>    
     <div class="popup-overlay" id="popupOverlay">
@@ -189,7 +190,7 @@
             <span class="icon-text">Groups</span>
         </a>
     
-        <a href="help.html" class="nav-btn">
+        <a href="contact.html" class="nav-btn">
             <img src="images/person-circle-question-solid.svg" alt="Help">
             <span class="icon-text">Help</span>
         </a>

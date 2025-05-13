@@ -1,4 +1,7 @@
+require('dotenv').config();
+const {Client} = require('pg');
 // All the require functions/api
+
 const { checkHash } = require('./hash.js');
 const express = require('express');;
 const dbClient = require('./db.js'); 
@@ -10,10 +13,9 @@ const { randomInt } = require('crypto');
 
 const app = express();
 app.use(express.json()); 
-require('dotenv').config();
 
 const port = 8008;
-const {Client} = require('pg');
+
 const cors = require("cors");
 require("dotenv").config();
 
@@ -85,7 +87,7 @@ app.get('/api/return-food', (req, res) => {
 app.get('/api/return-exercise', (req, res) => {
     const query = req.query.q;
     
-    foodController.returnExercise(query, (exerciseData) => {
+    exerciseController.returnExercise(query, (exerciseData) => {
         res.json(exerciseData);
          });
 });
@@ -104,6 +106,15 @@ app.post('/api/meal', express.json(), (req, res) => {
     // console.log(req.body);  
 
     foodController.saveMeal(req, res);
+    
+});
+
+
+//for creating new activity/user activity
+app.post('/api/activity', express.json(), (req, res) => {
+    // console.log(req.body);  
+
+    exerciseController.saveActivity(req, res);
     
 });
 
@@ -147,6 +158,7 @@ app.post('/api/group/removeUser', (req, res) => {
 
     userController.removeUserFromGroup(req, res);
 });
+
 
 
 app.get('/', (req, res) => {
@@ -234,6 +246,20 @@ DB_PASSWORD="YOUR DB PASSWORD HERE"
 
 make sure to also be connected to vpn
 */
+
+
+// const connection = new Client({
+//     host: "cmpstudb-01.cmp.uea.ac.uk",
+//     user: process.env.DB_USERNAME,
+//     port: 5432,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_USERNAME,
+// })
+
+
+
+// connection.connect().then(() => console.log("Database is connected")).catch(err => console.error("Database failed to connect", err.message));
+
 
 // sets the db connection to the correct schema
 dbClient.query('SET SEARCH_PATH to "Hellth", public;', async (err) => {
