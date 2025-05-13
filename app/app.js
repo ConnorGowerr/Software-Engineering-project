@@ -316,7 +316,9 @@ ORDER BY r.date ASC;
 
 // Calorie Chart Database
 app.get('/api/chart/calories', async (req, res) => {
-    if (!dbClient) return res.status(500).json({ error: 'DB not initialized' });
+    if (!dbClient) {
+        return res.status(500).json({ error: 'Database client not initialized' });
+    }
 
     const scope = req.query.scope || 'week';
     let interval, groupBy, dateColumn;
@@ -329,8 +331,8 @@ app.get('/api/chart/calories', async (req, res) => {
             break;
         case 'year':
             interval = `'11 months'`;
-            groupBy = `date_trunc('month', m.mealdate)`;
-            dateColumn = `date_trunc('month', m.mealdate)`;
+            groupBy = `date_trunc('month', m.mealdate)::date`;
+            dateColumn = `date_trunc('month', m.mealdate)::date`;
             break;
         case 'week':
         default:
@@ -340,13 +342,14 @@ app.get('/api/chart/calories', async (req, res) => {
     }
 
     try {
+        console.log("Accessing caloric data");
         await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
 
         const result = await dbClient.query(`
 WITH range AS (
   SELECT generate_series(
-    CURRENT_DATE - INTERVAL ${interval},
-    CURRENT_DATE,
+    ${scope === 'year' ? "date_trunc('month', CURRENT_DATE) - INTERVAL '11 months'" : "CURRENT_DATE - INTERVAL " + interval},
+    ${scope === 'year' ? "date_trunc('month', CURRENT_DATE)" : "CURRENT_DATE"},
     INTERVAL '${scope === 'year' ? '1 month' : '1 day'}'
   )::date AS date
 ),
@@ -357,7 +360,7 @@ daily_calories AS (
   FROM meal m
   JOIN mealcontents mc ON m.mealid = mc.mealid
   JOIN food f ON mc.foodid = f.foodid
-  WHERE m.mealdate >= CURRENT_DATE - INTERVAL ${interval}
+  WHERE m.mealdate >= ${scope === 'year' ? "date_trunc('month', CURRENT_DATE) - INTERVAL '11 months'" : "CURRENT_DATE - INTERVAL " + interval}
   GROUP BY ${groupBy}
 )
 SELECT 
@@ -368,7 +371,7 @@ LEFT JOIN daily_calories dc ON r.date = dc.date
 ORDER BY r.date ASC;
         `);
 
-        res.json(result.rows);
+        res.status(200).json(result.rows);
     } catch (err) {
         console.error(`Calorie query (${scope}) failed:`, err);
         res.status(500).json({ error: 'Query failed' });
