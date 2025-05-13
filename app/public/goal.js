@@ -1,5 +1,5 @@
 const loadStartTime = Date.now(); 
-let user ="";
+let user ={};
 let username = window.sessionStorage.getItem("username")
 
 //loading screen
@@ -53,34 +53,103 @@ async function fetchGoals() {
 function renderGoals(goals) {
   const container = document.querySelectorAll('.goalscrollableContainer')[0]; 
 
+ 
+  const mealGoals = goals.filter(goal => goal.goaltag === 'meal');
+  const activityGoals = goals.filter(goal => goal.goaltag === 'exercise');
 
-  //weight meal goals
-  goals.forEach((goal, index) => {
+  
+  mealGoals.forEach((goal, index) => {
     const goalDiv = document.createElement('div');
     goalDiv.className = 'goalItem';
     goalDiv.id = `goal-${index}`;
 
     goalDiv.innerHTML = `
       <div class="goalTitleContainer">
-        <h2 >${goal.goalname}</h2>
+        <h2>${goal.goalname}</h2>
       </div> 
      
-      
       <div class="goalItemTextSection2">
         <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
         <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
-    
       </div>
 
       <div class="goalItemTextSection">
-          <p><strong>Target Weight:</strong> ${goal.targetweight} kg</p>
+        <p><strong>Target Weight:</strong>  <br>${goal.targetweight} kg</p>
       </div>
-      
     `;
 
     container.appendChild(goalDiv);
 
-        
+    goalDiv.addEventListener('click', () => {
+    const overlay = document.getElementById('goalOverlay');
+    overlay.innerHTML = '';
+
+    const cloned = goalDiv.cloneNode(true);
+
+   
+    const progress = (goal.currentweight - goal.startweight) / (goal.targetweight - goal.startweight) * 100;
+    const progressPercentage = Math.min(Math.max(progress, 0), 100);  
+
+    cloned.innerHTML = `
+      <div class="goalTitleContainer">
+        <h2>${goal.goalname}</h2>
+      </div> 
+      
+      <div class="goalItemTextSection2">
+        <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
+        <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
+      </div>
+
+      <div class="goalItemTextSection">
+        <p><strong>Current Weight:</strong>  <br>${goal.currentweight} kg</p>
+        <p><strong>Target Weight:</strong>  <br>${goal.targetweight} kg</p>
+      </div>
+
+      <div class="progressBarContainer">
+        <div class="progressBar" style="width: ${progressPercentage}%"></div>
+      </div>
+    `;
+
+    const handleOutsideClick = (event) => {
+      if (!cloned.contains(event.target)) {
+        closePopup();
+      }
+    };
+
+    const closePopup = () => {
+      overlay.classList.add('hidden');
+    };
+
+    overlay.appendChild(cloned);
+    overlay.classList.remove('hidden');
+    overlay.addEventListener("click", handleOutsideClick);
+  });
+
+  });
+
+  // Render activity goals
+  activityGoals.forEach((goal, index) => {
+    const goalDiv = document.createElement('div');
+    goalDiv.className = 'goalItem';
+    goalDiv.id = `goal-${index}`;
+
+    goalDiv.innerHTML = `
+      <div class="goalTitleContainer">
+        <h2>${goal.goalname}</h2>
+      </div> 
+     
+      <div class="goalItemTextSection2">
+        <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
+        <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
+      </div>
+
+      <div class="goalItemTextSection">
+        <p><strong>Target Minutes:</strong> <br>${goal.targetactivity} min</p>
+      </div>
+    `;
+
+    container.appendChild(goalDiv);
+
     goalDiv.addEventListener('click', () => {
       const overlay = document.getElementById('goalOverlay');
       overlay.innerHTML = '';
@@ -89,19 +158,17 @@ function renderGoals(goals) {
 
       cloned.innerHTML = `
         <div class="goalTitleContainer">
-          <h2 >${goal.goalname}</h2>
+          <h2>${goal.goalname}</h2>
         </div> 
       
-        
         <div class="goalItemTextSection2">
           <p><strong>Started:</strong> <br>${goal.startdate.split('T')[0]}</p>
           <p><strong>End date:</strong>  <br>${goal.enddate.split('T')[0]}</p>
         </div>
 
         <div class="goalItemTextSection">
-            <p><strong>Target Weight:</strong> ${goal.targetweight} kg</p>
+            <p><strong>Weekly Target:</strong>  <br>${goal.targetactivity} min</p>
         </div>
-        
       `;
 
       const handleOutsideClick = (event) => {
@@ -111,22 +178,92 @@ function renderGoals(goals) {
       };
 
       const closePopup = () => {
-          overlay.classList.add('hidden');
+        overlay.classList.add('hidden');
       };
 
       overlay.appendChild(cloned);
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
-
-});
+    });
   });
 }
 
 
 document.getElementById("goalContent2").addEventListener("click", e => {
-  console.table(user)
   showMealPopup()
 })
+
+document.getElementById("goalContent4").addEventListener("click", e => {
+  showActivityPopup()
+})
+
+function showMealPopup() {
+    console.table(user)
+    const overlay = document.querySelector("#addAdminMemberOverlay");
+    const popup = document.querySelector(".addMeal");
+    const title = document.querySelector("#goalTitle");
+    const confirmBtn = document.querySelector("#confirmBtn55");
+
+    title.textContent = 'Add New Goal';
+    overlay.style.display = "block";
+    popup.style.display = "flex";
+
+
+    
+    const handleConfirm = async (event) => {
+
+      console.log(user)
+      event.preventDefault();
+
+       const fullDate = new Date();
+        const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate(),0,0,0);
+
+        const body = {
+          goalname: document.getElementById("goalName").value,
+          username: username,
+          currentweight: user.weight,
+          enddate:  document.getElementById("meal-date").value ,
+          startdate: dateOnly,
+          target: document.getElementById("Target").value
+        }
+
+
+        const goalMade = await fetch('/api/goal/AddMealGoal', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+
+        });
+        
+        if (!goalMade.ok) {
+            throw new Error(`goalMade failed: ${goalMade.status}`);
+        }
+        
+        const goalRes = await goalMade.json();
+        console.table(goalRes)
+
+        closePopup();
+    };
+
+    const handleOutsideClick = (event) => {
+        if (!popup.contains(event.target)) {
+            closePopup();
+        }
+    };
+
+    const closePopup = () => {
+        overlay.style.display = "none";
+        popup.style.display = "none";
+        confirmBtn.removeEventListener("click", handleConfirm);
+        overlay.removeEventListener("click", handleOutsideClick);
+    };
+
+    confirmBtn.addEventListener("click", handleConfirm);
+    overlay.addEventListener("click", handleOutsideClick);
+}
+
 
 function showMealPopup() {
     console.table(user)
@@ -151,11 +288,11 @@ function showMealPopup() {
 
         const body = {
           goalname: document.getElementById("goalName").value,
-          username: username = window.sessionStorage.getItem("username"),
-          currentWeight: user.weight,
+          username: username,
+          currentweight: user.weight,
           enddate:  document.getElementById("meal-date").value ,
           startdate: dateOnly,
-          targetWeight: document.getElementById("Target").value
+          target: document.getElementById("Target").value
         }
 
 
@@ -164,7 +301,76 @@ function showMealPopup() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ body })
+            body: JSON.stringify(body)
+
+        });
+        
+        if (!goalMade.ok) {
+            throw new Error(`goalMade failed: ${goalMade.status}`);
+        }
+        
+        const goalRes = await goalMade.json();
+        console.table(goalRes)
+
+        closePopup();
+    };
+
+    const handleOutsideClick = (event) => {
+        if (!popup.contains(event.target)) {
+            closePopup();
+        }
+    };
+
+    const closePopup = () => {
+        overlay.style.display = "none";
+        popup.style.display = "none";
+        confirmBtn.removeEventListener("click", handleConfirm);
+        overlay.removeEventListener("click", handleOutsideClick);
+    };
+
+    confirmBtn.addEventListener("click", handleConfirm);
+    overlay.addEventListener("click", handleOutsideClick);
+}
+
+
+
+function showActivityPopup() {
+    console.table(user)
+    const overlay = document.querySelector("#addactivityOverlay");
+    const popup = document.querySelector(".addActivity");
+    const title = document.querySelector("#goalTitle2");
+    const confirmBtn = document.querySelector("#confirmBtn56");
+
+    title.textContent = 'Add New Goal';
+    overlay.style.display = "block";
+    popup.style.display = "block";
+
+
+    
+    const handleConfirm = async (event) => {
+
+      console.log(user)
+      event.preventDefault();
+
+       const fullDate = new Date();
+        const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate(),0,0,0);
+
+        const body = {
+          goalname: document.getElementById("goalName2").value,
+          username: username,
+          enddate:  document.getElementById("meal-date2").value ,
+          startdate: dateOnly,
+          target: document.getElementById("Target2").value
+        }
+
+
+        const goalMade = await fetch('/api/goal/AddActivityGoal', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+
         });
         
         if (!goalMade.ok) {
