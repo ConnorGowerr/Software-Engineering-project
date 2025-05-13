@@ -161,26 +161,37 @@ app.get('/', (req, res) => {
 });
 //Nodemailer Logic
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public')); // in case contact.html is served here
+app.use(express.static('public')); // Adjust if HTML is served elsewhere
 
+// === ROUTE TO HANDLE CONTACT FORM SUBMISSION ===
 app.post('/submitContact', async (req, res) => {
     const { reason, feedbackInput } = req.body;
-    const username = req.cookies?.username || 'Jimmy'; // fallback
+
+    // [TEST] Confirm form data is received
+    console.log('[Form] Reason:', reason);
+    console.log('[Form] Message:', feedbackInput);
+
+    // Fallback to test user if cookie is missing
+    const username = req.cookies?.username || 'Jimmy';
+    console.log('[User] Detected username:', username);
 
     try {
-        // 1. Get user's email from DB
+        // === DB Lookup ===
         const result = await pool.query(
             'SELECT email FROM "Hellth".users WHERE username = $1',
             [username]
         );
 
+        // [TEST] Confirm DB result
         if (result.rows.length === 0) {
+            console.error('[DB] No user found');
             return res.status(404).send('User email not found');
         }
 
         const userEmail = result.rows[0].email;
+        console.log('[DB] Found user email:', userEmail);
 
-        // 2. Send email via Nodemailer
+        // === Nodemailer Setup ===
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
@@ -189,6 +200,16 @@ app.post('/submitContact', async (req, res) => {
             }
         });
 
+        // [TEST] Confirm transporter is working
+        transporter.verify((error, success) => {
+            if (error) {
+                console.error('[Email] Transporter error:', error);
+            } else {
+                console.log('[Email] Server is ready to send emails');
+            }
+        });
+
+        // === Send Confirmation Email ===
         await transporter.sendMail({
             from: `"Hellth Support" <${process.env.MAIL_USER}>`,
             to: userEmail,
@@ -204,59 +225,17 @@ app.post('/submitContact', async (req, res) => {
             `
         });
 
+        // [TEST] Confirm email sent
+        console.log('[Email] Confirmation sent to', userEmail);
+
         return res.redirect('/contact.html');
 
     } catch (err) {
-        console.error('Email send error:', err);
+        // [ERROR] Full stack trace for debugging
+        console.error('[Server Error]', err);
         return res.status(500).send('Failed to send email');
     }
 });
-
-
-
-//Calories Chart Database Logic
-app.get('/api/chart/week-calories', async (req, res) => {
-    if (!dbClient) {
-      return res.status(500).json({ error: 'Database client not initialized' });
-    }
-    try {
-      // 1. Set schema path
-      await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
-      // 2. Run chart query
-      const queryString = `
-        WITH days AS (
-          SELECT generate_series(
-            CURRENT_DATE - INTERVAL '6 days',
-            CURRENT_DATE,
-            INTERVAL '1 day'
-          )::date AS date
-        ),
-        daily_calories AS (
-          SELECT 
-            m.mealdate AS date,
-            SUM(mc.quantity * f.calories) AS total_calories
-          FROM meal m
-          JOIN mealcontents mc ON m.mealid = mc.mealid
-          JOIN food f ON mc.foodid = f.foodid
-          WHERE m.mealdate >= CURRENT_DATE - INTERVAL '6 days'
-          GROUP BY m.mealdate
-        )
-        SELECT 
-          d.date,
-          COALESCE(dc.total_calories, 0) AS total_calories
-        FROM days d
-        LEFT JOIN daily_calories dc ON d.date = dc.date
-        ORDER BY d.date ASC;
-      `;
-  
-      const result = await dbClient.query(queryString);
-      res.status(200).json(result.rows);
-  
-    } catch (err) {
-      console.error("Error querying weekly calories:", err);
-      res.status(500).json({ error: "Query failed" });
-    }
-  });
   
 //Activity Chart Database logic
 app.get('/api/chart/week-activity', async (req, res) => {
