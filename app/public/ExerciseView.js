@@ -1,6 +1,7 @@
 class ExerciseView {
     #currentCph;
     #currentEx;
+    #rendered;
     constructor() {
         this.exerciseList = document.querySelector('.exerciseList');
         this.selectedContainer = document.querySelector('.search-select');
@@ -12,6 +13,7 @@ class ExerciseView {
         this.activityIntensity = document.getElementById('activityIntensity');
         this.#currentCph = 0;
         this.#currentEx = 'No exercise selected';
+        this.#rendered = 0;
         this.setupEventListeners();
     }
 
@@ -47,7 +49,12 @@ class ExerciseView {
             this.updateSummaryUI();
         }
 
-        document.getElementById("activityBtn").onclick = () => {
+        //2 activity buttons - 1 appears when wide screen, the other appears when thin screen.
+        document.getElementById("activityBtn1").onclick = () => {
+            console.log("activity")
+            this.createActivity();
+        }
+        document.getElementById("activityBtn2").onclick = () => {
             console.log("activity")
             this.createActivity();
         }
@@ -64,9 +71,9 @@ class ExerciseView {
             .then(exerciseData => {
                 console.log("Found exercise:", exerciseData[0]);
 
-                this.#currentEx = exerciseData[0].exerciseName;
-                this.#currentCph = exerciseData[0].caloriesPerHour;
-                this.selectedContainer.querySelector('#search-select').textContent = currentEx;
+                this.#currentEx = exerciseData[0].exercisename;
+                this.#currentCph = exerciseData[0].caloriesperhour;
+                this.selectedContainer.querySelector('#search-select').textContent = this.#currentEx;
                 console.log('changed exercise');
                 this.updateSummaryUI();
                 // let totalQuantity = 0;
@@ -182,7 +189,7 @@ class ExerciseView {
         {
             popupD.textContent = `Duration: ` + this.activityDuration.value + ` minutes`;
         }
-        popupI.textContent = this.activityIntensity.value + ` intensity`;
+        popupI.textContent = this.activityIntensity.value + `x intensity`;
         popupT.textContent = `Total Calories: ` + Math.floor((this.#currentCph / 60) * this.activityDuration.value * this.activityIntensity.value);
         activityPopup.style.display = "block";
         popupOverlay.style.display = "block";
@@ -191,19 +198,20 @@ class ExerciseView {
             event.preventDefault();
             //Only proceeds if all the important data is valid, otherwise an alert is displayed.
             if (this.#currentEx !== 'No exercise selected' && this.activityIntensity.value != 0
-                && this.activityDuration.value != null && this.activityDuration.value > 0)
+                && this.activityDuration.value != null && this.activityDuration.value > 0
+                && this.activityDuration.value <= 1440)
             {
                 const activityDuration = document.getElementById("activityDuration").value;
-                const activityIntensity = document.getElementById("activityIntensity").value;
+                let activityIntensity = document.getElementById("activityIntensity").value;
                 switch (activityIntensity)
                 {
-                    case 0.5:
+                    case "0.5":
                         activityIntensity = 'Smouldering';
                         break;
-                    case 1.5:
+                    case "1.5":
                         activityIntensity = 'Inferno';
                         break;
-                    case 2:
+                    case "2":
                         activityIntensity = 'Hellfire';
                         break;
                     default:
@@ -213,9 +221,10 @@ class ExerciseView {
 
                 }
                 const activityData = {
-                    exerciseName: this.#currentEx,
-                    activityDuration: activityDuration,
-                    activityIntensity: activityIntensity
+                    username: window.sessionStorage.getItem("username"),
+                    exercisename: this.#currentEx,
+                    activityduration: activityDuration,
+                    activityintensity: activityIntensity
                 };
         
                 try {
@@ -240,6 +249,15 @@ class ExerciseView {
                     
                     activityPopup.style.display = "none";
                     popupOverlay.style.display = "none";
+
+                    //Reset inputted data
+                    
+                    this.#currentCph = 0;
+                    this.#currentEx = 'No exercise selected';
+                    this.selectedContainer.querySelector('#search-select').textContent = this.#currentEx;
+                    this.activityDuration.value = null;
+                    this.activityIntensity.value = 0;
+                    this.updateSummaryUI();
 
         
                 } catch (error) {
@@ -266,135 +284,151 @@ class ExerciseView {
 
     //for every food in basket work out attributes
 
-    calculateTotalCal() {
-        let totals = { caloriesPerHour: 0, duration: 0, calories: 0};
-        if (!this.exerciseList.hasChildNodes()) {
-            this.updateSummaryUI(totals);
-            return;
-        }
+    // calculateTotalCal() {
+    //     let totals = { caloriesPerHour: 0, duration: 0, calories: 0};
+    //     if (!this.exerciseList.hasChildNodes()) {
+    //         this.updateSummaryUI(totals);
+    //         return;
+    //     }
     
-        this.allMealFood = []; 
+    //     this.allMealFood = []; 
     
-        const foodItems = [...this.exerciseList.querySelectorAll('.item')];
+    //     const foodItems = [...this.exerciseList.querySelectorAll('.item')];
     
-        const fetchPromises = foodItems.map(food => {
-            const foodName = food.textContent.split(' - ')[0]?.trim();
-            const quantity = food.querySelector('.quantity-input') ? parseInt(food.querySelector('.quantity-input').value) : 1;
+    //     const fetchPromises = foodItems.map(food => {
+    //         const foodName = food.textContent.split(' - ')[0]?.trim();
+    //         const quantity = food.querySelector('.quantity-input') ? parseInt(food.querySelector('.quantity-input').value) : 1;
     
-            return fetch(`/api/return-food?q=${foodName}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch search results');
-                    }
-                    return response.json();
-                })
-                .then(foodData => {
-                    totals.calories += foodData[0].calories * quantity;
-                    totals.protein += foodData[0].protein * quantity;
-                    totals.fiber += foodData[0].fibre * quantity;
-                    totals.carbs += foodData[0].carbs * quantity;
-                    totals.fat += foodData[0].fat * quantity;
-                    totals.sugar += foodData[0].sugar * quantity;
-                    totals.count += quantity;
+    //         return fetch(`/api/return-food?q=${foodName}`)
+    //             .then(response => {
+    //                 if (!response.ok) {
+    //                     throw new Error('Failed to fetch search results');
+    //                 }
+    //                 return response.json();
+    //             })
+    //             .then(foodData => {
+    //                 totals.calories += foodData[0].calories * quantity;
+    //                 totals.protein += foodData[0].protein * quantity;
+    //                 totals.fiber += foodData[0].fibre * quantity;
+    //                 totals.carbs += foodData[0].carbs * quantity;
+    //                 totals.fat += foodData[0].fat * quantity;
+    //                 totals.sugar += foodData[0].sugar * quantity;
+    //                 totals.count += quantity;
     
-                    for (let i = 0; i < quantity; i++) {
-                        this.allMealFood.push(foodData[0]);
-                    }
-                })
-                .catch(error => console.error('Error fetching food data:', error));
-        });
+    //                 for (let i = 0; i < quantity; i++) {
+    //                     this.allMealFood.push(foodData[0]);
+    //                 }
+    //             })
+    //             .catch(error => console.error('Error fetching food data:', error));
+    //     });
     
-        // wait for all fetches then process.
-        Promise.all(fetchPromises).then(() => {
-            this.updateSummaryUI(totals);
-        });
-    }
+    //     // wait for all fetches then process.
+    //     Promise.all(fetchPromises).then(() => {
+    //         this.updateSummaryUI(totals);
+    //     });
+    // }
     
     //This works
     updateSummaryUI() {
         console.log('summary updated');
         this.calorieSection.querySelector('.calorieTitle1').textContent = `Calories Burnt per Hour: ` + this.#currentCph;
-        this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: ` + activityDuration.value + ` minutes`;
+        if(this.activityDuration.value == '')
+        {
+            this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: 0 minutes`;
+        }
+        else
+        {
+            this.calorieSection.querySelector('.calorieTitle2').textContent = `Duration: ` + activityDuration.value + ` minutes`;
+        }
         this.calorieSection.querySelector('.calorieTitle3').textContent = `Total Calories Burnt: `
              + Math.floor((this.#currentCph / 60) * activityDuration.value * activityIntensity.value);
     }
 
     renderSearchResults(filteredExerciseData) {
         this.resultsContainer.innerHTML = '';
+        this.#rendered = 0;
+        if (document.querySelector('.search-bar').value !== '')
+        {
+            for (const exercise of filteredExerciseData) {
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('search-item');
+                resultItem.textContent = `${exercise.exercisename} - ${exercise.caloriesperhour} kcals/hr`;
 
-        for (const exercise of filteredExerciseData) {
-            const resultItem = document.createElement('div');
-            resultItem.classList.add('search-item');
-            resultItem.textContent = `${exercise.exerciseName} - ${exercise.caloriesPerHour} kcals/hr`;
+                resultItem.onclick = async () => {
+                    //const isConfirmed = await this.createMealPopup(exercise);
 
-            resultItem.onclick = async () => {
-                //const isConfirmed = await this.createMealPopup(exercise);
+                    //if (isConfirmed) {
+                        this.selectExercise(exercise.exercisename);
+                        document.querySelector('.search-bar').value = '';
+                        this.resultsContainer.innerHTML = '';
+                    //}
+                };
 
-                //if (isConfirmed) {
-                    this.selectExercise(exercise.exerciseName);
-                    document.querySelector('.search-bar').value = '';
-                    this.resultsContainer.innerHTML = '';
-                //}
-            };
-
-            this.resultsContainer.appendChild(resultItem);
+                this.resultsContainer.appendChild(resultItem);
+                this.#rendered = this.#rendered + 1;
+                if (this.#rendered >= 10)
+                {
+                    break;
+                }
+            }
         }
     }
 
     
     //display popup with food attributes currently a bit buggy)
-    async createMealPopup(item) {
-        console.table(item)
+
+    // async createMealPopup(item) {
+    //     console.table(item)
        
-        const formattedText = `
-            <strong>${item.foodname}</strong> (${item.foodtype})<br>
-            Calories: ${item.calories}<br>
-            Protein: ${item.protein}g<br>
-            Fibre: ${item.fibre}g<br>
-            Carbs: ${item.carbs}g<br>
-            Fat: ${item.fat}g<br>
-            Sugar: ${item.sugar}g<br>
-            Serving Size: ${item.servingsize}
-        `;
-        document.getElementById("foodMessagePopup").innerHTML = formattedText;
+    //     const formattedText = `
+    //         <strong>${item.foodname}</strong> (${item.foodtype})<br>
+    //         Calories: ${item.calories}<br>
+    //         Protein: ${item.protein}g<br>
+    //         Fibre: ${item.fibre}g<br>
+    //         Carbs: ${item.carbs}g<br>
+    //         Fat: ${item.fat}g<br>
+    //         Sugar: ${item.sugar}g<br>
+    //         Serving Size: ${item.servingsize}
+    //     `;
+    //     document.getElementById("foodMessagePopup").innerHTML = formattedText;
 
-        this.activityPopup.style.display = "block";
-        this.popupOverlay.style.display = "block";
+    //     this.activityPopup.style.display = "block";
+    //     this.popupOverlay.style.display = "block";
 
-        return new Promise((resolve) => {
-            document.getElementById("confirmBtn2").onclick = (event) => {
-                event.preventDefault();
-                this.closePopup();
-                resolve(true);
-            };
+    //     return new Promise((resolve) => {
+    //         document.getElementById("confirmBtn2").onclick = (event) => {
+    //             event.preventDefault();
+    //             this.closePopup();
+    //             resolve(true);
+    //         };
 
-            document.getElementById("cancelBtn2").onclick = (event) => {
-                event.preventDefault();
-                this.closePopup();
-                resolve(false);
-            };
-        });
-    }
+    //         document.getElementById("cancelBtn2").onclick = (event) => {
+    //             event.preventDefault();
+    //             this.closePopup();
+    //             resolve(false);
+    //         };
+    //     });
+    // }
 
-    closePopup() {
-        this.activityPopup.style.display = "none";
-        this.popupOverlay.style.display = "none";
+    // closePopup() {
+    //     this.activityPopup.style.display = "none";
+    //     this.popupOverlay.style.display = "none";
         
-    }
+    // }
 
-    showAlert(message) {
-        const alertBox = document.getElementById('quantity-alert');
-        alertBox.textContent = message;
-        alertBox.style.display = 'block';
+    // showAlert(message) {
+    //     const alertBox = document.getElementById('quantity-alert');
+    //     alertBox.textContent = message;
+    //     alertBox.style.display = 'block';
 
-        setTimeout(() => {
-            alertBox.style.animation = "fadeOut 0.7s ease-in-out";
-            setTimeout(() => {
-                alertBox.style.display = 'none';
-                alertBox.style.animation = "fadeIn 0.7s ease-in-out";
-            }, 300);
-        }, 2000);
-    }
+    //     setTimeout(() => {
+    //         alertBox.style.animation = "fadeOut 0.7s ease-in-out";
+    //         setTimeout(() => {
+    //             alertBox.style.display = 'none';
+    //             alertBox.style.animation = "fadeIn 0.7s ease-in-out";
+    //         }, 300);
+    //     }, 2000);
+    // }
 }
 
 const exerciseView = new ExerciseView();
