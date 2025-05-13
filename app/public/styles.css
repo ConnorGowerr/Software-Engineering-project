@@ -250,89 +250,113 @@ input {
 
 /*Contact Us Stuff*/
 /* ===== HELP PAGE STYLE OVERRIDES ===== */
-.contact-box {
-    width: 90%;
-    margin: 1.5rem auto 0 auto;
+.helpPageWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #1C1F21;
+  color: #EFEDE7;
+  font-family: 'Poppins';
 }
 
-.contact-box .header {
-    background-color: #D96529;
-    border-radius: 12px;
-    padding: 1.2rem;
-    text-align: center;
-    font-family: 'Oswald';
-    font-size: 1.3rem;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+.helpPageWrapper .contactContainer {
+  background-color: #2C2C2C;
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  text-align: center;
 }
 
-.dropdown {
-    display: none;
-    background-color: #383F42;
-    border: 2px solid #EFEDE7;
-    border-radius: 10px;
-    margin-top: 1rem;
-    font-family: 'Poppins';
-    color: white;
-    text-align: left;
-    padding: 1rem;
+.helpPageWrapper .thankYouMSG {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
-.dropdown.active {
-    display: block;
+.helpPageWrapper .adjustText {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
-.submissionBox input[type="text"] {
-    width: 90%;
-    height: 150px;
-    background-color: #F5F3EF;
-    margin: 1.5rem auto;
-    padding: 1rem;
-    border-radius: 12px;
-    font-size: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 2px solid #ccc;
-    resize: none;
+.helpPageWrapper .faqLink {
+  display: block;
+  color: #FF5733;
+  text-decoration: underline;
+  margin-bottom: 1.5rem;
 }
 
-#contactForm .btn {
-    width: 60%;
-    margin: 2rem auto;
-    padding: 0.75rem 1rem;
-    background-image: linear-gradient(#95180F, #EA7B3A);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-family: 'Oswald';
-    font-size: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease;
+.helpPageWrapper .contact-box {
+  background-color: #3A3F44;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px solid #FF5733;
+  margin-bottom: 1rem;
 }
 
-#contactForm .btn:hover {
-    transform: scale(1.05);
+.helpPageWrapper .header {
+  background-color: #FF5733;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-@media (max-width: 700px) {
-    .graph {
-        width: 95%;
-        margin: auto;
-        padding: 1rem;
-    }
+.helpPageWrapper .dropdown {
+  display: none;
+  margin-top: 1rem;
+  text-align: left;
+}
 
-    .submissionBox input[type="text"] {
-        height: 200px;
-    }
+.helpPageWrapper .dropdown.active {
+  display: block;
+}
 
-    .contact-box .header {
-        font-size: 1.1rem;
-        padding: 1rem;
-    }
+.helpPageWrapper .dropdown li {
+  background-color: #CE6B31;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
 
-    #contactForm .btn {
-        width: 80%;
-        font-size: 1.2rem;
-    }
+.helpPageWrapper .dropdown li:hover {
+  background-color: #FF7043;
+}
+
+.helpPageWrapper .queryInput {
+  width: 100%;
+  box-sizing: border-box;
+  height: 150px;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 1rem;
+  background-color: #EFEDE7;
+  color: #000;
+  border: none;
+  resize: none;
+  margin-top: 1rem;
+}
+
+.helpPageWrapper .submitBtn {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  background: linear-gradient(#95180F, #EA7B3A);
+  color: white;
+  font-size: 1.25rem;
+  font-family: 'Oswald';
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.helpPageWrapper .submitBtn:hover {
+  transform: scale(1.05);
 }
 
 
