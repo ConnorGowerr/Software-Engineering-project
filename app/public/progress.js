@@ -1,8 +1,8 @@
-window.addEventListener("DOMContentLoaded", async () => {
-  const labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+window.addEventListener("DOMContentLoaded", () => {
   const today = new Date().getDay();
+  const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const chartInstances = new Map();
 
-  // Common styling options
   const commonOptions = {
     responsive: true,
     plugins: {
@@ -31,126 +31,100 @@ window.addEventListener("DOMContentLoaded", async () => {
       easing: 'easeOutCubic'
     }
   };
-  function isValidChartData(data) {
-    if (typeof data !== 'object' || data === null) {
-      console.error("Chart data is not an object:", data);
-      return false;
+
+  function formatLabels(scope, data) {
+  return data.map(entry => {
+    const date = new Date(entry.date);
+    if (scope === 'year') {
+      return date.toLocaleDateString(undefined, { month: 'short' }); // e.g., Jan, Feb
     }
-
-    if (!Array.isArray(data.labels) || data.labels.length === 0) {
-      console.error("Chart data must contain a non-empty labels array:", data.labels);
-      return false;
+    if (scope === 'month') {
+      return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' }); // e.g., 05 May
     }
+    return date.toLocaleDateString(undefined, { weekday: 'short' }); // e.g., Mon, Tue
+  });
+}
 
-    if (!Array.isArray(data.datasets) || data.datasets.length === 0) {
-      console.error("Chart data must contain a non-empty datasets array:", data.datasets);
-      return false;
+
+  async function loadChart({ scope, type, endpoint, label, color, elementId }) {
+    try {
+      const res = await fetch(`/api/chart/${endpoint}?scope=${scope}`);
+      const raw = await res.json();
+      const labels = formatLabels(scope, raw);
+      const values = raw.map(e => parseInt(e[type === 'calories' ? 'total_calories' : 'total_minutes'], 10));
+
+      const chartData = {
+        labels,
+        datasets: [{
+          label,
+          data: values,
+          backgroundColor: labels.map((_, i) =>
+            i === today ? color.highlight : color.default
+          ),
+          borderRadius: 8,
+          borderSkipped: false
+        }]
+      };
+
+      const config = {
+        type: 'bar',
+        data: chartData,
+        options: {
+          ...commonOptions,
+          plugins: {
+            ...commonOptions.plugins,
+            title: {
+              display: true,
+              text: `${label} – ${scope.charAt(0).toUpperCase() + scope.slice(1)}`,
+              color: '#FFF',
+              font: { family: 'Oswald', size: 18 }
+            }
+          }
+        }
+      };
+
+      if (chartInstances.has(elementId)) chartInstances.get(elementId).destroy();
+      const instance = new Chart(document.getElementById(elementId), config);
+      chartInstances.set(elementId, instance);
+
+    } catch (err) {
+      console.error(`Failed to load ${type} chart (${scope}):`, err);
     }
-
-    for (const dataset of data.datasets) {
-      if (typeof dataset !== 'object' || dataset === null) {
-        console.error("Each dataset must be an object:", dataset);
-        return false;
-      }
-
-      if (typeof dataset.label !== 'string') {
-        console.error("Each dataset must have a string 'label' property:", dataset);
-        return false;
-      }
-
-      if (!Array.isArray(dataset.data)) {
-        console.error("Each dataset must have a 'data' array:", dataset);
-        return false;
-      }
-
-      if (dataset.data.length !== data.labels.length) {
-        console.error("Each dataset 'data' array must match labels length:", dataset.data, data.labels);
-        return false;
-      }
-
-      if (!dataset.data.every(n => typeof n === 'number' && !isNaN(n))) {
-        console.error("Each dataset 'data' must be all numbers:", dataset.data);
-        return false;
-      }
-    }
-
-    return true;
   }
 
-  // Fetch dynamic calorie data
-  const response = await fetch('/api/chart/week-calories');
-  const data = await response.json();
-
-  const caloriesData = data.map(entry => parseInt(entry.total_calories, 10));
-  const chartLabels = data.map(entry => {
-    const date = new Date(entry.date);
-    return labels[date.getDay()];
-  });
-
-  new Chart(document.getElementById('caloriesChart'), {
-    type: 'bar',
-    data: {
-      labels: chartLabels,
-      datasets: [{
-        label: 'Calories',
-        data: caloriesData,
-        backgroundColor: chartLabels.map((_, i) =>
-          i === today ? '#FF5C5C' : '#C33128'
-        ),
-        borderRadius: 8,
-        borderSkipped: false
-      }]
+  // Chart configs
+  const chartConfigs = [
+    {
+      type: 'calories',
+      endpoint: 'calories',
+      label: 'Calories',
+      elementId: 'caloriesChart',
+      color: { default: '#C33128', highlight: '#FF5C5C' },
+      buttons: [
+        { id: 'dailyBtnCalories', scope: 'week' },
+        { id: 'weeklyBtnCalories', scope: 'month' },
+        { id: 'monthlyBtnCalories', scope: 'year' }
+      ]
     },
-    options: {
-      ...commonOptions,
-      plugins: {
-        ...commonOptions.plugins,
-        title: {
-          display: true,
-          text: 'Weekly Caloric Intake',
-          color: '#FFF',
-          font: { family: 'Oswald', size: 18 }
-        }
-      }
+    {
+      type: 'activity',
+      endpoint: 'activity',
+      label: 'Minutes Active',
+      elementId: 'activityChart',
+      color: { default: '#F8B62D', highlight: '#FFD700' },
+      buttons: [
+        { id: 'dailyBtnActivity', scope: 'week' },
+        { id: 'weeklyBtnActivity', scope: 'month' },
+        { id: 'monthlyBtnActivity', scope: 'year' }
+      ]
     }
-  });
-  // Fetch dynamic activity data
-  const resActivity = await fetch('/api/chart/week-activity');
-  console.log("Fetch activity try")
-  const activityData = await resActivity.json();
-  console.log("fetch data succesfull")
-  const activityMinutes = activityData.map(entry => parseInt(entry.total_minutes, 10));
-  console.log(activityMinutes)
-  const activityLabels = activityData.map(entry => {
-    const date = new Date(entry.date);
-    return labels[date.getDay()];
-  });
+  ];
 
-  new Chart(document.getElementById('activityChart'), {
-    type: 'bar',
-    data: {
-      labels: activityLabels,
-      datasets: [{
-        label: 'Minutes Active',
-        data: activityMinutes,
-        backgroundColor: activityLabels.map((_, i) =>
-          i === today ? '#FFD700' : '#F8B62D'
-        ),
-        borderRadius: 8,
-        borderSkipped: false
-      }]
-    },
-    options: {
-      ...commonOptions,
-      plugins: {
-        ...commonOptions.plugins,
-        title: {
-          display: true,
-          text: 'Weekly Activity (minutes)',
-          color: '#FFF',
-          font: { family: 'Oswald', size: 18 }
-        }
-      }
-    }
-  });
+  // Bind buttons + load default
+  for (const config of chartConfigs) {
+    config.buttons.forEach(({ id, scope }) => {
+      document.getElementById(id)?.addEventListener('click', () => loadChart({ ...config, scope }));
+    });
+    loadChart({ ...config, scope: 'week' }); // default load
+  }
 });

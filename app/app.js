@@ -250,90 +250,128 @@ app.post('/submitContact', async (req, res) => {
     }
 });
 
-//Activity Chart Database 
-app.get('/api/chart/week-activity', async (req, res) => {
+// Activity Chart Database
+app.get('/api/chart/activity', async (req, res) => {
     if (!dbClient) {
         return res.status(500).json({ error: 'Database client not initialized' });
     }
+
+    const scope = req.query.scope || 'week';
+    let interval, groupBy, dateColumn;
+
+    switch (scope) {
+        case 'month':
+            interval = `'29 days'`;
+            groupBy = 'ua.logtime::date';
+            dateColumn = 'ua.logtime::date';
+            break;
+        case 'year':
+            interval = `'11 months'`;
+            groupBy = `date_trunc('month', ua.logtime)::date`;
+            dateColumn = `date_trunc('month', ua.logtime)::date`;
+            break;
+        case 'week':
+        default:
+            interval = `'6 days'`;
+            groupBy = 'ua.logtime::date';
+            dateColumn = 'ua.logtime::date';
+    }
+
     try {
-        console.log("Database Accessed")
+        console.log("Accessing activity data");
         await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
-        console.log("Path Set")
+
         const result = await dbClient.query(`
-WITH days AS (
+WITH range AS (
   SELECT generate_series(
-    CURRENT_DATE - INTERVAL '6 days',
-    CURRENT_DATE,
-    INTERVAL '1 day'
+    ${scope === 'year' ? "date_trunc('month', CURRENT_DATE) - INTERVAL '11 months'" : "CURRENT_DATE - INTERVAL " + interval},
+    ${scope === 'year' ? "date_trunc('month', CURRENT_DATE)" : "CURRENT_DATE"},
+    INTERVAL '${scope === 'year' ? '1 month' : '1 day'}'
   )::date AS date
 ),
 daily_activity AS (
   SELECT 
-    ua.username,
-    ua.logtime::date AS date,
+    ${dateColumn} AS date,
     SUM(a.duration) AS total_minutes
   FROM useractivity ua
   JOIN activity a ON ua.activityid = a.activityid
-  WHERE ua.logtime >= CURRENT_DATE - INTERVAL '6 days'
-  GROUP BY ua.username, ua.logtime::date
+  WHERE ua.logtime >= ${scope === 'year' ? "date_trunc('month', CURRENT_DATE) - INTERVAL '11 months'" : "CURRENT_DATE - INTERVAL " + interval}
+  GROUP BY ${groupBy}
 )
 SELECT 
-  d.date,
-  COALESCE(da.username, 'N/A') AS username,
+  r.date,
   COALESCE(da.total_minutes, 0) AS total_minutes
-FROM days d
-LEFT JOIN daily_activity da ON d.date = da.date
-ORDER BY d.date ASC;         
-      `);
-
-        res.status(200).json(result.rows);
-    } catch (err) {
-        console.error("Error querying weekly activity:", err);
-        res.status(500).json({ error: "Query failed" });
-    }
-});
-
-// Calorie Chart Database
-app.get('/api/chart/week-calories', async (req, res) => {
-    if (!dbClient) {
-        return res.status(500).json({ error: 'Database client not initialized' });
-    }
-
-    try {
-        console.log("Accessing calorie data");
-        await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
-        console.log("Search path set");
-
-        const result = await dbClient.query(`
-WITH days AS (
-  SELECT generate_series(
-    CURRENT_DATE - INTERVAL '6 days',
-    CURRENT_DATE,
-    INTERVAL '1 day'
-  )::date AS date
-),
-daily_calories AS (
-  SELECT 
-    m.mealdate AS date,
-    SUM(mc.quantity * f.calories) AS total_calories
-  FROM meal m
-  JOIN mealcontents mc ON m.mealid = mc.mealid
-  JOIN food f ON mc.foodid = f.foodid
-  WHERE m.mealdate >= CURRENT_DATE - INTERVAL '6 days'
-  GROUP BY m.mealdate
-)
-SELECT 
-  d.date,
-  COALESCE(dc.total_calories, 0) AS total_calories
-FROM days d
-LEFT JOIN daily_calories dc ON d.date = dc.date
-ORDER BY d.date ASC;
+FROM range r
+LEFT JOIN daily_activity da ON r.date = da.date
+ORDER BY r.date ASC;
         `);
 
         res.status(200).json(result.rows);
     } catch (err) {
-        console.error("Error querying weekly calories:", err);
-        res.status(500).json({ error: "Query failed" });
+        console.error(`Activity query (${scope}) failed:`, err);
+        res.status(500).json({ error: 'Query failed' });
+    }
+});
+
+
+// Calorie Chart Database
+app.get('/api/chart/calories', async (req, res) => {
+    if (!dbClient) return res.status(500).json({ error: 'DB not initialized' });
+
+    const scope = req.query.scope || 'week';
+    let interval, groupBy, dateColumn;
+
+    switch (scope) {
+        case 'month':
+            interval = `'29 days'`;
+            groupBy = 'm.mealdate';
+            dateColumn = 'm.mealdate';
+            break;
+        case 'year':
+            interval = `'11 months'`;
+            groupBy = `date_trunc('month', m.mealdate)`;
+            dateColumn = `date_trunc('month', m.mealdate)`;
+            break;
+        case 'week':
+        default:
+            interval = `'6 days'`;
+            groupBy = 'm.mealdate';
+            dateColumn = 'm.mealdate';
+    }
+
+    try {
+        await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
+
+        const result = await dbClient.query(`
+WITH range AS (
+  SELECT generate_series(
+    CURRENT_DATE - INTERVAL ${interval},
+    CURRENT_DATE,
+    INTERVAL '${scope === 'year' ? '1 month' : '1 day'}'
+  )::date AS date
+),
+daily_calories AS (
+  SELECT 
+    ${dateColumn} AS date,
+    SUM(mc.quantity * f.calories) AS total_calories
+  FROM meal m
+  JOIN mealcontents mc ON m.mealid = mc.mealid
+  JOIN food f ON mc.foodid = f.foodid
+  WHERE m.mealdate >= CURRENT_DATE - INTERVAL ${interval}
+  GROUP BY ${groupBy}
+)
+SELECT 
+  r.date,
+  COALESCE(dc.total_calories, 0) AS total_calories
+FROM range r
+LEFT JOIN daily_calories dc ON r.date = dc.date
+ORDER BY r.date ASC;
+        `);
+
+        res.json(result.rows);
+    } catch (err) {
+        console.error(`Calorie query (${scope}) failed:`, err);
+        res.status(500).json({ error: 'Query failed' });
     }
 });
 
