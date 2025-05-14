@@ -59,10 +59,12 @@
                
                 <div class="titleContainer">
                     <h2 class="GroupDivTitles">Challenges</h2>
+                    <button class = "add-member-btn addgroupchallenge"> +</button>
                 </div>
 
             
                 <div class="scrollableContainer2">
+                    
                         
                    
                 </div>
@@ -95,7 +97,34 @@
             </div>
         </div>
     </section>
-    
+
+
+    <div class="popup-overlay" id="addactivityOverlay">
+        <div class="addActivity">
+            <div class="popup-content">
+                <div class = "goalPopupContainer">
+                    <h2 class = "goalTitle" id = "goalTitle2"></h2>
+                </div>
+
+                <form id="goalForm2">
+                <input type="text" id="goalName2" placeholder="Goal Name" required>
+
+                 <select id="typeSelector" name="goal-type" required>
+                    <option value="">-- Select Type --</option>
+                    <option value="meal">Meal</option>
+                    <option value="activity">Activity</option>
+                </select>
+
+                <input type="text" id="Target2" placeholder="Target Calories (Burnt/Tracked)" required>
+
+                
+               
+            </form>
+
+            <button class="confirmBtn" id="confirmBtn56">Yes</button>
+            </div>
+        </div>
+    </div>
     
     <div class="popup-overlay" id="deleteGroupMemberOverlay">
         <div class="GroupMemeberDelete">

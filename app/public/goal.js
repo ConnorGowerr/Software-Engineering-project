@@ -129,8 +129,11 @@ function renderGoals(goals) {
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
 
-      document.getElementById("cancelBtn2").addEventListener("click", e => {
+      const cancelBtn = cloned.querySelector("#cancelBtn2");
+
+      cancelBtn.addEventListener("click", e => {
           container.removeChild(goalDiv);
+          deletemealgoal(goal.goalid)
           closePopup();
       });
     });
@@ -211,8 +214,11 @@ function renderGoals(goals) {
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
 
-      document.getElementById("cancelBtn3").addEventListener("click", e => {
+
+      const cancelBtn = cloned.querySelector("#cancelBtn3");
+      cancelBtn.addEventListener("click", e => {
           container.removeChild(goalDiv);
+          deletactivitygoal(goal.goalid)
           closePopup();
       });
 
@@ -290,8 +296,11 @@ function renderGoals(goals) {
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
 
-      document.querySelector("cancelBtn").addEventListener("click", e => {
+      const cancelBtn = cloned.querySelector("#cancelBtn3");
+      cancelBtn.addEventListener("click", e => {
         container2.removeChild(goalDiv);
+        deletemealgoal(goal.goalid)
+        closePopup();
       });
 
       
@@ -373,8 +382,11 @@ function renderGoals(goals) {
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
 
-      document.querySelector("cancelBtn").addEventListener("click", e => {
+      const cancelBtn = cloned.querySelector("#cancelBtn3");
+      cancelBtn.addEventListener("click", e => {
         container2.removeChild(goalDiv);
+        deletactivitygoal(goal.goalid)
+        closePopup();
       });
     });
   });
@@ -528,7 +540,6 @@ function showMealPopup() {
 
 
 function showActivityPopup() {
-    console.table(user)
     const overlay = document.querySelector("#addactivityOverlay");
     const popup = document.querySelector(".addActivity");
     const title = document.querySelector("#goalTitle2");
@@ -593,3 +604,48 @@ function showActivityPopup() {
     overlay.addEventListener("click", handleOutsideClick);
 }
 
+async function deletemealgoal(goalid) {
+  try {
+    const goalDel = await fetch(`/api/goal/deleteMealGoal?q=${goalid}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!goalDel.ok) {
+      const errorRes = await goalDel.json()
+      console.error(`Failed: ${goalDel.status}`, errorRes);
+      return;
+    }
+
+    const goalRes = await goalDel.json();
+    console.log('Deleted:', goalRes.message);
+  } catch (err) {
+    console.error('Request error:', err);
+  }
+}
+
+
+
+async function deletactivitygoal(goalid){
+    try {
+    const goalDel = await fetch(`/api/goal/deleteActivityGoal?q=${goalid}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!goalDel.ok) {
+      const errorRes = await goalDel.json()
+      console.error(`Failed: ${goalDel.status}`, errorRes);
+      return;
+    }
+
+    const goalRes = await goalDel.json();
+    console.log('Deleted:', goalRes.message);
+  } catch (err) {
+    console.error('Request error:', err);
+  }
+}

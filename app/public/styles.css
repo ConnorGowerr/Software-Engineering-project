@@ -882,7 +882,7 @@ input {
     font-size: clamp(1rem, 1.0vw, 4rem);
     width: 100%;
 }
-.plus-icon {
+.plus-icon{
     cursor: pointer;
     font-weight: bold;
     display: inline-block;
@@ -897,6 +897,13 @@ input {
     color: #1DE44F;
     transform: scale(1.5);
 
+}
+
+.addgroupchallenge{
+    position: absolute;
+    right: 10%;
+    
+   
 }
 
 
@@ -1206,11 +1213,12 @@ label {
     color: #EFEDE7;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
-
 #goalForm input[type="text"],
 #goalForm input[type="date"],
+#goalForm select,
 #goalForm2 input[type="text"],
-#goalForm2 input[type="date"] {
+#goalForm2 input[type="date"],
+#goalForm2 select {
     padding: 1% 1%;
     border-radius: 8px;
     border: none;
@@ -1221,12 +1229,12 @@ label {
     font-family: 'Poppins', sans-serif;
 }
 
-#goalForm label,#goalForm2 label {
+#goalForm label,
+#goalForm2 label {
     font-size: clamp(1rem, 1.1cqw, 4rem);
     margin-bottom: -2%;
     color: #ccc;
 }
-
 .goalOverlay {
     position: fixed;
     top: 0;
@@ -3030,7 +3038,7 @@ GROUP PAGE SECTION */
     height: 10%;  
     display: flex;
     justify-content: center;
-
+    position: relative;
     align-items: center;
     
 }
