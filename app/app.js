@@ -250,6 +250,65 @@ app.post('/submitContact', async (req, res) => {
     }
 });
 
+//Admin Page Logic
+app.get('/admin/support', async (req, res) => {
+    const username = req.query.username;
+
+    if (!username) return res.status(401).send('Missing username');
+
+    const result = await pool.query(
+        'SELECT isadmin FROM "Hellth".users WHERE username = $1',
+        [username]
+    );
+
+    if (result.rows.length === 0 || !result.rows[0].isadmin) {
+        return res.status(403).send('Forbidden: not an admin');
+    }
+
+    res.sendFile('adminSupport.html', { root: 'public' });
+});
+app.get('/api/admin/support-requests', async (req, res) => {
+    const username = req.query.username;
+
+    const result = await pool.query(
+        'SELECT isadmin FROM "Hellth".users WHERE username = $1',
+        [username]
+    );
+
+    if (result.rows.length === 0 || !result.rows[0].isadmin) {
+        return res.status(403).send('Forbidden');
+    }
+
+    const tickets = await pool.query(`
+        SELECT id, username, email, reason, message, submitted_at, is_resolved
+        FROM "Hellth".support_requests
+        ORDER BY submitted_at DESC
+    `);
+
+    res.status(200).json(tickets.rows);
+});
+app.post('/api/admin/resolve-ticket', async (req, res) => {
+    const { ticketId, username } = req.body;
+
+    const result = await pool.query(
+        'SELECT isadmin FROM "Hellth".users WHERE username = $1',
+        [username]
+    );
+
+    if (result.rows.length === 0 || !result.rows[0].isadmin) {
+        return res.status(403).send('Forbidden');
+    }
+
+    await pool.query(`
+        UPDATE "Hellth".support_requests
+        SET is_resolved = true, resolved_at = CURRENT_TIMESTAMP
+        WHERE id = $1
+    `, [ticketId]);
+
+    res.status(200).json({ success: true });
+});
+
+
 // Activity Chart Database
 app.get('/api/chart/activity', async (req, res) => {
     if (!dbClient) {
