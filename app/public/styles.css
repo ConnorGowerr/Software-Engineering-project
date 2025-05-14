@@ -249,6 +249,29 @@ input {
   }
 
 /*Contact Us Stuff*/
+#feedbackPopupOverlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#feedbackPopup {
+    background-color: #2C2C2C;
+    color: #EFEDE7;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(255, 87, 51, 0.5);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
 /* ===== HELP PAGE STYLE OVERRIDES ===== */
 .helpPageWrapper {
   display: flex;

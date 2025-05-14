@@ -1,18 +1,41 @@
-const nodemailer = require("nodemailer");
+document.getElementById("contactForm").addEventListener("submit", async function (event) {
+  event.preventDefault();
 
-const transporter = nodemailer.createTransport({
-  service: 'Gmail',
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS
+  const reason = document.querySelector('input[name="reason"]:checked');
+  const message = document.querySelector('textarea[name="feedbackInput"]').value;
+
+  if (!reason) {
+    alert("Please select a request type");
+    return;
+  }
+
+  if (message.length === 0) {
+    alert("Please enter a message");
+    return;
+  }
+
+  try {
+    const res = await fetch('/submitContact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        reason: reason.value,
+        feedbackInput: message  // ✅ match backend key
+      })
+    });
+
+    if (res.ok) {
+      document.getElementById("feedbackPopupOverlay").style.display = "flex";
+      document.getElementById("contactForm").reset();
+    } else {
+      alert("Failed to send message.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("An error occurred while sending your message.");
   }
 });
 
-const mailOptions = {
-  from: '"Hellth Support" <support@hellth.com>',
-  to: userEmail,
-  subject: "We received your message!",
-  html: `<p>Thanks for contacting us, ${userName}. We'll get back to you soon.</p>`
+window.closeFeedbackPopup = function () {
+  document.getElementById("feedbackPopupOverlay").style.display = "none";
 };
-
-await transporter.sendMail(mailOptions);

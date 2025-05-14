@@ -13,6 +13,13 @@
 </head>
 
 <body>
+    <div class="popup-overlay" id="feedbackPopupOverlay">
+        <div class="popup" id="feedbackPopup">
+            <h2>Thank You!</h2>
+            <p>We’ve received your message and will get back to you shortly.</p>
+            <button class="btn" onclick="closeFeedbackPopup()">Close</button>
+        </div>
+    </div>
     <header class="top-header">
         <a href="#" class="top-left-btn" id="messageBtn">
             <img src="images/envelope-solid.svg" alt="profileIcon">
@@ -28,7 +35,7 @@
                 <div class="thankYouMSG">Got a burning question?</div>
                 <div class="adjustText">One of our admins will be happy to help you!</div>
                 <a href="FAQ.html" class="faqLink">Before sending a query, please check our FAQ page</a>
-                <form id="contactForm" action="/submitContact" method="post">
+                <form id="contactForm">
                     <div class="feedbackContainer">
                         <div class="contact-box">
                             <div class="header" onclick="toggleDropdown()">
@@ -94,14 +101,5 @@
             var dropdown = document.getElementById("dropdown");
             dropdown.classList.toggle("active");
         }
-    </script>
-    <script>
-        document.getElementById("contactForm").addEventListener("submit", function (event) {
-            var reason = document.querySelector('input[name="reason"]:checked');
-            if (!reason) {
-                alert("Please select a request type");
-                event.preventDefault();
-            }
-        });
     </script>
 </body>
