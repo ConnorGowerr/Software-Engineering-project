@@ -82,7 +82,7 @@ label {
     width: 100%;
 }
 .top-left-btn{
-    width: 7%;
+    width: 4%;
     height: 90%;
     display: flex;
     justify-content: center;
@@ -94,6 +94,7 @@ label {
     cursor: pointer;
     transition: 0.3s;
     margin-left:1%;
+    aspect-ratio: 1 / 1;
 }
 
 
@@ -105,7 +106,7 @@ label {
 }
 
 .top-right-btn {
-    width: 7%;
+    width: 4%;
     height: 90%;
     display: flex;
     justify-content: center;
@@ -117,6 +118,7 @@ label {
     cursor: pointer;
     transition: 0.3s;
     margin-right: 1%;
+    aspect-ratio: 1 / 1;
 }
 
 .top-right-btn:hover {
@@ -887,6 +889,16 @@ label {
     }
     .nav-btn img {
         width: 80%;
+        aspect-ratio: 1 / 1;
+    }
+        .top-left-btn, .top-right-btn{
+        width: 12%;
+        height: 85%;
+    }
+
+    .top-left-btn img, .top-right-btn img{
+        height: 70%; 
+        width: 70%;
         aspect-ratio: 1 / 1;
     }
 }
