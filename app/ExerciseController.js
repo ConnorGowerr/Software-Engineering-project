@@ -118,7 +118,7 @@ class ExerciseController {
             await dbClient.query('SET SEARCH_PATH TO "Hellth", public;');
             
             do{
-                //Randomise id
+                //Increase id by 1
                 activityid = activityid + 1;
                 //Find number of db entries with that id. If it's > 0, the id is taken.
                 await (idCount = (await dbClient.query(idCountQuery, [activityid])).rowCount);   
