@@ -495,7 +495,7 @@ app.post('/api/goal/AddActivityGoal', async (req, res) => {
     const weeklyactivity = 0
     const caloriesburnt = 0
     const isgoalmet = false;
-    const { goalname, startdate, enddate, target } = req.body;
+    const { goalname, username, startdate, enddate, target } = req.body;
 
     try {
         
