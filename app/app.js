@@ -169,28 +169,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/achievements', (req, res) => {
-    if (!dbClient) {
-        return res.status(500).json({ error: 'Database client not initialized' });
-    }
-
-    dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
-        if (err) {
-            console.error("Error setting search path:", err);
-            return res.status(500).json({ error: "Failed to set database search path" });
-        }
-
-        const queryString = 'SELECT * FROM achievements';
-        dbClient.query(queryString, (err, result) => {
-            if (err) {
-                console.error("Error fetching achievements:", err);
-                return res.status(500).json({ error: "Failed to fetch achievements" });
-            }
-            res.status(200).json(result.rows);
-        });
-    });
-});
-
 
 
 app.get('/meal', (req, res) => {
@@ -859,6 +837,26 @@ app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
             res.status(404).json({error: "Groups not found"});
         }
         res.status(200).json(personalGroup.rows[0]);
+   
+})
+
+app.get("/achievements", async (req, res) => {
+    const query = req.query.q;
+    console.log(query);
+    
+
+    const ac = await dbClient.query(`
+        SELECT * 
+        FROM baseachievement b
+        
+        WHERE b.username = $1
+        `, [query]);
+
+    if (ac.rows.length === 0) 
+        {
+            res.status(404).json({error: "achs not found"});
+        }
+        res.status(200).json(ac.rows);
    
 })
 

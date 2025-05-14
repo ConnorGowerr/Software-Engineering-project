@@ -5,69 +5,50 @@ import Achievement from "./achievement.js";
 class AchievementController {
     constructor() {
 
-        this.achievements = [
-            new Achievement("Marathon Runner", "time", 180), 
-            new Achievement("Weight Loss Champ", "weight", 10),
-            new Achievement("Calorie Burner", "calories", 5000),
-            new Achievement("Tracking Streak", "calories", 30), 
-            new Achievement("5K Run", "time", 25),
-            new Achievement("Muscle Gain", "weight", 5),  
-            new Achievement("Fat Burner", "calories", 3000),  
-            new Achievement("Daily Tracker", "calories", 7),
-            new Achievement("Half-Marathon", "time", 120),
-            new Achievement("10% Body Fat Drop", "weight", 10),  
-            new Achievement("Extreme Calorie Burn", "calories", 100000),  
-            new Achievement("Consistent Tracker", "calories", 100000),  
-            new Achievement("1-Hour Run", "time", 60),  
-            new Achievement("Goals Completed", "goals", 10),  
-            new Achievement("Burn Master", "calories", 6000),  
-            new Achievement("Long Distance runner", "activity", 1000),  
-            new Achievement("5-Minute Plank", "time", 5),  
-            new Achievement("Weight Cut", "weight", 12),  
-            new Achievement("Daily Burn", "calories", 2000),  
-            new Achievement("Yearly Tracker", "calories", 365)  
-        ]
 
-        fetch('/achievements')
+
+        fetch(`/achievements?q=${window.sessionStorage.username}`)
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            console.table(data);
+           
+            this.generateAchievements(this.makeRandomAchievements(data))
         });
 
     }
 
 
-    makeRandomAchievements() {
-        const achievements = [];
+    makeRandomAchievements(data) {
+    return data.map((achievement, index) => {
+        let progress;
 
-        for (let i = 0; i < 20; i++) {
-            const achievement = this.achievements[i % this.achievements.length]; 
-            const progress = Math.random() * 100;
+        const isFirstLog = 
+            achievement.achievementname === 'First Meal Log' || 
+            achievement.achievementname === 'First Activity Log';
 
-            achievements.push({
-                title: achievement.getAchievementName(),
-                medals: `Medals ${i + 1}`,
-                progress: progress,
-                type: achievement.getAchievementType(),
-                value: achievement.getValue()
-            });
+        if (isFirstLog) {
+            progress = Math.min(100, Math.floor((achievement.currentvalue / achievement.target) * 100));
+        } else {
+            progress = Math.floor(Math.random() * 100);
         }
-        return achievements;
+       
+        return {
+            title: achievement.achievementname,
+            medals: `Medals ${index + 1}`,
+            progress,
+            type: achievement.achievementtype,
+            value: achievement.target
+        };
+    })
     }
 
-    async fetchAchievementsData() {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                resolve(this.makeRandomAchievements());
-            }, 100);
-        });
-    }
 
-    async generateAchievements() {
+
+    async generateAchievements(data) {
         const achievementContainer = document.querySelector('.AchievementContainer');
         achievementContainer.innerHTML = "";
 
-        const data = await this.fetchAchievementsData();
+      
 
         data.forEach(data => {
             console.log(data.progress)
@@ -88,13 +69,19 @@ class AchievementController {
                 "calories": "calorieAchievement",
             };
             
-            progressBar.classList.add(typeClassMap[data.type]);
+            progressBar.classList.add(typeClassMap[data.type.toLowerCase()]);
             
             
             
             
             const imageMaps = {
                 "time": {
+                    1: "images/Time1.png",
+                    10: "images/Time2.png",
+                    50: "images/Time3.png",
+                    100: "images/Time4.png"
+                },
+                "Time": {
                     1: "images/Time1.png",
                     10: "images/Time2.png",
                     50: "images/Time3.png",
@@ -146,27 +133,47 @@ class AchievementController {
                 `;
             }).join('');
             
-            achievement.innerHTML = `
-                <div id="achievementTitle">
-                    <p>${data.title}</p>
-                </div>
-                <div class="medal-container">
-                    ${medalsHTML}
-                </div>
-                <div id="achievementProgressBar"></div>
-            `;
+            if (data.progress === 100) {
+                achievement.innerHTML = `
+                    <div id="achievementTitle">
+                        <p>${data.title}</p>
+                    </div>
+                    <div class="medal-container">
+                        ${medalsHTML}
+                    </div>
+                    <div id="achievementProgressBar" class="progress-bar dazzle"></div>
+                `;
+                
+         
+        
+            } else {
+                achievement.innerHTML = `
+                    <div id="achievementTitle">
+                        <p>${data.title}</p>
+                    </div>
+                    <div class="medal-container">
+                        ${medalsHTML}
+                    </div>
+                    <div id="achievementProgressBar" class="progress-bar"></div>
+                `;
+            }
+
 
 
             const progressBarContainer = achievement.querySelector('#achievementProgressBar');
             progressBarContainer.appendChild(progressBar);
             achievementContainer.appendChild(achievement);
 
+            
+
             achievement.addEventListener("click", (event) => {
                 this.selectAchievement(event.currentTarget, data);
             });
         });
     }
-    
+
+
+
 
     //to display the selected achievement bigger in middle of screen, also removes upon tapping of the screen other than the selected achievement
     selectAchievement(achievement, data) {
@@ -179,8 +186,13 @@ class AchievementController {
 
         const extraInfo = document.createElement("div");
         extraInfo.classList.add("extraInfo")
-        extraInfo.innerHTML = `<p>Keep going, only ${(Math.round((data.value * (100 - data.progress)) / 100))} left!</p>`;
+        if(data.progress == 100){
+           extraInfo.innerHTML = `<p>Congrats You've Completed This Achievement</p>`;
 
+        }
+        else{
+            extraInfo.innerHTML = `<p>Keep going, only ${(Math.round((data.value * (100 - data.progress)) / 100))} left!</p>`;
+        }
         //put a text between medals and bar
         extraInfo.style.textAlign ="center";
         extraInfo.style.margin ="margin-auto";

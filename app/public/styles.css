@@ -212,6 +212,7 @@ input {
     display: flex;
     flex-wrap: wrap; 
     justify-content: space-between;
+    margin-bottom: 3%;
 
 }
 
@@ -237,14 +238,14 @@ input {
     flex-direction: column;
     justify-content: space-between; 
     align-items: center;
-    width: 47.5%;
-    height: 35%;
+    width: 45.5%;
+    height: 30%;
     background-color: #383F42;
     border-width: 2px;
     border-style: solid;
     border-radius: 40px;
-    margin-top: 1%;
-    margin-bottom: 5%;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
     text-align: center;
     box-shadow: 5px 5px 15px rgba(225, 104, 4, 0.842);
     color: white;
@@ -268,7 +269,7 @@ input {
   
 
 #achievementTitle {
-    font-size: clamp(1rem, 2.1cqw, 4rem);
+    font-size: clamp(1rem, 1.8cqw, 3rem);
     font-family: 'Oswald';
     font-weight: bold;
     text-align: center;
@@ -280,7 +281,7 @@ input {
 
 
 #medals {
-    font-size: clamp(1rem, 1.1cqw, 4rem);
+    font-size: clamp(1rem, 1.1cqw, 2rem);
     color: #CE6B31;
     text-align: center;
     margin-top: auto;
@@ -330,6 +331,85 @@ input {
     box-shadow: 0 0 10px rgba(255, 195, 0, 0.7), 0 0 15px rgba(255, 87, 51, 0.5);
 }
 
+.progress-bar.dazzle {
+  position: relative;
+  
+  height: 20px;
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.progress-bar.dazzle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.6) 0,
+    rgba(255, 255, 255, 0.6) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  animation: shimmer 2s linear infinite;
+  pointer-events: none;
+}
+
+.sparkles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sparkles::before,
+.sparkles::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: sparkleFly 1s infinite ease-in-out;
+}
+
+.sparkles::after {
+  left: 80%;
+  top: 0;
+  animation-delay: 0.5s;
+}
+
+.sparkles::before {
+  left: 20%;
+  top: 0;
+  animation-delay: 0s;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes sparkleFly {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-15px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+
 .achievement.selected{ 
     position: fixed;
     top:50%;
@@ -337,7 +417,7 @@ input {
     left:50%;
     transform :translate(-50%, -50%);
     width :60vw; 
-    height :45vh;  
+    height :50vh;  
     font-size: clamp(1rem, 1.4cqw, 4rem);
 
     transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
@@ -368,7 +448,7 @@ input {
     text-align: center;
     margin-top: 7.5%;
     /* margin-bottom: 2.5%; */
-    font-size: clamp(1rem, 1.45cqw, 4rem);
+    font-size: clamp(0.8rem, 1cqw, 2rem);
     color: white;
 }
 
