@@ -54,7 +54,7 @@ class ExerciseController {
     //handles both activity and user activity
     async saveActivity(req, res) {
         const {username, exercisename, activityduration, activityintensity} = req.body;
-        let activityid = -1; // declaring this as -1 is important
+        let activityid = 0;
         let idCount = 0;
     
         const insertQuery1 = `
@@ -118,8 +118,8 @@ class ExerciseController {
             await dbClient.query('SET SEARCH_PATH TO "Hellth", public;');
             
             do{
-                //Increase id by 1
-                activityid = activityid + 1;
+                //Randomise id
+                activityid = randomInt(1000000);
                 //Find number of db entries with that id. If it's > 0, the id is taken.
                 await (idCount = (await dbClient.query(idCountQuery, [activityid])).rowCount);   
                 console.log(idCount)
