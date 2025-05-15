@@ -171,13 +171,19 @@
                 <div class = "mainPopupContainerg">
                     <h2 class="popup-text90">Choose a group name that is under 20 characters in length.</h2>
                 </div>
-                <input class="inputs20" type="text" placeholder="Your Group Name">
-                <button id="confirmBtn13">Create Group</button>
+                <form>
+                    <input class="inputs20" id="creategroupinp" type="text" placeholder="Your Group Name">
+                    <div class="rowInput">
+                        <input type="checkbox" id="ispublic">
+                        <label for="ispublic" id="publabel">Public</label>
+                    </div>
+                    <button class="confirmBtn13" id="createGroupButton">Create Group</button>    
+                </form>
                 <button id="cancelBtn13">Nevermind</button>
-                
             </div>
         </div>
     </div>
+    <div id="groupAlert"></div>
 <div id="emptyspace">`</div>
 </main>
 <div class="popup-overlay" id="mailboxOverlay">

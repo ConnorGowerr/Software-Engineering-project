@@ -4,9 +4,17 @@ const popupoverlay = document.querySelector(".popup-overlay")
 const createpopup = document.querySelector(".popup3")
 const createpopupoverlay = document.querySelector(".popup-overlay2")
 const yourgroups = document.getElementById("yourgroups");
-const yourgroupstxt = document.getElementById("yourgroupstxt");
+const yourgroupstxt = document.getElementById("yourgrouptxt");
+const createbtn = document.getElementById("createGroupButton");
+
 
 let username = window.sessionStorage.getItem("username");
+
+
+// console.log(isPublic);
+// console.log(randid);
+
+
 
 rng = [];
 arr = [3, 4, 5, 6, 7]
@@ -132,35 +140,65 @@ function randomiseGroup(d){
             return response.json();
         })
         .then(data => {
-            // yourgrouptxt.style.display = "none";
-            let newsection = document.createElement(`Section`)
-            newsection.className = "groupBoxSection3"
-            newsection.innerHTML = `
-            <div class ="greyContainer2 box2">
-                <div class="inputdivs">
-                    <div class="rowInputLeft">
-                        <img src="images/groupicon.png" class="groupicons">
-                        <h2 class="groupText">${data.groupname}</h2>
-                    </div>
-                </div>
-                <div class="textRight">
-                    <h2 class="membersText">Members</h2>
-                </div>
-                <div class="textRight">
-                    <h2 class="valueText">47/50</h2>
-                </div>
-            </div>`
-        yourgroups.appendChild(newsection);
-        // yourgroups.appendChild(newsection);
+            if(data != null){
+                yourgroupstxt.style.display = "block";
+                for(let i=0; i< data.length; i++){
+                    let newsection = document.createElement(`Section`)
+                    newsection.className = "groupBoxSection3"
+                    newsection.innerHTML += `
+                        <div class ="greyContainer2 box2">
+                            <div class="inputdivs">
+                                <div class="rowInputLeft">
+                                    <img src="images/groupicon.png" class="groupicons">
+                                    <h2 class="groupText">${data[i].groupname}</h2>
+                                </div>
+                            </div>
+                            <div class="textRight">
+                                <h2 class="membersText">Members</h2>
+                            </div>
+                            <div class="textRight">
+                                <h2 class="valueText">47/50</h2>
+                            </div>
+                        </div>`
+                    yourgroups.appendChild(newsection);
+                }
+            }
             console.table(data);
         })
     }
+
+
+
+function createGroup(){
+    const randid = Math.floor(Math.random() * 10000000000);
+    const groupName = document.getElementById("creategroupinp").value;
+    const isPublic = document.getElementById('ispublic').checked;
+    fetch("http://localhost:8008/groups/:createGroup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            groupid: randid,
+            username,
+            groupname: groupName,
+            ispublic: isPublic
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        showAlert("Group created successfully");
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        
+    });
+}
     
 
     document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
         createpopup.style.display = "block";
         createpopupoverlay.style.display = "block";
-        document.querySelector(".otherTitles").innerHTML = `Would you like to join ${data[0].groupname}?`
     })
 
     document.getElementById("cancelBtn13").addEventListener("click", (event) =>{
@@ -168,6 +206,38 @@ function randomiseGroup(d){
         createpopupoverlay.style.display = "none";
     })
 
-    
+
+
+
+//Running the functions to load groups
+//userGroup - user's groups
+//one - public groups
 userGroup();
 one();
+
+createbtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    const groupn = document.getElementById("creategroupinp").value;
+    if(groupn.length < 21 && groupn.length !== 0){
+        createGroup();
+        createpopup.style.display = "none";
+        createpopupoverlay.style.display = "none";
+        
+    }else{
+        console.log("kys");
+    }
+})
+
+
+function showAlert(message) {
+    const alertBox = document.getElementById('groupAlert');
+    alertBox.textContent = message;
+    alertBox.style.display = 'block';
+    setTimeout(() => {
+        alertBox.style.animation = "fadeOut 0.7s ease-in-out";
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+            alertBox.style.animation = "fadeIn 0.7s ease-in-out";
+        }, 300);
+    }, 4000);
+}

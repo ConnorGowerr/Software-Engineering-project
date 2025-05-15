@@ -491,8 +491,10 @@ app.post("/groups/:allgroups/:groupid", async (req, res) => {
     if (queryMembers.rows.length === 0) 
         {
             res.status(404).json({error: "Group not found"});
+        }else{
+            res.status(200).json(queryMembers.rows[0]);
         }
-        res.status(200).json(queryMembers.rows[0]);
+        
 })
 
 app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
@@ -505,9 +507,36 @@ app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
     if (personalGroup.rows.length === 0) 
         {
             res.status(404).json({error: "Groups not found"});
+        }else{
+            res.status(200).json(personalGroup.rows);
         }
-        res.status(200).json(personalGroup.rows[0]);
+        
+        // console.table(personalGroup.rows)
    
 })
+
+app.post("/groups/:createGroup", async (req, res) => {
+    
+    const {groupid, username, groupname, ispublic} = req.body;
+    console.table(req.body);
+
+    try {
+        const createGroup = `INSERT INTO userGroups(groupID, createdBy, groupName, isPublic, creationDate) VALUES ($1, $2, $3, $4, CURRENT_DATE);`;
+        const addToGroup = `INSERT INTO groupMembers(groupID, username, isAdmin) VALUES ($1, $2, TRUE)`;
+        const valuesc = [groupid, username, groupname, ispublic];
+        const valuesa = [groupid, username];
+        const result = await dbClient.query(createGroup, valuesc);
+        const result2 = await dbClient.query(addToGroup, valuesa);
+        res.status(201).json({message: "Group created successfully",
+            group: result.rows[0],
+            groupmem: result2.rows[0]
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+       
+})
+
 
 

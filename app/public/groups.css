@@ -10,6 +10,7 @@
 .popup-text90{
     font-size: 50px;
     width: 70%;
+    margin-bottom: 8%;
 }
 
 .groupBoxSection2
@@ -145,10 +146,13 @@
     /* box-sizing: border-box;  */
 }
 
-.inputs2:hover{
+.inputs20:hover{
     background-color: #cfcfcd;
 }
 
+#yourgrouptxt{
+    display: none;
+}
 
 .rowInput{
     display:flex;
@@ -335,7 +339,7 @@
 }
 
 
-#confirmBtn, #confirmBtn12, #confirmBtn13 {
+#confirmBtn, #confirmBtn12 {
     position: fixed;
     background: none;
     color: white;
@@ -355,7 +359,29 @@
     font-weight: 1000;
 
 }
-#confirmBtn:hover, #confirmBtn12:hover, #confirmBtn13:hover{
+
+.confirmBtn13{
+    position: fixed;
+    background: none;
+    color: white;
+    background-image: linear-gradient(180deg, #0F4143, #26B880 90%);
+    border: none;
+    cursor: pointer;
+    font-size: clamp(1rem, 1.4cqw, 4rem);
+    width: 28%;  
+    border-width: 1px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    bottom:25%;
+    padding: 1.5% 4%;
+    border-radius: 10px;
+    margin: 0 auto;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    font-weight: 1000;
+    left: 36%;
+}
+
+#confirmBtn:hover, #confirmBtn12:hover, .confirmBtn13:hover{
     transform: scale(1.1);
 }
 
@@ -453,4 +479,94 @@
 #joinGroup:hover{
     cursor: pointer;
     background-color: #c5c4c4;
+}
+
+#ispublic{
+    box-shadow: none;
+    opacity:0;
+}
+#ispublic + #publabel{
+    position: relative;
+    /* padding-left: 30px; */
+    cursor: pointer;
+    display: inline-block;
+    color: EFEDE7;
+    line-height: 25px;
+}
+
+#publabel{
+    margin-top: 4%;
+    right: 12%;
+    font-family: 'Poppins';
+    
+}
+
+#ispublic + #publabel::before{
+    content:"";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    outline: 2px solid #c5c4c4;
+    background: #fff;
+}
+
+#ispublic:checked + #publabel::before{
+    content:"";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    outline: 2px solid #23970c;
+    background: #fff;
+}
+
+#ispublic:checked + #publabel::after{
+    content:"";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    background-image:url(images/checkmarkgroup.png);
+    background-size: contain;
+    transform:scale(1);
+    opacity: 1;
+    transition: all .3s ease;
+}
+
+#ispublic:not(:checked) + #publabel::after{
+    content:"";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    background-image:url(images/checkmarkgroup.png);
+    background-size: contain;
+    transform:scale(0);
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+#groupAlert {
+
+    font-family: 'Poppins';
+    position: fixed;
+    align-items: center;
+    top:5%;
+    right:25%;
+    left: 25%;
+    background: rgba(52, 202, 52, 0.9);
+    color: white;
+    padding: 2vh 2vw;
+    border-radius: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    display: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: fadeIn 0.7s ease-in-out forwards;
+
 }
