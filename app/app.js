@@ -1,7 +1,6 @@
 require('dotenv').config();
 const {Client} = require('pg');
 // All the require functions/api
-
 const { checkHash } = require('./hash.js');
 const express = require('express');;
 const dbClient = require('./db.js');
@@ -1173,7 +1172,32 @@ app.post("/groups/join", async (req, res) => {
     try {
         const findgroup = await dbClient.query(`SELECT * FROM userGroups WHERE groupid = $1`, [groupid]);
         const adduser = await dbClient.query(`INSERT INTO groupMembers(groupID, username, isAdmin) VALUES ($1, $2, FALSE)`, [groupid, username]);
+        const emailResult = await dbClient.query(`SELECT email FROM "Hellth".users WHERE username = $1`,[username]);
+        const userEmail = emailResult.rows[0].email;
+        const countResult = await dbClient.query(`SELECT COUNT(*) FROM groupMembers WHERE groupID = $1`,[groupid]);
+        const memberCount = countResult.rows[0].count;
 
+            const transporterGroup = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS
+            }
+        });
+        await transporterGroup.sendMail({
+            from: `"Hellth Groups" <${process.env.MAIL_USER}>`,
+            to: userEmail,
+            subject: `You've joined ${findgroup.rows[0].groupname}`,
+            html: `
+                <div style="background:#1e1e1e; color:#f0f0f0; padding:20px; border-radius:10px; font-family:sans-serif;">
+                    <h2>Group Join Confirmation</h2>
+                    <p>Hi ${username},</p>
+                    <p>You've successfully joined the group <strong>${findgroup.rows[0].groupname}</strong>.</p>
+                    <p>Current number of members: <strong>${memberCount}</strong></p>
+                    <p>Thank you for being a part of our community!</p>
+                </div>
+            `
+        });
         res.status(201).json({message: "Joined group successfully",
             group: findgroup.rows[0],
             add: adduser.rows[0]
@@ -1376,7 +1400,6 @@ app.put('/update-weight', async (req, res) => {
   });
 });
 
-<<<<<<< HEAD
 
 
 
@@ -1514,5 +1537,4 @@ app.put('/removeActivityChallenge', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-=======
->>>>>>> 6ba52ed55bb27ff9f492ea02af48dac51c67452d
+

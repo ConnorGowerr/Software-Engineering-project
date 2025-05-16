@@ -20,7 +20,7 @@ document.getElementById("contactForm").addEventListener("submit", async function
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         reason: reason.value,
-        feedbackInput: message  // ✅ match backend key
+        feedbackInput: message  
       })
     });
 

@@ -10,7 +10,7 @@ const available = false;
 let usercount = 0;
 // const joinbtn = document.getElementById("joinGroup");
 
-let username = window.sessionStorage.getItem("username");
+// let username = window.sessionStorage.getItem("username");
 
 if(username == null){
     window.location.href = "http://localhost:8008/";
@@ -70,9 +70,9 @@ function randomiseGroup(d){
 
             box1.querySelector(".groupText").innerHTML = `${data1.groupname}`;
             box2.querySelector(".groupText").innerHTML = `${data2.groupname}`;
-            // box3.querySelector(".groupText").innerHTML = `${data3.groupname}`;
-            // box4.querySelector(".groupText").innerHTML = `${data4.groupname}`;
-            // box5.querySelector(".groupText").innerHTML = `${data5.groupname}`;
+            box3.querySelector(".groupText").innerHTML = `${data3.groupname}`;
+            box4.querySelector(".groupText").innerHTML = `${data4.groupname}`;
+            box5.querySelector(".groupText").innerHTML = `${data5.groupname}`;
 
             document.getElementById("greyContainer" + arr[0]).addEventListener("click", (event) =>{
                 popup.style.display = "block";

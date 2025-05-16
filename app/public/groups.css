@@ -184,7 +184,8 @@
     display: flex;
     flex-shrink: 0; 
     width: 10%; 
-    height: 10%; 
+    height: auto;
+    aspect-ratio: 1/1; 
     box-sizing: border-box;
     padding: 1.5%;
     margin-top: 4%;
@@ -669,5 +670,30 @@
     }
     .popup3{
         width: 70vw;
+    }
+    .inputs{
+        width: 60%;
+    }
+    .inputs20{
+        width: 60%;
+    }
+    .otherTitlesg{
+        font-size: 30px;
+        margin-top: 45%;
+    }
+    .popupg2{
+        height: 30%;
+    }
+
+    #confirmBtn12{
+        font-size: 20px;
+        padding: 1%;
+        width: 70%;
+    }
+    #cancelBtn12{
+        font-size:20px;
+        /* padding:10%; */
+        width: 60%;
+        left: 20%;
     }
 }
