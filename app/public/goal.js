@@ -1,6 +1,6 @@
 const loadStartTime = Date.now(); 
 let user ={};
-let username = window.sessionStorage.getItem("username")
+// let username = window.sessionStorage.getItem("username")
 
 //loading screen
 window.addEventListener('load', () => {
