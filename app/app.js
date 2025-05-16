@@ -1159,14 +1159,14 @@ app.post("/groups/join", async (req, res) => {
         const countResult = await dbClient.query(`SELECT COUNT(*) FROM groupMembers WHERE groupID = $1`,[groupid]);
         const memberCount = countResult.rows[0].count;
 
-        const transporter = nodemailer.createTransport({
+        const transporterGroup = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS
             }
         });
-        await transporter.sendMail({
+        await transporterGroup.sendMail({
             from: `"Hellth Groups" <${process.env.MAIL_USER}>`,
             to: userEmail,
             subject: `You've joined ${findgroup.rows[0].groupname}`,

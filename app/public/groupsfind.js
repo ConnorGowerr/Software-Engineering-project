@@ -1,4 +1,3 @@
-let GroupData = [];
 // let username = window.sessionStorage.getItem("username");
 const joinbtn = document.getElementById("joinGroup");
 // const usercount = 0;
@@ -14,7 +13,6 @@ function findGroup(){
         },
         body: JSON.stringify({
             groupid: findgroupID,
-            username: username
         })
     })
     .then(response => {
