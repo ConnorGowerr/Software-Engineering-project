@@ -582,6 +582,29 @@ app.post("/home.html", async (req, res) => {
         var challengeTitle = "You have no active challenges";
         var challengeEnd = "N/A";
 
+        const failedExerciseGoals = await dbClient.query(`
+            SELECT * 
+            FROM "Hellth".Goal
+            LEFT JOIN "Hellth".exerciseGoal ON exerciseGoal.goalid = goal.goalid
+            LEFT JOIN "Hellth".users ON exerciseGoal.username = users.username
+            WHERE isgoalmet = 'false' AND
+            exerciseGoal.username = $1 AND
+            enddate BETWEEN (CURRENT_DATE - INTERVAL '3 days') AND (CURRENT_DATE - INTERVAL '1 days');`, [username]);
+
+        const failedMealGoals = await dbClient.query(`
+            SELECT * 
+            FROM "Hellth".Goal
+            LEFT JOIN "Hellth".mealGoal ON mealGoal.goalid = goal.goalid
+            LEFT JOIN "Hellth".users ON mealGoal.username = users.username
+            WHERE isgoalmet = 'false' AND
+            mealGoal.username = $1 AND
+            enddate BETWEEN (CURRENT_DATE - INTERVAL '3 days') AND (CURRENT_DATE - INTERVAL '1 days');`, [username]);
+
+            if (failedExerciseGoals.rows.length != 0 || failedMealGoals.rows.length != 0) 
+            {
+                window.sessionStorage.setItem("expiredGoals", true);
+            }
+
         const dailyCalorie = await dbClient.query(`
             SELECT SUM(calories * quantity)
             FROM "Hellth".meal
