@@ -328,6 +328,8 @@ app.get('/api/chart/activity', async (req, res) => {
     const scope = req.query.scope || 'week';
     let interval, groupBy, dateColumn;
 
+    const username = req.query.username;
+
     switch (scope) {
         case 'month':
             interval = `'29 days'`;
@@ -364,7 +366,7 @@ daily_activity AS (
     SUM(a.duration) AS total_minutes
   FROM useractivity ua
   JOIN activity a ON ua.activityid = a.activityid
-  WHERE ua.logtime >= ${scope === 'year' ? "date_trunc('month', CURRENT_DATE) - INTERVAL '11 months'" : "CURRENT_DATE - INTERVAL " + interval}
+  WHERE ua.username = $1 AND ua.logtime >= ${scope === 'year' ? "date_trunc('month', CURRENT_DATE) - INTERVAL '11 months'" : "CURRENT_DATE - INTERVAL " + interval}
   GROUP BY ${groupBy}
 )
 SELECT 
@@ -373,7 +375,7 @@ SELECT
 FROM range r
 LEFT JOIN daily_activity da ON r.date = da.date
 ORDER BY r.date ASC;
-        `);
+        `,[username]);
 
         res.status(200).json(result.rows);
     } catch (err) {
@@ -391,6 +393,8 @@ app.get('/api/chart/calories', async (req, res) => {
 
     const scope = req.query.scope || 'week';
     let interval, groupBy, dateColumn;
+
+    const username = req.query.username;
 
     switch (scope) {
         case 'month':
@@ -429,7 +433,7 @@ daily_calories AS (
   FROM meal m
   JOIN mealcontents mc ON m.mealid = mc.mealid
   JOIN food f ON mc.foodid = f.foodid
-  WHERE m.mealdate >= ${scope === 'year' ? "date_trunc('month', CURRENT_DATE) - INTERVAL '11 months'" : "CURRENT_DATE - INTERVAL " + interval}
+  WHERE m.username =$1 AND m.mealdate >= ${scope === 'year' ? "date_trunc('month', CURRENT_DATE) - INTERVAL '11 months'" : "CURRENT_DATE - INTERVAL " + interval}
   GROUP BY ${groupBy}
 )
 SELECT 
@@ -438,7 +442,7 @@ SELECT
 FROM range r
 LEFT JOIN daily_calories dc ON r.date = dc.date
 ORDER BY r.date ASC;
-        `);
+        `, [username]);
 
         res.status(200).json(result.rows);
     } catch (err) {
