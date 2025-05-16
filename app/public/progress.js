@@ -1,6 +1,5 @@
 window.addEventListener("DOMContentLoaded", () => {
   const today = new Date().getDay();
-  const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const chartInstances = new Map();
 
   const commonOptions = {
@@ -36,61 +35,69 @@ window.addEventListener("DOMContentLoaded", () => {
   return data.map(entry => {
     const date = new Date(entry.date);
     if (scope === 'year') {
-      return date.toLocaleDateString(undefined, { month: 'short' }); // e.g., Jan, Feb
+      return date.toLocaleDateString(undefined, { month: 'short' }); 
     }
     if (scope === 'month') {
-      return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' }); // e.g., 05 May
+      return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' }); 
     }
-    return date.toLocaleDateString(undefined, { weekday: 'short' }); // e.g., Mon, Tue
+    return date.toLocaleDateString(undefined, { weekday: 'short' }); 
   });
 }
 
 
   async function loadChart({ scope, type, endpoint, label, color, elementId }) {
-    try {
-      const res = await fetch(`/api/chart/${endpoint}?scope=${scope}`);
-      const raw = await res.json();
-      const labels = formatLabels(scope, raw);
-      const values = raw.map(e => parseInt(e[type === 'calories' ? 'total_calories' : 'total_minutes'], 10));
+  try {
+    const username = sessionStorage.getItem("username");
+    if (!username) {
+      window.location.href = "/";
+      return;
+    }
 
-      const chartData = {
-        labels,
-        datasets: [{
-          label,
-          data: values,
-          backgroundColor: labels.map((_, i) =>
-            i === today ? color.highlight : color.default
-          ),
-          borderRadius: 8,
-          borderSkipped: false
-        }]
-      };
+    const res = await fetch(`/api/chart/${endpoint}?scope=${scope}&username=${encodeURIComponent(username)}`);
+    const raw = await res.json();
+    const labels = formatLabels(scope, raw);
+    const values = raw.map(e => parseInt(
+      e[type === 'calories' ? 'total_calories' : 'total_minutes'], 10
+    ));
 
-      const config = {
-        type: 'bar',
-        data: chartData,
-        options: {
-          ...commonOptions,
-          plugins: {
-            ...commonOptions.plugins,
-            title: {
-              display: true,
-              text: `${label} – ${scope.charAt(0).toUpperCase() + scope.slice(1)}`,
-              color: '#FFF',
-              font: { family: 'Oswald', size: 18 }
-            }
+    const chartData = {
+      labels,
+      datasets: [{
+        label,
+        data: values,
+        backgroundColor: labels.map((_, i) =>
+          i === today ? color.highlight : color.default
+        ),
+        borderRadius: 8,
+        borderSkipped: false
+      }]
+    };
+
+    const config = {
+      type: 'bar',
+      data: chartData,
+      options: {
+        ...commonOptions,
+        plugins: {
+          ...commonOptions.plugins,
+          title: {
+            display: true,
+            text: `${label} – ${scope.charAt(0).toUpperCase() + scope.slice(1)}`,
+            color: '#FFF',
+            font: { family: 'Oswald', size: 18 }
           }
         }
-      };
+      }
+    };
 
-      if (chartInstances.has(elementId)) chartInstances.get(elementId).destroy();
-      const instance = new Chart(document.getElementById(elementId), config);
-      chartInstances.set(elementId, instance);
+    if (chartInstances.has(elementId)) chartInstances.get(elementId).destroy();
+    const instance = new Chart(document.getElementById(elementId), config);
+    chartInstances.set(elementId, instance);
 
-    } catch (err) {
-      console.error(`Failed to load ${type} chart (${scope}):`, err);
-    }
+  } catch (err) {
+    console.error(`Failed to load ${type} chart (${scope}):`, err);
   }
+}
 
   // Chart configs
   const chartConfigs = [
@@ -120,11 +127,10 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   ];
 
-  // Bind buttons + load default
   for (const config of chartConfigs) {
     config.buttons.forEach(({ id, scope }) => {
       document.getElementById(id)?.addEventListener('click', () => loadChart({ ...config, scope }));
     });
-    loadChart({ ...config, scope: 'week' }); // default load
+    loadChart({ ...config, scope: 'week' }); 
   }
 });
