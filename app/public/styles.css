@@ -1715,7 +1715,26 @@ label {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-
+#cancelBtn333  {
+    position: fixed;
+    top: 5%;
+    left: 82%;
+    width: 15%;
+    border-width: 1px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    height: 10%;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    font-size: clamp(0.7rem, 1.1cqw, 2rem);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
 
 #cancelBtn:hover ,#cancelBtn2:hover, #cancelBtn3:hover, .cancelBtn:hover {
     background-color: #232a2e;
@@ -1758,14 +1777,15 @@ label {
 /* #mealsection page  */
 #mealActivityPageSection {
     display: grid;
-    grid-template-rows: repeat(2, 50%); 
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, 45%); 
+    grid-template-columns: repeat(2, 45%); 
     gap:3%;
     justify-content: center;
-    width: 94%;
+    width: 90%;
     align-items: center;
-    height: 90%;
-    margin:2% auto;
+    height: 100%;
+    margin:1% auto;
+    padding-bottom: 10%;
 
 }
 
@@ -2829,6 +2849,7 @@ GROUP PAGE SECTION */
 
 .GoalAddInfo{
     height: 70%;
+    
     width: 60%; 
     position: relative;
     display: flex;
@@ -2836,9 +2857,8 @@ GROUP PAGE SECTION */
     bottom: -5%;
     flex-direction: column;
     justify-content: center; 
-    overflow-y: scroll;
-    overflow-x: hidden;  
-    font-size: clamp(0.8rem, 0.7vw, 1.4rem);
+    /* overflow-x: hidden;   */
+    font-size: clamp(0.5rem, 0.7vw, 1.4rem);
     scrollbar-width: none; 
 }
 
@@ -2878,7 +2898,7 @@ GROUP PAGE SECTION */
    
     border: none;
     transition: transform 0.3s ease, letter-spacing 0.3s ease;
-    font-size: clamp(0.8rem, 1.3vw, 1.4rem);
+    font-size: clamp(0.6rem, 1vw, 1.4rem);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin: 3% 0;
@@ -3267,6 +3287,29 @@ GROUP PAGE SECTION */
  /* mobile phone  view */
  @media (max-width: 700px) { 
 
+
+#cancelBtn333  {
+    position: fixed;
+    top: 11%;
+    left: 80%;
+    width: 10%;
+    border-width: 1px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    height: 10%;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    font-size: clamp(0.7rem, 1.1cqw, 2rem);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+
     #specificGroupSection {
         height: 160vh; 
         /* overflow-y: auto; */
@@ -3279,7 +3322,7 @@ GROUP PAGE SECTION */
     }
 
     #GD1, #GD2, #GD3 {
-        width: 100%;
+        width: 90%;
         height: 80%;
             min-height: 60vh;
 border-radius: 25px;
