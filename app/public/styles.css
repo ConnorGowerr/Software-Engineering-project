@@ -199,6 +199,189 @@ input {
 }
 
 
+/*Chart Stuff*/
+.chart-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+    padding: 1rem;
+    padding-bottom: 0;
+    flex-wrap: wrap;
+  }
+  
+  .graph {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    padding: 1rem;
+    background-color: #2C2C2C;
+    border-radius: 20px;
+    border: 2px solid white;
+  }
+  
+  .graph canvas {
+    width: 100% !important;
+    height: 300px !important; /* or whatever fits your layout */
+  }
+
+  .adjust-targets-section {
+    text-align: center;
+    color: #EFEDE7;
+    font-family: 'Poppins';
+    background-color: #2C2C2C;
+    border-radius: 20px;
+    border: 2px solid #EFEDE7;
+    width: 85%;
+    max-width: 700px;
+    margin: 0 auto auto auto;
+    padding: 2rem;
+    padding-bottom: 400;
+    box-shadow: 0 0 20px rgba(255, 87, 51, 0.15);
+  }
+
+  #adjustBtn{
+    margin: 0 2.5% 0 2.5%;
+  }
+
+  .Empty-Space{
+    margin-top: 5%;
+  }
+
+/*Contact Us Stuff*/
+#feedbackPopupOverlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#feedbackPopup {
+    background-color: #2C2C2C;
+    color: #EFEDE7;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(255, 87, 51, 0.5);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* ===== HELP PAGE STYLE OVERRIDES ===== */
+.helpPageWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #1C1F21;
+  color: #EFEDE7;
+  font-family: 'Poppins';
+}
+
+.helpPageWrapper .contactContainer {
+  background-color: #2C2C2C;
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.helpPageWrapper .thankYouMSG {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.helpPageWrapper .adjustText {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.helpPageWrapper .faqLink {
+  display: block;
+  color: #FF5733;
+  text-decoration: underline;
+  margin-bottom: 1.5rem;
+}
+
+.helpPageWrapper .contact-box {
+  background-color: #3A3F44;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px solid #FF5733;
+  margin-bottom: 1rem;
+}
+
+.helpPageWrapper .header {
+  background-color: #FF5733;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.helpPageWrapper .dropdown {
+  display: none;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.helpPageWrapper .dropdown.active {
+  display: block;
+}
+
+.helpPageWrapper .dropdown li {
+  background-color: #CE6B31;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.helpPageWrapper .dropdown li:hover {
+  background-color: #FF7043;
+}
+
+.helpPageWrapper .queryInput {
+  width: 100%;
+  box-sizing: border-box;
+  height: 150px;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 1rem;
+  background-color: #EFEDE7;
+  color: #000;
+  border: none;
+  resize: none;
+  margin-top: 1rem;
+}
+
+.helpPageWrapper .submitBtn {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  background: linear-gradient(#95180F, #EA7B3A);
+  color: white;
+  font-size: 1.25rem;
+  font-family: 'Oswald';
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.helpPageWrapper .submitBtn:hover {
+  transform: scale(1.05);
+}
+
 
 
 
@@ -658,6 +841,7 @@ input {
 #hellthTitle {
     font-size: clamp(1.6rem, 2.8cqw, 8rem);
     font-weight: bold;
+    margin: 0 auto;
 }
 
 .mainBtn{
