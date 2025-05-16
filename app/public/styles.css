@@ -395,6 +395,7 @@ input {
     display: flex;
     flex-wrap: wrap; 
     justify-content: space-between;
+    margin-bottom: 3%;
 
 }
 
@@ -420,14 +421,14 @@ input {
     flex-direction: column;
     justify-content: space-between; 
     align-items: center;
-    width: 47.5%;
-    height: 35%;
+    width: 45.5%;
+    height: 30%;
     background-color: #383F42;
     border-width: 2px;
     border-style: solid;
     border-radius: 40px;
-    margin-top: 1%;
-    margin-bottom: 5%;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
     text-align: center;
     box-shadow: 5px 5px 15px rgba(225, 104, 4, 0.842);
     color: white;
@@ -451,7 +452,7 @@ input {
   
 
 #achievementTitle {
-    font-size: clamp(1rem, 2.1cqw, 4rem);
+    font-size: clamp(1rem, 1.8cqw, 3rem);
     font-family: 'Oswald';
     font-weight: bold;
     text-align: center;
@@ -463,7 +464,7 @@ input {
 
 
 #medals {
-    font-size: clamp(1rem, 1.1cqw, 4rem);
+    font-size: clamp(1rem, 1.1cqw, 2rem);
     color: #CE6B31;
     text-align: center;
     margin-top: auto;
@@ -513,6 +514,85 @@ input {
     box-shadow: 0 0 10px rgba(255, 195, 0, 0.7), 0 0 15px rgba(255, 87, 51, 0.5);
 }
 
+.progress-bar.dazzle {
+  position: relative;
+  
+  height: 20px;
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.progress-bar.dazzle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.6) 0,
+    rgba(255, 255, 255, 0.6) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  animation: shimmer 2s linear infinite;
+  pointer-events: none;
+}
+
+.sparkles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sparkles::before,
+.sparkles::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: sparkleFly 1s infinite ease-in-out;
+}
+
+.sparkles::after {
+  left: 80%;
+  top: 0;
+  animation-delay: 0.5s;
+}
+
+.sparkles::before {
+  left: 20%;
+  top: 0;
+  animation-delay: 0s;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes sparkleFly {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-15px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+
 .achievement.selected{ 
     position: fixed;
     top:50%;
@@ -520,7 +600,7 @@ input {
     left:50%;
     transform :translate(-50%, -50%);
     width :60vw; 
-    height :45vh;  
+    height :50vh;  
     font-size: clamp(1rem, 1.4cqw, 4rem);
 
     transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
@@ -551,7 +631,7 @@ input {
     text-align: center;
     margin-top: 7.5%;
     /* margin-bottom: 2.5%; */
-    font-size: clamp(1rem, 1.45cqw, 4rem);
+    font-size: clamp(0.8rem, 1cqw, 2rem);
     color: white;
 }
 
@@ -986,7 +1066,7 @@ input {
     font-size: clamp(1rem, 1.0vw, 4rem);
     width: 100%;
 }
-.plus-icon {
+.plus-icon{
     cursor: pointer;
     font-weight: bold;
     display: inline-block;
@@ -1001,6 +1081,13 @@ input {
     color: #1DE44F;
     transform: scale(1.5);
 
+}
+
+.addgroupchallenge{
+    position: absolute;
+    right: 10%;
+    
+   
 }
 
 
@@ -1310,11 +1397,12 @@ label {
     color: #EFEDE7;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
-
 #goalForm input[type="text"],
 #goalForm input[type="date"],
+#goalForm select,
 #goalForm2 input[type="text"],
-#goalForm2 input[type="date"] {
+#goalForm2 input[type="date"],
+#goalForm2 select {
     padding: 1% 1%;
     border-radius: 8px;
     border: none;
@@ -1325,12 +1413,12 @@ label {
     font-family: 'Poppins', sans-serif;
 }
 
-#goalForm label,#goalForm2 label {
+#goalForm label,
+#goalForm2 label {
     font-size: clamp(1rem, 1.1cqw, 4rem);
     margin-bottom: -2%;
     color: #ccc;
 }
-
 .goalOverlay {
     position: fixed;
     top: 0;
@@ -1811,7 +1899,26 @@ label {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-
+#cancelBtn333  {
+    position: fixed;
+    top: 5%;
+    left: 82%;
+    width: 15%;
+    border-width: 1px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    height: 10%;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    font-size: clamp(0.7rem, 1.1cqw, 2rem);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
 
 #cancelBtn:hover ,#cancelBtn2:hover, #cancelBtn3:hover, .cancelBtn:hover {
     background-color: #232a2e;
@@ -1854,14 +1961,15 @@ label {
 /* #mealsection page  */
 #mealActivityPageSection {
     display: grid;
-    grid-template-rows: repeat(2, 50%); 
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, 45%); 
+    grid-template-columns: repeat(2, 45%); 
     gap:3%;
     justify-content: center;
-    width: 94%;
+    width: 90%;
     align-items: center;
-    height: 90%;
-    margin:2% auto;
+    height: 100%;
+    margin:1% auto;
+    padding-bottom: 10%;
 
 }
 
@@ -2925,6 +3033,7 @@ GROUP PAGE SECTION */
 
 .GoalAddInfo{
     height: 70%;
+    
     width: 60%; 
     position: relative;
     display: flex;
@@ -2932,9 +3041,8 @@ GROUP PAGE SECTION */
     bottom: -5%;
     flex-direction: column;
     justify-content: center; 
-    overflow-y: scroll;
-    overflow-x: hidden;  
-    font-size: clamp(0.8rem, 0.7vw, 1.4rem);
+    /* overflow-x: hidden;   */
+    font-size: clamp(0.5rem, 0.7vw, 1.4rem);
     scrollbar-width: none; 
 }
 
@@ -2974,7 +3082,7 @@ GROUP PAGE SECTION */
    
     border: none;
     transition: transform 0.3s ease, letter-spacing 0.3s ease;
-    font-size: clamp(0.8rem, 1.3vw, 1.4rem);
+    font-size: clamp(0.6rem, 1vw, 1.4rem);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin: 3% 0;
@@ -3134,7 +3242,7 @@ GROUP PAGE SECTION */
     height: 10%;  
     display: flex;
     justify-content: center;
-
+    position: relative;
     align-items: center;
     
 }
@@ -3363,49 +3471,80 @@ GROUP PAGE SECTION */
  /* mobile phone  view */
  @media (max-width: 700px) { 
 
+
+#cancelBtn333  {
+    position: fixed;
+    top: 11%;
+    left: 80%;
+    width: 10%;
+    border-width: 1px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    height: 10%;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    font-size: clamp(0.7rem, 1.1cqw, 2rem);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+
     #specificGroupSection {
-        height: 266vh; 
+        height: 160vh; 
         /* overflow-y: auto; */
         display: grid;
-        grid-template-rows: repeat(3, 33%); 
+        grid-template-rows: repeat(3, 32%); 
         grid-template-columns: 1fr;
-        gap: 0;
-        padding-bottom: 20vh;
+        gap: 3%;
+        padding-bottom: 15vh;
+        padding-top: 15%;
     }
 
     #GD1, #GD2, #GD3 {
-        width: 100%;
-        height: 100%;
+        width: 90%;
+        height: 80%;
             min-height: 60vh;
-
+border-radius: 25px;
     }
 
     #GD1{
         grid-row: 1;
+        height: 80%;
     }
     #GD3{
         grid-row: 2;
     }
+
+    #groupContent1, #groupContent2, #groupContent3  {
+        border-radius: 25px;
+    }
     
     #goalsSection {
-        height: 266vh; 
+        height: 170vh; 
         display: grid;
-        grid-template-rows: repeat(3, 33%); 
+        grid-template-rows: repeat(3, 35%); 
         grid-template-columns: 1fr;
         gap: 0;
-        padding-bottom: 20vh;
+        padding-bottom: 17vh;
     }
 
     #GoalD1 {
-        grid-row: 1;
+        grid-row: 2;
         grid-column: 1;
    
     }
 
 
     #GoalD2 {
-        grid-row: 2;
+        grid-row: 1;
         grid-column: 1;
+        height: 100%;
+        min-height: 100%;
 
     }
 
@@ -3673,6 +3812,7 @@ GROUP PAGE SECTION */
         place-items: center;
         width: 100%;
         max-height: 90vh;
+        height: 97%;
         align-items: center;
         overflow-y: auto;
         justify-content: center;
