@@ -1,3 +1,4 @@
+
 class ExerciseView {
     #currentCph;
     #currentEx;
