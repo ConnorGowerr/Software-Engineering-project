@@ -1,4 +1,5 @@
-
+let heightMult = 1;
+let weightMult = 1;
 
 function updateProfileStats(){
 
@@ -29,6 +30,15 @@ function updateProfileStats(){
 
                 login3.innerHTML = `<p>Last Logged In <br> ${userData[0].lastlogin.split('T')[0]}</p>`;
 
+                if(userData[0].imperialmetric)
+                {
+                    heightMult = 1;
+                    weightMult = 1;
+                }
+                else{
+                    weightMult = 2.205;
+                    heightMult = 1 / 2.54;
+                }
 
                 var stats = document.querySelector(".mainstatsSection").children;
                 let stats1 = stats[0];
@@ -36,7 +46,7 @@ function updateProfileStats(){
                 let stats3 = stats[2];
                 let stats4 = stats[3];
 
-                stats1.innerHTML = `<p>Weight <br> ${userData[0].weight}</p>`;
+                stats1.innerHTML = `<p>Weight <br> ${Math.round(userData[0].weight * weightMult)}</p>`;
 
 
                 const popupOverlay = document.querySelector("#addMemberOverlay");
@@ -103,7 +113,7 @@ function updateProfileStats(){
                     
 
 
-                    stats2.innerHTML = `<p>Height <br> ${userData[0].height}</p>`;
+                    stats2.innerHTML = `<p>Height <br> ${Math.round(userData[0].height * heightMult)}</p>`;
 
                     stats3.innerHTML = `<p>Gender <br> ${userData[0].gender}</p>`;
 
