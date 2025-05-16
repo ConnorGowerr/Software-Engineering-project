@@ -1083,11 +1083,17 @@ input {
 
 }
 
-.addgroupchallenge{
+.addgroupchallenge, .logout{
     position: absolute;
     right: 10%;
     
    
+}
+
+.logout{
+    height: 80%;
+    width:20%;
+    right: 5%;
 }
 
 
@@ -1319,7 +1325,7 @@ label {
 }
 
 
-.addAdmin, .addMember{
+.addAdmin, .addMember, .logoutPopup {
     display: none;
     position: fixed;
     top: 50%;
@@ -1417,7 +1423,7 @@ label {
     margin-bottom: -2%;
     color: #ccc;
 }
-.goalOverlay {
+.goalOverlay, .logoutOverlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -1599,7 +1605,7 @@ label {
     height: 100%;
 }
 
-#foodMessagePopup {
+#foodMessagePopup{
     display: flex; 
     flex-direction: column;
     align-items: center;
@@ -1875,6 +1881,15 @@ label {
 
 #confirmBtn7{
     width: 40%;  
+}
+
+#confirmBtn8{
+    width:40%;
+    position: fixed;
+    height:60%;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
 }
 #cancelBtn,#cancelBtn2, #cancelBtn3, .cancelBtn  {
     position: fixed;

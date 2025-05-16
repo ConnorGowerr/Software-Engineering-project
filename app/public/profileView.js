@@ -161,6 +161,37 @@ buttons.forEach(btn => {
 });
 
 
+document.querySelector('.logout').addEventListener('click', e=>{
+    logoutPopup();
+})
+
+function logoutPopup() {
+    const overlay = document.querySelector("#logoutOverlay");
+    const popup = document.querySelector(".logoutPopup");
+    const confirmBtn = document.querySelector("#confirmBtn8");
+
+    overlay.style.display = "block";
+    popup.style.display = "block";
+
+
+    confirmBtn.addEventListener('click', e=>{
+        window.sessionStorage.setItem('username', null);
+        window.sessionStorage.setItem('first', null)
+        window.location.href ='http://localhost:8008'
+
+    })
+  
+
+    const closePopup = () => {
+        overlay.style.display = "none";
+        popup.style.display = "none";
+        confirmBtn.removeEventListener("click", handleConfirm);
+        overlay.removeEventListener("click", handleOutsideClick);
+    };
+
+    overlay.addEventListener("click", closePopup);
+}
+
 window.addEventListener('load', () => {
     const skeleton = document.getElementById('skeleton-screen');
     if (skeleton) {
