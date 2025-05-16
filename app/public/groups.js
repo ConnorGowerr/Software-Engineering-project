@@ -1,3 +1,4 @@
+    
 const popup = document.querySelector(".popupg2")
 const popupoverlay = document.querySelector(".popup-overlay")
 const createpopup = document.querySelector(".popup3")
@@ -70,7 +71,7 @@ function randomiseGroup(d){
             box2.querySelector(".groupText").innerHTML = `${data2.groupname}`;
             box3.querySelector(".groupText").innerHTML = `${data3.groupname}`;
             box4.querySelector(".groupText").innerHTML = `${data4.groupname}`;
-            box5.querySelector(".groupText").innerHTML = `${data5.groupname}⁠`;
+            box5.querySelector(".groupText").innerHTML = `${data5.groupname}`;
 
             document.getElementById("greyContainer" + arr[0]).addEventListener("click", (event) =>{
 
@@ -129,13 +130,13 @@ function randomiseGroup(d){
             document.getElementById("greyContainer" + arr[4]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
-                document.querySelector(".otherTitlesg").innerHTML = `would you like to join ${pubarr[rng[4]].groupname}?`
+                document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[4]].groupname}?`
                 confirmbtn.addEventListener("click", (event) => {
                     confirmbtn.addEventListener("click", (event) => {
 
                     joinPubGroup(pubarr[rng[4]].groupid)
                     setTimeout(() => {
-                        window.location.href= `/group/${encodeURIComponent(pubarr[rng[4]].groupname)}`;
+                        window.location.href=`/group/${encodeURIComponent(pubarr[rng[4]].groupname)}`;
                         }, 2000);
 
                 })
@@ -165,7 +166,7 @@ function randomiseGroup(d){
         })
         .then(response => response.json())
         .then(data => {
-            let num2 = document.getElementById('memberCount${num}');
+            let num2 = document.getElementById(`memberCount${num}`);
             num2.querySelector(".valueText").innerHTML = `${data.count}/50`
 
         })
@@ -210,7 +211,7 @@ function randomiseGroup(d){
                     yourgroups.appendChild(newsection);
                     
                     const listofgroup = [];
-                    listofgroup[i] = document.getElementById(`⁠ useringroup${i} ⁠`);
+                    listofgroup[i] = document.getElementById(`useringroup${i}`);
                     listofgroup[i].addEventListener("click", (event) => {
                         window.location.href=`/group/${encodeURIComponent(data.groups[i].groupname)}`;
                     }
@@ -349,3 +350,4 @@ function showErrorAlert(message) {
         }, 300);
     }, 4000);
 }
+
