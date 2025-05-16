@@ -260,6 +260,8 @@ class ExerciseView {
                     this.activityIntensity.value = 0;
                     this.updateSummaryUI();
 
+                    alert('Your activity has been saved.')
+
         
                 } catch (error) {
                     console.error('Error saving activity:', error);
