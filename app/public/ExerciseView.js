@@ -1,3 +1,4 @@
+
 class ExerciseView {
     #currentCph;
     #currentEx;
@@ -258,6 +259,8 @@ class ExerciseView {
                     this.activityDuration.value = null;
                     this.activityIntensity.value = 0;
                     this.updateSummaryUI();
+
+                    alert('Your activity has been saved.')
 
         
                 } catch (error) {

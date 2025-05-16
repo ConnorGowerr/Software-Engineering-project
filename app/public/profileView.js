@@ -1,4 +1,8 @@
-
+var usernameCheck = window.sessionStorage.getItem("username");
+if (usernameCheck == null) 
+{
+    window.location.href = "http://localhost:8008";
+}
 
 function updateProfileStats(){
 

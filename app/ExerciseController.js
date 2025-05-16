@@ -2,6 +2,7 @@ const dbClient = require('./public/db.js')
 const { randomInt } = require('crypto');
 
 
+
 class ExerciseController {
     constructor() {
     }  
@@ -37,6 +38,7 @@ class ExerciseController {
                 return callback([]);  
             }
     
+
             const queryString = `SELECT * FROM Exercise WHERE LOWER(exercisename) = LOWER($1)`;
 
             dbClient.query(queryString, [query], (err, res) => {
@@ -50,11 +52,10 @@ class ExerciseController {
         });
     }
 
-
     //handles both activity and user activity
     async saveActivity(req, res) {
         const {username, exercisename, activityduration, activityintensity} = req.body;
-        let activityid = randomInt(1000000);
+        let activityid = 0;
         let idCount = 0;
     
         const insertQuery1 = `
@@ -63,12 +64,12 @@ class ExerciseController {
         `;
         const insertQuery2 = `
         INSERT INTO UserActivity (username, activityid, logtime)
-        VALUES ($1, $2, CURRENT_TIMESTAMP)
+        VALUES ($1, $2, (CURRENT_TIMESTAMP + INTERVAL '1 hour'))
         `;
-        const idCountQuery = `SELECT COUNT(*) FROM activity WHERE activityid = $1`;
+        const idCountQuery = `SELECT * FROM activity WHERE activityid = $1`;
 
-        const values1 = [activityid, username, exercisename, activityduration, activityintensity];
-        const values2 = [username, activityid];
+        let values1 = [activityid, username, exercisename, activityduration, activityintensity];
+        let values2 = [username, activityid];
         
             // dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
             //     if (err) {
@@ -116,6 +117,21 @@ class ExerciseController {
             // });
         try {
             await dbClient.query('SET SEARCH_PATH TO "Hellth", public;');
+            
+            do{
+                //Randomise id
+                activityid = randomInt(1000000);
+                //Find number of db entries with that id. If it's > 0, the id is taken.
+                await (idCount = (await dbClient.query(idCountQuery, [activityid])).rowCount);   
+                console.log(idCount)
+                console.log(activityid)   
+            //Loops until an unclaimed id is found
+            }while(idCount > 0);
+            
+            //update the arrays where the id is needed
+            values1[0] = activityid;
+            values2[1] = activityid;
+
             await dbClient.query(insertQuery1, values1);
 
             await dbClient.query(insertQuery2, values2);
