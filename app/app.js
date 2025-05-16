@@ -1214,3 +1214,141 @@ app.put('/update-weight', async (req, res) => {
     user: result.rows[0] 
   });
 });
+
+
+
+
+app.put('/removeChallenge', async (req, res) => {
+  const { username, weight } = req.body;
+  const result = await dbClient.query(
+    'UPDATE "Hellth".users SET weight = $1 WHERE username = $2 RETURNING *',
+    [weight, username]
+  );
+
+  if (result.rowCount === 0) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  res.status(200).json({
+    message: 'Weight updated successfully',
+    user: result.rows[0] 
+  });
+});
+
+app.put('/api/goal/deleteMealGoal', async (req, res) => {
+  const id = req.query.q;
+
+  try {
+    await dbClient.query(
+      'DELETE FROM "Hellth".mealchallenge WHERE goalid = $1',
+      [id]
+    );
+
+    const result = await dbClient.query(
+      'DELETE FROM "Hellth".goal WHERE goalid = $1',
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Goal not found' });
+    }
+
+    res.status(200).json({ message: 'Goal deleted successfully' });
+  } catch (err) {
+    console.error('Deletion error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+app.put('/api/goal/deleteActivityGoal', async (req, res) => {
+  const id = req.query.q;
+
+  try {
+    await dbClient.query(
+      'DELETE FROM "Hellth".exercisechallenge WHERE goalid = $1',
+      [id]
+    );
+
+    const result = await dbClient.query(
+      'DELETE FROM "Hellth".goal WHERE goalid = $1',
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Goal not found' });
+    }
+
+    res.status(200).json({ message: 'Goal deleted successfully' });
+  } catch (err) {
+    console.error('Deletion error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+app.put('/removeMealChallenge', async (req, res) => {
+  const {goalid } = JSON.parse(req.query.q);
+
+  try {
+    await dbClient.query(
+      `DELETE FROM "Hellth".mealchallenge
+       USING "Hellth".goal
+       WHERE mealchallenge.goalid = goal.goalid
+       AND goal.goalid = $1`,
+      [goalid]
+    );
+
+    const result = await dbClient.query(
+      `DELETE FROM "Hellth".goal
+       WHERE goalid = $1 `,
+      [goalid]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Goal not found or already deleted' });
+    }
+
+    res.status(200).json({
+      message: 'Removed activity successfully',
+      user: result.rows[0]
+    });
+  } catch (err) {
+    console.error("Error removing activity:", err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+app.put('/removeActivityChallenge', async (req, res) => {
+  const { username, goalid } = JSON.parse(req.query.q);
+
+  try {
+    await dbClient.query(
+      `DELETE FROM "Hellth".exercisechallenge
+       USING "Hellth".goal
+       WHERE exercisechallenge.goalid = goal.goalid
+       AND goal.goalid = $1`,
+      [goalid]
+    );
+
+    const result = await dbClient.query(
+      `DELETE FROM "Hellth".goal
+       WHERE goalid = $1 `,
+      [goalid]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Goal not found or already deleted' });
+    }
+
+    res.status(200).json({
+      message: 'Removed activity successfully',
+      user: result.rows[0]
+    });
+  } catch (err) {
+    console.error("Error removing activity:", err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
