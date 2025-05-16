@@ -8,13 +8,13 @@ const yourgroupstxt = document.getElementById("yourgrouptxt");
 const createbtn = document.getElementById("createGroupButton");
 const available = false;
 let usercount = 0;
+const joinbtn = document.getElementById("joinGroup");
 
 let username = window.sessionStorage.getItem("username");
 
-
-// console.log(isPublic);
-// console.log(randid);
-
+if(username == null){
+    window.location.href = "http://localhost:8008/";
+}
 
 
 rng = [];
@@ -108,7 +108,6 @@ function randomiseGroup(d){
 
    }
 
-
     function memberCount(groupid, num){
         const groupID = [1, 2, 3, 4, 5];
         
@@ -141,10 +140,11 @@ function randomiseGroup(d){
             return response.json();
         })
         .then(data => {
-            console.table(data.groups);
-            console.table(data.groupcount.count);
+            // console.table(data.groups);
+            // console.table(data.groupcount.count);
+            console.table(data);
             usercount = data.groupcount.count;
-            if(data != null && data.groupcount.count < 6){
+            if(data != null){
                 yourgroupstxt.style.display = "block";
                 for(let i=0; i< data.groups.length; i++){
                     let newsection = document.createElement(`Section`)
@@ -161,18 +161,16 @@ function randomiseGroup(d){
                                 <h2 class="membersText">Members</h2>
                             </div>
                             <div class="textRight">
-                                <h2 class="valueText">47/50</h2>
+                                <h2 class="valueText">${data.memberCount[i]}/50</h2>
                             </div>
                         </div>`
                     yourgroups.appendChild(newsection);
                     
                 }
             }
-            console.table(data);
+            // console.table(data);
         })
     }
-
-
 
 function createGroup(){
     const randid = Math.floor(Math.random() * 10000000000);
@@ -196,10 +194,33 @@ function createGroup(){
     })
     .catch(error => {
         console.error("Error:", error);
+        if(error == "Group id or name already exists"){
+            showAlert()
+        }
+    });
+}
+
+function findGroup(){
+    const groupName = document.getElementById("groupidfinder").value;
+    fetch("http://localhost:8008/groups/:findGroup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            groupid: groupName,
+            username
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.table(data);
+    })
+    .catch(error => {
+        console.error("Error:", error);
         
     });
 }
-    
 
     document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
         createpopup.style.display = "block";
@@ -211,33 +232,55 @@ function createGroup(){
         createpopupoverlay.style.display = "none";
     })
 
-
-
-
 //Running the functions to load groups
 //userGroup - user's groups
 //one - public groups
+// findGroup();
 userGroup();
 one();
 
 createbtn.addEventListener("click", (event) => {
     event.preventDefault();
     const groupn = document.getElementById("creategroupinp").value;
-    if(groupn.length < 21 && groupn.length !== 0 && usercount < 6){
+    if(groupn.length < 21 && groupn.length !== 0 && usercount < 5){
         createGroup();
         createpopup.style.display = "none";
         createpopupoverlay.style.display = "none";
-        
     }else{
-        console.log("Failure");
+        console.log("Failure: group length too high OR user is in too many groups");
     }
 })
+
+joinbtn.addEventListener("click", (event) => {
+    if(usercount < 5){
+        findGroup();
+        showAlert("Group joined successfully!")
+    }else{
+        console.log("Failure: too many groups joined");
+    }
+})
+
 
 
 function showAlert(message) {
     const alertBox = document.getElementById('groupAlert');
     alertBox.textContent = message;
     alertBox.style.display = 'block';
+    alertBox.style.background = 'rgba(52, 202, 52, 0.9)'
+    setTimeout(() => {
+        alertBox.style.animation = "fadeOut 0.7s ease-in-out";
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+            alertBox.style.animation = "fadeIn 0.7s ease-in-out";
+        }, 300);
+    }, 4000);
+}
+
+function showErrorAlert(message) {
+    const alertBox = document.getElementById('groupAlert');
+    alertBox.textContent = message;
+    alertBox.style.display = 'block';
+    alertBox.style.background = 'rgba(202, 10, 10, 0.9)'
     setTimeout(() => {
         alertBox.style.animation = "fadeOut 0.7s ease-in-out";
         setTimeout(() => {
