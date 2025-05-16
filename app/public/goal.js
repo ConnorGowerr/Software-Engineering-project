@@ -112,7 +112,7 @@ function renderGoals(goals) {
           <div class="progressBar" data-label= "${Math.round(progressPercentage)}%" style="width: ${progressPercentage}%"></div>
         </div>
 
-        <button class ="cancelBtn" id = "cancelBtn2">X</button>
+        <button class ="cancelBtn" id = "cancelBtn333">DELETE</button>
       `;
 
       const handleOutsideClick = (event) => {
@@ -129,7 +129,7 @@ function renderGoals(goals) {
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
 
-      const cancelBtn = cloned.querySelector("#cancelBtn2");
+      const cancelBtn = cloned.querySelector("#cancelBtn333");
 
       cancelBtn.addEventListener("click", e => {
           container.removeChild(goalDiv);
@@ -195,7 +195,7 @@ function renderGoals(goals) {
           <div class="progressBar2"  data-label= "${Math.round(progressPercentage)}%" style="width: ${progressPercentage}%"></div>
         </div>
 
-        <button class ="cancelBtn" id = "cancelBtn3">X</button>
+        <button class ="cancelBtn" id = "cancelBtn333">DELETE</button>
       `;
 
       
@@ -215,7 +215,7 @@ function renderGoals(goals) {
       overlay.addEventListener("click", handleOutsideClick);
 
 
-      const cancelBtn = cloned.querySelector("#cancelBtn3");
+      const cancelBtn = cloned.querySelector("#cancelBtn333");
       cancelBtn.addEventListener("click", e => {
           container.removeChild(goalDiv);
           deletactivitygoal(goal.goalid)
@@ -278,7 +278,7 @@ function renderGoals(goals) {
           <div class="progressBar" data-label= "100%"  style="width: 100%"></div>
         </div>
 
-                <button class ="cancelBtn" id = "cancelBtn3">X</button>
+        <button class ="cancelBtn" id = "cancelBtn333">DELETE</button>
 
       `;
 
@@ -296,7 +296,7 @@ function renderGoals(goals) {
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
 
-      const cancelBtn = cloned.querySelector("#cancelBtn3");
+      const cancelBtn = cloned.querySelector("#cancelBtn333");
       cancelBtn.addEventListener("click", e => {
         container2.removeChild(goalDiv);
         deletemealgoal(goal.goalid)
@@ -364,7 +364,7 @@ function renderGoals(goals) {
           <div class="progressBar2" data-label= "100%"  style="width:100%"></div>
         </div>
 
-                <button class ="cancelBtn" id = "cancelBtn3">X</button>
+        <button class ="cancelBtn" id = "cancelBtn333">DELETE</button>
 
       `;
 
@@ -382,7 +382,7 @@ function renderGoals(goals) {
       overlay.classList.remove('hidden');
       overlay.addEventListener("click", handleOutsideClick);
 
-      const cancelBtn = cloned.querySelector("#cancelBtn3");
+      const cancelBtn = cloned.querySelector("#cancelBtn333");
       cancelBtn.addEventListener("click", e => {
         container2.removeChild(goalDiv);
         deletactivitygoal(goal.goalid)
@@ -417,8 +417,7 @@ function showMealPopup() {
     
     const handleConfirm = async (event) => {
 
-      console.log(user)
-      event.preventDefault();
+      // event.preventDefault();
 
        const fullDate = new Date();
         const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate(),0,0,0);
@@ -471,7 +470,6 @@ function showMealPopup() {
 
 
 function showMealPopup() {
-    console.table(user)
     const overlay = document.querySelector("#addAdminMemberOverlay");
     const popup = document.querySelector(".addMeal");
     const title = document.querySelector("#goalTitle");
@@ -485,8 +483,8 @@ function showMealPopup() {
     
     const handleConfirm = async (event) => {
 
-      console.log(user)
-      event.preventDefault();
+      // console.log(user)
+      // event.preventDefault();
 
        const fullDate = new Date();
         const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate(),0,0,0);

@@ -199,6 +199,189 @@ input {
 }
 
 
+/*Chart Stuff*/
+.chart-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+    padding: 1rem;
+    padding-bottom: 0;
+    flex-wrap: wrap;
+  }
+  
+  .graph {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    padding: 1rem;
+    background-color: #2C2C2C;
+    border-radius: 20px;
+    border: 2px solid white;
+  }
+  
+  .graph canvas {
+    width: 100% !important;
+    height: 300px !important; /* or whatever fits your layout */
+  }
+
+  .adjust-targets-section {
+    text-align: center;
+    color: #EFEDE7;
+    font-family: 'Poppins';
+    background-color: #2C2C2C;
+    border-radius: 20px;
+    border: 2px solid #EFEDE7;
+    width: 85%;
+    max-width: 700px;
+    margin: 0 auto auto auto;
+    padding: 2rem;
+    padding-bottom: 400;
+    box-shadow: 0 0 20px rgba(255, 87, 51, 0.15);
+  }
+
+  #adjustBtn{
+    margin: 0 2.5% 0 2.5%;
+  }
+
+  .Empty-Space{
+    margin-top: 5%;
+  }
+
+/*Contact Us Stuff*/
+#feedbackPopupOverlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#feedbackPopup {
+    background-color: #2C2C2C;
+    color: #EFEDE7;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(255, 87, 51, 0.5);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* ===== HELP PAGE STYLE OVERRIDES ===== */
+.helpPageWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #1C1F21;
+  color: #EFEDE7;
+  font-family: 'Poppins';
+}
+
+.helpPageWrapper .contactContainer {
+  background-color: #2C2C2C;
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.helpPageWrapper .thankYouMSG {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.helpPageWrapper .adjustText {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.helpPageWrapper .faqLink {
+  display: block;
+  color: #FF5733;
+  text-decoration: underline;
+  margin-bottom: 1.5rem;
+}
+
+.helpPageWrapper .contact-box {
+  background-color: #3A3F44;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px solid #FF5733;
+  margin-bottom: 1rem;
+}
+
+.helpPageWrapper .header {
+  background-color: #FF5733;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.helpPageWrapper .dropdown {
+  display: none;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.helpPageWrapper .dropdown.active {
+  display: block;
+}
+
+.helpPageWrapper .dropdown li {
+  background-color: #CE6B31;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.helpPageWrapper .dropdown li:hover {
+  background-color: #FF7043;
+}
+
+.helpPageWrapper .queryInput {
+  width: 100%;
+  box-sizing: border-box;
+  height: 150px;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 1rem;
+  background-color: #EFEDE7;
+  color: #000;
+  border: none;
+  resize: none;
+  margin-top: 1rem;
+}
+
+.helpPageWrapper .submitBtn {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  background: linear-gradient(#95180F, #EA7B3A);
+  color: white;
+  font-size: 1.25rem;
+  font-family: 'Oswald';
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.helpPageWrapper .submitBtn:hover {
+  transform: scale(1.05);
+}
+
 
 
 
@@ -658,6 +841,7 @@ input {
 #hellthTitle {
     font-size: clamp(1.6rem, 2.8cqw, 8rem);
     font-weight: bold;
+    margin: 0 auto;
 }
 
 .mainBtn{
@@ -1138,8 +1322,6 @@ label {
     align-items: center;
     justify-content: center;
     font-size: clamp(1rem, 1.1cqw, 4rem);
-
-
 }
 
 
@@ -1730,7 +1912,26 @@ label {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-
+#cancelBtn333  {
+    position: fixed;
+    top: 5%;
+    left: 82%;
+    width: 15%;
+    border-width: 1px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    height: 10%;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    font-size: clamp(0.7rem, 1.1cqw, 2rem);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
 
 #cancelBtn:hover ,#cancelBtn2:hover, #cancelBtn3:hover, .cancelBtn:hover {
     background-color: #232a2e;
@@ -1773,14 +1974,15 @@ label {
 /* #mealsection page  */
 #mealActivityPageSection {
     display: grid;
-    grid-template-rows: repeat(2, 50%); 
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, 45%); 
+    grid-template-columns: repeat(2, 45%); 
     gap:3%;
     justify-content: center;
-    width: 94%;
+    width: 90%;
     align-items: center;
-    height: 90%;
-    margin:2% auto;
+    height: 100%;
+    margin:1% auto;
+    padding-bottom: 10%;
 
 }
 
@@ -2844,6 +3046,7 @@ GROUP PAGE SECTION */
 
 .GoalAddInfo{
     height: 70%;
+    
     width: 60%; 
     position: relative;
     display: flex;
@@ -2851,9 +3054,8 @@ GROUP PAGE SECTION */
     bottom: -5%;
     flex-direction: column;
     justify-content: center; 
-    overflow-y: scroll;
-    overflow-x: hidden;  
-    font-size: clamp(0.8rem, 0.7vw, 1.4rem);
+    /* overflow-x: hidden;   */
+    font-size: clamp(0.5rem, 0.7vw, 1.4rem);
     scrollbar-width: none; 
 }
 
@@ -2893,7 +3095,7 @@ GROUP PAGE SECTION */
    
     border: none;
     transition: transform 0.3s ease, letter-spacing 0.3s ease;
-    font-size: clamp(0.8rem, 1.3vw, 1.4rem);
+    font-size: clamp(0.6rem, 1vw, 1.4rem);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin: 3% 0;
@@ -3282,6 +3484,29 @@ GROUP PAGE SECTION */
  /* mobile phone  view */
  @media (max-width: 700px) { 
 
+
+#cancelBtn333  {
+    position: fixed;
+    top: 11%;
+    left: 80%;
+    width: 10%;
+    border-width: 1px;
+    border-color: #EFEDE7;
+    border-style: solid;
+    height: 10%;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    font-size: clamp(0.7rem, 1.1cqw, 2rem);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+
     #specificGroupSection {
         height: 160vh; 
         /* overflow-y: auto; */
@@ -3294,7 +3519,7 @@ GROUP PAGE SECTION */
     }
 
     #GD1, #GD2, #GD3 {
-        width: 100%;
+        width: 90%;
         height: 80%;
             min-height: 60vh;
 border-radius: 25px;

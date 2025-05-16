@@ -3,7 +3,7 @@
 <title>Hellth</title>
 <link rel="icon" href="images/Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<script src="sessionStoragecheck.js" defer></script>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="groups.css">
@@ -11,6 +11,7 @@
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="groups.js" defer></script>
+<script src="groupsfind.js" defer></script>
 </head>
 
 <body>
@@ -18,9 +19,7 @@
         <a href="#" class="top-left-btn" id="messageBtn">
             <img src="images/envelope-solid.svg" alt="profileIcon">
         </a>
-
         <h1 id="hellthTitle">Groups</h1>
-
         <a href="profile.html" class="top-right-btn">
             <img src="images/user-solid.svg" alt="profileIcon">
         </a>
@@ -32,7 +31,7 @@
             <div class="inputdivs">
                 <h2>Summon your squad and feel the burn together!</h2>
                 <div class="rowInput">
-                    <input class="inputs" type="text" id="username" placeholder="Join via Code">
+                    <input class="inputs" type="text" id="groupidfinder" placeholder="Join via Code">
                     <img src="images/User plus.png" class="iconBoxGroup" id="joinGroup">
                 </div>
             </div>
@@ -42,31 +41,15 @@
             <button class="mainBtn12" id="createGroupBtn">Create group</button>
         </div>
     </section>
-        <h1 class="boldtext" id="yourgrouptxt">- Your Groups -</h2>
+
+    <h1 class="boldtext" id="yourgrouptxt36">- Your Groups (0/5) -</h1>
     <div id="yourgroups">
-        <!-- <section class="groupBoxSection2">
-            <div id="greyContainer2" class = "box2">
-                <div class="inputdivs">
-                    <div class="rowInputLeft">
-                        <img src="images/groupicon.png" class="groupicons">
-                        <h2 class="groupText">Friendly Runners Club</h2>
-                    </div>
-                </div>
-                <div class="textRight">
-                    <h2 class="membersText">Members</h2>
-                </div>
-                <div class="textRight" id="memberCount1">
-                    <h2 class="valueText">47/50</h2>
-                </div>
-            </div>
-        </section> -->
     </div>
     <h1 class="boldtext">- Publicly Available Groups -</h1>
     <div id="linediv">
         <hr id="line">
     </div>
 
-    <!-- sections important yes use -->
 <div id="pubGroups">
     <section class="groupBoxSection3">
         <div id="greyContainer3" class = "box2 greyContainer2">
@@ -171,13 +154,19 @@
                 <div class = "mainPopupContainerg">
                     <h2 class="popup-text90">Choose a group name that is under 20 characters in length.</h2>
                 </div>
-                <input class="inputs20" type="text" placeholder="Your Group Name">
-                <button id="confirmBtn13">Create Group</button>
+                <form>
+                    <input class="inputs20" id="creategroupinp" type="text" placeholder="Your Group Name">
+                    <div class="rowInput">
+                        <input type="checkbox" id="ispublic">
+                        <label for="ispublic" id="publabel">Public</label>
+                    </div>
+                    <button class="confirmBtn13" id="createGroupButton">Create Group</button>    
+                </form>
                 <button id="cancelBtn13">Nevermind</button>
-                
             </div>
         </div>
     </div>
+    <div id="groupAlert"></div>
 <div id="emptyspace">`</div>
 </main>
 <div class="popup-overlay" id="mailboxOverlay">
