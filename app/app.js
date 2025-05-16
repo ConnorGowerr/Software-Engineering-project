@@ -20,8 +20,6 @@ app.use(express.json());
 require('dotenv').config();
 
 const port = 8008;
-const { Client } = require('pg');
-
 const cors = require("cors");
 require("dotenv").config();
 
