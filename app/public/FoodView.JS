@@ -45,6 +45,8 @@ class FoodView {
         });
     }
 
+
+    //add new food ingredient to our database, then add it to the users basket
     ingredientPopup() {
         const Popup = document.querySelector("#ingredientPopup");
         const popupOverlay = document.getElementById("ingredientOverlay");
@@ -54,74 +56,23 @@ class FoodView {
         
         Popup.style.display = "block";
         popupOverlay.style.display = "block";
-
-        // <input type="text" id="foodname" name="foodname">
-        // </div>
-
-        // <div class="form-item">
-        //   <label for="foodtype"><span class="label-text">Food Type:</span></label>
-        //   <select id="foodtype" name="foodtype">
-        //     <option value="">Select</option>
-        //     <option value="veg">Vegetable</option>
-        //     <option value="fruit">Fruit</option>
-        //     <option value="protein">Protein</option>
-        //     <option value="grain">Grain</option>
-        //   </select>
-        // </div>
-
-        // <div class="form-item">
-        //   <label for="calories"><span class="label-text">Calories:</span></label>
-        //   <input type="number" id="calories" name="calories">
-        // </div>
-
-        // <div class="form-item">
-        //   <label for="servingsize"><span class="label-text">Serving Size:</span></label>
-        //   <input type="text" id="servingsize" name="servingsize">
-        // </div>
-
-        // <div class="form-item">
-        //   <label for="protein"><span class="label-text">Protein (g):</span></label>
-        //   <input type="number" id="protein" name="protein">
-        // </div>
-
-        // <div class="form-item">
-        //   <label for="fats"><span class="label-text">Fats (g):</span></label>
-        //   <input type="number" id="fats" name="fats">
-        // </div>
-
-        // <div class="form-item">
-        //   <label for="carbs"><span class="label-text">Carbs (g):</span></label>
-        //   <input type="number" id="carbs" name="carbs">
-        // </div>
-
-        // <div class="form-item">
-        //   <label for="sugar"><span class="label-text">Sugar (g):</span></label>
-        //   <input type="number" id="sugar" name="sugar">
-        // </div>
-
-        // <div class="form-item">
-        //   <label for="fibre"><span class="label-text">Fibre (g):</span></label>
-        //   <input type="number" id="fibre" name="fibre">
-        // </div>
-
+        
 
         foodForm.onsubmit = async (event) => {
+            console.log("Hiu")
             event.preventDefault();
 
-            const name = document.getElementById("foodName");
-            const type = document.getElementById("foodTyoe");
-            const calories = document.getElementById("calories");
-            const fats = document.getElementById("fats");
-            const servingsize = document.getElementById("servingsize");
-            const protein = document.getElementById("protein");
-            const carbs = document.getElementById("carbs");
-            const fibre = document.getElementById("fibre");
-            const sugar = document.getElementById("sugar");
+            const name = document.getElementById("foodname").value;
+            const type = document.getElementById("foodtype").value;
+            const calories = document.getElementById("calories").value;
+            const fats = document.getElementById("fats").value;
+            const servingsize = document.getElementById("servingsize").value;
+            const protein = document.getElementById("protein").value;
+            const carbs = document.getElementById("carbs").value;
+            const fibre = document.getElementById("fibre").value;
+            const sugar = document.getElementById("sugar").value;
 
 
-    
-
-    
             const foodData = {
                 name: name,
                 type: type,
@@ -134,7 +85,7 @@ class FoodView {
                 sugar: sugar
             };
 
-    
+            console.table(JSON.stringify(foodData))
             try {
                 const response = await fetch('/api/foodAdd', {
                     method: 'POST',
@@ -142,16 +93,25 @@ class FoodView {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(foodData)
+                
+
                 });
+
+             
 
     
                 if (!response.ok) throw new Error('Failed to send food to server');
                 const result = await response.json();
                 console.log('Food saved:', result);
+                mealPopup.style.display = "none";
+                popupOverlay.style.display = "none";
+                this.addFoodItemToUI(name)
     
                 
             } catch (error) {
                 console.error('Error Food meal:', error);
+                mealPopup.style.display = "none";
+                popupOverlay.style.display = "none";
             }
 
         };
@@ -297,12 +257,12 @@ class FoodView {
         }
    
         popupMessage.innerHTML = `
-        <div class="popupMessage">
+        
             <div><Strong>Calories</Strong><br>${calorieValue}kcal</div>
             <div><Strong>Protein</Strong><br>${proteinValue}</div>
             <div><Strong>Carbs</Strong><br>${carbsValue}</div>
             <div><Strong>Fats</Strong><br>${fatValue}</div>
-        </div>
+        
         `;
          mealPopup.style.display = "block";
         popupOverlay.style.display = "block";
@@ -318,16 +278,22 @@ class FoodView {
 
             const fullDate = new Date();
 
-            const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate());
+            const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate(),0,0,0);
+
+            const datePlus1Hour = new Date(dateOnly.getTime() + (60 * 60 * 1000) + 1000);
+
+            console.log(dateOnly)
 
             const mealData = {
                 user: window.sessionStorage.getItem("username"),
                 // mealName,
                 mealType,
                 foods: this.allMealFood,
-                date: dateOnly,
+                date: datePlus1Hour,
                 date2: fullDate
             };
+
+            console.table(this.allMealFood)
 
     
             try {
@@ -470,11 +436,11 @@ class FoodView {
     //On cancel close popup
     async createMealPopup(item) {
         console.table(item)
-        // fetch('/mealcontents')
-        // .then(res => res.json())
-        // .then(data => {
-        //     console.log(data);
-        // });
+        fetch('/meal')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        });
        
         const formattedText = `
             <strong>${item.foodname}</strong>

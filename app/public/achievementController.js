@@ -1,3 +1,4 @@
+
 //Functions to make an achievement and then fill progress randonmly( this will be replaced with real data)
 import Achievement from "./achievement.js";
 
@@ -103,26 +104,26 @@ class AchievementController {
                 "calories": {
                     1: "images/Calories1.png",
                     10: "images/Calories2.png",
-                    50: "images/Calories2.png",
-                    100: "images/Calories2.png"
+                    50: "images/Calories3.png",
+                    100: "images/Calories4.png"
                 },
                 "goals": {
                     1: "images/Activity1.png",
                     10: "images/Activity2.png",
                     50: "images/Activity3.png",
-                    100: "images/Activity3.png"
+                    100: "images/Activity4.png"
                 },
                 "activity": {
                     1: "images/Activity1.png",
                     10: "images/Activity2.png",
                     50: "images/Activity3.png",
-                    100: "images/Activity3.png"
+                    100: "images/Activity4.png"
                 },
                 "weight": {
                     1: "images/Unit1.png",
-                    10: "images/Unit1.png",
-                    50: "images/Unit1.png",
-                    100: "images/Unit1.png"
+                    10: "images/Unit2.png",
+                    50: "images/Unit3.png",
+                    100: "images/Unit4.png"
                 }
             };
 

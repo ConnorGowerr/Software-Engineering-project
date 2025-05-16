@@ -11,6 +11,7 @@
     font-size: 38px;
     width: 70%;
     margin-bottom: 8%;
+
 }
 
 .groupBoxSection2
@@ -337,6 +338,7 @@
 .mainBtn12:active{
     background: linear-gradient(#7a130c, 50%, #b95b29);
 }
+
 
 
 #confirmBtn, #confirmBtn12 {

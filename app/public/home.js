@@ -1,3 +1,5 @@
+var username = window.sessionStorage.getItem("username");
+
 const trackB = document.getElementById("trackProgressButton");
 const groupB = document.getElementById("groupsButton");
 const helpB = document.getElementById("helpButton");
@@ -37,7 +39,7 @@ let count = 0;
 var caloriesLogged = 0;
 var calorieTarget = 0;
 var noData = false;
-var username = window.sessionStorage.getItem("username");
+
 
 const maxPercent = caloriesLogged / calorieTarget;
 const styleSheet = document.styleSheets[2];

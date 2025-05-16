@@ -348,3 +348,313 @@ h2, h3, h4
 {
     font-family: 'Poppins';
 }
+
+/* Mobile */
+@media only screen and (max-width: 767px) {
+   
+    #homeSection 
+    {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2%;
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    #dailyCalorieTracker 
+    {
+        margin-bottom: 0;
+        margin-top: 2%;
+    }
+    
+    .homeColumns 
+    {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .homeBox 
+    {
+        width: 75%;
+        margin: 2% auto 5% 55px;
+    }
+    
+    .top-header h1 
+    {
+        font-size: 1.5rem;
+    }
+    
+    #calorieTargetBox 
+    {
+        padding: 2%;
+        margin-right: 0;
+    }
+    
+    #calorieRow 
+    {
+        flex-direction: column;
+        margin: 1em auto;
+    }
+    
+    #progressWrapper 
+    {
+        margin-right: 0;
+        margin-bottom: 2%;
+        transform: scale(0.9);
+    }
+    
+    #calorieRow2 
+    {
+        margin-left: 0;
+        font-size: medium;
+    }
+    
+    #calorieRow2 h3 
+    {
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+    
+    #calorieRow2 h4 
+    {
+        font-size: 1.2rem;
+        margin-top: 0;
+        margin-bottom: 5%;
+    }
+    
+    #activityTargetBox, #groupChallengeBox 
+    {
+        /* max-width: 75%; */
+        width: 75%;
+    }
+    
+    #goalMainSection, #challengeMainSection 
+    {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    #goalSectioning1, #goalSectioning2,
+    #challengeSectioning1, #challengeSectioning2 
+    {
+        margin-left: 0;
+        margin-bottom: 5%;
+        margin-left: 22px;
+    }
+    
+    #goalMainSection h3, #challengeMainSection h3 
+    {
+        font-size: 0.9rem;
+        margin-bottom: 15%;
+    }
+
+
+    #groupChallengeBox, #activityTargetBox 
+    {
+        padding-right: 3.7%;
+    }
+
+    #groupChallengeBox 
+    {
+        margin-bottom: 5%;
+    }
+    
+    #goalMainSection h4, #challengeMainSection h4 
+    {
+        font-size: 1.2rem;
+        margin: 5px 0;
+    }
+    
+    .goalUnit, .challengeUnit 
+    {
+        font-size: 0.9rem;
+    }
+    
+    #goalProgressBar, #groupProgressBar 
+    {
+        width: 90%;
+        height: 2.5vh;
+        margin-left: 17px;
+    }
+    
+    
+    #challengeTitleSectioning 
+    {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    #challengeTitle, #challengeTitleRemaining 
+    {
+        font-size: 1.1rem;
+        margin: 5px 0;
+        text-align: center;
+        margin-left: 20px;
+    }
+    
+    #progressBox, #groupBox, #helpBox 
+    {
+        text-align: center;
+        padding: 20px 10px;
+    }
+    
+    #progressTitleHome, #groupsTitleHome, #helpTitleHome 
+    {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    
+    .welcomeText 
+    {
+        font-size: 1.15rem;
+        margin-bottom: 15px;
+        padding: 0 5px;
+    }
+    
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    #homeSection 
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .homeColumns 
+    {
+        max-width: 80%;
+        width: 80%;
+    }
+    
+    #calorieRow 
+    {
+        flex-direction: row;
+    }
+
+    #calorieTargetBox 
+    {
+        max-width: 100%;
+        width: 19.45%;
+    }
+    
+    #progressWrapper 
+    {
+        margin-right: 5%;
+    }
+    
+    #calorieRow2 
+    {
+        margin-left: 60%;
+    }
+    
+    #activityTargetBox, #groupChallengeBox 
+    {
+        max-width: 100%;
+        width: 99.45%;
+    }
+    
+    #goalMainSection, #challengeMainSection 
+    {
+        flex-direction: row;
+    }
+    
+    #goalSectioning1, #challengeSectioning1 
+    {
+        margin-left: -3%;
+    }
+    
+    
+    /* #goalSectioning2, #challengeSectioning2 
+    {
+        margin-left: -3%;
+    }
+
+    #calorieRow2, #goalSectioning2, #challengeSectioning2 
+    {
+        margin-left: 30%;
+    } */
+
+    #challengeTitle 
+    {
+        margin-bottom: 10%;
+    }
+    
+    #challengeTitleSectioning 
+    {
+        flex-direction: row;
+    }
+
+    #groupChallengeBox 
+    {
+        margin-bottom: 5%;
+    }
+
+}
+
+/* Small Desktop Adjustments */
+@media only screen and (min-width: 1024px) and (max-width: 1366px) {
+    .homeColumns 
+    {
+        max-width: 45%;
+    }
+
+    #goalMainSection, #challengeMainSection, #calorieRow, #calorieRow2
+    {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    
+    /* #calorieTargetBox 
+    {
+        padding-left: 20%;
+        padding-right: 20%;
+        margin-right: 300px;
+    } */
+    
+    #progressWrapper 
+    {
+        margin-right: 8px;
+    }
+    
+    #goalSectioning1, #challengeSectioning1, #goalSectioning2, #challengeSectioning2, #calorieRow2  
+    {
+        margin-left: -3%;
+    }
+
+    #calorieRow2 
+    {
+        margin-top: 20px;
+    }
+
+    #challengeTitle, #challengeTitleRemaining 
+    {
+        text-align: center;
+        margin-bottom: -4%;
+        margin-left: -3%;
+    }
+
+    #challengeTitleRemaining 
+    {
+        margin-bottom: 3%;
+    }
+
+    #challengeTitleSectioning 
+    {
+        flex-direction: column;
+        align-items: center;
+        /* margin-bottom: 10px; */
+    }
+    
+    /* #goalSectioning2, #challengeSectioning2 
+    {
+        margin-left: 6%;
+    } */
+}
+
+
+

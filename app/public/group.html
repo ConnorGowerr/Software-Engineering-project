@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hellth</title>
+  <link rel="icon" href="/images/Logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/groups.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="/SpecificGroup.js" defer></script>
+  <script src="sessionStoragecheck.js" defer></script>
+</head>
+</html>
+
+<body>
+
+    <div id="skeleton-screen">
+        <div class="loader"></div>
+      </div>
+    <header class="top-header">
+        <a href="#" class="top-left-btn" id="messageBtn">
+            <img src="/images/envelope-solid.svg" alt="profileIcon">
+        </a>
+
+        <h1 id="hellthTitle"></h1>
+
+        <a href="/profile.html" class="top-right-btn">
+            <img src="/images/user-solid.svg" alt="profileIcon">
+        </a>
+    </header>
+<main>
+
+
+    
+
+    <section id="specificGroupSection">
+        <div class="groupDiv" id="GD1">
+            <div id="groupContent1">
+                <div class="titleContainer">
+                    <h2 class="GroupDivTitles">Group Info</h2>
+                </div>
+                
+                <div class = "GI1">
+                    <p>ID: <br>  <br></p>
+                    <p>Memebers: <br></p>
+                    <p>Created On:<br> </p>
+                    <p>Created By: <br></p>
+                    <p>Status:<br> </p>
+            
+                </div>
+            </div>
+        </div>
+
+        <div class="groupDiv" id="GD2">
+            <div id="groupContent2">
+               
+                <div class="titleContainer">
+                    <h2 class="GroupDivTitles">Challenges</h2>
+                </div>
+
+            
+                <div class="scrollableContainer2">
+                        
+                   
+                </div>
+            </div>
+        </div>
+        
+       
+        <div class="groupDiv" id="GD3">
+            <div id="groupContent3">
+                
+                <div id="userSection">
+                    <div class="titleContainer2">
+                        <h2 class="GroupDivTitles">Users</h2>
+                    </div>
+                    <div class="scrollableContainer">
+                        
+                   
+                    </div>
+                </div>
+                
+                <div id="adminSection">
+                    <div class="titleContainer2">
+                        <h2 class="GroupDivTitles">Admins</h2>
+                    </div>
+                    <div class="scrollableContainer">
+                       
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    
+    <div class="popup-overlay" id="deleteGroupMemberOverlay">
+        <div class="GroupMemeberDelete">
+            <div class="popup-content">
+                <div class = "groupMemberPopupContainer">
+                    <h2 class = "groupDelTitle" id = "groupDelTitle"></h2>
+                </div>
+                <button class ="confirmBtn" id = "confirmBtn5" >Yes </button>
+                <button class ="cancelBtn" id = "cancelBtn5" >X</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="addAdminMemberOverlay">
+        <div class="addAdmin">
+            <div class="popup-content">
+                <div class = "groupMemberPopupContainer">
+                    <h2 class = "groupDelTitle" id = "groupAdminTitle"></h2>
+                </div>
+                <button class ="confirmBtn" id = "confirmBtn6">Yes</button>
+                <button class ="cancelBtn" id = "cancelBtn6">X</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="addMemberOverlay">
+        <div class="addMember">
+            <div class="popup-content">
+                
+                <div id="inviteBar">
+                   <input type="text" id="search-bar-users" placeholder="Search Usernames">
+                </div>
+                <button class ="confirmBtn" id = "confirmBtn7">Send Invite</button>
+                <button class ="cancelBtn" id = "cancelBtn7">X</button>
+            </div>
+        </div>
+    </div>
+      
+
+
+
+</main>
+<div class="navbar">
+    <a href="/home.html" class="nav-btn">
+        <img src="/images/house-solid.svg" alt="Home">
+        <span class="icon-text">Home</span>
+    </a>
+    
+    <a href="/progress.html" class="nav-btn">
+        <img src="/images/chart-line-solid.svg" alt="Progress">
+        <span class="icon-text">Progress</span>
+    </a>
+
+    <div class="center-btn-container">
+        <a href="/mealActivtiySelect.html" class="center-btn">
+            <img src="/images/plus-solid.svg" alt="Add">
+        </a>
+    </div>
+
+    <a href="/groups.html" class="nav-btn">
+        <img src="/images/user-group-solid.svg" alt="Groups">
+        <span class="icon-text">Groups</span>
+    </a>
+
+    <a href="/contact.html" class="nav-btn">
+        <img src="/images/person-circle-question-solid.svg" alt="Help">
+        <span class="icon-text">Help</span>
+    </a>
+</div>
+        
+
+</body>

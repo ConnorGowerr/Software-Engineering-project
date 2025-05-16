@@ -16,7 +16,6 @@ if(username == null){
     window.location.href = "http://localhost:8008/";
 }
 
-
 rng = [];
 arr = [3, 4, 5, 6, 7]
 pubarr = [];
@@ -50,7 +49,6 @@ function randomiseGroup(d){
         .then(data => {
 
             randomiseGroup(data);
-            
             const box1 = document.getElementById("greyContainer3");
             const box2 = document.getElementById("greyContainer4");
             const box3 = document.getElementById("greyContainer5");
@@ -59,6 +57,7 @@ function randomiseGroup(d){
 
             const data1 = pubarr[rng[0]];
             const data2 = pubarr[rng[1]];
+
             const data3 = pubarr[rng[2]];
             const data4 = pubarr[rng[3]];
             const data5 = pubarr[rng[4]];
@@ -71,9 +70,9 @@ function randomiseGroup(d){
 
             box1.querySelector(".groupText").innerHTML = `${data1.groupname}`;
             box2.querySelector(".groupText").innerHTML = `${data2.groupname}`;
-            box3.querySelector(".groupText").innerHTML = `${data3.groupname}`;
-            box4.querySelector(".groupText").innerHTML = `${data4.groupname}`;
-            box5.querySelector(".groupText").innerHTML = `${data5.groupname}`;
+            // box3.querySelector(".groupText").innerHTML = `${data3.groupname}`;
+            // box4.querySelector(".groupText").innerHTML = `${data4.groupname}`;
+            // box5.querySelector(".groupText").innerHTML = `${data5.groupname}`;
 
             document.getElementById("greyContainer" + arr[0]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
@@ -84,6 +83,7 @@ function randomiseGroup(d){
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
                 document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[1]].groupname}?`
+
             })
             document.getElementById("greyContainer" + arr[2]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
@@ -103,6 +103,7 @@ function randomiseGroup(d){
             document.getElementById("cancelBtn12").addEventListener("click", (event) =>{
                 popup.style.display = "none";
                 popupoverlay.style.display = "none";
+               
             })
         })
         .catch(error => console.error('Error fetching search results:', error));
@@ -208,7 +209,6 @@ function createGroup(){
     });
 }
 
-
     document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
         createpopup.style.display = "block";
         createpopupoverlay.style.display = "block";
@@ -266,3 +266,4 @@ function showErrorAlert(message) {
         }, 300);
     }, 4000);
 }
+
