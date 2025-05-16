@@ -624,6 +624,9 @@
     .popup3{
         width: 70vw;
     }
+        .groupicons{
+        width: 15%;
+    }
     
 }
     @media only screen and (max-width: 767px){
@@ -632,6 +635,7 @@
         flex-direction: column;
         margin-left: 5%;
         width: 90%;
+        
     }
 
     #makeGroup{
@@ -648,6 +652,7 @@
     }
     .greyContainer2{
         width: 100%;
+        max-height: 1%;
     }
     .groupBoxSection3{
         margin-left: 10%;
@@ -695,5 +700,14 @@
         /* padding:10%; */
         width: 60%;
         left: 20%;
+    }
+    .groupicons{
+        width: 20%;
+    }
+    .groupText{
+        width: 100%;
+    }
+    .inputdivs{
+        width: 80%;
     }
 }
