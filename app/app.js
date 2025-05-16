@@ -1136,3 +1136,21 @@ app.put('/removeActivityChallenge', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+app.put('/update-impMet', async (req, res) => {
+  const { username1, impmet } = req.body;
+  console.log(impmet);
+  const result = await dbClient.query(
+    'UPDATE "Hellth".users SET imperialmetric = $1 WHERE username = $2 RETURNING *',
+    [impmet, username1]
+  );
+
+  if (result.rowCount === 0) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  res.status(200).json({
+    message: 'imperialmetric updated successfully',
+    user: result.rows[0] 
+  });
+});

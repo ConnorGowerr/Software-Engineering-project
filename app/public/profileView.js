@@ -1,4 +1,6 @@
-
+let heightMult = 1;
+let weightMult = 1;
+let username1 = "";
 
 function updateProfileStats(){
 
@@ -16,6 +18,9 @@ function updateProfileStats(){
                 const uname = document.querySelectorAll(".otherTitles")[0];
                 uname.innerHTML = `${userData[0].username}`;
 
+                //set variable needed for metImp
+                username1 = userData[0].username;
+
 
 
                 var loginInfo = document.querySelector(".mainArticleStats").children;
@@ -29,6 +34,15 @@ function updateProfileStats(){
 
                 login3.innerHTML = `<p>Last Logged In <br> ${userData[0].lastlogin.split('T')[0]}</p>`;
 
+                if(userData[0].imperialmetric)
+                {
+                    heightMult = 1;
+                    weightMult = 1;
+                }
+                else{
+                    weightMult = 2.205;
+                    heightMult = 1 / 2.54;
+                }
 
                 var stats = document.querySelector(".mainstatsSection").children;
                 let stats1 = stats[0];
@@ -36,7 +50,7 @@ function updateProfileStats(){
                 let stats3 = stats[2];
                 let stats4 = stats[3];
 
-                stats1.innerHTML = `<p>Weight <br> ${userData[0].weight}</p>`;
+                stats1.innerHTML = `<p>Weight <br> ${Math.round(userData[0].weight * weightMult)}</p>`;
 
 
                 const popupOverlay = document.querySelector("#addMemberOverlay");
@@ -103,7 +117,7 @@ function updateProfileStats(){
                     
 
 
-                    stats2.innerHTML = `<p>Height <br> ${userData[0].height}</p>`;
+                    stats2.innerHTML = `<p>Height <br> ${Math.round(userData[0].height * heightMult)}</p>`;
 
                     stats3.innerHTML = `<p>Gender <br> ${userData[0].gender}</p>`;
 
@@ -116,6 +130,29 @@ function updateProfileStats(){
     
 }
 
+function setImpMet(impmet)
+{
+    const impmetHandler = async () => {
+        console.log(username1);
+        try {
+            const response = await fetch('/update-impMet', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username1, impmet })
+            });
+            console.log("b");
+            const result = await response.json();
+            
+        } catch (error) {
+            
+            console.error('Error:', error);
+        }
+    }
+    impmetHandler();
+    updateProfileStats();
+}
 
 function mailboxPopup() {
     const Popup = document.querySelector("#mailboxContainer");
@@ -133,6 +170,15 @@ document.querySelector(".top-left-btn").addEventListener("click", e => {
 });
 
 const buttons = document.querySelectorAll('.metricButton');
+const metButton = document.getElementById('weightMetric');
+const impButton = document.getElementById('imperialMetric');
+
+metButton.addEventListener('click', () => {
+    setImpMet(true);
+});
+impButton.addEventListener('click', () => {
+    setImpMet(false);
+});
 
 buttons.forEach(btn => {
     console.log("h")
