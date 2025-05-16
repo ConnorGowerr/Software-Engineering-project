@@ -1,3 +1,4 @@
+let GroupData = [];
 // let username = window.sessionStorage.getItem("username");
 const joinbtn = document.getElementById("joinGroup");
 // const usercount = 0;
@@ -26,6 +27,7 @@ function findGroup(){
     })
     .then(data => {
         // console.table(data);
+        GroupData = data.groups
     })
     .catch(error => {
         console.error("Error:", error);
@@ -69,3 +71,30 @@ function showErrorAlert(message) {
         }, 300);
     }, 4000);
 }
+
+joinbtn.addEventListener("click", async function (event) {
+  event.preventDefault();
+
+  const groupName = GroupData.groupname
+  const groupMemberCount = ;
+
+  try {
+    const res = await fetch('/joinGroupMail', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        reason: reason.value,
+        feedbackInput: message  
+      })
+    });
+
+    if (res.ok) {
+        console.log("Email sending ok")
+    } else {
+      alert("Failed to send message.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("An error occurred while sending your message.");
+  }
+});
