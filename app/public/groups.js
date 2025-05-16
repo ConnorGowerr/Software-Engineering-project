@@ -6,7 +6,8 @@ const createpopupoverlay = document.querySelector(".popup-overlay2")
 const yourgroups = document.getElementById("yourgroups");
 const yourgroupstxt = document.getElementById("yourgrouptxt");
 const createbtn = document.getElementById("createGroupButton");
-
+const available = false;
+let usercount = 0;
 
 let username = window.sessionStorage.getItem("username");
 
@@ -140,9 +141,12 @@ function randomiseGroup(d){
             return response.json();
         })
         .then(data => {
-            if(data != null){
+            console.table(data.groups);
+            console.table(data.groupcount.count);
+            usercount = data.groupcount.count;
+            if(data != null && data.groupcount.count < 6){
                 yourgroupstxt.style.display = "block";
-                for(let i=0; i< data.length; i++){
+                for(let i=0; i< data.groups.length; i++){
                     let newsection = document.createElement(`Section`)
                     newsection.className = "groupBoxSection3"
                     newsection.innerHTML += `
@@ -150,7 +154,7 @@ function randomiseGroup(d){
                             <div class="inputdivs">
                                 <div class="rowInputLeft">
                                     <img src="images/groupicon.png" class="groupicons">
-                                    <h2 class="groupText">${data[i].groupname}</h2>
+                                    <h2 class="groupText">${data.groups[i].groupname}</h2>
                                 </div>
                             </div>
                             <div class="textRight">
@@ -161,6 +165,7 @@ function randomiseGroup(d){
                             </div>
                         </div>`
                     yourgroups.appendChild(newsection);
+                    
                 }
             }
             console.table(data);
@@ -218,13 +223,13 @@ one();
 createbtn.addEventListener("click", (event) => {
     event.preventDefault();
     const groupn = document.getElementById("creategroupinp").value;
-    if(groupn.length < 21 && groupn.length !== 0){
+    if(groupn.length < 21 && groupn.length !== 0 && usercount < 6){
         createGroup();
         createpopup.style.display = "none";
         createpopupoverlay.style.display = "none";
         
     }else{
-        console.log("kys");
+        console.log("Failure");
     }
 })
 

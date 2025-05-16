@@ -503,14 +503,17 @@ app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
     
 
     const personalGroup = await dbClient.query(`SELECT * FROM groupMembers JOIN userGroups ON groupMembers.groupid = userGroups.groupid WHERE groupMembers.username = $1`, [query]);
-       
+    const userGroupCount = await dbClient.query(`SELECT COUNT(*)FROM groupMembers JOIN userGroups ON groupMembers.groupid = userGroups.groupid WHERE groupMembers.username = $1`, [query]);
     if (personalGroup.rows.length === 0) 
         {
             res.status(404).json({error: "Groups not found"});
         }else{
-            res.status(200).json(personalGroup.rows);
+            res.status(200).json({
+                groups: personalGroup.rows,
+                groupcount: userGroupCount.rows[0]
+            });
         }
-        
+
         // console.table(personalGroup.rows)
    
 })
