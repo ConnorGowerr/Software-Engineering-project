@@ -1376,10 +1376,6 @@ app.put('/update-weight', async (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-
-
-
 app.put('/removeChallenge', async (req, res) => {
   const { username, weight } = req.body;
   const result = await dbClient.query(
@@ -1514,5 +1510,4 @@ app.put('/removeActivityChallenge', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-=======
->>>>>>> 6ba52ed55bb27ff9f492ea02af48dac51c67452d
+
