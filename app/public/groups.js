@@ -1,9 +1,11 @@
-    
 const popup = document.querySelector(".popupg2")
 const popupoverlay = document.querySelector(".popup-overlay")
 const createpopup = document.querySelector(".popup3")
 const createpopupoverlay = document.querySelector(".popup-overlay2")
 const yourgroups = document.getElementById("yourgroups");
+const confirmbtn = document.getElementById("confirmBtn12");
+
+const usersgroups = [];
 
 const createbtn = document.getElementById("createGroupButton");
 const available = false;
@@ -11,10 +13,6 @@ let usercount = 0;
 // const joinbtn = document.getElementById("joinGroup");
 
 // let username = window.sessionStorage.getItem("username");
-
-if(username == null){
-    window.location.href = "http://localhost:8008/";
-}
 
 rng = [];
 arr = [3, 4, 5, 6, 7]
@@ -72,33 +70,76 @@ function randomiseGroup(d){
             box2.querySelector(".groupText").innerHTML = `${data2.groupname}`;
             box3.querySelector(".groupText").innerHTML = `${data3.groupname}`;
             box4.querySelector(".groupText").innerHTML = `${data4.groupname}`;
-            box5.querySelector(".groupText").innerHTML = `${data5.groupname}`;
+            box5.querySelector(".groupText").innerHTML = `${data5.groupname}⁠`;
 
             document.getElementById("greyContainer" + arr[0]).addEventListener("click", (event) =>{
+
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
                 document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[0]].groupname}?`
+                
+                confirmbtn.addEventListener("click", (event) => {
+                    joinPubGroup(pubarr[rng[0]].groupid)
+                    setTimeout(() => {
+                        window.location.href=`/group/${encodeURIComponent(pubarr[rng[0]].groupname)}`;
+                        }, 2000);
+
+
+                    
+                })
             })
             document.getElementById("greyContainer" + arr[1]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
                 document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[1]].groupname}?`
+                confirmbtn.addEventListener("click", (event) => {
 
+                    joinPubGroup(pubarr[rng[1]].groupid);
+                        setTimeout(() => {
+                            window.location.href=`/group/${encodeURIComponent(pubarr[rng[1]].groupname)}`;
+                        },);
+                    }, 2000);
+                    
             })
             document.getElementById("greyContainer" + arr[2]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
                 document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[2]].groupname}?`
+                confirmbtn.addEventListener("click", (event) => {
+                    joinPubGroup(pubarr[rng[2]].groupid)
+                    setTimeout(() => {
+                        window.location.href=`/group/${encodeURIComponent(pubarr[rng[2]].groupname)}`;
+                        }, 2000);
+
+                })
             })
             document.getElementById("greyContainer" + arr[3]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
                 document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[3]].groupname}?`
+                confirmbtn.addEventListener("click", (event) => {
+
+                    joinPubGroup(pubarr[rng[3]].groupid)
+                    setTimeout(() => {
+                        window.location.href=`/group/${encodeURIComponent(pubarr[rng[3]].groupname)}`;
+                        }, 2000);
+
+                })
             })
             document.getElementById("greyContainer" + arr[4]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
                 popupoverlay.style.display = "block";
-                document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[4]].groupname}?`
+                document.querySelector(".otherTitlesg").innerHTML = `would you like to join ${pubarr[rng[4]].groupname}?`
+                confirmbtn.addEventListener("click", (event) => {
+                    confirmbtn.addEventListener("click", (event) => {
+
+                    joinPubGroup(pubarr[rng[4]].groupid)
+                    setTimeout(() => {
+                        window.location.href= `/group/${encodeURIComponent(pubarr[rng[4]].groupname)}`;
+                        }, 2000);
+
+                })
+                })
             })
             document.getElementById("cancelBtn12").addEventListener("click", (event) =>{
                 popup.style.display = "none";
@@ -124,7 +165,7 @@ function randomiseGroup(d){
         })
         .then(response => response.json())
         .then(data => {
-            let num2 = document.getElementById(`memberCount${num}`);
+            let num2 = document.getElementById('memberCount${num}');
             num2.querySelector(".valueText").innerHTML = `${data.count}/50`
 
         })
@@ -152,7 +193,7 @@ function randomiseGroup(d){
                     let newsection = document.createElement(`Section`)
                     newsection.className = "groupBoxSection3"
                     newsection.innerHTML += `
-                        <div class ="greyContainer2 box2">
+                        <div class ="greyContainer2 box2" id="useringroup${i}">
                             <div class="inputdivs">
                                 <div class="rowInputLeft">
                                     <img src="images/groupicon.png" class="groupicons">
@@ -168,8 +209,15 @@ function randomiseGroup(d){
                         </div>`
                     yourgroups.appendChild(newsection);
                     
+                    const listofgroup = [];
+                    listofgroup[i] = document.getElementById(`⁠ useringroup${i} ⁠`);
+                    listofgroup[i].addEventListener("click", (event) => {
+                        window.location.href=`/group/${encodeURIComponent(data.groups[i].groupname)}`;
+                    }
+                    )
+                    
                 }
-
+                
                 yourgroupstxt.textContent = `- Your Groups (${data.groupcount.count}/5) -`
 
                 
@@ -209,6 +257,39 @@ function createGroup(){
     });
 }
 
+console.table(pubarr);
+
+function joinPubGroup(group){
+    const findgroupP = group;
+    console.table[findgroupP];
+    fetch("http://localhost:8008/groups/joinpublic", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            groupid: findgroupP,
+            username: username
+        })
+    })
+    .then(response => {
+        if(response.status == '201'){
+            showAlert("Group joined successfully!")
+            
+        }else{
+            showErrorAlert("Group could not be found")
+        }
+        response.json();
+    })
+    .then(data => {
+        console.table(data);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        
+    });
+}
+
     document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
         createpopup.style.display = "block";
         createpopupoverlay.style.display = "block";
@@ -236,7 +317,9 @@ createbtn.addEventListener("click", (event) => {
 })
 
 
+function enterGroup(){
 
+}
 
 
 function showAlert(message) {
@@ -266,4 +349,3 @@ function showErrorAlert(message) {
         }, 300);
     }, 4000);
 }
-
