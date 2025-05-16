@@ -4,6 +4,7 @@
 <link rel="icon" href="Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type = "module" src="profileView.js" defer></script>
+<script src="sessionStoragecheck.js" defer></script>
 
 <link rel="stylesheet" href="styles.css">
 <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
@@ -17,6 +18,8 @@
     <div id="skeleton-screen">
         <div class="loader"></div>
       </div>
+
+
     <header class="top-header">
         <a href="#" class="top-left-btn" id="messageBtn">
             <img src="images/envelope-solid.svg" alt="profileIcon">
@@ -36,10 +39,11 @@
                 <article class = "mainArticle">
                     <div class = "smallArticleTitleContainer">
                         <h2 class = "otherTitles">Name</h2>
+                        <button class="add-member-btn logoutBtn">Logout</button></p>
                     </div>
                     <div class = mainArticleStats>
                         <p class = "mainArticleStat1">Created on <br></p>
-                        <p class = "mainArticleStat2">Points Earned <br> Total</p>
+                        <p class = "mainArticleStat2">Points Earned <br> 100</p>
                         <p class = "mainArticleStat3">Last Logged In <br></p>
                     </div>
                 </article>
@@ -118,6 +122,17 @@
                     </div>
                     <button class ="confirmBtn" id = "confirmBtn7">Set Weight</button>
                     <button class ="cancelBtn" id = "cancelBtn7">X</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-overlay" id="logoutOverlay">
+            <div class="logout">
+                <div class="popup-content">
+                    
+    
+                    <button class ="confirmBtn" id = "confirmBtn8">Logout</button>
+                    <button class ="cancelBtn" id = "cancelBtn8">X</button>
                 </div>
             </div>
         </div>

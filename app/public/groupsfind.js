@@ -2,7 +2,6 @@
 const joinbtn = document.getElementById("joinGroup");
 // const usercount = 0;
 
-console.log("213r2t4rgethrgfh")
 
 function findGroup(){
     const findgroupID = document.getElementById("groupidfinder").value;
@@ -19,13 +18,15 @@ function findGroup(){
     .then(response => {
         if(response.status == '201'){
             showAlert("Group joined successfully!")
+            
         }else{
             showErrorAlert("Group could not be found")
         }
         response.json();
     })
     .then(data => {
-        // console.table(data);
+        console.table(data);
+        document.getElementById("groupidfinder").value = '';
     })
     .catch(error => {
         console.error("Error:", error);
