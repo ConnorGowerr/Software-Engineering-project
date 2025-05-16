@@ -483,19 +483,7 @@ app.get("/groups/:allgroups", async (req, res) => {
     })
 })
 
-app.post("/groups/:allgroups/:groupid", async (req, res) => {
-    const groupid = req.body.groupid;
-    // console.table(groupid)
-    const queryMembers = await dbClient.query("SELECT COUNT(*) FROM groupMembers WHERE groupMembers.groupID = $1", [groupid]);
-    // console.log(groupid);
-    if (queryMembers.rows.length === 0) 
-        {
-            res.status(404).json({error: "Group not found"});
-        }else{
-            res.status(200).json(queryMembers.rows[0]);
-        }
-        
-})
+
 
 app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
     const query = req.query.q;
@@ -527,6 +515,25 @@ app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
    
 })
 
+app.post("/groups/:join", async (req, res) => {
+    const {username, groupid} = req.body;
+    console.log("groupid");
+
+    try {
+        const findgroup = await dbClient.query(`SELECT * FROM userGroups WHERE groupid = $1`, [groupid]);
+        const adduser = await dbClient.query(`INSERT INTO groupMembers(groupID, username, isAdmin) VALUES ($1, $2, FALSE)`, [groupid, username]);
+
+        res.status(201).json({message: "Joined group successfully",
+            group: findgroup.rows[0],
+            add: adduser.rows[0]
+        });
+        console.table(findgroup);
+        console.table(adduser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+})
 app.post("/groups/:createGroup", async (req, res) => {
     
     const {groupid, username, groupname, ispublic} = req.body;
@@ -534,14 +541,11 @@ app.post("/groups/:createGroup", async (req, res) => {
 
     try {
         const findgroupid = await dbClient.query(`SELECT * FROM userGroups WHERE groupid = $1`, [groupid]);
-        
         const findgroupname = await dbClient.query(`SELECT * FROM userGroups where groupname = $1`, [groupname]);
         const createGroup = `INSERT INTO userGroups(groupID, createdBy, groupName, isPublic, creationDate) VALUES ($1, $2, $3, $4, CURRENT_DATE);`;
         const addToGroup = `INSERT INTO groupMembers(groupID, username, isAdmin) VALUES ($1, $2, TRUE)`;
         const valuesc = [groupid, username, groupname, ispublic];
         const valuesa = [groupid, username];
-        console.table(findgroupname.rows.length);
-        console.table(findgroupid.rows.le);
         // console.log(findgroupname.length);
         if(findgroupid.rows.length == 0 && findgroupname.rows.length == 0){
             const result = await dbClient.query(createGroup, valuesc);
@@ -561,23 +565,16 @@ app.post("/groups/:createGroup", async (req, res) => {
        
 })
 
-app.post("/groups/:findGroup", async (req, res) => {
-    const {groupid, username} = req.body;
-
- try {
-        const findgroup = `SELECT * FROM userGroups WHERE groupid = $1`;
-        const adduser = `INSERT INTO groupMembers(groupID, username, isAdmin) VALUES ($1, $2, FALSE)`;
-        const valuesa = [groupid, username];
-        const valuesf = [groupid];
-        const resultf = await dbClient.query(findgroup, valuesf);
-        const resulta = await dbClient.query(adduser, valuesa);
-        res.status(201).json({message: "Group created successfully",
-            groupid: resultf.rows[0],
-            groupfind: resulta.rows[0]
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "There was an error with the server" });
-    }
+app.post("/groups/:allgroups/:groupid", async (req, res) => {
+    const groupid = req.body.groupid;
+    // console.table(groupid)
+    const queryMembers = await dbClient.query("SELECT COUNT(*) FROM groupMembers WHERE groupMembers.groupID = $1", [groupid]);
+    // console.log(groupid);
+    if (queryMembers.rows.length === 0) 
+        {
+            res.status(404).json({error: "Group not found"});
+        }else{
+            res.status(200).json(queryMembers.rows[0]);
+        }
+        
 })
-

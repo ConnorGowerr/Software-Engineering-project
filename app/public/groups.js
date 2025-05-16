@@ -8,7 +8,7 @@ const yourgroupstxt = document.getElementById("yourgrouptxt");
 const createbtn = document.getElementById("createGroupButton");
 const available = false;
 let usercount = 0;
-const joinbtn = document.getElementById("joinGroup");
+// const joinbtn = document.getElementById("joinGroup");
 
 let username = window.sessionStorage.getItem("username");
 
@@ -126,7 +126,6 @@ function randomiseGroup(d){
             num2.querySelector(".valueText").innerHTML = `${data.count}/50`
 
         })
-        
     }
 
     function userGroup(){
@@ -165,10 +164,8 @@ function randomiseGroup(d){
                             </div>
                         </div>`
                     yourgroups.appendChild(newsection);
-                    
                 }
             }
-            // console.table(data);
         })
     }
 
@@ -188,39 +185,49 @@ function createGroup(){
             ispublic: isPublic
         })
     })
-    .then(response => response.json())
+    .then(response => {
+    if(response.status == '201'){
+       showAlert("Group has been created successfully"); 
+    }else{
+        showErrorAlert("Group Name already exists, try another");
+    }
+        response.json()})
     .then(data => {
-        showAlert("Group created successfully");
+        console.log("it work yippee")
     })
     .catch(error => {
         console.error("Error:", error);
-        if(error == "Group id or name already exists"){
-            showAlert()
-        }
     });
 }
 
-function findGroup(){
-    const groupName = document.getElementById("groupidfinder").value;
-    fetch("http://localhost:8008/groups/:findGroup", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            groupid: groupName,
-            username
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.table(data);
-    })
-    .catch(error => {
-        console.error("Error:", error);
+// function findGroup(){
+//     const findgroupID = document.getElementById("groupidfinder").value;
+//     fetch("http://localhost:8008/groups/:join", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify({
+//             groupid: findgroupID,
+//             username: username
+//         })
+//     })
+//     .then(response => {
+//         if(response.status == '201'){
+//             showAlert("Group joined successfully!")
+//         }else{
+//             showErrorAlert("Group could not be found")
+//         }
+//         response.json();
+//     })
+//     .then(data => {
+//         console.table(data);
+//     })
+//     .catch(error => {
+//         console.error("Error:", error);
         
-    });
-}
+//     });
+// }
 
     document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
         createpopup.style.display = "block";
@@ -251,14 +258,13 @@ createbtn.addEventListener("click", (event) => {
     }
 })
 
-joinbtn.addEventListener("click", (event) => {
-    if(usercount < 5){
-        findGroup();
-        showAlert("Group joined successfully!")
-    }else{
-        console.log("Failure: too many groups joined");
-    }
-})
+// joinbtn.addEventListener("click", (event) => {
+//     if(usercount < 5){
+//         findGroup();
+//     }else{
+//         console.log("Failure: too many groups joined");
+//     }
+// })
 
 
 
