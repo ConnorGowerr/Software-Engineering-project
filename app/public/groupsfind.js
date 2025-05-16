@@ -6,7 +6,7 @@ console.log("213r2t4rgethrgfh")
 
 function findGroup(){
     const findgroupID = document.getElementById("groupidfinder").value;
-    fetch("http://localhost:8008/groups/:join", {
+    fetch("http://localhost:8008/groups/join", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -25,7 +25,7 @@ function findGroup(){
         response.json();
     })
     .then(data => {
-        console.table(data);
+        // console.table(data);
     })
     .catch(error => {
         console.error("Error:", error);

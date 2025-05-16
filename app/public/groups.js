@@ -4,7 +4,7 @@ const popupoverlay = document.querySelector(".popup-overlay")
 const createpopup = document.querySelector(".popup3")
 const createpopupoverlay = document.querySelector(".popup-overlay2")
 const yourgroups = document.getElementById("yourgroups");
-const yourgroupstxt = document.getElementById("yourgrouptxt");
+
 const createbtn = document.getElementById("createGroupButton");
 const available = false;
 let usercount = 0;
@@ -50,6 +50,7 @@ function randomiseGroup(d){
         .then(data => {
 
             randomiseGroup(data);
+            
             const box1 = document.getElementById("greyContainer3");
             const box2 = document.getElementById("greyContainer4");
             const box3 = document.getElementById("greyContainer5");
@@ -144,6 +145,7 @@ function randomiseGroup(d){
             console.table(data);
             usercount = data.groupcount.count;
             if(data != null){
+                const yourgroupstxt = document.getElementById("yourgrouptxt36");
                 yourgroupstxt.style.display = "block";
                 for(let i=0; i< data.groups.length; i++){
                     let newsection = document.createElement(`Section`)
@@ -164,7 +166,13 @@ function randomiseGroup(d){
                             </div>
                         </div>`
                     yourgroups.appendChild(newsection);
+                    
                 }
+
+                yourgroupstxt.textContent = `- Your Groups (${data.groupcount.count}/5) -`
+
+                
+                
             }
         })
     }
@@ -173,7 +181,7 @@ function createGroup(){
     const randid = Math.floor(Math.random() * 10000000000);
     const groupName = document.getElementById("creategroupinp").value;
     const isPublic = document.getElementById('ispublic').checked;
-    fetch("http://localhost:8008/groups/:createGroup", {
+    fetch("http://localhost:8008/groups/createGroup", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -200,34 +208,6 @@ function createGroup(){
     });
 }
 
-// function findGroup(){
-//     const findgroupID = document.getElementById("groupidfinder").value;
-//     fetch("http://localhost:8008/groups/:join", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             groupid: findgroupID,
-//             username: username
-//         })
-//     })
-//     .then(response => {
-//         if(response.status == '201'){
-//             showAlert("Group joined successfully!")
-//         }else{
-//             showErrorAlert("Group could not be found")
-//         }
-//         response.json();
-//     })
-//     .then(data => {
-//         console.table(data);
-//     })
-//     .catch(error => {
-//         console.error("Error:", error);
-        
-//     });
-// }
 
     document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
         createpopup.style.display = "block";
@@ -239,10 +219,7 @@ function createGroup(){
         createpopupoverlay.style.display = "none";
     })
 
-//Running the functions to load groups
-//userGroup - user's groups
-//one - public groups
-// findGroup();
+
 userGroup();
 one();
 
@@ -258,13 +235,7 @@ createbtn.addEventListener("click", (event) => {
     }
 })
 
-// joinbtn.addEventListener("click", (event) => {
-//     if(usercount < 5){
-//         findGroup();
-//     }else{
-//         console.log("Failure: too many groups joined");
-//     }
-// })
+
 
 
 

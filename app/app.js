@@ -515,7 +515,7 @@ app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
    
 })
 
-app.post("/groups/:join", async (req, res) => {
+app.post("/groups/join", async (req, res) => {
     const {username, groupid} = req.body;
     console.log("groupid");
 
@@ -534,7 +534,7 @@ app.post("/groups/:join", async (req, res) => {
         res.status(500).json({ error: "There was an error with the server" });
     }
 })
-app.post("/groups/:createGroup", async (req, res) => {
+app.post("/groups/createGroup", async (req, res) => {
     
     const {groupid, username, groupname, ispublic} = req.body;
     // console.table(req.body);
