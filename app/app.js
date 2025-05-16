@@ -568,8 +568,8 @@ app.get("/api/groupMembers/:id", (req, res) => {
 
 
 app.post("/home.html", async (req, res) => {
-    const { username } = req.body;
-    console.log(username)
+    const { username, first } = req.body;
+    console.log(username + " " + first);
 
     try {
 
@@ -581,6 +581,8 @@ app.post("/home.html", async (req, res) => {
         var challengeTargetTitle = "N/A";
         var challengeTitle = "You have no active challenges";
         var challengeEnd = "N/A";
+        var expiredMealGoal = "N/A";
+        var expiredExerciseGoal = "N/A";
 
         const failedExerciseGoals = await dbClient.query(`
             SELECT * 
@@ -600,9 +602,20 @@ app.post("/home.html", async (req, res) => {
             mealGoal.username = $1 AND
             enddate BETWEEN (CURRENT_DATE - INTERVAL '3 days') AND (CURRENT_DATE - INTERVAL '1 days');`, [username]);
 
-            if (failedExerciseGoals.rows.length != 0 || failedMealGoals.rows.length != 0) 
+            console.log(failedExerciseGoals.rows.length);
+            console.log("First value:", first, "Type:", typeof first);
+            if ((failedExerciseGoals.rows.length != 0 || failedMealGoals.rows.length != 0) && first == "true") 
             {
-                window.sessionStorage.setItem("expiredGoals", true);
+                console.log("bwhfgwifiuwgfiuweghfuigwufgwfuig")
+                if (failedExerciseGoals.rows.length != 0) 
+                {
+                    expiredExerciseGoal = failedExerciseGoals.rows;
+                }
+                if (failedMealGoals.rows.length != 0) 
+                {
+                    expiredMealGoal = failedMealGoals.rows;
+                }
+                
             }
 
         const dailyCalorie = await dbClient.query(`
@@ -730,7 +743,9 @@ app.post("/home.html", async (req, res) => {
                 challengeC: challengeCurrent,
                 challengeTargetT: challengeTargetTitle,
                 challengeT: challengeTitle,
-                challengeE: challengeEnd
+                challengeE: challengeEnd,
+                expiredExerciseGoal,
+                expiredMealGoal
             });
         } else if (weeklyGoals.rows[0].currentweight != null) {
             return res.status(200).json({
@@ -746,7 +761,9 @@ app.post("/home.html", async (req, res) => {
                 challengeC: challengeCurrent,
                 challengeTargetT: challengeTargetTitle,
                 challengeT: challengeTitle,
-                challengeE: challengeEnd
+                challengeE: challengeEnd,
+                expiredExerciseGoal,
+                expiredMealGoal
             });
         } else if (weeklyCompletedGoals.rows[0].currentweight != null) {
             return res.status(200).json({
@@ -761,7 +778,9 @@ app.post("/home.html", async (req, res) => {
                 challengeC: challengeCurrent,
                 challengeTargetT: challengeTargetTitle,
                 challengeT: challengeTitle,
-                challengeE: challengeEnd
+                challengeE: challengeEnd,
+                expiredExerciseGoal,
+                expiredMealGoal
             });
         } else {
             return res.status(401).json({

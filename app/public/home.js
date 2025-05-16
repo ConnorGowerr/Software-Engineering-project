@@ -1,4 +1,11 @@
 var username = window.sessionStorage.getItem("username");
+if (window.sessionStorage.getItem("first") == null) 
+{
+    window.sessionStorage.setItem("first", true);
+} else 
+{
+    window.sessionStorage.setItem("first", false);
+}
 
 const trackB = document.getElementById("trackProgressButton");
 const groupB = document.getElementById("groupsButton");
@@ -44,6 +51,16 @@ var noData = false;
 const maxPercent = caloriesLogged / calorieTarget;
 const styleSheet = document.styleSheets[2];
 
+const popup = document.querySelector(".popupGoals")
+const popupOverlay = document.querySelector(".popup-overlay2")
+const expireButton = document.getElementById("expiredCloseButton");
+expireButton.addEventListener("click", function() 
+{
+    popup.style.display = "none";
+    popupOverlay.style.display = "none";
+    window.sessionStorage.setItem("first", false);
+});
+
 fetch("http://localhost:8008/home.html", {
     method: "POST",
     headers: {
@@ -51,7 +68,8 @@ fetch("http://localhost:8008/home.html", {
     },
 
     body: JSON.stringify({
-        username
+        username,
+        first: window.sessionStorage.getItem("first")
     })
 })
 .then(response => 
@@ -64,6 +82,48 @@ fetch("http://localhost:8008/home.html", {
 })
 .then(data => 
 {
+    console.log(data.expiredExerciseGoal);
+    console.log(data.expiredMealGoal);
+    if (data.expiredExerciseGoal != "N/A" || data.expiredMealGoal != "N/A") 
+    {
+        popup.style.display = "block";
+        popupOverlay.style.display = "block";
+        if (data.expiredExerciseGoal != "N/A") 
+        {
+            for (i = 0; i < data.expiredExerciseGoal.length; i++) 
+            {
+                const expiredGoalDiv = document.getElementById("expiredGoals");
+                const expiredG = document.createElement("div");
+                const expiredGName = document.createElement("h3");
+                const expiredGDate = document.createElement("h3");
+                expiredGName.innerHTML = data.expiredExerciseGoal[i].goalname;
+                expiredGDate.innerHTML = data.expiredExerciseGoal[i].enddate.split("T")[0];
+                expiredG.classList.add("expiredGoal2");
+                expiredGoalDiv.appendChild(expiredG);
+                expiredG.appendChild(expiredGName);
+                expiredG.appendChild(expiredGDate);
+            }
+            
+        }
+
+        if (data.expiredMealGoal != "N/A") 
+        {
+            for (i = 0; i < data.expiredMealGoal.length; i++) 
+            {
+                const expiredGoalDiv = document.getElementById("expiredGoals");
+                const expiredG = document.createElement("div");
+                const expiredGName = document.createElement("h3");
+                const expiredGDate = document.createElement("h3");
+                expiredGName.innerHTML = data.expiredMealGoal[i].goalname;
+                expiredGDate.innerHTML = data.expiredMealGoal[i].enddate.split("T")[0];
+                expiredG.classList.add("expiredGoal2");
+                expiredGoalDiv.appendChild(expiredG);
+                expiredG.appendChild(expiredGName);
+                expiredG.appendChild(expiredGDate);
+            }
+            
+        }
+    }
     calorieTarget = data.dailyTarget;
     if (!noData) 
     {
