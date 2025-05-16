@@ -169,6 +169,24 @@ document.querySelector(".top-left-btn").addEventListener("click", e => {
     mailboxPopup();
 });
 
+document.querySelector('.logoutBtn').addEventListener('click', (e) => {
+    const overlay = document.querySelector("#logoutOverlay");
+    const popup = document.querySelector(".logout");
+    const confirmBtn = document.querySelector("#confirmBtn8");
+
+
+    overlay.style.display = "block";
+    popup.style.display = "block";
+
+    confirmBtn.addEventListener('click', e =>{
+        window.sessionStorage.setItem("username", null);
+        window.sessionStorage.setItem("first", null);
+        window.location.href = "http://localhost:8008";
+
+    })
+
+})
+
 const buttons = document.querySelectorAll('.metricButton');
 const metButton = document.getElementById('weightMetric');
 const impButton = document.getElementById('imperialMetric');
