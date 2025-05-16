@@ -72,10 +72,6 @@ function showErrorAlert(message) {
 
 joinbtn.addEventListener("click", async function (event) {
   event.preventDefault();
-
-  const groupName = GroupData.groupname
-  const groupMemberCount = ;
-
   try {
     const res = await fetch('/joinGroupMail', {
       method: 'POST',
