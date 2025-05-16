@@ -168,28 +168,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/achievements', (req, res) => {
-    if (!dbClient) {
-        return res.status(500).json({ error: 'Database client not initialized' });
-    }
-
-    dbClient.query('SET SEARCH_PATH TO "Hellth", public;', (err) => {
-        if (err) {
-            console.error("Error setting search path:", err);
-            return res.status(500).json({ error: "Failed to set database search path" });
-        }
-
-        const queryString = 'SELECT * FROM achievements';
-        dbClient.query(queryString, (err, result) => {
-            if (err) {
-                console.error("Error fetching achievements:", err);
-                return res.status(500).json({ error: "Failed to fetch achievements" });
-            }
-            res.status(200).json(result.rows);
-        });
-    });
-});
-
 
 
 app.get('/meal', (req, res) => {
@@ -544,6 +522,81 @@ app.post('/api/goal/AddActivityGoal', async (req, res) => {
         res.status(500).json({ error: "There was an error with the server" });
     }
 });
+
+
+
+app.post('/api/group/AddMealChallenge', async (req, res) => {
+    const goalid = Math.floor(Math.random() * 10000);
+    const points = Math.floor(Math.random() * 100);
+    const isgoalmet = false;
+    const { goalname, groupid, startdate, enddate, target } = req.body;
+
+    try {
+        
+        const createGoal = `
+            INSERT INTO "Hellth".goal (goalid, goalname, startdate, enddate, isgoalmet, points)
+            VALUES ($1, $2, $3, $4, $5, $6)
+        `;
+        const goalValues = [goalid, goalname, startdate, enddate, isgoalmet, points];
+        await dbClient.query(createGoal, goalValues);
+
+        
+        const createMealGoal = `
+            INSERT INTO "Hellth".mealchallenge (goalid, groupid, calorietarget, currentcalories)
+            VALUES ($1, $2, $3, $4)
+        `;
+        const mealValues = [goalid, groupid, target, 0];
+        await dbClient.query(createMealGoal, mealValues);
+
+        res.status(201).json({
+            message: "Meal goal created successfully",
+            goalid: goalid
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+});
+
+
+app.post('/api/group/AddActivityChallenge', async (req, res) => {
+    const goalid = Math.floor(Math.random() * 10000);
+    const points = Math.floor(Math.random() * 100);
+    const weeklyactivity = 0
+    const caloriesburnt = 0
+    const isgoalmet = false;
+    const { goalname, groupid, startdate, enddate, target } = req.body;
+
+    try {
+        
+        const createGoal = `
+            INSERT INTO "Hellth".goal (goalid, goalname, startdate, enddate, isgoalmet, points)
+            VALUES ($1, $2, $3, $4, $5, $6)
+        `;
+        const goalValues = [goalid, goalname, startdate, enddate, isgoalmet, points];
+        await dbClient.query(createGoal, goalValues);
+
+        
+        const createMealGoal = `
+            INSERT INTO "Hellth".exercisechallenge (goalid, groupid, targetcaloriesburnt, caloriesburnt)
+            VALUES ($1, $2, $3, $4)
+        `;
+        const mealValues = [goalid, groupid, target, 0];
+        await dbClient.query(createMealGoal, mealValues);
+
+        res.status(201).json({
+            message: "Meal goal created successfully",
+            goalid: goalid
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+});
+
+
+
+
 app.get("/api/groupMembers/:id", (req, res) => {
     const groupId = req.params.id;
 
@@ -954,6 +1007,26 @@ app.get('/activitychallenges', async (req, res) => {
 });
 
 
+app.get("/achievements", async (req, res) => {
+    const query = req.query.q;
+    console.log(query);
+    
+
+    const ac = await dbClient.query(`
+        SELECT * 
+        FROM baseachievement b
+        
+        WHERE b.username = $1
+        `, [query]);
+
+    if (ac.rows.length === 0) 
+        {
+            res.status(404).json({error: "achs not found"});
+        }
+        res.status(200).json(ac.rows);
+   
+})
+
 app.post('/api/goals', async (req, res) => {
   const { username } = req.body;
   
@@ -976,7 +1049,7 @@ app.post('/api/goals', async (req, res) => {
           g.goalid,
           g.*, 
           eg.*, 
-          NULL AS extra_column,  -- Placeholder for the extra column in mealgoal
+          NULL AS extra_column,  
           'exercise' AS goaltag
       FROM "Hellth".goal g
       JOIN "Hellth".exercisegoal eg ON g.goalid = eg.goalid
@@ -1018,3 +1091,143 @@ app.put('/update-weight', async (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+
+
+
+app.put('/removeChallenge', async (req, res) => {
+  const { username, weight } = req.body;
+  const result = await dbClient.query(
+    'UPDATE "Hellth".users SET weight = $1 WHERE username = $2 RETURNING *',
+    [weight, username]
+  );
+
+  if (result.rowCount === 0) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  res.status(200).json({
+    message: 'Weight updated successfully',
+    user: result.rows[0] 
+  });
+});
+
+app.put('/api/goal/deleteMealGoal', async (req, res) => {
+  const id = req.query.q;
+
+  try {
+    await dbClient.query(
+      'DELETE FROM "Hellth".mealchallenge WHERE goalid = $1',
+      [id]
+    );
+
+    const result = await dbClient.query(
+      'DELETE FROM "Hellth".goal WHERE goalid = $1',
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Goal not found' });
+    }
+
+    res.status(200).json({ message: 'Goal deleted successfully' });
+  } catch (err) {
+    console.error('Deletion error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+app.put('/api/goal/deleteActivityGoal', async (req, res) => {
+  const id = req.query.q;
+
+  try {
+    await dbClient.query(
+      'DELETE FROM "Hellth".exercisechallenge WHERE goalid = $1',
+      [id]
+    );
+
+    const result = await dbClient.query(
+      'DELETE FROM "Hellth".goal WHERE goalid = $1',
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Goal not found' });
+    }
+
+    res.status(200).json({ message: 'Goal deleted successfully' });
+  } catch (err) {
+    console.error('Deletion error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+app.put('/removeMealChallenge', async (req, res) => {
+  const {goalid } = JSON.parse(req.query.q);
+
+  try {
+    await dbClient.query(
+      `DELETE FROM "Hellth".mealchallenge
+       USING "Hellth".goal
+       WHERE mealchallenge.goalid = goal.goalid
+       AND goal.goalid = $1`,
+      [goalid]
+    );
+
+    const result = await dbClient.query(
+      `DELETE FROM "Hellth".goal
+       WHERE goalid = $1 `,
+      [goalid]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Goal not found or already deleted' });
+    }
+
+    res.status(200).json({
+      message: 'Removed activity successfully',
+      user: result.rows[0]
+    });
+  } catch (err) {
+    console.error("Error removing activity:", err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+app.put('/removeActivityChallenge', async (req, res) => {
+  const { username, goalid } = JSON.parse(req.query.q);
+
+  try {
+    await dbClient.query(
+      `DELETE FROM "Hellth".exercisechallenge
+       USING "Hellth".goal
+       WHERE exercisechallenge.goalid = goal.goalid
+       AND goal.goalid = $1`,
+      [goalid]
+    );
+
+    const result = await dbClient.query(
+      `DELETE FROM "Hellth".goal
+       WHERE goalid = $1 `,
+      [goalid]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Goal not found or already deleted' });
+    }
+
+    res.status(200).json({
+      message: 'Removed activity successfully',
+      user: result.rows[0]
+    });
+  } catch (err) {
+    console.error("Error removing activity:", err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+=======
+>>>>>>> 6ba52ed55bb27ff9f492ea02af48dac51c67452d
