@@ -842,10 +842,9 @@ input {
 
 .nutrientSection {
     width: 100%;
-    overflow: auto; 
-    height: 86%;
-    padding-top: 14%;
-    padding-bottom: 14%;
+    height: 92%;
+    padding-top: 8%;
+    padding-bottom: 8%;
 
     display: flex;
     flex-direction: column;
@@ -857,18 +856,18 @@ input {
 }
 
 .calorieTitle {
-    font-size: clamp(1rem, 1.8cqw, 2.3rem);
+    font-size: clamp(1rem, 1.4cqw, 2.3rem);
     text-align: center;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .itemTotalTitle {
-    font-size: clamp(1rem, 1.8cqw, 2.3rem);
+    font-size: clamp(1rem, 1.4cqw, 2.3rem);
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .protein, .fiber, .carbs, .fat, .sugar {
-    font-size: clamp(1rem, 1.8cqw, 2.3rem);
+    font-size: clamp(1rem, 1.4cqw, 2.3rem);
     text-align: center;
     margin:5%;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
@@ -1148,7 +1147,6 @@ label {
 
 .mainBtn:hover{
     background: linear-gradient(#be1f13, 50%, #ee7736);
-    cursor: pointer;
 }
 
 .mainBtn:active{
@@ -1244,11 +1242,13 @@ label {
     transform: translate(-50%, -50%);
     background-color: #383F42;
     padding-bottom: 2%;
-    box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
+    box-shadow: 0px 0px 10px white;
     text-align: center;
-    border-radius: 30px 60px;
+    /* border-radius: 30px 60px; */
     width: 30%;
     height: 25%;
+    min-width:250px;
+    min-height: 150px;
     color: white;
     color: white;
     display: flex;
@@ -1256,6 +1256,207 @@ label {
     align-items: center;
     justify-content: center;
     font-size: clamp(1rem, 1.1cqw, 4rem);
+}
+
+.addMeal, .addActivity{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #383F42;
+    padding-bottom: 2%;
+    box-shadow: 0px 0px 10px rgba(255, 145, 0, 0.993);
+    text-align: center;
+    border-radius: 30px 60px;
+    width: 50%;
+    height: 50%;
+    min-width: 300px;
+    min-height: 380px;
+    max-width: 800px;
+    max-height: 600px;
+    color: white;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(0.7rem, 1.1cqw, 2rem);
+}
+
+.goalPopupContainer{
+    position: relative;
+    font-size: clamp(1rem, 1.3cqw, 1.8rem);
+
+    /* top:-5%; */
+   
+}
+
+#goalForm, #goalForm2 {
+    background-color: #474f53;
+    padding: 5%;
+    border-radius: 15px;
+    width: 80%;
+    height: 100%;
+    top:-3%;
+    margin: 0 auto;
+    display: flex;
+    position:relative;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    gap: 15%;
+    font-family: 'Poppins', sans-serif;
+    color: #EFEDE7;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+#goalForm input[type="text"],
+#goalForm input[type="date"],
+#goalForm2 input[type="text"],
+#goalForm2 input[type="date"] {
+    padding: 1% 1%;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: clamp(1rem, 1.1cqw, 4rem);
+    background-color: #EFEDE7;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
+
+#goalForm label,#goalForm2 label {
+    font-size: clamp(1rem, 1.1cqw, 4rem);
+    margin-bottom: -2%;
+    color: #ccc;
+}
+
+.goalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.goalOverlay .goalItem {
+    display: flex;
+    position: relative;
+    width: 60vh !important;
+    height: 35vh !important;
+    min-height: 300px;
+    min-width: 600px;
+    border: solid 2px white;
+    padding: 2.5%;
+    background-color: #474f53;
+    border-radius: 0px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    font-size: clamp(1.5rem, 2vw,);
+    transform: scale(1.05);
+}
+
+.goalOverlay .goalItem .h2{
+     font-size: clamp(0.7rem, 1.9vw, 2rem);
+}
+.goalOverlay .goalItem  .goalItemTextSection {
+    margin-bottom: 5%;
+    font-size: clamp(0.7rem, 1.2vw, 2rem);
+
+}
+
+
+
+
+.goalOverlay .goalItem .goalTitleContainer{
+
+    font-size: clamp(1.2rem, 1.5cqw, 3rem);
+ 
+}
+
+
+.goalOverlay .goalItem  .goalItemTextSection2 {
+     margin-bottom: 5%;
+
+    font-size: clamp(0.7rem, 1.2vw, 2rem);
+
+
+}
+
+
+.goalOverlay.hidden {
+    display: none;
+}
+
+.progressBarContainer {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  height: 5%;
+  width: 50%;
+  transform: translateX(-50%);
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  /* margin-top: 10px; */
+}
+
+
+.progressBar2 {
+
+  width: 0%; 
+  height: 100%;
+  background: linear-gradient(to right, #0059B8, #5CABFF); 
+  box-shadow: 0 0 10px #0059B8, 0 0 15px #5CABFF;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+    position: relative;
+
+}
+
+
+.progressBar {
+   width: 0%; 
+  height: 100%;
+  background: linear-gradient(to right, #FF8C00, #FFD700); 
+    box-shadow: 0 0 10px rgba(255, 195, 0, 0.7), 0 0 15px rgba(255, 87, 51, 0.5);
+  border-radius: 5px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+
+
+
+.progressBar::after, 
+.progressBar2::after {
+  content: attr(data-label);
+  position: absolute;
+  top: -200%;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 4px 8px;             
+  border-radius: 5px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+  pointer-events: none;
+
+  width: auto;                
+  height: auto;               
+  max-width: 100%;              
+}
+
+
+.progressBar:hover::after,.progressBar2:hover::after {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 
@@ -1569,7 +1770,17 @@ label {
     padding: 1.5% 4%;
     border-radius: 10px;
     margin: 0 auto;
+   
     transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+#confirmBtn55, #confirmBtn56 {
+  position: relative;
+  /* bottom:-15%; */
+  bottom: 0%;
+/*   
+   left:50%;
+  transform: translateX(-50%); */
 }
 
 #confirmBtn:hover, #confirmBtn2:hover, #confirmBtn3:hover, .confirmBtn:hover {
@@ -1832,12 +2043,13 @@ label {
 /* profile page stuff */
 .profileSection {
     width: 90%;
-    height: 86%;
+    position: relative;
+    height: 80vh;
     display: grid;
     grid-template-columns: 1fr 1fr; 
     grid-template-rows: auto auto; 
     gap: 7.5%; 
-    margin: 2% auto;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
 }
@@ -1937,7 +2149,7 @@ label {
     transform: translateZ(0);
     align-items: center;
     width: 100%;    
-    height: 80%;
+    height: 70%;
     background-color: #383F42;
     justify-content: center;
     padding: 2.5%;
@@ -1959,7 +2171,7 @@ label {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 90%;
+    height: 80%;
     background-color: #383F42;
     justify-content: center;
     padding: 2.5%;
@@ -1986,7 +2198,7 @@ label {
     border-width: 2px; 
     border-style: solid;
     border-color: white;
-    height: 80%;
+    height: 70%;
 }
 
 .achievementsDiv{
@@ -1995,7 +2207,7 @@ label {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 90%;
+    height: 80%;
     background-color: #383F42;
     display: flex;
     justify-content: center;
@@ -2018,7 +2230,7 @@ label {
     align-items: center;
     position: relative;
     padding-bottom: 5%;
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
 
 }
 
@@ -2047,7 +2259,7 @@ label {
     background-color: #383F42;
     display: flex;
     padding: 0%;
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
     
     flex-direction: column;
     align-items: center;
@@ -2057,7 +2269,7 @@ label {
 .statsArticle2{
     width: 100%;
     height: 40%; 
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
     background-color: #383F42;
     margin: 0%;
 
@@ -2073,7 +2285,7 @@ label {
     margin: auto;
     gap:5%;
     margin: 0%;
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
     border-width: 0px 0px 2px 0px; 
     border-style: solid;
     border-color: white;
@@ -2082,9 +2294,12 @@ label {
     border-color: white;
     overflow: hidden;
     box-sizing: border-box; 
+
 }
 
-
+.mainstatsSection p {
+    cursor: pointer;
+}
 .mainArticleTitle{
     position: relative;
     align-items: center;
@@ -2100,7 +2315,7 @@ label {
     position: absolute;
     margin: auto;
     gap:5%;
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
 
     align-items: center;
     flex-direction: row;
@@ -2115,7 +2330,7 @@ label {
     justify-content: center;  
     align-items: center; 
     width: 30%;
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
     text-align: center;  
 }
 
@@ -2128,7 +2343,7 @@ label {
     margin: 0%;
 
     margin: auto;
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
     gap:0;
     align-items: center;
     flex-direction: row;
@@ -2146,7 +2361,7 @@ label {
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
     position: relative; 
     /* margin-bottom: 7.5%; */
     justify-content: center;
@@ -2158,7 +2373,7 @@ label {
     width:40%;
     height: 40%;
     color: white;
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
     margin:5% auto;
     cursor: pointer;
     box-sizing: border-box;
@@ -2186,7 +2401,7 @@ span {
 .achievementSection{
     width: 100%;
     height: 100%; 
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
 
     border-radius: 35px;
     display: flex;
@@ -2252,16 +2467,16 @@ span {
     margin:0 auto;
     color: white;
     margin-top: 5%;
-    font-size: clamp(0.9rem, 1.1cqw, 3.5rem);
+    font-size: clamp(0.9rem, 1.1cqw, 2.5rem);
 }
 
 .profileTitles{
     /* margin-bottom: 2%; */
-    font-size: clamp(1.2rem, 2cqw, 4rem);
+    font-size: clamp(1.4rem, 1.7cqw, 3rem);
 } 
 .otherTitles{
     margin-top: 2.5%;
-    font-size: clamp(1.2rem, 2.7cqw, 4rem);
+    font-size: clamp(1.5rem, 1.7cqw, 3rem);
 } 
 
 
@@ -2412,34 +2627,456 @@ span {
 
 /* 
 GROUP PAGE SECTION */
-#specificGroupSection {
+#goalsSection {
+    position:relative;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 33%);
+    grid-template-rows: repeat(1, 100%);
     gap: 2.5%;
-    width: 96%;
+    width: 94%;
+    height:100%;
     margin: 0 auto;
+    align-content: center;
+    justify-content: center;
     
 }
 
-#GD1 {
-    height: 85vh;  
+#GoalD1, #GoalD3 {
+    position: relative;
+    height: 100%;  
+    width: 100%;
+    align-self: center;
+    justify-self: center;
+   
+}
+
+
+#GoalD2 {
+   
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+
+
+#GoalD3{
+    grid-column:3 ;
+}
+
+
+#goalContent1, #goalContent3  {
+    position: relative;
+    display: flex;
+    height: 85%;
+    width: 90%;
+    margin: auto;
+    align-items: center; 
+    margin: 10% auto;
+    border-radius: 5px;
+    background-color: #383F42;
+    border: solid 2px white; 
+
+}
+
+
+#goalContent2 {
+     display: flex;
+    flex-direction: column;
+    height: 30%;
+    margin: 0 auto;
+    width: 90%;
+   
+    background-color: #383F42;
+    border: 2px solid;
+    border-radius: 25px;
+    color: #383F42;
+    font-size: clamp(1rem, 1.1cqw, 4rem);
+    text-align: center;
+    border-color: white;
+    border-width: 2px;
+    transition: transform 0.3s ease-in-out, background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    justify-content: flex-start;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 7.5%;
+}
+
+
+#goalContent4 {
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+    margin: 0 auto;
+    width: 90%;
+    
+    background-color: #383F42;
+    border: 2px solid;
+    border-radius: 25px;
+    color: #383F42;
+    text-align: center;
+    border-color: white;
+    border-width: 2px;
+    transition: transform 0.3s ease-in-out, background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    justify-content: flex-start;
+    overflow: hidden;
+    position: relative;
+   
+}
+
+
+#goalContent2:hover, #goalContent4:hover {
+    transform: scale(1.05);
+}
+/* #goalContent1:hover, #goalContent3:hover {
+    outline: 1px solid transparent;
+    --fill: 100%;
+    animation-name: pop;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+} */
+
+
+
+/* #goalContent1::before, #goalContent1::after, #goalContent3::before, #goalContent3::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    inset: -6px;
+    border-radius: inherit;
+    background:
+        conic-gradient(
+            #EA7B3A var(--fill),
+            transparent var(--fill)
+        );
+    transition: --fill 1s 30ms ease-in-out;
+   
+    mask: linear-gradient(#000 0 0) content-box, 
+                   linear-gradient(#000 0 0);
+    mask-composite: exclude;
+
+    padding: 7px;
+    
+} */
+
+
+
+#goalContent3 {
+    justify-content: center;  
+    align-items: center;      
+    flex-direction: column;  
+}
+
+#goalContent1 {
+    flex-direction: column;  
+}
+
+
+
+#goalsCompletedSection{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+
+.goalDivTitles {
+    font-size: clamp(1.3rem, 2cqw, 3rem);
+    color: white;  
+    margin: 0;
+    text-align: center;
+}
+
+.MiddleTitle{
+    font-size: clamp(1.3rem, 1.5cqw, 3rem);
+    color: white;  
+    position: absolute;
+    margin: 0;
+    text-align: center;
+    top: 10%;
+}
+
+
+.goalscrollableContainer {
+    display: flex;
+    width: 100%;
+    height: 88%;  
+    
+    overflow-y: scroll;
+    margin-top: 2%;
+    scrollbar-width: none; 
+    flex-direction: column;
+    
+}
+
+.goalscrollableContainer::-webkit-scrollbar {
+    display: none; 
+}
+
+
+.goalItem{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+    font-family: 'Poppins';
+    color: #EFEDE7;
+    height: 45.5%;
+    min-height: 25vh;
+    margin: 2% auto;
+  
+    border-radius: 20px;
+    background-color: #474f53;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.goalItemTextSection {
+    position: relative;
+    align-self: flex-start; 
+    margin-top: auto;       
+    align-content: center;
+    justify-content: center;
+    padding-left: 5%;
+    font-family: 'Poppins';
+    color: #EFEDE7;
+    height: 80%;
+    width: 50%;
+    font-size: clamp(0.7rem, 0.9vw, 1.7rem);
+
+}
+
+.goalItemTextSection2 {
+    position: relative;
+    align-self: flex-start; 
+    margin-top: auto;  
+     align-content: center;
+    justify-content: center;     
+    font-size: clamp(0.7rem, 0.9vw, 1.7rem);
+    height: 80%;
+    overflow-y: hidden;
+    font-family: 'Poppins';
+    color: #EFEDE7;
+     width: 50%;
+
+}
+
+.goalItemTextSection3 {
+    position: relative;
+    align-self: flex-start; 
+    margin-top: auto;  
+     align-content: center;
+    justify-content: center;     
+    font-size: clamp(0.7rem, 0.9vw, 1.7rem);
+    height: 80%;
+    overflow-y: hidden;
+    font-family: 'Poppins';
+    color: #EFEDE7;
+     width: 100%;
+
+}
+
+
+.goalItemTextSection p  .goalItemTextSection2 p{
+    margin: 5% 0; 
+    font-family: 'Poppins';
+    font-size: clamp(0.5rem, 0.7cqw, 1.5rem);
+    color: #fff;
+}
+
+.challenge-item  .goalItemTextSection2 {
+   margin-left: 4%;
+    height: 80%;
+
+}
+
+
+.challenge-item  .goalItemTextSection1 {
+    height: 80%;
+}
+.GoalI1 {
+    
+    height: 90%;
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    
+    overflow-y: scroll;
+    overflow-x: hidden;  
+    font-size: clamp(0.8rem, 0.7vw, 1.4rem);
+    scrollbar-width: none; 
+
+    
+}
+
+
+
+.GoalAddInfo{
+    height: 70%;
+    width: 60%; 
+    position: relative;
+    display: flex;
+    left: 0%;
+    bottom: -5%;
+    flex-direction: column;
+    justify-content: center; 
+    overflow-y: scroll;
+    overflow-x: hidden;  
+    font-size: clamp(0.8rem, 0.7vw, 1.4rem);
+    scrollbar-width: none; 
+}
+
+.GoalI1::-webkit-scrollbar {
+    display: none; 
+}
+
+.GoalAddInfo ul {
+    list-style-type: disc !important;
+    padding-left: 20%; 
+}
+
+.goalAddImgContainer{
+    position: absolute;
+    right: 0%;
+    display: flex;
+    bottom: 0%;
+    width: 35%;
+    height: 80%;
+    align-items: center;
+    justify-items: flex-end;
+}
+
+.goalAddImgContainer img {
+    
+    width: 70%;
+    height: auto;
+    aspect-ratio: 1/1;
+}
+.GoalAddInfo ul li  {
+    color: white;
+    background: white;
+    width: 100%;
+    font-family: 'Poppins';
+    color: #EFEDE7;
+    background-clip: text;
+   
+    border: none;
+    transition: transform 0.3s ease, letter-spacing 0.3s ease;
+    font-size: clamp(0.8rem, 1.3vw, 1.4rem);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 3% 0;
+    padding: 4% 0; 
+}
+
+.GoalI1 ul li:hover {
+    transform: scale(1.05);
+}
+
+
+
+.GoalI1  {
+    color: transparent;
+    background: white;
+    width: 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-weight: bold;
+    
+    transition: transform 0.3s ease, letter-spacing 0.3s ease;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.GoalI1 p:hover {
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+#specificGroupSection {
+    position:relative;
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    grid-template-rows: repeat(1, 100%);
+    gap: 2.5%;
+    width: 94%;
+    height:100%;
+    margin: 0 auto;
+    align-content: center;
+    justify-content: center;
+    
+}
+
+#GD1, #GD2, #GD3 {
+    height: 100%;  
+    width: 100%;
+    align-self: center;
+    justify-self: center;
    
 }
 
 
 
+
 #groupContent1, #groupContent3, #groupContent2  {
     display: flex;
-    height: 80%;
-  
-
+    height: 85%;
     width: 90%;
     margin: auto;
     align-items: center; 
     margin: 10% auto;
-    border-radius: 25px;
-    background-color: #383F42; 
+    border-radius: 5px;
+    background-color: #383F42;
+    border: solid 2px white; 
 
+}
+
+#groupContent1:hover, #groupContent2:hover, #groupContent3:hover {
+    outline: 1px solid transparent;
+    --fill: 100%;
+    animation-name: pop;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+
+
+#groupContent1::before, #groupContent1::after, #groupContent2::before, #groupContent2::after, #groupContent3::before, #groupContent3::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    inset: -6px;
+    border-radius: inherit;
+    background:
+        conic-gradient(
+            #EA7B3A var(--fill),
+            transparent var(--fill)
+        );
+    transition: --fill 1s 30ms ease-in-out;
+   
+    mask: linear-gradient(#000 0 0) content-box, 
+                   linear-gradient(#000 0 0);
+    mask-composite: exclude;
+
+    padding: 7px;
+    
 }
 
 
@@ -2459,6 +3096,29 @@ GROUP PAGE SECTION */
 
 #groupContent2 {
     flex-direction: column;  
+}
+
+
+.challenge-item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+    font-family: 'Poppins', sans-serif;
+    color: #EFEDE7;
+    height: 45.5%;
+    min-height: 25vh;
+    margin: 2% auto;
+
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 
@@ -2488,8 +3148,20 @@ GROUP PAGE SECTION */
     
 }
 
+.goalTitleContainer{
+    width: 100%;
+    height: 10%;  
+    left: 0%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    font-size: clamp(1rem, 1.1cqw, 2rem);
+    top: 10%;
+}
+
 .GroupDivTitles {
-    font-size: clamp(1.2rem, 1.7cqw, 3rem);
+    font-size: clamp(1.2rem, 1.3cqw, 3rem);
     color: white;  
     margin: 0;
     text-align: center;
@@ -2498,14 +3170,26 @@ GROUP PAGE SECTION */
 .scrollableContainer {
     display: flex;
     width: 100%;
-    height: 78%;  
-    max-height: 23vh;
+    height: 88%;  
+    /* max-height: 15vh; */
     overflow-y: scroll;
     margin-top: 2%;
     scrollbar-width: none; 
     flex-direction: column;
     
 }
+.scrollableContainer2 {
+    display: flex;
+    width: 100%;
+    height: 88%;  
+    /* max-height: 15vh; */
+    overflow-y: scroll;
+    margin-top: 2%;
+    scrollbar-width: none; 
+    flex-direction: column;
+    
+}
+
 
 .scrollableContainer::-webkit-scrollbar {
     display: none; 
@@ -2516,7 +3200,7 @@ GROUP PAGE SECTION */
     flex-shrink: 0;  
     flex-grow: 0;
     display: flex;
-    height: 30%;
+    height: 33.4%;
     cursor: pointer;
     border-radius: 25px;
     justify-items: center;
@@ -2553,7 +3237,7 @@ GROUP PAGE SECTION */
 
 .userTextSection p{
     margin:auto ;
-    font-size: clamp(1rem, 1.1cqw, 3rem);
+    font-size: clamp(1rem, 1.1cqw, 1.4rem);
 
 }
 
@@ -2585,22 +3269,25 @@ GROUP PAGE SECTION */
 
 
 
+
+
 .GI1 {
   
     
-    height: 80%;
+    height: 76%;
     width: 100%; 
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* changed from center */
-    
-    overflow-y: scroll;
-    overflow-x: hidden;  
-    font-size: clamp(0.7rem, 1.3vw, 1.7rem);
+    justify-content: center; 
+     padding-top: 10%;
+    margin-bottom: 4%; 
+    /* overflow-y: scroll;
+    overflow-x: hidden;   */
+    font-size: clamp(0.8rem, 1.2vw, 1.4rem);
     scrollbar-width: none; 
-  
-    
+
 }
 
 .GI1::-webkit-scrollbar {
@@ -2615,6 +3302,7 @@ GROUP PAGE SECTION */
     -webkit-background-clip: text;
     background-clip: text;
     font-weight: bold;
+    
     transition: transform 0.3s ease, letter-spacing 0.3s ease;
     cursor: pointer;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -2631,7 +3319,7 @@ GROUP PAGE SECTION */
     color: white;
     border: none;
     padding: 0 3%;
-    font-size: clamp(1rem, 2cqw, 6rem);
+    font-size: clamp(1rem, 2cqw, 2rem);
     margin-left: 10%;
     border-radius: 5px;
     cursor: pointer;
@@ -2656,7 +3344,7 @@ GROUP PAGE SECTION */
 }
 
 
-#search-bar-users {
+#search-bar-users, #search-bar-users2 {
     width: 80%;
     padding: 3.5%;
     border-radius: 15px;
@@ -2672,9 +3360,84 @@ GROUP PAGE SECTION */
     
 }
 
-
  /* mobile phone  view */
  @media (max-width: 700px) { 
+
+    #specificGroupSection {
+        height: 266vh; 
+        /* overflow-y: auto; */
+        display: grid;
+        grid-template-rows: repeat(3, 33%); 
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding-bottom: 20vh;
+    }
+
+    #GD1, #GD2, #GD3 {
+        width: 100%;
+        height: 100%;
+            min-height: 60vh;
+
+    }
+
+    #GD1{
+        grid-row: 1;
+    }
+    #GD3{
+        grid-row: 2;
+    }
+    
+    #goalsSection {
+        height: 266vh; 
+        display: grid;
+        grid-template-rows: repeat(3, 33%); 
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding-bottom: 20vh;
+    }
+
+    #GoalD1 {
+        grid-row: 1;
+        grid-column: 1;
+   
+    }
+
+
+    #GoalD2 {
+        grid-row: 2;
+        grid-column: 1;
+
+    }
+
+    .titleContainer{
+        position: relative;
+    }
+
+
+
+    #GoalD3{
+       grid-row: 3;
+        grid-column: 1;
+
+    }
+
+
+    .goalOverlay .goalItem {
+        display: flex;
+        position: relative;
+        width: 70vw !important;
+        height: 35vh !important;
+        min-width: 12px;
+        min-height: 12px;
+      
+        border: solid 2px white;
+        padding: 2.5%;
+        background-color: #474f53;
+        border-radius: 0px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        font-size: clamp(1.5rem, 2vw,);
+        transform: scale(1.05);
+    }
 
     #cancelBtn,#cancelBtn2, #cancelBtn3  {
         position: fixed;

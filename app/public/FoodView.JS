@@ -94,7 +94,10 @@ class FoodView {
                     },
                     body: JSON.stringify(foodData)
                 
+
                 });
+
+             
 
     
                 if (!response.ok) throw new Error('Failed to send food to server');
@@ -275,14 +278,18 @@ class FoodView {
 
             const fullDate = new Date();
 
-            const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate());
+            const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate(),0,0,0);
+
+            const datePlus1Hour = new Date(dateOnly.getTime() + (60 * 60 * 1000) + 1000);
+
+            console.log(dateOnly)
 
             const mealData = {
                 user: window.sessionStorage.getItem("username"),
                 // mealName,
                 mealType,
                 foods: this.allMealFood,
-                date: dateOnly,
+                date: datePlus1Hour,
                 date2: fullDate
             };
 

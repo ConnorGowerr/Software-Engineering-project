@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hellth</title>
+  <link rel="icon" href="/images/Logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="sessionStoragecheck.js" defer></script>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/groups.css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="/goal.js" defer></script>
+</head>
+</html>
+
+<body>
+
+    <div id="skeleton-screen">
+        <div class="loader"></div>
+    </div>
+
+    <header class="top-header">
+        <a href="#" class="top-left-btn" id="messageBtn">
+            <img src="/images/envelope-solid.svg" alt="profileIcon">
+        </a>
+
+        <h1 id="hellthTitle"> Manage Your Goals</h1>
+
+        <a href="/profile.html" class="top-right-btn">
+            <img src="/images/user-solid.svg" alt="profileIcon">
+        </a>
+    </header>
+<main>
+
+
+    
+
+    <section id="goalsSection">
+        <div class="goalPageDiv" id="GoalD1">
+            <div id="goalContent1">
+                <div class="titleContainer">
+                    <h2 class="GroupDivTitles">Current Goals</h2>
+                </div>
+                <div class="goalscrollableContainer"></div>
+               
+            </div>
+        </div>
+
+
+        <div class="goalPageDiv" id="GoalD2">
+
+            
+            <div class="titleContainer">
+                <h2 class="MiddleTitle">-- Add New Goals --</h2>
+            </div>   
+
+            <div id="goalContent2">
+                <div class="titleContainer2">
+                    <h2 class="GroupDivTitles">New Meal Goal</h2>
+                </div> 
+                <div class="GoalAddInfo">
+                    <ul >
+                        <li>Track Your Calories</li>
+                        <li>Stay Hellthy</li>
+                        <li>Never Give Up</li>
+                    </ul>
+                </div>   
+                <div class = "goalAddImgContainer">
+                    <img src = "images/Meal.png">
+                </div>
+            </div>
+
+            <div id="goalContent4">
+                <div class="titleContainer2">
+                    <h2 class="GroupDivTitles">New Activity Goal</h2>
+                </div>    
+                <div class="GoalAddInfo">
+                    <ul>
+                        <li>Track Your Calories</li>
+                        <li>Keep Staying Active</li>
+                        <li>Track Your Progress</li>
+                    </ul>
+                </div>   
+                 <div class = "goalAddImgContainer">
+                    <img src = "images/activity.png">
+                </div>    
+            </div>
+
+        </div>
+       
+        <div class="goalPageDiv" id="GoalD3">
+            <div id="goalContent3">
+                
+                <div id="goalsCompletedSection">
+                    <div class="titleContainer">
+                        <h2 class="GroupDivTitles">Completed Goals</h2>
+                    </div>
+                    <div class="goalscrollableContainer"></div> 
+
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </section>
+    
+    
+     <div class="popup-overlay" id="addactivityOverlay">
+        <div class="addActivity">
+            <div class="popup-content">
+                <div class = "goalPopupContainer">
+                    <h2 class = "goalTitle" id = "goalTitle2"></h2>
+                </div>
+
+                <form id="goalForm2">
+                <input type="text" id="goalName2" placeholder="Goal Name" required>
+
+                <label for="meal-date">Select end Date:</label>
+                <input type="date" id="meal-date2" name="meal-date" required>
+
+                <input type="text" id="Target2" placeholder="Target Weekly Miniutes" required>
+
+                
+               
+            </form>
+
+            <button class="confirmBtn" id="confirmBtn56">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="addAdminMemberOverlay">
+        <div class="addMeal">
+            <div class="popup-content">
+                <div class = "goalPopupContainer">
+                    <h2 class = "goalTitle" id = "goalTitle"></h2>
+                </div>
+
+                <form id="goalForm">
+                <input type="text" id="goalName" placeholder="Goal Name" required>
+
+                <label for="meal-date">Select end Date:</label>
+                <input type="date" id="meal-date" name="meal-date" required>
+
+                <input type="text" id="Target" placeholder="Target weight" required>
+
+               
+            </form>
+
+                            <button class="confirmBtn" id="confirmBtn55">Yes</button>
+
+            </div>
+        </div>
+    </div>
+<div id="goalOverlay" class="goalOverlay hidden"></div>
+
+
+
+
+</main>
+<div class="navbar">
+    <a href="/home.html" class="nav-btn">
+        <img src="/images/house-solid.svg" alt="Home">
+        <span class="icon-text">Home</span>
+    </a>
+    
+    <a href="/progress.html" class="nav-btn">
+        <img src="/images/chart-line-solid.svg" alt="Progress">
+        <span class="icon-text">Progress</span>
+    </a>
+
+    <div class="center-btn-container">
+        <a href="/mealActivtiySelect.html" class="center-btn">
+            <img src="/images/plus-solid.svg" alt="Add">
+        </a>
+    </div>
+
+    <a href="/groups.html" class="nav-btn">
+        <img src="/images/user-group-solid.svg" alt="Groups">
+        <span class="icon-text">Groups</span>
+    </a>
+
+    <a href="/contact.html" class="nav-btn">
+        <img src="/images/person-circle-question-solid.svg" alt="Help">
+        <span class="icon-text">Help</span>
+    </a>
+</div>
+        
+
+</body>

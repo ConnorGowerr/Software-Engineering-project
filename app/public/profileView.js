@@ -1,4 +1,8 @@
-
+var usernameCheck = window.sessionStorage.getItem("username");
+if (usernameCheck == null) 
+{
+    window.location.href = "http://localhost:8008";
+}
 
 function updateProfileStats(){
 
@@ -38,13 +42,79 @@ function updateProfileStats(){
 
                 stats1.innerHTML = `<p>Weight <br> ${userData[0].weight}</p>`;
 
-                stats2.innerHTML = `<p>Height <br> ${userData[0].height}</p>`;
 
-                stats3.innerHTML = `<p>Gender <br> ${userData[0].gender}</p>`;
+                const popupOverlay = document.querySelector("#addMemberOverlay");
+                const popup = document.querySelector(".addMember");
+                const confirmBtn = document.querySelector("#confirmBtn7");
+                const cancelBtn = document.querySelector("#cancelBtn7");
+           
 
-                stats4.innerHTML = `<p>Target Calories <br> ${userData[0].dailycalorietarget}</p>`;
 
-            });
+                stats1.addEventListener('click', async function(event) {
+                    
+
+                    popupOverlay.style.display = "block";
+                    popup.style.display = "block";
+
+                    const confirmHandler = async () => {
+
+                        const weight = Math.floor(document.querySelector("#search-bar-users2").value);
+                        const username = userData[0].username;
+                
+
+          
+
+                        try {
+                            const response = await fetch('/update-weight', {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ username, weight })
+                            });
+
+                            const result = await response.json();
+
+                        
+                            popupOverlay.style.display = "none";
+                            popup.style.display = "none";
+                            cleanup();
+                            window.location.reload();
+                   
+                          
+                        } catch (error) {
+                            
+                            console.error('Error:', error);
+                        }
+                        
+                    }
+                    const cancelHandler = () => {
+                        popupOverlay.style.display = "none";
+                        popup.style.display = "none";
+
+                        cleanup();
+                    };
+
+                    function cleanup() {
+                        confirmBtn.removeEventListener("click", confirmHandler);
+                        cancelBtn.removeEventListener("click", cancelHandler);
+                    }
+
+
+                    confirmBtn.addEventListener("click", confirmHandler);
+                    cancelBtn.addEventListener("click", cancelHandler);
+                    });
+                    
+
+
+                    stats2.innerHTML = `<p>Height <br> ${userData[0].height}</p>`;
+
+                    stats3.innerHTML = `<p>Gender <br> ${userData[0].gender}</p>`;
+
+                    stats4.innerHTML = `<p>Target Calories <br> ${userData[0].dailycalorietarget}</p>`;
+
+                });
+            
         
 
     
@@ -82,7 +152,7 @@ window.addEventListener('load', () => {
     if (skeleton) {
       skeleton.style.transition = 'opacity 0.4s ease';
       skeleton.style.opacity = '0';
-      setTimeout(() => skeleton.remove(), 400); // sync with transition
+      setTimeout(() => skeleton.remove(), 400); 
     }
   });
   
