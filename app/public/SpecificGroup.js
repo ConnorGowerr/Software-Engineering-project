@@ -1,5 +1,5 @@
 const loadStartTime = Date.now(); 
-
+let groupid = null;
 
 //loading screen
 window.addEventListener('load', () => {
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const groupData = await groupRes.json();
 
         const groupId = groupData.groupid;
+        groupid = groupId
         const membersRes = await fetch(`/api/groupMembers/${groupId}`);
         if (!membersRes.ok) throw new Error(`Members fetch failed: ${membersRes.status}`);
         const membersData = await membersRes.json();
@@ -363,114 +364,216 @@ function updateStatusButton(groupData, info) {
     }
 }
 
+
 function fetchMealChallenges(groupData) {
-  const groupId = groupData.groupid
+  const groupId = groupData.groupid;
   const mealChallengesList = document.querySelector('.scrollableContainer2');
 
-    
-    fetch(`/mealchallenges?id=${groupId}`)
-    .then((response) => response.json())
+  fetch(`/mealchallenges?id=${groupId}`)
+    .then((response) => {
+      if (!response.ok) {
+        console.error('Error fetching meal challenges: Response not OK');
+        throw new Error('Network response was not OK');
+      }
+      return response.json();
+    })
     .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-        
+      if (Array.isArray(data) && data.length > 0) {
         data.forEach((challenge) => {
-            const listItem = document.createElement('div');
-            listItem.classList.add('challenge-item');
-            listItem.innerHTML = `
-                <div class="goalTitleContainer">
-                    <h2>${challenge.goalname}</h2>
-                </div>
-                  <div class="goalItemTextSection2">
-                    <p><strong>Total Calories Tracked:</strong>  <br> ${challenge.currentcalories}</p>
-               
-                </div>
-                <div class="goalItemTextSection">
-                    <p><strong>Target:</strong>  <br> ${challenge.calorietarget}</p>
-                </div>
-
-              
-            
-                <div class="progressBarContainer">
-                    <div class="progressBar" data-label="${Math.round((challenge.currentcalories / challenge.calorietarget) * 100)}%" style="width: ${(challenge.currentcalories / challenge.calorietarget) * 100}%"></div>
-                </div>
-
-                <button class ="cancelBtn" id = "cancelBtn2">X</button>
-            `;
-
-
-        
-            mealChallengesList.appendChild(listItem);
-            document.getElementById("cancelBtn2").addEventListener("click", e => {
-                mealChallengesList.removeChild(listItem);
-            });
-
+          const listItem = document.createElement('div');
+          listItem.classList.add('challenge-item');
+          listItem.innerHTML = `
+            <div class="goalTitleContainer">
+                <h2>${challenge.goalname}</h2>
+            </div>
+            <div class="goalItemTextSection2">
+                <p><strong>Total Calories Tracked:</strong>  <br> ${challenge.currentcalories}</p>
+            </div>
+            <div class="goalItemTextSection">
+                <p><strong>Target:</strong>  <br> ${challenge.calorietarget}</p>
+            </div>
+            <div class="progressBarContainer">
+                <div class="progressBar" data-label="${Math.round((challenge.currentcalories / challenge.calorietarget) * 100)}%" style="width: ${(challenge.currentcalories / challenge.calorietarget) * 100}%"></div>
+            </div>
+            <button class="cancelBtn" id="cancelBtn2">X</button>
+          `;
+          mealChallengesList.appendChild(listItem);
+          addRemoveButtonListener(listItem, challenge.goalid, 'meal');
+          console.table(listItem)
         });
-        } else {
-        errorMessageElement.textContent = 'No meal challenges found for this group.';
-        }
+      } else {
+        
+        console.log('No meal challenges found.');
+      }
     })
     .catch((error) => {
-        console.error('Error fetching data:', error);
-        errorMessageElement.textContent = 'Error fetching meal challenges.';
+      console.error('Error fetching data for meal challenges:', error);
+      
     });
-
-    document.querySelectorAll(".progressBar").forEach(bar => {
-        bar.style.width =  + '%';
-        bar.setAttribute('data-label', value + '%');
-    });
-    }
-
-
+}
 
 function fetchActivityChallenges(groupData) {
-  const groupId = groupData.groupid
+  const groupId = groupData.groupid;
   const mealChallengesList = document.querySelector('.scrollableContainer2');
 
-    
-    fetch(`/activitychallenges?id=${groupId}`)
-    .then((response) => response.json())
+  fetch(`/activitychallenges?id=${groupId}`)
+    .then((response) => {
+      if (!response.ok) {
+        console.error('Error fetching activity challenges: Response not OK');
+        throw new Error('Network response was not OK');
+      }
+      return response.json();
+    })
     .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-        
+      if (Array.isArray(data) && data.length > 0) {
         data.forEach((challenge) => {
-            const listItem = document.createElement('div');
-            listItem.classList.add('challenge-item');
-            listItem.innerHTML = `
-                <div class="goalTitleContainer">
-                    <h2>${challenge.goalname}</h2>
-                </div>
-                  <div class="goalItemTextSection2">
-                    <p><strong>Total Calories Burnt:</strong>  <br> ${challenge.caloriesburnt}</p>
-               
-                </div>
-                <div class="goalItemTextSection">
-                    <p><strong>Target:</strong>  <br> ${challenge.targetcaloriesburnt}</p>
-                </div>
-       
-                <div class="progressBarContainer">
-                    <div class="progressBar2" data-label="${Math.round((challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100)}%" style="width: ${(challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100}%"></div>
-                </div>
-
-                <button class ="cancelBtn" id = "cancelBtn3">X</button>
-            `;
-
-             mealChallengesList.appendChild(listItem);
-
-            document.getElementById("cancelBtn3").addEventListener("click", e => {
-                mealChallengesList.removeChild(listItem);
-            });
-
-
-        
-           
+          const listItem = document.createElement('div');
+          listItem.classList.add('challenge-item');
+          listItem.innerHTML = `
+            <div class="goalTitleContainer">
+                <h2>${challenge.goalname}</h2>
+            </div>
+            <div class="goalItemTextSection2">
+                <p><strong>Total Calories Burnt:</strong>  <br> ${challenge.caloriesburnt}</p>
+            </div>
+            <div class="goalItemTextSection">
+                <p><strong>Target:</strong>  <br> ${challenge.targetcaloriesburnt}</p>
+            </div>
+            <div class="progressBarContainer">
+                <div class="progressBar2" data-label="${Math.round((challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100)}%" style="width: ${(challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100}%"></div>
+            </div>
+            <button class="cancelBtn" id="cancelBtn3">X</button>
+          `;
+          mealChallengesList.appendChild(listItem);
+          addRemoveButtonListener(listItem, challenge.goalid, 'activity');
         });
-        } else {
-        errorMessageElement.textContent = 'No meal challenges found for this group.';
-        }
+      } else {
+        
+        console.log('No activity challenges found.');
+      }
     })
     .catch((error) => {
-        console.error('Error fetching data:', error);
-        errorMessageElement.textContent = 'Error fetching meal challenges.';
+      console.error('Error fetching data for activity challenges:', error);
+     
     });
+}
+
+function addRemoveButtonListener(listItem, goalid, type) {
+  const cancelButton = listItem.querySelector(`#cancelBtn${type === 'meal' ? '2' : '3'}`);
+  cancelButton.addEventListener("click", async (e) => {
+    const mealChallengesList = document.querySelector('.scrollableContainer2');
+    mealChallengesList.removeChild(listItem);
+
+    const username = window.sessionStorage.username;
+
+    try {
+      const response = await fetch(`/remove${type.charAt(0).toUpperCase() + type.slice(1)}Challenge?q=${encodeURIComponent(JSON.stringify({ username, goalid }))}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (!response.ok) {
+        console.error(`Error removing ${type} challenge: Response not OK`);
+        throw new Error(`Failed to remove ${type} challenge`);
+      }
+
+      const result = await response.json();
+      console.log(`${type.charAt(0).toUpperCase() + type.slice(1)} challenge removed:`, result);
+    } catch (err) {
+      console.error(`Error removing ${type} challenge:`, err);
+    }
+  });
+}
+
+
+
+document.querySelector(".addgroupchallenge").addEventListener("click", (e) =>{
+    showActivityPopup()
+})
+
+
+
+function showActivityPopup() {
+    const overlay = document.querySelector("#addactivityOverlay");
+    const popup = document.querySelector(".addActivity");
+    const title = document.querySelector("#goalTitle2");
+    const confirmBtn = document.querySelector("#confirmBtn56");
+
+    title.textContent = 'Add New Goal';
+    overlay.style.display = "block";
+    popup.style.display = "block";
+
+
+    
+    const handleConfirm = async (event) => {
+
+      event.preventDefault();
+
+        const fullDate = new Date();
+        const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate(),0,0,0);
+
+
+        if (document.getElementById("typeSelector").value === 'activity') {
+            const body = {
+                goalname: document.getElementById("goalName2").value,
+                groupid: groupid,
+                startdate: dateOnly,
+                enddate: dateOnly,
+                target: document.getElementById("Target2").value
+            };
+
+            const goalMade = await fetch('/api/group/AddActivityChallenge', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+
+            if (!goalMade.ok) throw new Error(`goalMade failed: ${goalMade.status}`);
+            const goalRes = await goalMade.json();
+
+        } else {
+            
+            console.log(groupid)
+            const body = {
+                goalname: document.getElementById("goalName2").value,
+                groupid: groupid,
+                startdate: dateOnly,
+                enddate: dateOnly,
+                target: document.getElementById("Target2").value
+            };
+
+            const goalMade = await fetch('/api/group/AddMealChallenge', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+
+            if (!goalMade.ok) throw new Error(`goalMade failed: ${goalMade.status}`);
+            const goalRes = await goalMade.json();
+        }
+
+        
+
+        closePopup();
+
+    };
+
+    const handleOutsideClick = (event) => {
+        if (!popup.contains(event.target)) {
+            closePopup();
+        }
+    };
+
+    const closePopup = () => {
+        overlay.style.display = "none";
+        popup.style.display = "none";
+        confirmBtn.removeEventListener("click", handleConfirm);
+        overlay.removeEventListener("click", handleOutsideClick);
+    };
+
+    confirmBtn.addEventListener("click", handleConfirm);
+    overlay.addEventListener("click", handleOutsideClick);
 }
 
