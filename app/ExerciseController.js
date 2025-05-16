@@ -2,6 +2,7 @@ const dbClient = require('./public/db.js')
 const { randomInt } = require('crypto');
 
 
+
 class ExerciseController {
     constructor() {
     }  
@@ -37,6 +38,7 @@ class ExerciseController {
                 return callback([]);  
             }
     
+
             const queryString = `SELECT * FROM Exercise WHERE LOWER(exercisename) = LOWER($1)`;
 
             dbClient.query(queryString, [query], (err, res) => {
@@ -49,7 +51,6 @@ class ExerciseController {
             });
         });
     }
-
 
     //handles both activity and user activity
     async saveActivity(req, res) {

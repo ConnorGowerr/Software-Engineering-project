@@ -19,7 +19,6 @@ const port = 8008;
 const cors = require("cors");
 require("dotenv").config();
 
-const foodController = new FoodController();
 const userController = new UserController();
 
 
@@ -257,8 +256,8 @@ make sure to also be connected to vpn
 // })
 
 
-
 // connection.connect().then(() => console.log("Database is connected")).catch(err => console.error("Database failed to connect", err.message));
+
 
 
 // sets the db connection to the correct schema
@@ -797,6 +796,88 @@ app.get("/groups/:allgroups", async (req, res) => {
     })
 })
 
+
+
+app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
+    const query = req.query.q;
+    // const groupid
+    // console.log(query);
+    // console.log("grouPID HERE" + groupid);
+    
+    const memberCount = [];
+    const personalGroup = await dbClient.query(`SELECT * FROM groupMembers JOIN userGroups ON groupMembers.groupid = userGroups.groupid WHERE groupMembers.username = $1`, [query]);
+    for(i=0; i<personalGroup.rows.length; i++){
+        const memberno = await dbClient.query(`SELECT COUNT(*) FROM groupMembers WHERE groupMembers.groupid = $1`, [personalGroup.rows[i].groupid]);
+        memberCount[i] = memberno.rows[0].count;
+    }
+
+    
+    const userGroupCount = await dbClient.query(`SELECT COUNT(*)FROM groupMembers JOIN userGroups ON groupMembers.groupid = userGroups.groupid WHERE groupMembers.username = $1`, [query]);
+    if (personalGroup.rows.length === 0) 
+        {
+            res.status(404).json({error: "Groups not found"});
+        }else{
+            res.status(200).json({
+                groups: personalGroup.rows,
+                groupcount: userGroupCount.rows[0],
+                memberCount: memberCount
+            });
+        }
+
+        // console.table(personalGroup.rows)
+   
+})
+
+app.post("/groups/join", async (req, res) => {
+    const {username, groupid} = req.body;
+    console.log("groupid");
+
+    try {
+        const findgroup = await dbClient.query(`SELECT * FROM userGroups WHERE groupid = $1`, [groupid]);
+        const adduser = await dbClient.query(`INSERT INTO groupMembers(groupID, username, isAdmin) VALUES ($1, $2, FALSE)`, [groupid, username]);
+
+        res.status(201).json({message: "Joined group successfully",
+            group: findgroup.rows[0],
+            add: adduser.rows[0]
+        });
+        console.table(findgroup);
+        console.table(adduser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+})
+app.post("/groups/createGroup", async (req, res) => {
+    
+    const {groupid, username, groupname, ispublic} = req.body;
+    // console.table(req.body);
+
+    try {
+        const findgroupid = await dbClient.query(`SELECT * FROM userGroups WHERE groupid = $1`, [groupid]);
+        const findgroupname = await dbClient.query(`SELECT * FROM userGroups where groupname = $1`, [groupname]);
+        const createGroup = `INSERT INTO userGroups(groupID, createdBy, groupName, isPublic, creationDate) VALUES ($1, $2, $3, $4, CURRENT_DATE);`;
+        const addToGroup = `INSERT INTO groupMembers(groupID, username, isAdmin) VALUES ($1, $2, TRUE)`;
+        const valuesc = [groupid, username, groupname, ispublic];
+        const valuesa = [groupid, username];
+        // console.log(findgroupname.length);
+        if(findgroupid.rows.length == 0 && findgroupname.rows.length == 0){
+            const result = await dbClient.query(createGroup, valuesc);
+            const result2 = await dbClient.query(addToGroup, valuesa);
+            res.status(201).json({message: "Group created successfully",
+            group: result.rows[0],
+            groupmem: result2.rows[0]
+            });
+        }else{
+            res.status(409).json({error: "Group id or name already exists"});
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+       
+})
+
 app.post("/groups/:allgroups/:groupid", async (req, res) => {
     const groupid = req.body.groupid;
     // console.table(groupid)
@@ -805,8 +886,10 @@ app.post("/groups/:allgroups/:groupid", async (req, res) => {
     if (queryMembers.rows.length === 0) 
         {
             res.status(404).json({error: "Group not found"});
+        }else{
+            res.status(200).json(queryMembers.rows[0]);
         }
-        res.status(200).json(queryMembers.rows[0]);
+        
 })
 
 
@@ -870,20 +953,6 @@ app.get('/activitychallenges', async (req, res) => {
   }
 });
 
-app.get("/groups/:allgroups/userGroupSection", async (req, res) => {
-    const query = req.query.q;
-    console.log(query);
-    
-
-    const personalGroup = await dbClient.query(`SELECT * FROM groupMembers JOIN userGroups ON groupMembers.groupid = userGroups.groupid WHERE groupMembers.username = $1`, [query]);
-       
-    if (personalGroup.rows.length === 0) 
-        {
-            res.status(404).json({error: "Groups not found"});
-        }
-        res.status(200).json(personalGroup.rows[0]);
-   
-})
 
 app.post('/api/goals', async (req, res) => {
   const { username } = req.body;
@@ -948,3 +1017,4 @@ app.put('/update-weight', async (req, res) => {
     user: result.rows[0] 
   });
 });
+
