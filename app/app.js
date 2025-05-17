@@ -909,6 +909,7 @@ app.get("/api/groupMembers/:id", (req, res) => {
 });
 
 
+
 app.post("/home.html", async (req, res) => {
     const { username, first } = req.body;
     console.log(username + " " + first);
@@ -967,13 +968,13 @@ app.post("/home.html", async (req, res) => {
             INNER JOIN "Hellth".food ON mealcontents.foodid = food.foodid
             WHERE username = $1 AND mealdate = CURRENT_DATE;
         `, [username]);
-        console.log(dailyCalorie);
+            console.log(dailyCalorie);
         const dailyCalorieTarget = await dbClient.query(`
             SELECT dailycalorietarget
             FROM "Hellth".users
             WHERE username = $1;
         `, [username]);
-        console.log(dailyCalorieTarget.rows[0].dailycalorietarget);
+            console.log(dailyCalorieTarget.rows[0].dailycalorietarget);
         let weeklyGoals = await dbClient.query(`
             SELECT *
             FROM "Hellth".goal
@@ -1028,7 +1029,6 @@ app.post("/home.html", async (req, res) => {
 
             if (weeklyCompletedGoals.rows.length === 0) {
                 console.log("There are no goals for this user");
-                // return res.status(404).json({ error: "Goals not found" });
             }
         }
 
@@ -1046,9 +1046,11 @@ app.post("/home.html", async (req, res) => {
 
             return res.status(404).json({ error: "No data found" });
         }
-        if (dailyCalorie.rows[0].sum === null) {
+        if (dailyCalorie.rows[0].sum === null) 
+        {
             console.log("No meals entered today")
-        } else {
+        } else 
+        {
             dCalories = dailyCalorie.rows[0].sum;
         }
 
@@ -1132,7 +1134,7 @@ app.post("/home.html", async (req, res) => {
         console.error(error);
         return res.status(500).json({ error: "There was an error with the server" });
     }
-
+       
 })
 
 app.get("/groups/:allgroups", async (req, res) => {

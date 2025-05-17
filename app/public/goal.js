@@ -498,6 +498,22 @@ function showMealPopup() {
           target: document.getElementById("Target").value
         }
 
+         if (body.target <= 0) {
+                alert("Invalid target amount");
+                closePopup();
+                throw new Error("Invalid target amount");
+        }
+
+        const start = new Date(body.startdate);
+        const end = new Date(body.enddate);
+
+        if (end <= start) {
+            alert("Invalid date");
+            closePopup();
+            throw new Error("End date must be after start date");
+        }
+
+
 
         const goalMade = await fetch('/api/goal/AddMealGoal', {
             method: 'POST',
@@ -563,6 +579,21 @@ function showActivityPopup() {
           enddate:  document.getElementById("meal-date2").value ,
           startdate: dateOnly,
           target: document.getElementById("Target2").value
+        }
+
+        if (body.target <= 0) {
+                alert("Invalid target amount");
+                closePopup();
+                throw new Error("Invalid target amount");
+        }
+
+        const start = new Date(body.startdate);
+        const end = new Date(body.enddate);
+
+        if (end <= start) {
+            alert("Invalid date");
+            closePopup();
+            throw new Error("End date must be after start date");
         }
 
 

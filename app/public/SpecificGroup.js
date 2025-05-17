@@ -1,3 +1,4 @@
+
 const loadStartTime = Date.now(); 
 let groupid = null;
 
@@ -393,7 +394,7 @@ function fetchMealChallenges(groupData) {
                 <p><strong>Target:</strong>  <br> ${challenge.calorietarget}</p>
             </div>
             <div class="progressBarContainer">
-                <div class="progressBar" data-label="${Math.round((challenge.currentcalories / challenge.calorietarget) * 100)}%" style="width: ${(challenge.currentcalories / challenge.calorietarget) * 100}%"></div>
+                <div class="progressBar" data-label="${Math.min(Math.round((challenge.currentcalories / challenge.calorietarget) * 100), 100)}%" style="width: ${Math.min((challenge.currentcalories / challenge.calorietarget) * 100, 100)}%"></div>
             </div>
             <button class="cancelBtn" id="cancelBtn2">X</button>
           `;
@@ -440,7 +441,7 @@ function fetchActivityChallenges(groupData) {
                 <p><strong>Target:</strong>  <br> ${challenge.targetcaloriesburnt}</p>
             </div>
             <div class="progressBarContainer">
-                <div class="progressBar2" data-label="${Math.round((challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100)}%" style="width: ${(challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100}%"></div>
+                <div class="progressBar2" data-label="${Math.min(Math.round((challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100), 100)}%" style="width: ${Math.min((challenge.caloriesburnt / challenge.targetcaloriesburnt) * 100, 100)}%"></div>
             </div>
             <button class="cancelBtn" id="cancelBtn3">X</button>
           `;
@@ -512,17 +513,24 @@ function showActivityPopup() {
       event.preventDefault();
 
         const fullDate = new Date();
-        const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate(),0,0,0);
-
+       const dateOnly = new Date(fullDate.getFullYear(), fullDate.getMonth(), fullDate.getDate(), 0, 0, 0);
+        const dateOnly2 = new Date(dateOnly);
+        dateOnly2.setDate(dateOnly2.getDate() + 14);
 
         if (document.getElementById("typeSelector").value === 'activity') {
             const body = {
                 goalname: document.getElementById("goalName2").value,
                 groupid: groupid,
                 startdate: dateOnly,
-                enddate: dateOnly,
+                enddate: dateOnly2,
                 target: document.getElementById("Target2").value
             };
+
+            if (body.target <= 0) {
+                alert("Invalid target amount");
+                closePopup();
+                throw new Error("Invalid target amount");
+            }
 
             const goalMade = await fetch('/api/group/AddActivityChallenge', {
                 method: 'POST',
@@ -540,9 +548,15 @@ function showActivityPopup() {
                 goalname: document.getElementById("goalName2").value,
                 groupid: groupid,
                 startdate: dateOnly,
-                enddate: dateOnly,
+                enddate: dateOnly2,
                 target: document.getElementById("Target2").value
             };
+
+            if (body.target <= 0) {
+                alert("Invalid target amount");
+                closePopup();
+                throw new Error("Invalid target amount");
+            }
 
             const goalMade = await fetch('/api/group/AddMealChallenge', {
                 method: 'POST',
@@ -557,6 +571,8 @@ function showActivityPopup() {
         
 
         closePopup();
+        location.reload();
+
 
     };
 

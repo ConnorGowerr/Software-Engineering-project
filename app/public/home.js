@@ -313,4 +313,3 @@ function circleAnimate()
 }, 30);
 
 }
-
