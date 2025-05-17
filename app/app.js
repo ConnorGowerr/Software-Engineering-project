@@ -5,8 +5,8 @@ const { checkHash } = require('./hash.js');
 const express = require('express');;
 const dbClient = require('./db.js');
 const FoodController = require('./FoodController.js');
+const foodController = new FoodController();
 const ExerciseController = require('./ExerciseController.js');
-const Food = require('./Food.js');
 const UserController = require('./UserController.js');
 const { randomInt } = require('crypto');
 const bodyParser = require('body-parser');
@@ -318,6 +318,25 @@ app.post('/api/admin/resolve-ticket', async (req, res) => {
     res.status(200).json({ success: true });
 });
 
+
+app.post("/groups/joinpublic", async (req, res) => {
+    const {username, groupid} = req.body;
+    console.table(req.body);
+    console.log("AAAAAAAAA");
+
+    try {
+        const findgroupP = await dbClient.query(`SELECT * FROM userGroups WHERE groupid = $1`, [groupid]);
+        const adduserP = await dbClient.query(`INSERT INTO groupMembers(groupID, username, isAdmin) VALUES ($1, $2, FALSE)`, [groupid, username]);
+        res.status(201).json({message: "Joined group successfully",
+            group: findgroupP.rows[0],
+            add: adduserP.rows[0]
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "There was an error with the server" });
+    }
+})
 
 // Activity Chart Database
 app.get('/api/chart/activity', async (req, res) => {
@@ -1322,9 +1341,6 @@ app.get('/activitychallenges', async (req, res) => {
 
 app.get("/achievements", async (req, res) => {
     const query = req.query.q;
-    console.log(query);
-    
-
     const ac = await dbClient.query(`
         SELECT * 
         FROM baseachievement b

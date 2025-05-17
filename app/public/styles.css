@@ -1083,14 +1083,14 @@ input {
 
 }
 
-.addgroupchallenge, .logout{
+.addgroupchallenge, .logoutBtn{
     position: absolute;
     right: 10%;
     
    
 }
 
-.logout{
+.logoutBtn{
     height: 80%;
     width:20%;
     right: 5%;
@@ -3435,7 +3435,7 @@ GROUP PAGE SECTION */
 }
 
 
-.add-member-btn, .toggle-status-btn {
+.add-member-btn, .toggle-status-btn, .logoutBtn {
     background-color: grey;
     color: white;
     border: none;

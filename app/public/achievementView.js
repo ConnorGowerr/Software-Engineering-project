@@ -3,7 +3,7 @@
 import Achievement from "./achievement.js";
 
 
-class AchievementController {
+class AchievementView {
     constructor() {
 
 
@@ -223,5 +223,5 @@ class AchievementController {
 }
 
 
-const achievementController = new AchievementController();
+const achievementController = new AchievementView();
 achievementController.generateAchievements();

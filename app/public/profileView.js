@@ -1,8 +1,12 @@
+
 let heightMult = 1;
 let weightMult = 1;
 let username1 = "";
 
 function updateProfileStats(){
+
+    console.log("l")
+
 
     fetch(`/api/return-user?q=${window.sessionStorage.getItem("username")}`)
             .then(response => {
@@ -34,23 +38,42 @@ function updateProfileStats(){
 
                 login3.innerHTML = `<p>Last Logged In <br> ${userData[0].lastlogin.split('T')[0]}</p>`;
 
-                if(userData[0].imperialmetric)
-                {
-                    heightMult = 1;
-                    weightMult = 1;
-                }
-                else{
-                    weightMult = 2.205;
-                    heightMult = 1 / 2.54;
-                }
-
+               
                 var stats = document.querySelector(".mainstatsSection").children;
                 let stats1 = stats[0];
                 let stats2 = stats[1];
                 let stats3 = stats[2];
                 let stats4 = stats[3];
 
-                stats1.innerHTML = `<p>Weight <br> ${Math.round(userData[0].weight * weightMult)}</p>`;
+
+                 if(userData[0].imperialmetric)
+                {
+                    heightMult = 1;
+                    weightMult = 1;
+                     stats1.innerHTML = `<p>Weight <br> ${Math.round(userData[0].weight * weightMult)} KG</p>`;
+                     stats2.innerHTML = `<p>Height <br> ${Math.round(userData[0].height * heightMult)} CM</p>`;
+                }
+                else{
+                    weightMult = 2.205;
+                    stats1.innerHTML = `<p>Weight <br> ${Math.round(userData[0].weight * weightMult)} LB</p>`;
+
+                    heightMult = 1; 
+
+                    const heightCm = userData[0].height * heightMult; 
+                    const totalFeet = heightCm / 30.48; 
+                    const feet = Math.floor(totalFeet);              
+                    const inches = Math.floor((totalFeet - feet) * 12);
+
+                    stats2.innerHTML = `<p>Height <br> ${feet} FT ${inches} IN</p>`;
+                }
+
+               
+                
+
+                stats3.innerHTML = `<p>Gender <br> ${userData[0].gender}</p>`;
+
+                stats4.innerHTML = `<p>Target Calories <br> ${userData[0].dailycalorietarget} kcal</p>`;
+
 
 
                 const popupOverlay = document.querySelector("#addMemberOverlay");
@@ -117,12 +140,6 @@ function updateProfileStats(){
                     
 
 
-                    stats2.innerHTML = `<p>Height <br> ${Math.round(userData[0].height * heightMult)}</p>`;
-
-                    stats3.innerHTML = `<p>Gender <br> ${userData[0].gender}</p>`;
-
-                    stats4.innerHTML = `<p>Target Calories <br> ${userData[0].dailycalorietarget}</p>`;
-
                 });
             
         
@@ -170,20 +187,10 @@ document.querySelector(".top-left-btn").addEventListener("click", e => {
 });
 
 document.querySelector('.logoutBtn').addEventListener('click', (e) => {
-    const overlay = document.querySelector("#logoutOverlay");
-    const popup = document.querySelector(".logout");
-    const confirmBtn = document.querySelector("#confirmBtn8");
-
-
-    overlay.style.display = "block";
-    popup.style.display = "block";
-
-    confirmBtn.addEventListener('click', e =>{
-        window.sessionStorage.setItem("username", null);
-        window.sessionStorage.setItem("first", null);
+    
+        window.sessionStorage.setItem("username", ""); 
         window.location.href = "http://localhost:8008";
 
-    })
 
 })
 
@@ -207,44 +214,14 @@ buttons.forEach(btn => {
 });
 
 
-document.querySelector('.logout').addEventListener('click', e=>{
-    logoutPopup();
-})
 
-function logoutPopup() {
-    const overlay = document.querySelector("#logoutOverlay");
-    const popup = document.querySelector(".logoutPopup");
-    const confirmBtn = document.querySelector("#confirmBtn8");
-
-    overlay.style.display = "block";
-    popup.style.display = "block";
-
-
-    confirmBtn.addEventListener('click', e=>{
-        window.sessionStorage.setItem('username', null);
-        window.sessionStorage.setItem('first', null)
-        window.location.href ='http://localhost:8008'
-
-    })
-  
-
-    const closePopup = () => {
-        overlay.style.display = "none";
-        popup.style.display = "none";
-        confirmBtn.removeEventListener("click", handleConfirm);
-        overlay.removeEventListener("click", handleOutsideClick);
-    };
-
-    overlay.addEventListener("click", closePopup);
-}
-
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const skeleton = document.getElementById('skeleton-screen');
     if (skeleton) {
-      skeleton.style.transition = 'opacity 0.4s ease';
-      skeleton.style.opacity = '0';
-      setTimeout(() => skeleton.remove(), 400); 
+        skeleton.style.transition = 'opacity 0.4s ease';
+        skeleton.style.opacity = '0';
+        setTimeout(() => skeleton.remove(), 400);
     }
-  });
-  
-updateProfileStats();
+
+    updateProfileStats();
+});

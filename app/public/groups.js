@@ -11,9 +11,6 @@ const usersgroups = [];
 const createbtn = document.getElementById("createGroupButton");
 const available = false;
 let usercount = 0;
-// const joinbtn = document.getElementById("joinGroup");
-
-// let username = window.sessionStorage.getItem("username");
 
 rng = [];
 arr = [3, 4, 5, 6, 7]
@@ -97,7 +94,7 @@ function randomiseGroup(d){
 
                     joinPubGroup(pubarr[rng[1]].groupid);
                         setTimeout(() => {
-                            window.location.href=`/group/${encodeURIComponent(pubarr[rng[1]].groupname)}`;
+                            // window.location.href=`/group/${encodeURIComponent(pubarr[rng[1]].groupname)}`;
                         },);
                     }, 2000);
                     
@@ -173,7 +170,7 @@ function randomiseGroup(d){
     }
 
     function userGroup(){
-        console.log(username)
+        const username = window.sessionStorage.getItem('username')
         fetch(`/groups/:allgroups/userGroupSection?q=${username}`)
         .then(response => {
             if (!response.ok) {
@@ -262,6 +259,8 @@ console.table(pubarr);
 
 function joinPubGroup(group){
     const findgroupP = group;
+    const username = window.sessionStorage.getItem('username')
+
     console.table[findgroupP];
     fetch("http://localhost:8008/groups/joinpublic", {
         method: "POST",

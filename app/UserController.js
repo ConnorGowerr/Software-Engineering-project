@@ -136,11 +136,10 @@ class UserController {
     sendEmail = async ({ to, subject, html }) => {
     
         const transporter = nodemailer.createTransport({
-            host: 'smtp.ethereal.email',
-            port: 587,
+            service: 'Gmail',
             auth: {
-                user: 'eleazar.bins60@ethereal.email',
-                pass: 'j3WGEuWVpbBt5drs8J'
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS
             }
         });
     
