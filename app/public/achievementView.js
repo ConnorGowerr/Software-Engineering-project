@@ -27,16 +27,14 @@ class AchievementView {
             achievement.achievementname === 'First Meal Log' || 
             achievement.achievementname === 'First Activity Log';
 
-        if (isFirstLog) {
+        
             progress = Math.min(100, Math.floor((achievement.currentvalue / achievement.target) * 100));
-        } else {
-            progress = Math.floor(Math.random() * 100);
-        }
+       
        
         return {
             title: achievement.achievementname,
             medals: `Medals ${index + 1}`,
-            progress,
+            progress, progress,
             type: achievement.achievementtype,
             value: achievement.target
         };
