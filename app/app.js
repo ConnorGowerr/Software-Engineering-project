@@ -1353,8 +1353,11 @@ app.get("/achievements", async (req, res) => {
     if (ac.rows.length === 0) 
         {
             res.status(404).json({error: "achs not found"});
+        } else 
+        {
+            res.status(200).json(ac.rows);
         }
-        res.status(200).json(ac.rows);
+        
    
 })
 
