@@ -5,7 +5,7 @@ const createpopup = document.querySelector(".popup3")
 const createpopupoverlay = document.querySelector(".popup-overlay2")
 const yourgroups = document.getElementById("yourgroups");
 const confirmbtn = document.getElementById("confirmBtn12");
-
+let username = window.sessionStorage.getItem("username");
 const usersgroups = [];
 
 const createbtn = document.getElementById("createGroupButton");
