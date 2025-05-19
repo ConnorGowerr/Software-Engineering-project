@@ -18,6 +18,9 @@ function findGroup(){
     .then(response => {
         if(response.status == '201'){
             showAlert("Group joined successfully!")
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
             
         }else{
             showErrorAlert("Group could not be found")

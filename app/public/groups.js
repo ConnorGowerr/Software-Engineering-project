@@ -80,7 +80,7 @@ function randomiseGroup(d){
                     joinPubGroup(pubarr[rng[0]].groupid)
                     setTimeout(() => {
                         window.location.href=`/group/${encodeURIComponent(pubarr[rng[0]].groupname)}`;
-                        }, 2000);
+                    }, 2000);
 
 
                     
@@ -91,13 +91,14 @@ function randomiseGroup(d){
                 popupoverlay.style.display = "block";
                 document.querySelector(".otherTitlesg").innerHTML = `Would you like to join ${pubarr[rng[1]].groupname}?`
                 confirmbtn.addEventListener("click", (event) => {
-
-                    joinPubGroup(pubarr[rng[1]].groupid);
-                        setTimeout(() => {
-                            // window.location.href=`/group/${encodeURIComponent(pubarr[rng[1]].groupname)}`;
-                        },);
+                    joinPubGroup(pubarr[rng[1]].groupid)
+                    setTimeout(() => {
+                        window.location.href=`/group/${encodeURIComponent(pubarr[rng[1]].groupname)}`;
                     }, 2000);
+
+
                     
+                })
             })
             document.getElementById("greyContainer" + arr[2]).addEventListener("click", (event) =>{
                 popup.style.display = "block";
@@ -242,7 +243,11 @@ function createGroup(){
     })
     .then(response => {
     if(response.status == '201'){
-       showAlert("Group has been created successfully"); 
+       showAlert("Group has been created successfully");
+       setTimeout(() => {
+            location.reload();
+        }, 2000);
+        
     }else{
         showErrorAlert("Group Name already exists, try another");
     }
@@ -275,6 +280,8 @@ function joinPubGroup(group){
     .then(response => {
         if(response.status == '201'){
             showAlert("Group joined successfully!")
+            popup.style.display = "none";
+            popupoverlay.style.display = "none";
             
         }else{
             showErrorAlert("Group could not be found")
@@ -282,13 +289,14 @@ function joinPubGroup(group){
         response.json();
     })
     .then(data => {
-        console.table(data);
     })
     .catch(error => {
         console.error("Error:", error);
         
     });
 }
+
+
 
     document.getElementById("createGroupBtn").addEventListener("click", (event) =>{
         createpopup.style.display = "block";
@@ -331,6 +339,7 @@ function showAlert(message) {
         alertBox.style.animation = "fadeOut 0.7s ease-in-out";
         setTimeout(() => {
             alertBox.style.display = 'none';
+
             alertBox.style.animation = "fadeIn 0.7s ease-in-out";
         }, 300);
     }, 4000);

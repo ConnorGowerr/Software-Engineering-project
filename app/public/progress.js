@@ -134,3 +134,8 @@ window.addEventListener("DOMContentLoaded", () => {
     loadChart({ ...config, scope: 'week' }); 
   }
 });
+
+
+document.getElementById("adjustBtn").addEventListener("click", (event) => {
+  window.location.href("goal.html");
+})

@@ -56,7 +56,7 @@ function renderGoals(goals) {
 
  
   const mealGoalsnotmet = goals.filter(goal => goal.goaltag === 'meal' && !goal.isgoalmet);
-  const activityGoalsnotmet = goals.filter(goal => goal.goaltag === 'exercise' && !goal.isgoalmet );
+  const activityGoalsnotmet = goals.filter(goal => goal.goaltag === 'exercise' && !goal.isgoalmet);
   const mealGoalsmet = goals.filter(goal => goal.goaltag === 'meal' && goal.isgoalmet);
   const activityGoalsmet = goals.filter(goal => goal.goaltag === 'exercise' && goal.isgoalmet);
 

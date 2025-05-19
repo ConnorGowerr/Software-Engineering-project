@@ -182,7 +182,7 @@ app.post('/submitContact', async (req, res) => {
     console.log('[Form] Message:', feedbackInput);
 
     // Fallback to test user if cookie is missing
-    const username = req.cookies?.username || 'Jimmy';
+    const username = req.cookies?.username || 'Jim Broh';
     console.log('[User] Detected username:', username);
 
     try {
@@ -368,7 +368,6 @@ app.get('/api/chart/activity', async (req, res) => {
     }
 
     try {
-        console.log("Accessing activity data");
         await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
 
         const result = await dbClient.query(`
@@ -434,7 +433,6 @@ app.get('/api/chart/calories', async (req, res) => {
     }
 
     try {
-        console.log("Accessing caloric data");
         await dbClient.query('SET SEARCH_PATH TO "Hellth", PUBLIC;');
 
         const result = await dbClient.query(`
